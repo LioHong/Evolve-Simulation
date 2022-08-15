@@ -1,0 +1,757 @@
+ORGANIC {
+}
+
+SPORE 245 299 577 7 0 0
+  {  # program
+	"main:"
+	"{"
+	"      1  call  7  NEAREST  2dup  EAT  pop  OMOVE  pop  1  ?loop "
+	"}"
+	""
+	"row1:"
+	"{"
+	"      ENERGY  4  /  R0!  15  FARTHEST  2dup  R0  MAKE-SPOR  pop  R0  MAKE-SPOR"
+	"      pop  2  NEAREST  2negate  2dup  OMOVE  pop  OMOVE  pop "
+	"}"
+  }
+
+SPORE 247 294 384 17 0 0
+  {  # program
+	"main:"
+	"{"
+	"      1  call  7  NEAREST  2dup  EAT  pop  OMOVE  pop  1  ?loop "
+	"}"
+	""
+	"row1:"
+	"{"
+	"      ENERGY  4  /  R0!  15  FARTHEST  2dup  R0  MAKE-SPOR  pop  R0  MAKE-SPOR"
+	"      pop  2  NEAREST  2negate  2dup  OMOVE  pop  OMOVE  pop "
+	"}"
+  }
+
+SPORE 247 302 2040 19 0 0
+  {  # program
+	"main:"
+	"{"
+	"      1  call  7  NEAREST  2dup  EAT  pop  OMOVE  pop  1  ?loop "
+	"}"
+	""
+	"row1:"
+	"{"
+	"      ENERGY  4  /  R0!  15  FARTHEST  2dup  R0  MAKE-SPOR  pop  R0  MAKE-SPOR"
+	"      pop  2  NEAREST  2negate  2dup  OMOVE  pop  OMOVE  pop "
+	"}"
+  }
+
+SPORE 248 297 1054 31 0 0
+  {  # program
+	"main:"
+	"{"
+	"      1  call  7  NEAREST  2dup  EAT  pop  OMOVE  pop  1  ?loop "
+	"}"
+	""
+	"row1:"
+	"{"
+	"      ENERGY  4  /  R0!  15  FARTHEST  2dup  R0  MAKE-SPOR  pop  R0  MAKE-SPOR"
+	"      pop  2  NEAREST  2negate  2dup  OMOVE  pop  OMOVE  pop "
+	"}"
+  }
+
+SPORE 249 289 24 30 0 0
+  {  # program
+	"main:"
+	"{"
+	"      1  call  7  NEAREST  2dup  EAT  pop  OMOVE  pop  1  ?loop "
+	"}"
+	""
+	"row1:"
+	"{"
+	"      ENERGY  4  /  R0!  15  FARTHEST  2dup  R0  MAKE-SPOR  pop  R0  MAKE-SPOR"
+	"      pop  2  NEAREST  2negate  2dup  OMOVE  pop  OMOVE  pop "
+	"}"
+  }
+
+SPORE 249 298 384 18 0 0
+  {  # program
+	"main:"
+	"{"
+	"      1  call  7  NEAREST  2dup  EAT  pop  OMOVE  pop  1  ?loop "
+	"}"
+	""
+	"row1:"
+	"{"
+	"      ENERGY  4  /  R0!  15  FARTHEST  2dup  R0  MAKE-SPOR  pop  R0  MAKE-SPOR"
+	"      pop  2  NEAREST  2negate  2dup  OMOVE  pop  OMOVE  pop "
+	"}"
+  }
+
+SPORE 249 304 822 16 0 0
+  {  # program
+	"main:"
+	"{"
+	"      1  call  7  NEAREST  2dup  EAT  pop  OMOVE  pop  1  ?loop "
+	"}"
+	""
+	"row1:"
+	"{"
+	"      ENERGY  4  /  R0!  15  FARTHEST  2dup  R0  MAKE-SPOR  pop  R0  MAKE-SPOR"
+	"      pop  2  NEAREST  2negate  2dup  OMOVE  pop  OMOVE  pop "
+	"}"
+  }
+
+SPORE 250 301 1454 11 0 0
+  {  # program
+	"main:"
+	"{"
+	"      1  call  7  NEAREST  2dup  EAT  pop  OMOVE  pop  1  ?loop "
+	"}"
+	""
+	"row1:"
+	"{"
+	"      ENERGY  4  /  R0!  15  FARTHEST  2dup  R0  MAKE-SPOR  pop  R0  MAKE-SPOR"
+	"      pop  2  NEAREST  2negate  2dup  OMOVE  pop  OMOVE  pop "
+	"}"
+  }
+
+SPORE 250 304 940 9 0 0
+  {  # program
+	"main:"
+	"{"
+	"      1  call  7  NEAREST  2dup  EAT  pop  OMOVE  pop  1  ?loop "
+	"}"
+	""
+	"row1:"
+	"{"
+	"      ENERGY  4  /  R0!  15  FARTHEST  2dup  R0  MAKE-SPOR  pop  R0  MAKE-SPOR"
+	"      pop  2  NEAREST  2negate  2dup  OMOVE  pop  OMOVE  pop "
+	"}"
+  }
+
+SPORE 251 299 2990 3 0 0
+  {  # program
+	"main:"
+	"{"
+	"      1  call  7  NEAREST  2dup  EAT  pop  OMOVE  pop  1  ?loop "
+	"}"
+	""
+	"row1:"
+	"{"
+	"      ENERGY  4  /  R0!  15  FARTHEST  2dup  R0  MAKE-SPOR  pop  R0  MAKE-SPOR"
+	"      pop  2  NEAREST  2negate  2dup  OMOVE  pop  OMOVE  pop "
+	"}"
+  }
+
+SPORE 252 300 1163 23 0 0
+  {  # program
+	"main:"
+	"{"
+	"      1  call  7  NEAREST  2dup  EAT  pop  OMOVE  pop  1  ?loop "
+	"}"
+	""
+	"row1:"
+	"{"
+	"      ENERGY  4  /  R0!  15  FARTHEST  2dup  R0  MAKE-SPOR  pop  R0  MAKE-SPOR"
+	"      pop  2  NEAREST  2negate  2dup  OMOVE  pop  OMOVE  pop "
+	"}"
+  }
+
+ORGANISM 1 0 0 0 0 0 4221 223
+  {  # program
+	"main:"
+	"{"
+	"      1  call  7  NEAREST  2dup  EAT  pop  OMOVE  pop  1  ?loop "
+	"}"
+	""
+	"row1:"
+	"{"
+	"      ENERGY  4  /  R0!  15  FARTHEST  2dup  R0  MAKE-SPOR  pop  R0  MAKE-SPOR"
+	"      pop  2  NEAREST  2negate  2dup  OMOVE  pop  OMOVE  pop "
+	"}"
+  }
+
+CELL 1 246 295
+	0 0
+	0 0 3
+	{ 2109 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		7
+	}
+
+ORGANISM 6 0 0 3 3 2 2056 129
+  {  # program
+	"main:"
+	"{"
+	"      1  call  7  NEAREST  2dup  EAT  pop  OMOVE  pop  1  ?loop "
+	"}"
+	""
+	"row1:"
+	"{"
+	"      ENERGY  4  /  R0!  15  FARTHEST  2dup  R0  MAKE-SPOR  pop  R0  MAKE-SPOR"
+	"      pop  2  NEAREST  2negate  2dup  OMOVE  pop  OMOVE  pop "
+	"}"
+  }
+
+CELL 6 247 307
+	0 0
+	0 0 8
+	{ 1028 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		1
+	}
+
+ORGANISM 7 0 0 1 1 1 1731 110
+  {  # program
+	"main:"
+	"{"
+	"      1  call  7  NEAREST  2dup  EAT  pop  OMOVE  pop  1  ?loop "
+	"}"
+	""
+	"row1:"
+	"{"
+	"      ENERGY  4  /  R0!  15  FARTHEST  2dup  R0  MAKE-SPOR  pop  R0  MAKE-SPOR"
+	"      pop  2  NEAREST  2negate  2dup  OMOVE  pop  OMOVE  pop "
+	"}"
+  }
+
+CELL 7 246 299
+	0 0
+	0 1 9
+	{ 577 0 0 0 0
+	  0 0 0 0 0 }
+	{
+		0 1
+	}
+	{
+		-1
+		0
+		1
+	}
+
+ORGANISM 8 0 0 7 7 2 1936 96
+  {  # program
+	"main:"
+	"{"
+	"      1  call  7  NEAREST  2dup  EAT  pop  OMOVE  pop  1  ?loop "
+	"}"
+	""
+	"row1:"
+	"{"
+	"      ENERGY  4  /  R0!  15  FARTHEST  2dup  R0  MAKE-SPOR  pop  R0  MAKE-SPOR"
+	"      pop  2  NEAREST  2negate  2dup  OMOVE  pop  OMOVE  pop "
+	"}"
+  }
+
+CELL 8 249 296
+	0 0
+	0 0 8
+	{ 480 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		1
+	}
+
+ORGANISM 11 0 0 1 1 1 4364 77
+  {  # program
+	"main:"
+	"{"
+	"      1  call  7  NEAREST  2dup  EAT  pop  OMOVE  pop  1  ?loop "
+	"}"
+	""
+	"row1:"
+	"{"
+	"      ENERGY  4  /  R0!  15  FARTHEST  2dup  R0  MAKE-SPOR  pop  R0  MAKE-SPOR"
+	"      pop  2  NEAREST  2negate  2dup  OMOVE  pop  OMOVE  pop "
+	"}"
+  }
+
+CELL 11 251 300
+	0 0
+	0 1 9
+	{ 1454 0 0 0 0
+	  0 0 0 0 0 }
+	{
+		0 1
+	}
+	{
+		-1
+		1
+		1
+	}
+
+ORGANISM 15 0 0 12 12 5 2925 54
+  {  # program
+	"main:"
+	"{"
+	"      1  call  7  NEAREST  2dup  EAT  pop  OMOVE  pop  1  ?loop "
+	"}"
+	""
+	"row1:"
+	"{"
+	"      ENERGY  4  /  R0!  15  FARTHEST  2dup  R0  MAKE-SPOR  pop  R0  MAKE-SPOR"
+	"      pop  2  NEAREST  2negate  2dup  OMOVE  pop  OMOVE  pop "
+	"}"
+  }
+
+CELL 15 251 296
+	0 0
+	0 1 19
+	{ 974 0 0 0 0
+	  0 0 0 0 0 }
+	{
+		0 1
+	}
+	{
+		1
+		0
+	}
+
+ORGANISM 17 0 0 8 8 3 578 49
+  {  # program
+	"main:"
+	"{"
+	"      1  call  7  NEAREST  2dup  EAT  pop  OMOVE  pop  1  ?loop "
+	"}"
+	""
+	"row1:"
+	"{"
+	"      ENERGY  4  /  R0!  15  FARTHEST  2dup  R0  MAKE-SPOR  pop  R0  MAKE-SPOR"
+	"      pop  2  NEAREST  2negate  2dup  OMOVE  pop  OMOVE  pop "
+	"}"
+  }
+
+CELL 17 250 293
+	0 0
+	0 1 14
+	{ 289 0 0 0 0
+	  0 0 0 0 0 }
+	{
+		0 1
+	}
+	{
+		2
+	}
+
+ORGANISM 19 0 0 1 1 1 6122 44
+  {  # program
+	"main:"
+	"{"
+	"      1  call  7  NEAREST  2dup  EAT  pop  OMOVE  pop  1  ?loop "
+	"}"
+	""
+	"row1:"
+	"{"
+	"      ENERGY  4  /  R0!  15  FARTHEST  2dup  R0  MAKE-SPOR  pop  R0  MAKE-SPOR"
+	"      pop  2  NEAREST  2negate  2dup  OMOVE  pop  OMOVE  pop "
+	"}"
+  }
+
+CELL 19 247 301
+	0 0
+	0 1 9
+	{ 2040 0 0 0 0
+	  0 0 0 0 0 }
+	{
+		0 1
+	}
+	{
+		0
+		1
+		1
+	}
+
+ORGANISM 20 0 0 15 15 6 1730 40
+  {  # program
+	"main:"
+	"{"
+	"      1  call  7  NEAREST  2dup  EAT  pop  OMOVE  pop  1  ?loop "
+	"}"
+	""
+	"row1:"
+	"{"
+	"      ENERGY  4  /  R0!  15  FARTHEST  2dup  R0  MAKE-SPOR  pop  R0  MAKE-SPOR"
+	"      pop  2  NEAREST  2negate  2dup  OMOVE  pop  OMOVE  pop "
+	"}"
+  }
+
+CELL 20 248 293
+	0 0
+	0 1 5
+	{ 432 0 0 0 0
+	  0 0 0 0 0 }
+	{
+		0 1
+	}
+	{
+		15
+	}
+
+ORGANISM 23 0 0 11 11 2 3657 30
+  {  # program
+	"main:"
+	"{"
+	"      1  call  7  NEAREST  2dup  EAT  pop  OMOVE  pop  1  ?loop "
+	"}"
+	""
+	"row1:"
+	"{"
+	"      ENERGY  4  /  R0!  15  FARTHEST  2dup  R0  MAKE-SPOR  pop  R0  MAKE-SPOR"
+	"      pop  2  NEAREST  2negate  2dup  OMOVE  pop  OMOVE  pop "
+	"}"
+  }
+
+CELL 23 251 302
+	0 0
+	0 0 8
+	{ 1163 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		1
+	}
+
+ORGANISM 22 0 0 7 7 2 770 30
+  {  # program
+	"main:"
+	"{"
+	"      1  call  7  NEAREST  2dup  EAT  pop  OMOVE  pop  1  ?loop "
+	"}"
+	""
+	"row1:"
+	"{"
+	"      ENERGY  4  /  R0!  15  FARTHEST  2dup  R0  MAKE-SPOR  pop  R0  MAKE-SPOR"
+	"      pop  2  NEAREST  2negate  2dup  OMOVE  pop  OMOVE  pop "
+	"}"
+  }
+
+CELL 22 245 301
+	0 0
+	0 0 8
+	{ 384 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		1
+	}
+
+ORGANISM 25 0 0 20 20 7 96 26
+  {  # program
+	"main:"
+	"{"
+	"      1  call  7  NEAREST  2dup  EAT  pop  OMOVE  pop  1  ?loop "
+	"}"
+	""
+	"row1:"
+	"{"
+	"      ENERGY  4  /  R0!  15  FARTHEST  2dup  R0  MAKE-SPOR  pop  R0  MAKE-SPOR"
+	"      pop  2  NEAREST  2negate  2dup  OMOVE  pop  OMOVE  pop "
+	"}"
+  }
+
+CELL 25 247 291
+	0 0
+	0 0 4
+	{ 48 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		1
+		-1
+	}
+
+ORGANISM 26 0 0 12 12 5 192 21
+  {  # program
+	"main:"
+	"{"
+	"      1  call  7  NEAREST  2dup  EAT  pop  OMOVE  pop  1  ?loop "
+	"}"
+	""
+	"row1:"
+	"{"
+	"      ENERGY  4  /  R0!  15  FARTHEST  2dup  R0  MAKE-SPOR  pop  R0  MAKE-SPOR"
+	"      pop  2  NEAREST  2negate  2dup  OMOVE  pop  OMOVE  pop "
+	"}"
+  }
+
+CELL 26 249 291
+	0 0
+	0 1 19
+	{ 96 0 0 0 0
+	  0 0 0 0 0 }
+	{
+		0 1
+	}
+	{
+		-1
+		-1
+	}
+
+ORGANISM 29 0 0 22 22 3 384 16
+  {  # program
+	"main:"
+	"{"
+	"      1  call  7  NEAREST  2dup  EAT  pop  OMOVE  pop  1  ?loop "
+	"}"
+	""
+	"row1:"
+	"{"
+	"      ENERGY  4  /  R0!  15  FARTHEST  2dup  R0  MAKE-SPOR  pop  R0  MAKE-SPOR"
+	"      pop  2  NEAREST  2negate  2dup  OMOVE  pop  OMOVE  pop "
+	"}"
+  }
+
+CELL 29 246 300
+	0 0
+	0 1 14
+	{ 192 0 0 0 0
+	  0 0 0 0 0 }
+	{
+		0 1
+	}
+	{
+		2
+	}
+
+ORGANISM 28 0 0 8 8 3 480 16
+  {  # program
+	"main:"
+	"{"
+	"      1  call  7  NEAREST  2dup  EAT  pop  OMOVE  pop  1  ?loop "
+	"}"
+	""
+	"row1:"
+	"{"
+	"      ENERGY  4  /  R0!  15  FARTHEST  2dup  R0  MAKE-SPOR  pop  R0  MAKE-SPOR"
+	"      pop  2  NEAREST  2negate  2dup  OMOVE  pop  OMOVE  pop "
+	"}"
+  }
+
+CELL 28 249 295
+	0 0
+	0 1 14
+	{ 240 0 0 0 0
+	  0 0 0 0 0 }
+	{
+		0 1
+	}
+	{
+		2
+	}
+
+ORGANISM 27 0 0 6 6 3 1028 16
+  {  # program
+	"main:"
+	"{"
+	"      1  call  7  NEAREST  2dup  EAT  pop  OMOVE  pop  1  ?loop "
+	"}"
+	""
+	"row1:"
+	"{"
+	"      ENERGY  4  /  R0!  15  FARTHEST  2dup  R0  MAKE-SPOR  pop  R0  MAKE-SPOR"
+	"      pop  2  NEAREST  2negate  2dup  OMOVE  pop  OMOVE  pop "
+	"}"
+  }
+
+CELL 27 248 306
+	0 0
+	0 1 14
+	{ 514 0 0 0 0
+	  0 0 0 0 0 }
+	{
+		0 1
+	}
+	{
+		2
+	}
+
+ORGANISM 30 0 0 25 25 8 72 12
+  {  # program
+	"main:"
+	"{"
+	"      1  call  7  NEAREST  2dup  EAT  pop  OMOVE  pop  1  ?loop "
+	"}"
+	""
+	"row1:"
+	"{"
+	"      ENERGY  4  /  R0!  15  FARTHEST  2dup  R0  MAKE-SPOR  pop  R0  MAKE-SPOR"
+	"      pop  2  NEAREST  2negate  2dup  OMOVE  pop  OMOVE  pop "
+	"}"
+  }
+
+CELL 30 249 290
+	0 0
+	0 1 10
+	{ 24 0 0 0 0
+	  0 0 0 0 0 }
+	{
+		0 1
+	}
+	{
+		0
+		-1
+	}
+
+ORGANISM 31 0 0 1 1 1 3164 11
+  {  # program
+	"main:"
+	"{"
+	"      1  call  7  NEAREST  2dup  EAT  pop  OMOVE  pop  1  ?loop "
+	"}"
+	""
+	"row1:"
+	"{"
+	"      ENERGY  4  /  R0!  15  FARTHEST  2dup  R0  MAKE-SPOR  pop  R0  MAKE-SPOR"
+	"      pop  2  NEAREST  2negate  2dup  OMOVE  pop  OMOVE  pop "
+	"}"
+  }
+
+CELL 31 249 297
+	0 0
+	0 1 9
+	{ 1054 0 0 0 0
+	  0 0 0 0 0 }
+	{
+		0 1
+	}
+	{
+		-1
+		0
+		1
+	}
+
+ORGANISM 32 0 0 26 26 6 192 7
+  {  # program
+	"main:"
+	"{"
+	"      1  call  7  NEAREST  2dup  EAT  pop  OMOVE  pop  1  ?loop "
+	"}"
+	""
+	"row1:"
+	"{"
+	"      ENERGY  4  /  R0!  15  FARTHEST  2dup  R0  MAKE-SPOR  pop  R0  MAKE-SPOR"
+	"      pop  2  NEAREST  2negate  2dup  OMOVE  pop  OMOVE  pop "
+	"}"
+  }
+
+CELL 32 250 291
+	0 0
+	0 1 5
+	{ 48 0 0 0 0
+	  0 0 0 0 0 }
+	{
+		0 1
+	}
+	{
+		15
+	}
+
+ORGANISM 36 0 0 27 27 4 1028 2
+  {  # program
+	"main:"
+	"{"
+	"      1  call  7  NEAREST  2dup  EAT  pop  OMOVE  pop  1  ?loop "
+	"}"
+	""
+	"row1:"
+	"{"
+	"      ENERGY  4  /  R0!  15  FARTHEST  2dup  R0  MAKE-SPOR  pop  R0  MAKE-SPOR"
+	"      pop  2  NEAREST  2negate  2dup  OMOVE  pop  OMOVE  pop "
+	"}"
+  }
+
+CELL 36 248 307
+	0 0
+	0 1 0
+	{ 0 0 0 0 0
+	  0 0 0 0 0 }
+	{
+		0 1
+	}
+	{
+	}
+
+ORGANISM 35 0 0 28 28 4 480 2
+  {  # program
+	"main:"
+	"{"
+	"      1  call  7  NEAREST  2dup  EAT  pop  OMOVE  pop  1  ?loop "
+	"}"
+	""
+	"row1:"
+	"{"
+	"      ENERGY  4  /  R0!  15  FARTHEST  2dup  R0  MAKE-SPOR  pop  R0  MAKE-SPOR"
+	"      pop  2  NEAREST  2negate  2dup  OMOVE  pop  OMOVE  pop "
+	"}"
+  }
+
+CELL 35 250 295
+	0 0
+	0 1 0
+	{ 0 0 0 0 0
+	  0 0 0 0 0 }
+	{
+		0 1
+	}
+	{
+	}
+
+ORGANISM 34 0 0 29 29 4 384 2
+  {  # program
+	"main:"
+	"{"
+	"      1  call  7  NEAREST  2dup  EAT  pop  OMOVE  pop  1  ?loop "
+	"}"
+	""
+	"row1:"
+	"{"
+	"      ENERGY  4  /  R0!  15  FARTHEST  2dup  R0  MAKE-SPOR  pop  R0  MAKE-SPOR"
+	"      pop  2  NEAREST  2negate  2dup  OMOVE  pop  OMOVE  pop "
+	"}"
+  }
+
+CELL 34 245 300
+	0 0
+	0 1 0
+	{ 0 0 0 0 0
+	  0 0 0 0 0 }
+	{
+		0 1
+	}
+	{
+	}
+
+ORGANISM 33 0 0 17 17 4 578 2
+  {  # program
+	"main:"
+	"{"
+	"      1  call  7  NEAREST  2dup  EAT  pop  OMOVE  pop  1  ?loop "
+	"}"
+	""
+	"row1:"
+	"{"
+	"      ENERGY  4  /  R0!  15  FARTHEST  2dup  R0  MAKE-SPOR  pop  R0  MAKE-SPOR"
+	"      pop  2  NEAREST  2negate  2dup  OMOVE  pop  OMOVE  pop "
+	"}"
+  }
+
+CELL 33 251 293
+	0 0
+	0 1 0
+	{ 0 0 0 0 0
+	  0 0 0 0 0 }
+	{
+		0 1
+	}
+	{
+	}
+
