@@ -71,6 +71,8 @@ for negnum in range(-1, -131023, -1):
 
 # Set the time period.
 time_period = 100
+# Genome summary.
+genomes_over_time = {}
 # For future formatting of filenames.
 num_lead_zeroes = int(log10(time_period)) + 1
 for timestep in range(1, time_period+1):
@@ -200,18 +202,30 @@ for timestep in range(1, time_period+1):
             #     indiv_genome = indiv_genome.replace(evnum, evodons_num_dict[evnum])
 
             # When converting genomes from instructions and ints to base-pairs, convert instructions first.
-            indiv_genome = [evodons_dict[evd] if evd in evodons_dict else evd for evd in indiv_genome ]
+            indiv_genome = [evodons_dict[evd] if evd in evodons_dict else evd for evd in indiv_genome]
+            # Then convert ints.
             indiv_genome = [evodons_num_dict[evnum] if evnum in evodons_num_dict else evnum for evnum in indiv_genome]
             indiv_genome = ' '.join(indiv_genome)
             # Remove all spaces.
             indiv_genome = indiv_genome.replace(" ", "")
+            # Convert to ATGC.
+            nucleotide_genome = [atgc_dict[base] for base in indiv_genome]
+            nucleotide_genome = ''.join(nucleotide_genome)
             # Convert the list into a dict.
-            popn_genome[vital_stats] = indiv_genome
+            popn_genome[vital_stats] = nucleotide_genome
 
-            # Add a converter back from nucleotides to KFORTH.
-            # Invert the dicts.
-            # Slice the genome into evodons (length=9).
-            # List comprehensions with if.
+            # # Add a converter back from nucleotides to KFORTH.
+            # # Slice the genome into evodons (length=9).
+            # conv_evod = [indiv_genome[s:s + 9] for s in range(0, len(indiv_genome), 9) if len(indiv_genome[s:s + 9]) > 8]
+            # # # List comprehensions with if and inverted dicts.
+            # conv_evod = [{v: k for k, v in evodons_dict.items()}[evd] if evd
+            #           in {v: k for k, v in evodons_dict.items()} else evd for evd in conv_evod]
+            # conv_evod = [{v: k for k, v in evodons_num_dict.items()}[evnum] if evnum
+            #           in {v: k for k, v in evodons_num_dict.items()} else evnum for evnum in conv_evod]
+            # # Join with spaces.
+            # lang_genome = ' '.join(conv_evod)
+            # # Join row with row_number.
+            # lang_genome = lang_genome.replace("row ", "row")
 
         if org_flag:
             # Replace.
@@ -228,17 +242,16 @@ for timestep in range(1, time_period+1):
         # Then slice the list up until 2nd spore.
         # Repeat until last spore popped, leaving the final entry?
 
-
-    # Then convert ints.
-
-    # Finally remove spaces.
-
     # Test which data format takes up the least memory: char-num, char-atgc, binary?
 
     # (Operation) Delete the old input evolve file.
     os.remove(path_input_evo + ".evolve")
     # Compare the ORGANISMS section of the input and output PHASCII files.
     lives_output = get_organics_from_universe(path_output_phascii)
-    # # If the summaries are identical, then delete the output PHASCII (not lines in console).
+    # Add population genome to genome tracking over time.
+    genomes_over_time[timestep] = popn_genome
+    # If the summaries are identical, then delete the output PHASCII (not lines in console).
     if lives_input == lives_output:
         os.remove(path_output_phascii)
+        # Also remove from genomes_over_time.
+        genomes_over_time.pop(timestep)
