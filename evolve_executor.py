@@ -87,6 +87,9 @@ def convert_binary_to_base4(bin_num):
 # Convert KFORTH genome to DNA: 0123 for ATGC.
 with open(os.path.join(path_workdir, "evodons_dict.txt"),'r') as filein:
     evodons_dict = eval(filein.read())
+# AA-FF storage method.
+with open(os.path.join(path_workdir, "aaff_dict.txt"),'r') as filein:
+    aaff_dict = eval(filein.read())
 # Available range of integers: -131022 to 131022. (-2^17 - -49 to 2^17 - 49)
 # Useful for generating dict and adjusting based on instructions, but loading from file would be preferable.
 bitlength_evodons = 18
@@ -95,23 +98,6 @@ for posnum in range(0, 131023):
     evodons_num_dict[str(posnum)] = convert_binary_to_base4(format(posnum, "#020b")[2:])
 for negnum in range(-1, -131023, -1):
     evodons_num_dict[str(negnum)] = convert_binary_to_base4(bin(negnum & (2**bitlength_evodons - 1))[2:])
-
-
-# Add a converter back from nucleotides to KFORTH.
-def nt_to_kforth(nt_seq):
-    conv_evod = ''.join([{v: k for k, v in atgc_dict.items()}[base] for base in nt_seq])
-    # Slice the genome into evodons (length=9).
-    conv_evod = [conv_evod[s:s + 9] for s in range(0, len(conv_evod), 9) if len(conv_evod[s:s + 9]) > 8]
-    # List comprehensions with if and inverted dicts.
-    conv_evod = [{v: k for k, v in evodons_dict.items()}[evd] if evd
-              in {v: k for k, v in evodons_dict.items()} else evd for evd in conv_evod]
-    conv_evod = [{v: k for k, v in evodons_num_dict.items()}[evnum] if evnum
-              in {v: k for k, v in evodons_num_dict.items()} else evnum for evnum in conv_evod]
-    # Join with spaces.
-    lang_genome = ' '.join(conv_evod)
-    # Join row with row_number.
-    lang_genome = lang_genome.replace("row ", "row")
-    return lang_genome
 
 
 # # For future formatting of filenames.
@@ -134,11 +120,15 @@ def simulate_universe(time_period, express=False):
         # Testing an alternative storage method.
         def convert_evodon_to_decimal(evd):
             # 1 & 0 are positive.
-            if evd[0] == '1' or evd[0] == '0':
+            if evd[0] == '0':
+                dec_num = 0
+            if evd[0] == '1':
                 dec_num = 2**16
             # 2 & 3 are negative.
-            elif evd[0] == '2' or evd[0] == '3':
+            elif evd[0] == '2':
                 dec_num = -2**17
+            elif evd[0] == '3':
+                dec_num = -2**15
 
             for i in range(1,len(evd)):
                 real_num = int(evd[i]) * 4**(len(evd)-i-1)
@@ -147,15 +137,37 @@ def simulate_universe(time_period, express=False):
 
 
         # Full conversion to ATGC.
-        def convert_base4_to_nucleotide(evodon_genome):
+        def convert_evodon_to_nucleotide(evodon_genome):
             # Convert to ATGC.
             nucleotide_genome = [atgc_dict[base] for base in evodon_genome]
             nucleotide_genome = ''.join(nucleotide_genome)
             return nucleotide_genome
 
 
-        # Convert keywords to AA-FF for storage.
+        # Add a converter back from nucleotides to KFORTH.
+        def nt_to_kforth(nt_seq):
+            conv_evod = ''.join([{v: k for k, v in atgc_dict.items()}[base] for base in nt_seq])
+            # Slice the genome into evodons (length=9).
+            conv_evod = [conv_evod[s:s + 9] for s in range(0, len(conv_evod), 9) if len(conv_evod[s:s + 9]) > 8]
+            # List comprehensions with if and inverted dicts.
+            conv_evod = [{v: k for k, v in evodons_dict.items()}[evd] if evd
+                      in {v: k for k, v in evodons_dict.items()} else evd for evd in conv_evod]
+            conv_evod = [{v: k for k, v in evodons_num_dict.items()}[evnum] if evnum
+                      in {v: k for k, v in evodons_num_dict.items()} else evnum for evnum in conv_evod]
+            # Join with spaces.
+            lang_genome = ' '.join(conv_evod)
+            # Join row with row_number.
+            lang_genome = lang_genome.replace("row ", "row")
+            return lang_genome
 
+
+        # Convert keywords to AA-FF for storage.
+        def convert_evodon_to_aaff(evodon_genome):
+            evodon_list = [evodon_genome[s:s + 9] for s in range(0, len(evodon_genome), 9) if len(evodon_genome[s:s + 9]) > 8]
+            aaff_genome = [aaff_dict[evd] if evd in aaff_dict else evd for evd in evodon_list]
+            aaff_genome = [str(convert_evodon_to_decimal(evd)) if len(evd)>2 else evd for evd in aaff_genome]
+            aaff_genome = ''.join(aaff_genome)
+            return aaff_genome
 
         # Save the stats of the organism while removing from genome.
         vital_stats = indiv_genome.pop(0)
@@ -178,15 +190,17 @@ def simulate_universe(time_period, express=False):
         # type(evodon_genome) = string, containing 0123.
         evodon_genome = convert_keyword_to_evodon(indiv_genome)
         # type(nucleotide_genome) = string, containing ATGC.
-        nucleotide_genome = convert_base4_to_nucleotide(evodon_genome)
+        nucleotide_genome = convert_evodon_to_nucleotide(evodon_genome)
         # # type(ab_genome) = string, containing AA-FF.
+        aaff_genome = convert_evodon_to_aaff(evodon_genome)
+
         # nucleotide_genome = convert_base4_to_nucelotide(evodon_genome)
         popn_genome[vital_stats] = nucleotide_genome
         # Remove ENERGY and AGE from vital_stats.
         vital_stats = " ".join(vital_stats.split(" ")[:-2])
         # Can just keep adding genome repeatedly and it'll overwrite.
         # strain_genome[vital_stats] = nucleotide_genome
-        strain_genome[vital_stats] = [convert_evodon_to_decimal(evodon_genome[s:s + 9]) for s in range(0, len(evodon_genome), 9) if len(evodon_genome[s:s + 9]) > 8]
+        strain_genome[vital_stats] = aaff_genome
 
         return vital_stats, indiv_genome, nucleotide_genome
 
