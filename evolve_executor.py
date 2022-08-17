@@ -15,6 +15,7 @@ Steps:
 import os
 from shutil import copyfile
 from math import log10
+from datetime import datetime
 
 
 # Setup the dicts as basis for comparison.
@@ -81,6 +82,9 @@ strain_genome = {}
 # # For future formatting of filenames.
 # num_lead_zeroes = int(log10(time_period)) + 1
 def simulate_universe(time_period, express=False):
+    # Performance metric.
+    start_time = datetime.now()
+    print("Simulation started at " + start_time.strftime("%H:%M:%S"))
     for timestep in range(1, time_period+1):
         # Progress update. Adjust the frequency if time_period becomes larger?
         if timestep % (max(time_period//10,1)) == 0:
@@ -277,15 +281,22 @@ def simulate_universe(time_period, express=False):
         if express:
             try:
                 os.remove(path_output_phascii)
+                genomes_over_time = []
             except:
                 pass
+        
+        # Export to txt. Initial file has length 129,666,119.
+        # Create another alternative dict that only records genomes of organisms. Takes up far less memory.
+        # Automate archiving? Store run archive in Evolve-Archives, retain starting files and ending files.
+
+        
     file = open(path_strain_genome, "w")
     for key, value in strain_genome.items():
         file.write('%s:%s\n' % (key, value))
     file.close()
-
-        # Export to txt. Initial file has length 129,666,119.
-        # Create another alternative dict that only records genomes of organisms. Takes up far less memory.
-        # Automate archiving? Store run archive in Evolve-Archives, retain starting files and ending files.
+    
+    # Performance metric.
+    start_time = datetime.now()
+    print("Simulation ended at " + start_time.strftime("%H:%M:%S"))
 
 simulate_universe(10000, express=True)
