@@ -133,11 +133,17 @@ def simulate_universe(time_period, express=False):
 
         # Testing an alternative storage method.
         def convert_evodon_to_decimal(evd):
-            dec_num = 0
-            for i in range(len(evd)):
+            # 1 & 0 are positive.
+            if evd[0] == '1' or evd[0] == '0':
+                dec_num = 2**16
+            # 2 & 3 are negative.
+            elif evd[0] == '2' or evd[0] == '3':
+                dec_num = -2**17
+
+            for i in range(1,len(evd)):
                 real_num = int(evd[i]) * 4**(len(evd)-i-1)
                 dec_num += real_num
-            return real_num
+            return dec_num
 
 
         # Full conversion to ATGC.
