@@ -41,6 +41,14 @@ strain_genome = {}
 organisms_over_time = []
 
 # ===== FUNCTIONS =====
+# Small but useful for quick manual exports: Copy list to clipboard for pasting elsewhere.
+def addToClipBoard(read_list):
+    # Use spaces to separate.
+    text = '_'.join(read_list)
+    command = 'echo ' + text.strip() + '| clip'
+    os.system(command)
+
+
 # Setup the dicts as basis for comparison.
 def get_organics_from_universe(file_phascii):
     with open(file_phascii, "rt") as fph:
@@ -322,4 +330,4 @@ def simulate_universe(time_period, express=False):
     # For phylogenetics, record organisms_over_time.
 
 # ===== EXECUTION =====
-simulate_universe(100, express=True)
+simulate_universe(2500, express=True)
