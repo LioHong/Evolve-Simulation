@@ -33,11 +33,12 @@ path_start_evo = os.path.join(path_rundir, run_name + "_0")
 # Genome summary.
 path_genome = os.path.join(path_rundir, "genomes_over_time_" + run_num + ".txt")
 path_strain_genome = os.path.join(path_rundir, "strain_genome_" + run_num + ".txt")
-# Genomes per timestep.
+# All genomes present per timestep.
 genomes_over_time = {}
-# Genomes per organism.
+# All genomes in the strain over time.
 strain_genome = {}
-
+# All organisms in the universe over time.
+organisms_over_time = []
 
 # ===== FUNCTIONS =====
 # Setup the dicts as basis for comparison.
@@ -99,76 +100,77 @@ for posnum in range(0, 131023):
 for negnum in range(-1, -131023, -1):
     evodons_num_dict[str(negnum)] = convert_binary_to_base4(bin(negnum & (2**bitlength_evodons - 1))[2:])
 
+# These conversion functions are packaged primarily for readability of wrangle_genome() and also conversion of archives.
+# Testing an alternative storage method.
+def convert_evodon_to_decimal(evd):
+    # 1 & 0 are positive.
+    if evd[0] == '0':
+        dec_num = 0
+    if evd[0] == '1':
+        dec_num = 2 ** 16
+    # 2 & 3 are negative.
+    elif evd[0] == '2':
+        dec_num = -2 ** 17
+    elif evd[0] == '3':
+        dec_num = -2 ** 15
+
+    for i in range(1, len(evd)):
+        real_num = int(evd[i]) * 4 ** (len(evd) - i - 1)
+        dec_num += real_num
+    return dec_num
+
+
+# Base-4 format used for compatibility with bits and ATGC.
+def convert_keyword_to_evodon(indiv_genome):
+    # When converting genomes from instructions and ints to base-pairs, convert instructions first.
+    indiv_genome = [evodons_dict[keyword] if keyword in evodons_dict else keyword for keyword in indiv_genome]
+    # Then convert ints.
+    indiv_genome = [evodons_num_dict[keynum] if keynum in evodons_num_dict else keynum for keynum in indiv_genome]
+    indiv_genome = ' '.join(indiv_genome)
+    # Remove all spaces.
+    indiv_genome = indiv_genome.replace(" ", "")
+    return indiv_genome
+
+
+# Full conversion to ATGC.
+def convert_evodon_to_nucleotide(evodon_genome):
+    # Convert to ATGC.
+    nucleotide_genome = [atgc_dict[base] for base in evodon_genome]
+    nucleotide_genome = ''.join(nucleotide_genome)
+    return nucleotide_genome
+
+
+# Add a converter back from nucleotides to KFORTH.
+def convert_nt_to_kforth(nt_genome):
+    base4_evodons_list = ''.join([{v: k for k, v in atgc_dict.items()}[base] for base in nt_genome])
+    # Slice the genome into evodons (length=9).
+    base4_evodons_list = [base4_evodons_list[s:s + 9] for s in range(0, len(base4_evodons_list), 9) if len(base4_evodons_list[s:s + 9]) > 8]
+    # List comprehensions with if and inverted dicts.
+    inv_evodons_dict = {v: k for k, v in evodons_dict.items()}
+    inv_evodons_num_dict = {v: k for k, v in evodons_num_dict.items()}
+    base4_evodons_list = [inv_evodons_dict[evd] if evd in inv_evodons_dict else evd for evd in base4_evodons_list]
+    base4_evodons_list = [inv_evodons_num_dict[evnum] if evnum in inv_evodons_num_dict else evnum for evnum in base4_evodons_list]
+    # Join with spaces.
+    kforth_genome = ' '.join(base4_evodons_list)
+    # Join row with row_number.
+    kforth_genome = kforth_genome.replace("row ", "row")
+    return kforth_genome
+
+
+# Convert keywords to AA-FF for storage.
+def convert_evodon_to_aaff(evodon_genome):
+    evodon_list = [evodon_genome[s:s + 9] for s in range(0, len(evodon_genome), 9) if len(evodon_genome[s:s + 9]) > 8]
+    aaff_genome = [aaff_dict[evd] if evd in aaff_dict else evd for evd in evodon_list]
+    aaff_genome = [str(convert_evodon_to_decimal(evd)) if len(evd) > 2 else evd for evd in aaff_genome]
+    aaff_genome = ''.join(aaff_genome)
+    return aaff_genome
+
 
 # # For future formatting of filenames.
 # num_lead_zeroes = int(log10(time_period)) + 1
 def simulate_universe(time_period, express=False):
     # Packaged to ease readability of simulate_universe().
     def wrangle_genome(indiv_genome):
-        # Base-4 format used for compatibility with bits and ATGC.
-        def convert_keyword_to_evodon(indiv_genome):
-            # When converting genomes from instructions and ints to base-pairs, convert instructions first.
-            indiv_genome = [evodons_dict[keyword] if keyword in evodons_dict else keyword for keyword in indiv_genome]
-            # Then convert ints.
-            indiv_genome = [evodons_num_dict[keynum] if keynum in evodons_num_dict else keynum for keynum in indiv_genome]
-            indiv_genome = ' '.join(indiv_genome)
-            # Remove all spaces.
-            indiv_genome = indiv_genome.replace(" ", "")
-            return indiv_genome
-
-
-        # Testing an alternative storage method.
-        def convert_evodon_to_decimal(evd):
-            # 1 & 0 are positive.
-            if evd[0] == '0':
-                dec_num = 0
-            if evd[0] == '1':
-                dec_num = 2**16
-            # 2 & 3 are negative.
-            elif evd[0] == '2':
-                dec_num = -2**17
-            elif evd[0] == '3':
-                dec_num = -2**15
-
-            for i in range(1,len(evd)):
-                real_num = int(evd[i]) * 4**(len(evd)-i-1)
-                dec_num += real_num
-            return dec_num
-
-
-        # Full conversion to ATGC.
-        def convert_evodon_to_nucleotide(evodon_genome):
-            # Convert to ATGC.
-            nucleotide_genome = [atgc_dict[base] for base in evodon_genome]
-            nucleotide_genome = ''.join(nucleotide_genome)
-            return nucleotide_genome
-
-
-        # Add a converter back from nucleotides to KFORTH.
-        def nt_to_kforth(nt_seq):
-            conv_evod = ''.join([{v: k for k, v in atgc_dict.items()}[base] for base in nt_seq])
-            # Slice the genome into evodons (length=9).
-            conv_evod = [conv_evod[s:s + 9] for s in range(0, len(conv_evod), 9) if len(conv_evod[s:s + 9]) > 8]
-            # List comprehensions with if and inverted dicts.
-            conv_evod = [{v: k for k, v in evodons_dict.items()}[evd] if evd
-                      in {v: k for k, v in evodons_dict.items()} else evd for evd in conv_evod]
-            conv_evod = [{v: k for k, v in evodons_num_dict.items()}[evnum] if evnum
-                      in {v: k for k, v in evodons_num_dict.items()} else evnum for evnum in conv_evod]
-            # Join with spaces.
-            lang_genome = ' '.join(conv_evod)
-            # Join row with row_number.
-            lang_genome = lang_genome.replace("row ", "row")
-            return lang_genome
-
-
-        # Convert keywords to AA-FF for storage.
-        def convert_evodon_to_aaff(evodon_genome):
-            evodon_list = [evodon_genome[s:s + 9] for s in range(0, len(evodon_genome), 9) if len(evodon_genome[s:s + 9]) > 8]
-            aaff_genome = [aaff_dict[evd] if evd in aaff_dict else evd for evd in evodon_list]
-            aaff_genome = [str(convert_evodon_to_decimal(evd)) if len(evd)>2 else evd for evd in aaff_genome]
-            aaff_genome = ''.join(aaff_genome)
-            return aaff_genome
-
         # Save the stats of the organism while removing from genome.
         vital_stats = indiv_genome.pop(0)
         # Convert indiv_genome from a list of keywords into a single string.
@@ -271,6 +273,9 @@ def simulate_universe(time_period, express=False):
             if "CELL" in phline:
                 org_flag = False
                 vital_stats, indiv_genome, nucleotide_genome = wrangle_genome(indiv_genome)
+                # # Equivalent to strain_genome.keys().
+                # if vital_stats not in organisms_over_time:
+                #     organisms_over_time.append(vital_stats)
             if org_flag:
                 # Replace everything in indiv_genome that's not a keyword.
                 removables = ["\t", "\n", ":", "{", "}", "# program", '"']
