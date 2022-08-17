@@ -19,12 +19,12 @@ from math import log10
 # ===== PATHS =====
 # Edit a BATCH file to run the input and output Evolve files.
 path_evodir = r"C:\Program Files (x86)\Evolve"
-# path_workdir = r"C:\Users\Julio Hong\Documents\LioHong\Evolve-Simulation\\"
-path_workdir = r"C:\Users\Lio Hong\Documents\LioHong\Evolve-Simulation\\"
+path_workdir = r"C:\Users\Julio Hong\Documents\LioHong\Evolve-Simulation\\"
+# path_workdir = r"C:\Users\Lio Hong\Documents\LioHong\Evolve-Simulation\\"
 path_template_bat = os.path.join(path_workdir, "evo_template.bat")
 # Eventually can adjust based on user input.
 # path_rundir = os.path.join(path_workdir, "Runs", "Run_001_big_bang")
-run_num = "006"
+run_num = "007"
 path_rundir = os.path.join(path_workdir, "Runs", "Run_" + run_num + "_big_bang")
 # Have to change workdir before the batch file can be successfully run.
 os.chdir(path_rundir)
@@ -33,12 +33,13 @@ path_start_evo = os.path.join(path_rundir, run_name + "_0")
 # Genome summary.
 path_genome = os.path.join(path_rundir, "genomes_over_time_" + run_num + ".txt")
 path_strain_genome = os.path.join(path_rundir, "strain_genome_" + run_num + ".txt")
+path_book = os.path.join(path_rundir, "book_of_life_" + run_num + ".txt")
 # All genomes present per timestep.
 genomes_over_time = {}
 # All genomes in the strain over time.
 strain_genome = {}
-# All organisms in the universe over time.
-organisms_over_time = []
+book_of_life = {}
+
 
 # ===== FUNCTIONS =====
 # Small but useful for quick manual exports: Copy list to clipboard for pasting elsewhere.
@@ -205,14 +206,16 @@ def simulate_universe(time_period, express=False):
         aaff_genome = convert_evodon_to_aaff(evodon_genome)
 
         # nucleotide_genome = convert_base4_to_nucelotide(evodon_genome)
-        popn_genome[vital_stats] = nucleotide_genome
+        # popn_genome[vital_stats] = nucleotide_genome
         # Remove ENERGY and AGE from vital_stats.
-        vital_stats = " ".join(vital_stats.split(" ")[:-2])
+        vs_list = vital_stats.split(" ")
+        vital_stats = vs_list[1] + " " + " ".join(vs_list[4:7])
         # Can just keep adding genome repeatedly and it'll overwrite.
         # strain_genome[vital_stats] = nucleotide_genome
+        popn_genome[vital_stats] = aaff_genome
         strain_genome[vital_stats] = aaff_genome
 
-        return vital_stats, indiv_genome, nucleotide_genome
+        return vital_stats, indiv_genome, nucleotide_genome, list(popn_genome.keys())
 
     for timestep in range(1, time_period+1):
         # Progress update. Adjust the frequency if time_period becomes larger?
@@ -264,26 +267,36 @@ def simulate_universe(time_period, express=False):
             for line in newfas_text:
                 phas.write(line)
         # Update instructions in genome to avoid collisions during genome handling step.
-        fix_collisions_dict = {"MAKE-SPORE": "MAKE-SPOR", " - ": " ~ "}
+        fix_collisions_dict = {"MAKE-SPORE": "MAKE-SPOR", " - ": " ~ ", "NUM-CELLS": "NUM-CELS"}
         replace_old_with_new(path_output_phascii, fix_collisions_dict)
 
         # Extract genomes of all organisms in universe.
+        
         with open(path_output_phascii, "rt") as phile:
             raw_phile = phile.readlines()
         org_flag = False
         popn_genome = {}
+        organisms_in_timestep = []
+        if timestep > 814:
+            print(timestep)
         for phline in raw_phile:
             # Add "ORGANISM" line via org_flag=True.
             if "ORGANISM" in phline:
+                if timestep > 814:
+                    print(phline)
                 org_flag = True
                 indiv_genome = []
             # Avoid adding the "CELL" line via org_flag=False.
             if "CELL" in phline:
                 org_flag = False
-                vital_stats, indiv_genome, nucleotide_genome = wrangle_genome(indiv_genome)
-                # # Equivalent to strain_genome.keys().
-                # if vital_stats not in organisms_over_time:
-                #     organisms_over_time.append(vital_stats)
+                if timestep > 814:
+                    print(indiv_genome)
+                vital_stats, indiv_genome, nucleotide_genome, population = wrangle_genome(indiv_genome)
+                # Add organism to list of living.
+                organisms_in_timestep.append(vital_stats)
+                # Add birth-step of organism.
+                if vital_stats not in book_of_life:
+                    book_of_life[vital_stats] = [timestep]
             if org_flag:
                 # Replace everything in indiv_genome that's not a keyword.
                 removables = ["\t", "\n", ":", "{", "}", "# program", '"']
@@ -292,7 +305,15 @@ def simulate_universe(time_period, express=False):
                     phresh = phresh.replace(rmvb, "")
                 # Add line.
                 indiv_genome.append(phresh)
-
+        # Add death-step of organism.
+        for vs_org in book_of_life:
+            # Check that organism was still alive.
+            if len(book_of_life[vs_org]) < 2:
+                # Check that organism is no longer listed among living organisms.
+                if vs_org not in population:
+                    # Add death-step.
+                    book_of_life[vs_org].append(timestep)
+        
             # For spores, just find the lines between each index of spore, then the final entry.
             # Or pop 1st spore, then find 2nd spore.
             # Then slice the list up until 2nd spore.
@@ -302,14 +323,14 @@ def simulate_universe(time_period, express=False):
 
         # Operation: Delete the old input evolve file.
         os.remove(path_input_evo + ".evolve")
-        # Add population genome to genome tracking over time.
-        genomes_over_time[timestep] = popn_genome
+        # # Add population genome to genome tracking over time.
+        # genomes_over_time[timestep] = popn_genome
         # Compare the ORGANISMS section of the input and output PHASCII files.
         lives_output = get_organics_from_universe(path_output_phascii)
-        # If the summaries are identical, then delete the output PHASCII (not lines in console).
-        if lives_input == lives_output and timestep != time_period:
-            os.remove(path_output_phascii)
-            genomes_over_time.pop(timestep)
+        # # If the summaries are identical, then delete the output PHASCII (not lines in console).
+        # if lives_input == lives_output and timestep != time_period:
+        #     os.remove(path_output_phascii)
+        #     # genomes_over_time.pop(timestep)
         # Include a mode which DELETES the intermediate PHASCIIs.
         # Would it be better not to create in the first place? But would require rewrite of the code.
         if timestep == time_period:
@@ -325,9 +346,15 @@ def simulate_universe(time_period, express=False):
     for key, value in strain_genome.items():
         file.write('%s:%s\n' % (key, value))
     file.close()
+    
+    # For phylogenetics, record book_of_life.
+    file = open(path_book, "w")
+    for key, value in book_of_life.items():
+        file.write('%s:%s\n' % (key, value))
+    file.close()
 
     # Automate archiving? Store run archive in Evolve-Archives, retain starting files and ending files.
-    # For phylogenetics, record organisms_over_time.
+    
 
 # ===== EXECUTION =====
-simulate_universe(2500, express=True)
+simulate_universe(1000, express=True)
