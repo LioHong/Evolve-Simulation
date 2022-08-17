@@ -122,19 +122,28 @@ def simulate_universe(time_period, express=False):
         # Base-4 format used for compatibility with bits and ATGC.
         def convert_keyword_to_evodon(indiv_genome):
             # When converting genomes from instructions and ints to base-pairs, convert instructions first.
-            indiv_genome = [evodons_dict[evd] if evd in evodons_dict else evd for evd in indiv_genome]
+            indiv_genome = [evodons_dict[keyword] if keyword in evodons_dict else keyword for keyword in indiv_genome]
             # Then convert ints.
-            indiv_genome = [evodons_num_dict[evnum] if evnum in evodons_num_dict else evnum for evnum in indiv_genome]
+            indiv_genome = [evodons_num_dict[keynum] if keynum in evodons_num_dict else keynum for keynum in indiv_genome]
             indiv_genome = ' '.join(indiv_genome)
             # Remove all spaces.
             indiv_genome = indiv_genome.replace(" ", "")
             return indiv_genome
 
 
+        # Testing an alternative storage method.
+        def convert_evodon_to_decimal(evd):
+            dec_num = 0
+            for i in range(len(evd)):
+                real_num = int(evd[i]) * 4**(len(evd)-i-1)
+                dec_num += real_num
+            return real_num
+
+
         # Full conversion to ATGC.
-        def convert_base4_to_nucleotide(nucleotide_genome):
+        def convert_base4_to_nucleotide(evodon_genome):
             # Convert to ATGC.
-            nucleotide_genome = [atgc_dict[base] for base in indiv_genome]
+            nucleotide_genome = [atgc_dict[base] for base in evodon_genome]
             nucleotide_genome = ''.join(nucleotide_genome)
             return nucleotide_genome
 
@@ -171,7 +180,7 @@ def simulate_universe(time_period, express=False):
         vital_stats = " ".join(vital_stats.split(" ")[:-2])
         # Can just keep adding genome repeatedly and it'll overwrite.
         # strain_genome[vital_stats] = nucleotide_genome
-        strain_genome[vital_stats] = [int(evodon_genome[s:s + 9]) for s in range(0, len(evodon_genome), 9) if len(evodon_genome[s:s + 9]) > 8]
+        strain_genome[vital_stats] = [convert_evodon_to_decimal(evodon_genome[s:s + 9]) for s in range(0, len(evodon_genome), 9) if len(evodon_genome[s:s + 9]) > 8]
 
         return vital_stats, indiv_genome, nucleotide_genome
 
