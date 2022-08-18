@@ -24,7 +24,7 @@ path_workdir = r"C:\Users\Lio Hong\Documents\LioHong\Evolve-Simulation\\"
 path_template_bat = os.path.join(path_workdir, "evo_template.bat")
 # Eventually can adjust based on user input.
 # path_rundir = os.path.join(path_workdir, "Runs", "Run_001_big_bang")
-run_num = "007"
+run_num = "009"
 run_name = "big_bang"
 path_rundir = os.path.join(path_workdir, "Runs", "Run_" + run_num + "_" + run_name)
 # Have to change workdir before the batch file can be successfully run.
@@ -88,7 +88,7 @@ def replace_old_with_new(path_input, old_new_dict):
 
 # Function to convert from binary to base-4, so as to retain 2's complement.
 binfour_dict = {"00": "0", "01": "1", "10": "2", "11": "3"}
-atgc_dict = {"0": "A", "1": "T", "2": "G", "3": "C"}
+b4_nt_dict = {"0": "A", "1": "T", "2": "G", "3": "C"}
 def convert_binary_to_base4(bin_num):
     # Split into pairs.
     # https://stackoverflow.com/questions/28730961/python-slicing-string-in-three-character-substrings
@@ -96,23 +96,35 @@ def convert_binary_to_base4(bin_num):
     subs = [binfour_dict[x] for x in subs]
     return "".join(subs)
 # Convert KFORTH genome to DNA: 0123 for ATGC.
-with open(os.path.join(path_workdir, "evodons_dict.txt"),'r') as filein:
-    evodons_dict = eval(filein.read())
+with open(os.path.join(path_workdir, "instr_b4_dict.txt"),'r') as filein:
+    instr_b4_dict = eval(filein.read())
 # AA-FF storage method.
-with open(os.path.join(path_workdir, "aaff_dict.txt"),'r') as filein:
-    aaff_dict = eval(filein.read())
+with open(os.path.join(path_workdir, "b4_aaff_dict.txt"),'r') as filein:
+    b4_aaff_dict = eval(filein.read())
 # Available range of integers: -131022 to 131022. (-2^17 - -49 to 2^17 - 49)
 # Useful for generating dict and adjusting based on instructions, but loading from file would be preferable.
 bitlength_evodons = 18
-evodons_num_dict = {}
+num_b4_dict = {}
 for posnum in range(0, 131023):
-    evodons_num_dict[str(posnum)] = convert_binary_to_base4(format(posnum, "#020b")[2:])
+    num_b4_dict[str(posnum)] = convert_binary_to_base4(format(posnum, "#020b")[2:])
 for negnum in range(-1, -131023, -1):
-    evodons_num_dict[str(negnum)] = convert_binary_to_base4(bin(negnum & (2**bitlength_evodons - 1))[2:])
+    num_b4_dict[str(negnum)] = convert_binary_to_base4(bin(negnum & (2 ** bitlength_evodons - 1))[2:])
 
 # These conversion functions are packaged primarily for readability of wrangle_genome() and also conversion of archives.
 # Testing an alternative storage method.
-def convert_evodon_to_decimal(evd):
+
+# Formats in use: KFORTH kewyord, base4 evodon, nucleotide evodon, AAFF evodon
+# Dicts currently added: KFORTH to base4, base4 to nt (simple), base4 to AAFF
+# From KFORTH to base4, convert the raw genome into processed genome: keywords separated by spaces.
+# Then convert keywords into base4 evodons and then concat into a single string.
+# Base4 and nt are equivalent. Just use string.replace() or list comprehension and string.join(list).
+# Intuitively, I think list comprehension is slower because of the need to iterate over all of the elements. Unless string.replace() is already a list comprehension.
+# From length-9 evodons to formats of other lengths like KFORTH or AAFF, need to split the genome into substrings of length 9.
+
+# Also consider intervals of variable length since all the simulations are deterministic.
+
+
+def convert_b4_to_decimal(evd):
     # 1 & 0 are positive.
     if evd[0] == '0':
         dec_num = 0
@@ -130,50 +142,109 @@ def convert_evodon_to_decimal(evd):
     return dec_num
 
 
+# Add another function around this for spacers.
+# Spacers on either side would be safe, but would increase the memory usage by numbers.
+# Change to "_" for easier selection of aaff_strings.
+# Is there a way to detect the first occurrence of a number after AAFF evodons?
+# Maybe slice the genome into two types of sublists: Evodons only and numbers only.
+# Sort them into a dict with their relative order as the key, and the sublist as the value.
+# KIV as another possible data compression technique.
+def convert_b4_to_intstr(evd):
+    dec_num = convert_b4_to_decimal(evd)
+    # return str(dec_num) + "."
+    return "_" + str(dec_num) + "_"
+
+
 # Base-4 format used for compatibility with bits and ATGC.
-def convert_keyword_to_evodon(indiv_genome):
+# Consider whether to keep genomes as type list, then ''.join(list) only for the MSA and data storage?
+# Most likely usage: Pick genomes from data storage, then convert them into nucleotides for MSA.
+# Base-4 format used for compatibility with bits and ATGC.
+def convert_kforth_to_base4(kforth_genome):
     # When converting genomes from instructions and ints to base-pairs, convert instructions first.
-    indiv_genome = [evodons_dict[keyword] if keyword in evodons_dict else keyword for keyword in indiv_genome]
+    b4_genome = [instr_b4_dict[instruction] if instruction in instr_b4_dict else instruction for instruction in kforth_genome]
     # Then convert ints.
-    indiv_genome = [evodons_num_dict[keynum] if keynum in evodons_num_dict else keynum for keynum in indiv_genome]
-    indiv_genome = ' '.join(indiv_genome)
-    # Remove all spaces.
-    indiv_genome = indiv_genome.replace(" ", "")
-    return indiv_genome
+    b4_genome = [num_b4_dict[keynum] if keynum in num_b4_dict else keynum for keynum in b4_genome]
+    return b4_genome
 
 
-# Full conversion to ATGC.
-def convert_evodon_to_nucleotide(evodon_genome):
-    # Convert to ATGC.
-    nucleotide_genome = [atgc_dict[base] for base in evodon_genome]
-    nucleotide_genome = ''.join(nucleotide_genome)
-    return nucleotide_genome
-
-
-# Add a converter back from nucleotides to KFORTH.
-def convert_nt_to_kforth(nt_genome):
-    base4_evodons_list = ''.join([{v: k for k, v in atgc_dict.items()}[base] for base in nt_genome])
-    # Slice the genome into evodons (length=9).
-    base4_evodons_list = [base4_evodons_list[s:s + 9] for s in range(0, len(base4_evodons_list), 9) if len(base4_evodons_list[s:s + 9]) > 8]
-    # List comprehensions with if and inverted dicts.
-    inv_evodons_dict = {v: k for k, v in evodons_dict.items()}
-    inv_evodons_num_dict = {v: k for k, v in evodons_num_dict.items()}
-    base4_evodons_list = [inv_evodons_dict[evd] if evd in inv_evodons_dict else evd for evd in base4_evodons_list]
-    base4_evodons_list = [inv_evodons_num_dict[evnum] if evnum in inv_evodons_num_dict else evnum for evnum in base4_evodons_list]
-    # Join with spaces.
-    kforth_genome = ' '.join(base4_evodons_list)
-    # Join row with row_number.
-    kforth_genome = kforth_genome.replace("row ", "row")
+def convert_base4_to_kforth(b4_genome):
+    # Invert dicts
+    b4_kword_dict = {v: k for k, v in kword_b4_dict.items()}
+    br_num_dict = {v: k for k, v in num_b4_dict.items()}
+    kforth_genome = [b4_kword_dict[evd_b4] if evd_b4 in b4_kword_dict else evd_b4 for evd_b4 in b4_genome]
+    kforth_genome = [br_num_dict[evnum] if evnum in br_num_dict else evnum for evnum in kforth_genome]
     return kforth_genome
 
 
+# Full conversion to ATGC.
+def convert_base4_to_nucleotide(b4_genome):
+    nt_genome = []
+    for elm in b4_genome:
+        # nt_genome = [b4_nt_dict[digit] for digit in b4_genome]
+        for digit in b4_nt_dict:
+            elm = elm.replace(digit, b4_nt_dict[digit])
+        nt_genome.append(elm)
+    return nt_genome
+
+
+def join_genome_for_msa(nt_genome):
+    return ''.join(nt_genome)
+
+
+# Not sure why this would ever be needed but just include it for the sake of completeness.
+def convert_nucleotide_to_base4(nt_genome):
+    b4_genome = nt_genome
+    nt_b4_dict = {v: k for k, v in b4_nt_dict.items()}
+    for nt in nt_b4_dict:
+        b4_genome = b4_genome.replace(nt, nt_b4_dict[nt])
+    return b4_genome
+
+
 # Convert keywords to AA-FF for storage.
-def convert_evodon_to_aaff(evodon_genome):
-    evodon_list = [evodon_genome[s:s + 9] for s in range(0, len(evodon_genome), 9) if len(evodon_genome[s:s + 9]) > 8]
-    aaff_genome = [aaff_dict[evd] if evd in aaff_dict else evd for evd in evodon_list]
-    aaff_genome = [str(convert_evodon_to_decimal(evd)) if len(evd) > 2 else evd for evd in aaff_genome]
-    aaff_genome = ''.join(aaff_genome)
+def convert_base4_to_aaff(b4_genome):
+    aaff_genome = [b4_aaff_dict[evd] if evd in b4_aaff_dict else evd for evd in b4_genome]
+    aaff_genome = [str(convert_b4_to_intstr(evd)) if len(evd) > 2 else evd for evd in aaff_genome]
     return aaff_genome
+
+
+def store_aaff(aaff_genome):
+    return ''.join(aaff_genome)
+
+
+def retrieve_aaff(aaff_string):
+    # Separate out all the numbers.
+    aaff_list = aaff_string.split("_")
+    # Remove any empty strings.
+    aaff_list = [x for x in aaff_list if x != ""]
+    aaff_genome = []
+    for elm in aaff_list:
+        if not elm.isdigit():
+            # Split all the remaining AAFFs into pairs.
+            evd_list = [elm[s:s + 2] for s in range(0, len(elm), 2) if len(elm[s:s + 2]) > 1]
+            # Flatten the list.
+            for evd in evd_list:
+                aaff_genome.append(evd)
+        # Filter out all the numbers
+        else:
+            aaff_genome.append(elm)
+    return aaff_genome
+
+
+# Data de-compression.
+def convert_aaff_to_base4(aaff_genome):
+    aaff_b4_dict = {v: k for k, v in b4_aaff_dict.items()}
+    b4_genome = [aaff_b4_dict[evd] if evd in aaff_b4_dict else evd for evd in aaff_genome]
+    b4_genome = [num_b4_dict[keynum] if keynum in num_b4_dict else keynum for keynum in b4_genome]
+    return b4_genome
+
+
+# Single function to convert chosen AAFF strings into nucleotide sequences for MSA.
+def unspool_aaff_for_msa(aaff_string):
+    aaff_genome = retrieve_aaff(aaff_string)
+    b4_genome = convert_aaff_to_base4(aaff_genome)
+    nt_genome = convert_base4_to_nucleotide(b4_genome)
+    nt_seq = join_genome_for_msa(nt_genome)
+    return nt_seq
 
 
 # This function is used for variable inputs.
@@ -213,11 +284,12 @@ def simulate_universe(time_period, runin_timestep=0, express=False):
             indiv_genome.remove('')
 
         # type(evodon_genome) = string, containing 0123.
-        evodon_genome = convert_keyword_to_evodon(indiv_genome)
+        b4_genome = convert_kforth_to_base4(indiv_genome)
         # type(nucleotide_genome) = string, containing ATGC.
-        nucleotide_genome = convert_evodon_to_nucleotide(evodon_genome)
+        nt_genome = convert_base4_to_nucleotide(b4_genome)
         # # type(ab_genome) = string, containing AA-FF.
-        aaff_genome = convert_evodon_to_aaff(evodon_genome)
+        aaff_genome = convert_base4_to_aaff(b4_genome)
+        aaff_string = store_aaff(aaff_genome)
 
         # nucleotide_genome = convert_base4_to_nucelotide(evodon_genome)
         # popn_genome[vital_stats] = nucleotide_genome
@@ -226,10 +298,10 @@ def simulate_universe(time_period, runin_timestep=0, express=False):
         vital_stats = vs_list[1] + " " + " ".join(vs_list[4:7])
         # Can just keep adding genome repeatedly and it'll overwrite.
         # strain_genome[vital_stats] = nucleotide_genome
-        popn_genome[vital_stats] = aaff_genome
-        strain_genome[vital_stats] = aaff_genome
+        popn_genome[vital_stats] = aaff_string
+        strain_genome[vital_stats] = aaff_string
 
-        return vital_stats, indiv_genome, nucleotide_genome, list(popn_genome.keys())
+        return vital_stats, aaff_string, nt_genome, list(popn_genome.keys())
 
     for timestep in range(runin_timestep, runin_timestep+time_period+1):
         # Progress update. Adjust the frequency if time_period becomes larger?
@@ -252,6 +324,7 @@ def simulate_universe(time_period, runin_timestep=0, express=False):
         else:
             # # Copy simulation from template.
             # copyfile(os.path.join(path_rundir, run_name + ".evolve"), path_start_evo + ".evolve")
+            # Copy EVOLVE and PHASCII from template?
             path_start_evo = os.path.join(path_rundir, run_name + "_" + str(runin_timestep))
             path_output_evo = os.path.join(path_rundir, run_name + "_" + str(runin_timestep+1))
             path_input_evo = path_start_evo
@@ -367,4 +440,4 @@ def simulate_universe(time_period, runin_timestep=0, express=False):
 # ===== EXECUTION =====
 runin_timestep = check_input_files(path_rundir)
 # simulate_universe(1000, express=True)
-simulate_universe(5000, runin_timestep, express=True)
+simulate_universe(100, runin_timestep, express=True)
