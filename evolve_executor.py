@@ -262,7 +262,7 @@ def check_input_files(path_run_in):
 
 # # For future formatting of filenames.
 # num_lead_zeroes = int(log10(time_period)) + 1
-def simulate_universe(time_period, runin_timestep=0, express=False):
+def simulate_universe(time_period, runin_timestep=0, interval=1, express=False):
     # Packaged to ease readability of simulate_universe().
     def wrangle_genome(indiv_genome):
         # Save the stats of the organism while removing from genome.
@@ -303,7 +303,7 @@ def simulate_universe(time_period, runin_timestep=0, express=False):
 
         return vital_stats, aaff_string, nt_genome, list(popn_genome.keys())
 
-    for timestep in range(runin_timestep, runin_timestep+time_period+1):
+    for timestep in range(runin_timestep, runin_timestep+time_period+1, interval):
         # Progress update. Adjust the frequency if time_period becomes larger?
         if timestep % (max(time_period//10,1)) == 0:
             print(timestep)
@@ -339,7 +339,7 @@ def simulate_universe(time_period, runin_timestep=0, express=False):
             # lives_input = get_organics_from_universe(path_input_phascii)
 
         # Run the batch file: Update paths in batch file based on timestep.
-        replaceds = {text_find_output: path_output_evo, text_find_input: path_input_evo}
+        replaceds = {text_find_output: path_output_evo, text_find_input: path_input_evo, "1u": str(interval)+"u"}
         replace_old_with_new(path_run_bat, replaceds)
         # Get the filename itself to run.
         os.system(path_run_bat.split('\\')[-1])
@@ -440,4 +440,5 @@ def simulate_universe(time_period, runin_timestep=0, express=False):
 # ===== EXECUTION =====
 runin_timestep = check_input_files(path_rundir)
 # simulate_universe(1000, express=True)
-simulate_universe(100, runin_timestep, express=True)
+# simulate_universe(100, runin_timestep, express=True)
+simulate_universe(1000, runin_timestep, 10, express=True)
