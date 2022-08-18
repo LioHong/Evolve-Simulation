@@ -19,17 +19,18 @@ from math import log10
 # ===== PATHS =====
 # Edit a BATCH file to run the input and output Evolve files.
 path_evodir = r"C:\Program Files (x86)\Evolve"
-path_workdir = r"C:\Users\Julio Hong\Documents\LioHong\Evolve-Simulation\\"
-# path_workdir = r"C:\Users\Lio Hong\Documents\LioHong\Evolve-Simulation\\"
+# path_workdir = r"C:\Users\Julio Hong\Documents\LioHong\Evolve-Simulation\\"
+path_workdir = r"C:\Users\Lio Hong\Documents\LioHong\Evolve-Simulation\\"
 path_template_bat = os.path.join(path_workdir, "evo_template.bat")
 # Eventually can adjust based on user input.
 # path_rundir = os.path.join(path_workdir, "Runs", "Run_001_big_bang")
 run_num = "007"
-path_rundir = os.path.join(path_workdir, "Runs", "Run_" + run_num + "_big_bang")
+run_name = "big_bang"
+path_rundir = os.path.join(path_workdir, "Runs", "Run_" + run_num + "_" + run_name)
 # Have to change workdir before the batch file can be successfully run.
 os.chdir(path_rundir)
-run_name = "big_bang"
-path_start_evo = os.path.join(path_rundir, run_name + "_0")
+# # Currently declared in program, but might consider reading from folder instead to allow for variable input.
+# path_start_evo = os.path.join(path_rundir, run_name + "_0")
 # Genome summary.
 path_genome = os.path.join(path_rundir, "genomes_over_time_" + run_num + ".txt")
 path_strain_genome = os.path.join(path_rundir, "strain_genome_" + run_num + ".txt")
@@ -175,9 +176,22 @@ def convert_evodon_to_aaff(evodon_genome):
     return aaff_genome
 
 
+# This function is used for variable inputs.
+def check_input_files(path_run_in):
+    # Read the filenames of the template files.
+    files_list = os.listdir(path_run_in)
+    files_list = [x.split('.')[0] for x in files_list]
+    # Check that the names of the EVOLVE and PHASCII both match.
+    if len(set(files_list)) > 1:
+        print("Mismatch in EVOLVE and PHASCII detected.")
+    # Then extract the timestep.
+    else:
+        return int(files_list[0].split('_')[-1])
+
+
 # # For future formatting of filenames.
 # num_lead_zeroes = int(log10(time_period)) + 1
-def simulate_universe(time_period, express=False):
+def simulate_universe(time_period, runin_timestep=0, express=False):
     # Packaged to ease readability of simulate_universe().
     def wrangle_genome(indiv_genome):
         # Save the stats of the organism while removing from genome.
@@ -217,27 +231,29 @@ def simulate_universe(time_period, express=False):
 
         return vital_stats, indiv_genome, nucleotide_genome, list(popn_genome.keys())
 
-    for timestep in range(1, time_period+1):
+    for timestep in range(runin_timestep, runin_timestep+time_period+1):
         # Progress update. Adjust the frequency if time_period becomes larger?
         if timestep % (max(time_period//10,1)) == 0:
             print(timestep)
 
         # Step-by-step initialisation.
-        if timestep != 1:
+        if timestep != runin_timestep:
             # Set the text to Find and Replace
             text_find_input = path_input_evo
             text_find_output = path_output_evo
             # Old output becomes input.
             path_input_evo = path_output_evo
             # Name the output file based on original simulation and time-step.
-            path_output_evo = os.path.join(path_rundir, run_name + "_" + str(timestep))
+            path_output_evo = os.path.join(path_rundir, run_name + "_" + str(timestep+1))
             # Lives summary from output becomes that for input.
             lives_input = lives_output
 
         # Timestep equals 1, beginning of simulation. Initialise from template.
         else:
-            # Copy simulation from template.
-            copyfile(os.path.join(path_rundir, run_name + ".evolve"), path_start_evo + ".evolve")
+            # # Copy simulation from template.
+            # copyfile(os.path.join(path_rundir, run_name + ".evolve"), path_start_evo + ".evolve")
+            path_start_evo = os.path.join(path_rundir, run_name + "_" + str(runin_timestep))
+            path_output_evo = os.path.join(path_rundir, run_name + "_" + str(runin_timestep+1))
             path_input_evo = path_start_evo
             # Copy the bat file and rename it.
             path_run_bat = os.path.join(path_rundir, "run_" + run_num + "_" + run_name + ".bat")
@@ -245,10 +261,9 @@ def simulate_universe(time_period, express=False):
             # Set the text to Find and Replace
             text_find_input = "path_in"
             text_find_output = "path_out"
-            path_output_evo = os.path.join(path_rundir, run_name + "_" + str(timestep))
-            # Assume that lives summary for timestep 0 always stays the same.
-            path_input_phascii = path_input_evo + ".txt"
-            lives_input = get_organics_from_universe(path_input_phascii)
+            # # Assume that lives summary for timestep 0 always stays the same.
+            # path_input_phascii = path_input_evo + ".txt"
+            # lives_input = get_organics_from_universe(path_input_phascii)
 
         # Run the batch file: Update paths in batch file based on timestep.
         replaceds = {text_find_output: path_output_evo, text_find_input: path_input_evo}
@@ -271,26 +286,19 @@ def simulate_universe(time_period, express=False):
         replace_old_with_new(path_output_phascii, fix_collisions_dict)
 
         # Extract genomes of all organisms in universe.
-        
         with open(path_output_phascii, "rt") as phile:
             raw_phile = phile.readlines()
         org_flag = False
         popn_genome = {}
         organisms_in_timestep = []
-        if timestep > 814:
-            print(timestep)
         for phline in raw_phile:
             # Add "ORGANISM" line via org_flag=True.
             if "ORGANISM" in phline:
-                if timestep > 814:
-                    print(phline)
                 org_flag = True
                 indiv_genome = []
             # Avoid adding the "CELL" line via org_flag=False.
-            if "CELL" in phline:
+            if "CELL" in phline and org_flag:
                 org_flag = False
-                if timestep > 814:
-                    print(indiv_genome)
                 vital_stats, indiv_genome, nucleotide_genome, population = wrangle_genome(indiv_genome)
                 # Add organism to list of living.
                 organisms_in_timestep.append(vital_stats)
@@ -357,4 +365,6 @@ def simulate_universe(time_period, express=False):
     
 
 # ===== EXECUTION =====
-simulate_universe(1000, express=True)
+runin_timestep = check_input_files(path_rundir)
+# simulate_universe(1000, express=True)
+simulate_universe(5000, runin_timestep, express=True)
