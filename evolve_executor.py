@@ -19,18 +19,16 @@ from math import log10
 # ===== PATHS =====
 # Edit a BATCH file to run the input and output Evolve files.
 path_evodir = r"C:\Program Files (x86)\Evolve"
-# path_workdir = r"C:\Users\Julio Hong\Documents\LioHong\Evolve-Simulation\\"
-path_workdir = r"C:\Users\Lio Hong\Documents\LioHong\Evolve-Simulation\\"
+path_workdir = r"C:\Users\Julio Hong\Documents\LioHong\Evolve-Simulation\\"
+# path_workdir = r"C:\Users\Lio Hong\Documents\LioHong\Evolve-Simulation\\"
 path_template_bat = os.path.join(path_workdir, "evo_template.bat")
 # Eventually can adjust based on user input.
-# path_rundir = os.path.join(path_workdir, "Runs", "Run_001_big_bang")
-run_num = "009"
+run_num = "014"
+# Extract from filename?
 run_name = "big_bang"
 path_rundir = os.path.join(path_workdir, "Runs", "Run_" + run_num + "_" + run_name)
 # Have to change workdir before the batch file can be successfully run.
 os.chdir(path_rundir)
-# # Currently declared in program, but might consider reading from folder instead to allow for variable input.
-# path_start_evo = os.path.join(path_rundir, run_name + "_0")
 # Genome summary.
 path_genome = os.path.join(path_rundir, "genomes_over_time_" + run_num + ".txt")
 path_strain_genome = os.path.join(path_rundir, "strain_genome_" + run_num + ".txt")
@@ -303,7 +301,7 @@ def simulate_universe(time_period, runin_timestep=0, interval=1, express=False):
 
         return vital_stats, aaff_string, nt_genome, list(popn_genome.keys())
 
-    for timestep in range(runin_timestep, runin_timestep+time_period+1, interval):
+    for timestep in range(runin_timestep, runin_timestep+time_period, interval):
         # Progress update. Adjust the frequency if time_period becomes larger?
         if timestep % (max(time_period//10,1)) == 0:
             print(timestep)
@@ -322,8 +320,6 @@ def simulate_universe(time_period, runin_timestep=0, interval=1, express=False):
 
         # Timestep equals 1, beginning of simulation. Initialise from template.
         else:
-            # # Copy simulation from template.
-            # copyfile(os.path.join(path_rundir, run_name + ".evolve"), path_start_evo + ".evolve")
             # Copy EVOLVE and PHASCII from template?
             path_start_evo = os.path.join(path_rundir, run_name + "_" + str(runin_timestep))
             path_output_evo = os.path.join(path_rundir, run_name + "_" + str(runin_timestep+1))
@@ -334,9 +330,7 @@ def simulate_universe(time_period, runin_timestep=0, interval=1, express=False):
             # Set the text to Find and Replace
             text_find_input = "path_in"
             text_find_output = "path_out"
-            # # Assume that lives summary for timestep 0 always stays the same.
-            # path_input_phascii = path_input_evo + ".txt"
-            # lives_input = get_organics_from_universe(path_input_phascii)
+
 
         # Run the batch file: Update paths in batch file based on timestep.
         replaceds = {text_find_output: path_output_evo, text_find_input: path_input_evo, "1u": str(interval)+"u"}
@@ -392,8 +386,8 @@ def simulate_universe(time_period, runin_timestep=0, interval=1, express=False):
             if len(book_of_life[vs_org]) < 2:
                 # Check that organism is no longer listed among living organisms.
                 if vs_org not in population:
-                    # Add death-step.
-                    book_of_life[vs_org].append(timestep)
+                    # Add death-step. Subtract 1 to get final step while alive.
+                    book_of_life[vs_org].append(timestep-1)
         
             # For spores, just find the lines between each index of spore, then the final entry.
             # Or pop 1st spore, then find 2nd spore.
@@ -441,4 +435,5 @@ def simulate_universe(time_period, runin_timestep=0, interval=1, express=False):
 runin_timestep = check_input_files(path_rundir)
 # simulate_universe(1000, express=True)
 # simulate_universe(100, runin_timestep, express=True)
-simulate_universe(1000, runin_timestep, 10, express=True)
+# simulate_universe(10000, runin_timestep, 1, express=True)
+simulate_universe(10000, runin_timestep, 100, express=True)
