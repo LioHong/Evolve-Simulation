@@ -15,6 +15,7 @@ Steps:
 import os
 from shutil import copyfile
 from math import log10
+from datetime import datetime
 
 # ===== PATHS =====
 # Edit a BATCH file to run the input and output Evolve files.
@@ -23,7 +24,7 @@ path_workdir = r"C:\Users\Julio Hong\Documents\LioHong\Evolve-Simulation\\"
 # path_workdir = r"C:\Users\Lio Hong\Documents\LioHong\Evolve-Simulation\\"
 path_template_bat = os.path.join(path_workdir, "evo_template.bat")
 # Eventually can adjust based on user input.
-run_num = "014"
+run_num = "015"
 # Extract from filename?
 run_name = "big_bang"
 path_rundir = os.path.join(path_workdir, "Runs", "Run_" + run_num + "_" + run_name)
@@ -300,11 +301,15 @@ def simulate_universe(time_period, runin_timestep=0, interval=1, express=False):
         strain_genome[vital_stats] = aaff_string
 
         return vital_stats, aaff_string, nt_genome, list(popn_genome.keys())
-
+    
+    # Performance metric.
+    print("Scraper started at " + datetime.now().strftime("%H:%M:%S"))
+    
     for timestep in range(runin_timestep, runin_timestep+time_period, interval):
         # Progress update. Adjust the frequency if time_period becomes larger?
-        if timestep % (max(time_period//10,1)) == 0:
+        if timestep % (max(time_period//100,1)) == 0:
             print(timestep)
+            print("Progress update at " + datetime.now().strftime("%H:%M:%S"))
 
         # Step-by-step initialisation.
         if timestep != runin_timestep:
@@ -435,5 +440,5 @@ def simulate_universe(time_period, runin_timestep=0, interval=1, express=False):
 runin_timestep = check_input_files(path_rundir)
 # simulate_universe(1000, express=True)
 # simulate_universe(100, runin_timestep, express=True)
-# simulate_universe(10000, runin_timestep, 1, express=True)
-simulate_universe(10000, runin_timestep, 100, express=True)
+simulate_universe(10000, runin_timestep, 1, express=True)
+# simulate_universe(10000, runin_timestep, 100, express=True)
