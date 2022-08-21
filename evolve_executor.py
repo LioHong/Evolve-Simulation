@@ -133,7 +133,7 @@ def convert_b4_to_decimal(evd):
     elif evd[0] == '2':
         dec_num = -2 ** 17
     elif evd[0] == '3':
-        dec_num = -2 ** 15
+        dec_num = -2 ** 16
 
     for i in range(1, len(evd)):
         real_num = int(evd[i]) * 4 ** (len(evd) - i - 1)
@@ -168,9 +168,9 @@ def convert_kforth_to_base4(kforth_genome):
 
 def convert_base4_to_kforth(b4_genome):
     # Invert dicts
-    b4_kword_dict = {v: k for k, v in kword_b4_dict.items()}
+    b4_instr_dict = {v: k for k, v in instr_b4_dict.items()}
     br_num_dict = {v: k for k, v in num_b4_dict.items()}
-    kforth_genome = [b4_kword_dict[evd_b4] if evd_b4 in b4_kword_dict else evd_b4 for evd_b4 in b4_genome]
+    kforth_genome = [b4_instr_dict[evd_b4] if evd_b4 in b4_instr_dict else evd_b4 for evd_b4 in b4_genome]
     kforth_genome = [br_num_dict[evnum] if evnum in br_num_dict else evnum for evnum in kforth_genome]
     return kforth_genome
 
@@ -202,12 +202,14 @@ def convert_nucleotide_to_base4(nt_genome):
 # Convert keywords to AA-FF for storage.
 def convert_base4_to_aaff(b4_genome):
     aaff_genome = [b4_aaff_dict[evd] if evd in b4_aaff_dict else evd for evd in b4_genome]
+    # Converts to integer string.
     aaff_genome = [str(convert_b4_to_intstr(evd)) if len(evd) > 2 else evd for evd in aaff_genome]
     return aaff_genome
 
 
 def store_aaff(aaff_genome):
-    return ''.join(aaff_genome)
+    aaff_string = ''.join(aaff_genome)
+    return aaff_string.replace("__","_")
 
 
 def retrieve_aaff(aaff_string):
@@ -217,7 +219,7 @@ def retrieve_aaff(aaff_string):
     aaff_list = [x for x in aaff_list if x != ""]
     aaff_genome = []
     for elm in aaff_list:
-        if not elm.isdigit():
+        if not (elm.isdigit() or elm[0] == "-"):
             # Split all the remaining AAFFs into pairs.
             evd_list = [elm[s:s + 2] for s in range(0, len(elm), 2) if len(elm[s:s + 2]) > 1]
             # Flatten the list.
@@ -259,6 +261,47 @@ def check_input_files(path_run_in):
         return int(files_list[0].split('_')[-1])
 
 
+# To eyeball the genome.
+def translate_aaff_to_kforth(aaff_string):
+    aaff_genome = retrieve_aaff(aaff_string)
+    b4_genome = convert_aaff_to_base4(aaff_genome)
+    kforth_genome = convert_base4_to_kforth(b4_genome)
+    kforth_string = ' '.join(kforth_genome)
+    kforth_string = kforth_string.replace("row ", "row")    
+    return kforth_string
+
+
+# Split into rows for readability.
+def split_kforth_to_read(aaff_string):
+    kforth_string = translate_aaff_to_kforth(aaff_string)
+    kforth_rows_list = kforth_string.split("row")
+    kforth_rows_list = [kforth_rows_list[0]] + ["row"+row for row in kforth_rows_list[1:]]
+    return kforth_rows_list
+
+
+# Fix negative numbers in strain_genome_015 as they were far too large.
+def fix_negnum_in_aaff(path_in):
+    with open(path_in, "rt") as sgen:
+        wrong = sgen.readlines()
+    rabbit = [x.split("_") for x in wrong]
+    turtles = []
+    for bun in rabbit:
+        ninja = []
+        for b in bun:
+            if b.isdigit() and len(b) == 5 and b[0] == '3':
+                c = int(b) - 2**15
+                ninja.append(str(c))
+            else:
+                ninja.append(b)
+        turtles.append(ninja)
+        torts = ["_".join(t) for t in turtles]
+        torts = [t.replace("__", "_") + "\n" for t in torts]
+    with open(path_strain_genome, "wt") as pstr:
+        pstr.truncate(0)
+        for line in torts:
+            pstr.write(line)
+            
+            
 # # For future formatting of filenames.
 # num_lead_zeroes = int(log10(time_period)) + 1
 def simulate_universe(time_period, runin_timestep=0, interval=1, express=False):
