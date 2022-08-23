@@ -294,9 +294,10 @@ def fix_negnum_in_aaff(path_in):
             else:
                 ninja.append(b)
         turtles.append(ninja)
-        torts = ["_".join(t) for t in turtles]
-        torts = [t.replace("__", "_") + "\n" for t in torts]
-    with open(path_strain_genome, "wt") as pstr:
+        
+    torts = ["_".join(t) for t in turtles]
+    torts = [t.replace("__", "_") + "\n" for t in torts]
+    with open(path_in, "wt") as pstr:
         pstr.truncate(0)
         for line in torts:
             pstr.write(line)
