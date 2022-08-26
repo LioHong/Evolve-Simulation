@@ -26,8 +26,8 @@ pd.set_option('display.expand_frame_repr', False)
 # ===== PATHS =====
 # Edit a BATCH file to run the input and output Evolve files.
 path_evodir = r"C:\Program Files (x86)\Evolve"
-# path_workdir = r"C:\Users\Julio Hong\Documents\LioHong\Evolve-Simulation\\"
-path_workdir = r"C:\Users\Lio Hong\Documents\LioHong\Evolve-Simulation\\"
+path_workdir = r"C:\Users\Julio Hong\Documents\LioHong\Evolve-Simulation\\"
+# path_workdir = r"C:\Users\Lio Hong\Documents\LioHong\Evolve-Simulation\\"
 path_template_bat = os.path.join(path_workdir, "evo_template.bat")
 # Eventually can adjust based on user input.
 run_num = "015"
@@ -379,23 +379,29 @@ def load_strain_genome(path_sgen):
     sfgen_dict = dict(zip(keys, values))
     return sfgen_dict
 
-from Bio.Seq import Seq
-from Bio.SeqRecord import SeqRecord
-from Bio.Align import MultipleSeqAlignment
-from Bio import AlignIO
-def align_multiple_ids(orgid_list, strain_genome_dict):
-    seqrec_list = []
-    for oid in orgid_list:
-        aaff_string = strain_genome_dict[oid]
-        # Unspool each aaff_string for each org_id.
-        nt_seq = unspool_aaff_for_msa(aaff_string)
-        # 'Hard' way of writing an alignment: MSA > SeqRecord > Seq
-        seqrec = SeqRecord(Seq(nt_seq), id=str(oid))
-        # Append to a list of SeqRecords.
-        seqrec_list.append(seqrec)
-    # MSA wrap around this list.
-    ms_align = MultipleSeqAlignment(seqrec_list)
-    return ms_align
+# sgfif = load_strain_genome(r"C:\Users\Julio Hong\Documents\LioHong\Evolve-Archives\strain_genome_015a.txt")
+# sgten = load_strain_genome(r"C:\Users\Julio Hong\Documents\LioHong\Evolve-Archives\strain_genome_010a.txt")
+# overlaps = [x for x in sgfif if x in sgten]
+# sgall = sgfif | sgten
+# len(sgfif) + len(sgten) - len(sgall)
+
+# from Bio.Seq import Seq
+# from Bio.SeqRecord import SeqRecord
+# from Bio.Align import MultipleSeqAlignment
+# from Bio import AlignIO
+# def align_multiple_ids(orgid_list, strain_genome_dict):
+#     seqrec_list = []
+#     for oid in orgid_list:
+#         aaff_string = strain_genome_dict[oid]
+#         # Unspool each aaff_string for each org_id.
+#         nt_seq = unspool_aaff_for_msa(aaff_string)
+#         # 'Hard' way of writing an alignment: MSA > SeqRecord > Seq
+#         seqrec = SeqRecord(Seq(nt_seq), id=str(oid))
+#         # Append to a list of SeqRecords.
+#         seqrec_list.append(seqrec)
+#     # MSA wrap around this list.
+#     ms_align = MultipleSeqAlignment(seqrec_list)
+#     return ms_align
 # # Write to a PHYLIP file.
 # AlignIO.write(my_alignments, "my_example.phy", "phylip")
 
@@ -414,6 +420,57 @@ def align_multiple_ids(orgid_list, strain_genome_dict):
 # bkall_df.loc[overlaps].head(20)
 # # Too many rows to view entirely in spreadsheet.
 # bkall_df.to_csv(os.path.join(path_rundir, "book_of_life_015_010.csv"))
+
+
+# From a list of org_ids from a file, create an ALN file to align with Unipro UGENE.
+def align_many_ids(strain_genome_dict, id_list, prefix, path_out, pad_digits=0):
+    # Follow the format: "CLUSTAL W 2.0 multiple sequence alignment\n\n"
+    # Blank line.
+    aln_list = ["CLUSTAL W 2.0 multiple sequence alignment\n\n"]
+    frag_dict = {}
+    flen_max = 0
+    for orgid in id_list:
+        org_genome = unspool_aaff_for_msa(strain_genome_dict[orgid])
+        # Split into fragments of length 70.
+        frag_list = [org_genome[s:s + 70] for s in range(0, len(org_genome), 70) if len(org_genome[s:s + 70]) > 69]
+        # Add the final fragment of length < 70.
+        tail_frag = org_genome[len(frag_list) * 70:]
+        tail_frag = tail_frag + "-" * (70 - len(tail_frag))
+        frag_list.append(tail_frag)
+        frag_dict[orgid] = frag_list
+        
+        if len(frag_list) > flen_max:
+            flen_max = len(frag_list)
+    
+    # Pad out the frag_list with dash-only fragments.
+    for orgid in id_list:
+        if len(frag_dict[orgid]) < flen_max:
+            for i in range(flen_max - len(frag_dict[orgid])):
+                frag_dict[orgid].append("-" * 70)
+                
+    # Decide how many digits each org_id should have.
+    padded_ids_dict = {}
+    oid_max = len(str(max(id_list)))
+    for orgid in id_list:
+        if len(str(orgid)) < oid_max:
+            padded_ids_dict[orgid] = "0" * (oid_max - len(str(orgid)) + pad_digits) + str(orgid)
+        else:
+            padded_ids_dict[orgid] = "0" * pad_digits + str(orgid)
+
+    # Add the fragments by org_id and multiple of 70.
+    for i in range(flen_max):
+        for orgid in id_list:            
+            # Sequence name + 4 spaces + 70 nts + 1 space + multiple of 70.
+            line = prefix + "_" + str(padded_ids_dict[orgid]) + " "*4 + frag_dict[orgid][i] + " " + str((i+1)*70) + "\n"
+            aln_list.append(line)
+        aln_list.append("\n\n")
+
+    # Write to ALN file.
+    with open(path_out, "wt") as f:
+        for line in aln_list:
+            f.write(line)
+
+    # Align with Unipro UGENE via batch file.
 
             
 # # For future formatting of filenames.
