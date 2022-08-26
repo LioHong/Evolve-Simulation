@@ -1,0 +1,302 @@
+CLUSTAL W 2.0 multiple sequence alignment
+
+010_0000105    GAAAAACAGAAAAAAAATTCCCCCCCC---------AAAAAAATCGAAAAAGGG---------------- 70
+010_0000076    GAAAAACAGAAAAAAAATTCCCCCCCC---------AAAAAAATCGAAAAAGGG---------------- 70
+010_0000021    GAAAAACAGAAAAAAAATTCCCCCCCC---------AAAAAAATCGAAAAAGGG---------------- 70
+010_0000001    GAAAAACAGAAAAAAAATTCCCCCCCC---------AAAAAAATCGAAAAAGGG---------------- 70
+010_0000122    GAAAAACAGAAAAAAAATTCCCCCCCC---------AAAAAAATCGAAAAAGGG---------------- 70
+010_0000112    GAAAAACAGAAAAAAAATTCCCCCCCC---------AAAAAAATCGAAAAAGGG---------------- 70
+010_0004097    GAAAAACAGAAAAAAAATTCCCCCCCC---------AAAAAAATCGAAAAAGGG---------------- 70
+010_0000910    GAAAAACAGAAAAAAAATTCCCCCCCC---------AAAAAAATCGAAAAAGGG---------------- 70
+010_0004257    GAAAAACAGAAAAAAAATTCCCCCCCC---------AAAAAAATCGAAAAAGGG---------------- 70
+010_0005734    GAAAAACAGAAAAAAAATTCCCCCCCC---------AAAAAAATCGAAAAAGGGTCCCCCCGGTCCCCCT 70
+010_0156165    GAAAAACAGAAAAAAAATTCCCCCCCC---------AAAAAAATCGAAAAAGGG---------------- 70
+010_0009525    GAAAAACAGAAAAAAAATTCCCCCCCC---------AAAAAAATCGAAAAAGGG---------------- 70
+010_0156608    GAAAAACAGAAAAAAAATTCCCCCCCCGAAAAAGGGAAAAAAATCGAAAAAGGG---------------- 70
+010_0267113    GAAAAACAGAAAAAAAATTCCCCCCCC---------AAAAAAATCGAAAAAGGG---------------- 70
+010_0414671    GAAAAACAGAAAAAAAATTCCCCCCCC---------AAAAAAATCGAAAAAGGG---------------- 70
+010_0323554    GAAAAACAGAAAAAAAATTCCCCCCCC---------AAAAAAATCGAAAAAGGG---------------- 70
+010_0452989    GAAAAACAGAAAAAAAATTCCCCCCCC---------AAAAAAATCGAAAAAGGG---------------- 70
+010_0534475    GAAAAACAGAAAAAAAATTCCCCCCCC---------AAAAAAATCGAAAAAGGG---------------- 70
+               ***************************         ******************                
+
+010_0000105    --------------------TCCCCCCAATCCCCCTTATCCCCCCGGTCCCCCTGT-------------- 140
+010_0000076    --------------------TCCCCCCAATCCCCCTTATCCCCCCGGTCCCCCTGT-------------- 140
+010_0000021    --------------------TCCCCCCAATCCCCCTTATCCCCCCGGTCCCCCTGT-------------- 140
+010_0000001    --------------------TCCCCCCAATCCCCCTTATCCCCCCGGTCCCCCTGT-------------- 140
+010_0000122    --------------------TCCCCCCAATCCCCCTTATCCCCCCGGTCCCCCTGT-------------- 140
+010_0000112    --------------------TCCCCCCAATCCCCCTTATCCCCCCGGTCCCCCTGTAAAAATAGTAAAAA 140
+010_0004097    --------------------TCCCCCCAATCCCCCTTATCCCCCCGGTCCCCCTGTAAAAAAAA------ 140
+010_0000910    --------------------TCCCCCCAATCCCCCTTATCCCCCCGGTCCCCCTGT-------------- 140
+010_0004257    --------------------TCCCCCCAATCCCCCTTATCCCCCCGGTCCCCCTGT-------------- 140
+010_0005734    GTTCCCCCCGGAAAAAAAATTCCCCCCAATCCCCCTTATCCCCCCGGTCCCCCTGT-------------- 140
+010_0156165    --------------------TCCCCCCAATCCCCCTTATCCCCCCGGTCCCCCTGT-------------- 140
+010_0009525    --------------------TCCCCCCAATCCCCCTTATCCCCCCGGTCCCCCTGT-------------- 140
+010_0156608    --------------------TCCCCCCAATCCCCCTTATCCCCCCGGTCCCCCTGT-------------- 140
+010_0267113    --------------------TCCCCCCAATCCCCCTTATCCCCCCGGTCCCCCTGT-------------- 140
+010_0414671    --------------------TCCCCCCAATCCCCCTTATCCCCCCGGTCCCCCTGT-------------- 140
+010_0323554    --------------------TCCCCCCAATCCCCCTTA-------------------------------- 140
+010_0452989    --------------------TCCCCCCAATCCCCCTGTTCCCCCCGGTCCCCCTTA-------------- 140
+010_0534475    --------------------TCCCCCCAATCCCCCTTATCCCCCCGGTCCCCCTGT-------------- 140
+                                   ****************                                  
+
+010_0000105    ----TCCCCCCGGAAAAAAAATTCCCCCCCA--------------------------------------- 210
+010_0000076    ----TCCCCCCGGAAAAAAAATTCCCCCCCA---------------------------ATCCCGCTCGAA 210
+010_0000021    ----TCCCCCCGGAAAAAAAATTCCCCCCCA--------------------------------------- 210
+010_0000001    ----TCCCCCCGGAAAAAAAATTCCCCCCCA--------------------------------------- 210
+010_0000122    ----TCCCCCCGGAAAAAAAATTCCCCCCCA--------------------------------------- 210
+010_0000112    ATGCTCCCCCCGGAAAAAAAATTCCCCCCCA--------------------------------------- 210
+010_0004097    ----TTCCCCCGGGAAAAAACCGTCCCCCCA--------------------------------------- 210
+010_0000910    ----TCCCCCCGGAAAAAAAATTCCCCCCCA--------------------------------------- 210
+010_0004257    ----TCCCCCCGGAAAAAAAATTCCCCCCCA--------------------------------------- 210
+010_0005734    ----TCCCCCCGGAAAAAAAATTCCCCCCCA--------------------------------------- 210
+010_0156165    ----TCCCCCCGGAAAAAAAATTCCCCCCCA--------------------------------------- 210
+010_0009525    ----TCCCCCCGGAAAAAAAATTCCCCCCCATCCCCCCGGTCCCCCTGTGAAAAAAACAAAAAATACATC 210
+010_0156608    ----TCCCCCCGGAAAAAAAATTCCCCCCCA--------------------------------------- 210
+010_0267113    -------------AAAAAAAATTCCCCCCCA--------------------------------------- 210
+010_0414671    -------------AAAAAAAATTCCCCCCCA--------------------------------------- 210
+010_0323554    -------------AAAAAAAATTCCCCCCCA--------------------------------------- 210
+010_0452989    ----TCCCCCCGGAAAAAAAATTCCCCCCCA--------------------------------------- 210
+010_0534475    ----TCCCCCCGGAAAAAAAATTCCCCCCCA--------------------------------------- 210
+                             ******    *******                                       
+
+010_0000105    ---------------------------------------------------------------------- 280
+010_0000076    AAATCGTCCCCCGAGTCCCCCCAATCCCCCACGAAAAAAAATGAAAAAGCGAAAAAAATAGAAAAAAGCG 280
+010_0000021    ------------------------TCCCCCACGAAAAAAAATGAAAAAGCGAAAAAAATAGAAAAAA--- 280
+010_0000001    ------------------------TCCCCCACGAAAAAAAATGAAAAAGCGAAAAAAATAGAAAAAAGCG 280
+010_0000122    ------------------------TCCCCCACGAAAAAAAATAAAAAA---------------------- 280
+010_0000112    ------------------------TCCCCCACGAAAAAAAATGAAAAAGCGAAAAAAATAGAAAAAAGCG 280
+010_0004097    -----ATCCCCCTGTTCCCCCCGGTCCCCCACGAAAAAAAATGAAAAAGCGAAAAAAATAGAAAAAAGCG 280
+010_0000910    ------------------------TCCCCCACGAAAAAAAATAAAAAA---------------------- 280
+010_0004257    ------------------------TCCCCCACGAAAAAAAATGAAAAAGCGAAAAAAATAGAAAAAAGCG 280
+010_0005734    ------------------------TCCCCCACGAAAAAAAATGAAAAAGCGAAAAAAATAGAAAAAAGCG 280
+010_0156165    ------------------------TCCCCCACGAAAAAAAATGAAAAAGCGAAAAAAATAGAAAAAAGCG 280
+010_0009525    CCGTCGATCCCGCGATCCCCCCGGTCCCCCACGAAAAAAAATGAAAAAGCGAAAAAAATAGAAAAAAGCG 280
+010_0156608    ------------------------TCCCCCACGAAAAAAAATGAAAAAGCGAAAAAAATAGAAAAAAGCG 280
+010_0267113    ------------------------TCCCCCACGAAAAAAAATGAAAAAGCGAAAAAAATAGAAAAAAGCG 280
+010_0414671    ------------------------TCCCCCACGAAAAAAAATGAAAAAGCGAAAAAAATAGAAAAAAGCG 280
+010_0323554    ------------------------TCCCCCACGAAAAAAAATGAAAAAGCGAAAAAAATAGAAAAAAGCG 280
+010_0452989    ------------------------TCCCCCACGAAAAAAAATGAAAAAGCGAAAAAAATAGAAAAAAGCG 280
+010_0534475    ------------------------TCCCCCACGAAAAAAAATGAAAAAGCGAAAAAAATAGAAAAAAGCG 280
+                                                                                     
+
+010_0000105    ---------------------------------------------------------------------- 350
+010_0000076    AAAAAT-------CTAAAAAAACCGAAAAAGGCTCCCCCCAAGAAAAATAGTCCCCCTTTTCCCCCCGGG 350
+010_0000021    -------------------------------GCTCCCCCCGGGAAAAATAGTCCCCCTTTTCCCCCCAAG 350
+010_0000001    AAAAAT-------CTAAAAAAACCGAAAAAGGCTCCCCCCAAGAAAAATAGTCCCCCTTTTCCCCCCGGG 350
+010_0000122    ---AATTCCCCCCCCAAAAAAATCGAAAAAGGGTCCCCCCAA---------TCCCCCTTATCCCCCCG-- 350
+010_0000112    AAAAAT-------CTAAAAAAACCGAAAAAGGCTCCCCCCAAGAAAAATAGTCCCCCTTTTCCCCCCGGG 350
+010_0004097    AAAAAT-------CTAAAAAAACCGAAAAAGGCTCCCCCCAAGAAAAATAGTCCCCCTTTTCCCCCCGGG 350
+010_0000910    ---AATTCCCCCCCCAAAAAAATCGAAAAAGGGTCCCCCCAA---------TCCCCCTTATCCCCCCG-- 350
+010_0004257    AAAAAT-------CTAAAAAAACCGAAAAAGGCTCCCCCCAAGAAAAATAGTCCCCCTTTTCCCCCCGGG 350
+010_0005734    AAAAAT-------CTAAAAAAACCGAAAAAGGCTCCCCCCAAGAAAAATAGTCCCCCTTTTCCCCCCGGG 350
+010_0156165    AAAAAT-------CTAAAAAAACCGAAAAAGGCTCCCCCCAAGAAAAATAGTCCCCCTTTTCCCCCCGGG 350
+010_0009525    AAAAAT-------CTAAAAAAACCGAAAAAGGCTCCCCCCAAGAAAAATAGTCCCCCTTTTCCCCCCGGG 350
+010_0156608    AAAAAT-------CTAAAAAAACCGAAAAAGGCTCCCCCCAAGAAAAATAGTCCCCCTTTTCCCCCCGGG 350
+010_0267113    AAAAAT-------CTAAAAAAACCGAAAAAGGCTCCCCCCAAGAAAAATAGTCCCCCTTTTCCCCCCGGG 350
+010_0414671    AAAAAT-------CTAAAAAAACCGAAAAAGGCTCCCCCCAAGAAAAATAGTCCCCCTTTTCCCCCCGGG 350
+010_0323554    AAAAAT-------CTAAAAAAACCGAAAAAGGCTCCCCCCAAGAAAAATAGTCCCCCTTTTCCCCCCGGG 350
+010_0452989    AAAAAT-------CTAAAAAAACCGAAAAAGGCTCCCCCCAAGAAAAATAGTCCCCCTTTTCCCCCCGGG 350
+010_0534475    AAAAAT-------CTAAAAAAACCGAAAAAGGCTCCCCCCAAGAAAAATAGTCCCCCTTTTCCCCCCGGG 350
+                                                                                     
+
+010_0000105    ---------------------------------------------------------------------- 420
+010_0000076    AAAAATAGTCCCCCTTT---------TCCCCCCGGAAAAAAAAGGAAAAAGGGGAAAAAACC-------- 420
+010_0000021    AAAAATAGTCCCCCTTT---------------------------GAAAAATCTAAAAAAACC-------- 420
+010_0000001    AAAAATAGTCCCCCTTT---------TCCCCCCGGAAAAAAAAGGAAAAAGGGGAAAAAACC-------- 420
+010_0000122    -------GTCCCCCTGT---------TCCCCCC-----------------GGAAAAAAAA---------- 420
+010_0000112    AAAAATAGTCCCCCTTT---------TCCCCCCGGAAAAAAAAGGAAAAAGGGGAAAAAACC-------- 420
+010_0004097    AAAAATAGTCCCCCTTT---------TCCCCCCGGAAAAAAAAGGAAAAAGGGGAAAAAACCTCCCCCCG 420
+010_0000910    -------GTCCCCCTGT---------TCCCCCC-----------------GGAAAAAAAA---------- 420
+010_0004257    AAAAATAGTCCCCCTTT---------TCCCCCCGGAAAAAAAAGGAAAAAGGGGAAAAAACC-------- 420
+010_0005734    AAAAATAGTCCCCCTTT---------TCCCCCCGGAAAAAAAAGGAAAAAGGGGAAAAAACCTCCCCCCA 420
+010_0156165    AAAAATAGTCCCCCTTT---------TCCCCCCGGAAAAAAAAGGAAAAAGGGGAAAAAACCTCCCCC-- 420
+010_0009525    AAAAATAGTCCCCCTTT---------TCCCCCCGGAAAAAAAAGGAAAAAGGGGAAAAAACCTCCCCCCA 420
+010_0156608    AAAAATAGTCCCCCTTT------------------------------------GAAAAAACCTCCCCCCA 420
+010_0267113    AAAAATAGTCCCCCTTT---------TCCCCCCGGAAAAAAAAGGAAAAAGGGGAAAAAACCTCCCCCCA 420
+010_0414671    AAAAATAGTCCCCCTTTGAAAAATATTCCCCCC---------CAGAAAAAGGGGAAAAAACCTCCCCCCA 420
+010_0323554    AAAAATAGTCCCCCTTT---------TCCCCCCGGAAAAAAAAGGAAAAAGGGGAAAAAACCTCCCCC-- 420
+010_0452989    AAAAATAGTCCCCCTTT---------TCCCCCCGGAAAAAAAAGGAAAAAGGGGAAAAAACCTCCCCCCA 420
+010_0534475    AAAAATAGTCCCCCTTTGAAAAATATTCCCCCC---------CAGAAAAAGGGGAAAAAACCCCCCCGCT 420
+                                                                                     
+
+010_0000105    ---------------------------------------------------------------------- 490
+010_0000076    ---------------------------------------------------------------------- 490
+010_0000021    ---------------------------------------------------------------------- 490
+010_0000001    ---------------------------------------------------------------------- 490
+010_0000122    ---------------------------------------------------------------------- 490
+010_0000112    ---------------------------------------------------------------------- 490
+010_0004097    GAAAAAAAATTCCCCCCCATCCCCCTG------------------------------------------- 490
+010_0000910    ---------------------------------------------------------------------- 490
+010_0004257    ---------------------------------------------------------------------- 490
+010_0005734    ATCCCCCTGTTCCCCCCGGTCCCCCTG------------------------------------------- 490
+010_0156165    ---------------------------------------------------------------------- 490
+010_0009525    A---------TCCCCCTGTTCCCCCCG------------------------------------------- 490
+010_0156608    ATCCCCCTGTTCCCCCCGGTCCCCCTG------------------------------------------- 490
+010_0267113    ATCCCCCTGTTCCCCCCGGTCCCCCTGTTCCCCCACGAAAAAAAAGTCCCCCACGAAAAAAAACTCCCCC 490
+010_0414671    AGAAAAAATTTCCCCCTCGTCCCCCGG------------------------------------------- 490
+010_0323554    ---------------------------------------------------------------------- 490
+010_0452989    ATCCCCCTGTTCCCCCCGGTCCCCCTG---------TTCCCCCCGGTCCCCCACGAAAAAAAAGAAAAAA 490
+010_0534475    CTCCCCCTTTTCCCCCTGTTCCCCCCGGTCCCCCTGTTCCCCCCGGTCCCCCACGAAAAAAAAGAAAAAA 490
+                                                                                     
+
+010_0000105    ---------------------------------------------------------------------- 560
+010_0000076    ---------------------------------------------------------------------- 560
+010_0000021    ---------------------------------------------------------------------- 560
+010_0000001    ---------------------------------------------------------------------- 560
+010_0000122    ---------------------------------------------------------------------- 560
+010_0000112    ---------------------------------------------------------------------- 560
+010_0004097    ---------------------------------------------------------------------- 560
+010_0000910    ---------------------------------------------------------------------- 560
+010_0004257    ---------------------------------------------------------------------- 560
+010_0005734    ---------------------------------------------------------------------- 560
+010_0156165    ---------------------------------------------------------------------- 560
+010_0009525    ---------------------------------------------------------------------- 560
+010_0156608    ---------------------------------------------------------------------- 560
+010_0267113    ACGAAAAAAATAGAAAAAGCAGAAAAAGGGAAAAAAATCAAAAAAAATTCCCCCCCCTCCCCCCGGAAAA 560
+010_0414671    ---------------------------------------------------------------------- 560
+010_0323554    ---------------------------------------------------------------------- 560
+010_0452989    TCAGAAAAAGTAGAAAAAGAGGAAAAAAAGAAAAAAAATGAAAAAGGGTCCCCCC--------------- 560
+010_0534475    AATTCCCCCCCCAAAAAAATCAAAAAAAA----------------------------------------- 560
+                                                                                     
+
+010_0000105    ---------------------------------------------------------------------- 630
+010_0000076    ---------------------------------------------------------------------- 630
+010_0000021    ---------------------------------------------------------------------- 630
+010_0000001    ---------------------------------------------------------------------- 630
+010_0000122    ----TTCCCCCCCATCCCCCACGAAAAAAAAGGAAAAA--------GCGAAAAAAATA---------GAA 630
+010_0000112    ---------------------------------------------------------------------- 630
+010_0004097    ----TTCCCCCCGGTCCCCCACGAAAAAAAAGGAAAAA--------GCGAAAAAAATA---------GAA 630
+010_0000910    ----TTCCCCCCCATCCCCCACGAAAAAAAAGGAAAAA--------GCGAAAAAAATA---------GAA 630
+010_0004257    ---------------------------------------------------------------------- 630
+010_0005734    ----TTCCCCCCGGTCCCCCACGAAAAAAAAGAAAAAAAATTCCCCCCCCAAAAAAA------------- 630
+010_0156165    ---------------------------------------------------------------------- 630
+010_0009525    ---------------------------------------------------------------------- 630
+010_0156608    ----TTCCCCCCGGTCCCCCACGAAAAAAAAGGAAAAA--------GCGAAAAAAATA---------GAA 630
+010_0267113    AAAATTCCCCCCCATCCCCCACGAAAAAAATTGAAAAA--------GCGAAAAAAATA---------GAA 630
+010_0414671    ----ATCCCCCGTTTCCCCCACGAAAAAAAAGAAAAAACTGTCCCCCCGGAAAAAAAA---------GTC 630
+010_0323554    ---------------------------------------------------------------------- 630
+010_0452989    ---AATCCCCCTTATCCCCCACGAAAAAAAACAAAAAACTGTCCCCCCGGAAAAAAAA---------GTC 630
+010_0534475    ----TTCCCCCCCATCCCCCACGAAAAAAAACGAAAAAGGGTCCCCCCGGAAAAAAAATTCCCCCCCATC 630
+                                                                                     
+
+010_0000105    ---------------------------------------------------------------------- 700
+010_0000076    ---------------------------------------------------------------------- 700
+010_0000021    ----------------------------------------------------GAAAAAGGCTCCCCCCG- 700
+010_0000001    ---------------------------------------------------------------------- 700
+010_0000122    AAAAGCGAAAAATCTAAAAAAACC----------------------------GAAAAAGGCTCCCCCCAA 700
+010_0000112    ---------------------------------------------------------------------- 700
+010_0004097    AAAAGCGAAAAATCTAAAAAAACC----------------------------GAAAAAGGCTCCCCCCAA 700
+010_0000910    AAAAGCGAAAAATCTAAAAAAACC----------------------------GAAAAAGGCTCCCCCCAA 700
+010_0004257    ---------------------------------------------------------------------- 700
+010_0005734    ----------------------TC----------------------------GAAAAAGGGTCCCCCC-- 700
+010_0156165    ---------------------------------------------------------------------- 700
+010_0009525    ------GAAAAAATTGTCCCCCCC------------------------------------CTCCCCCCCA 700
+010_0156608    AAAAGCGAAAAATCTAAAAAAACC----------------------------GAAAAAGGCTCCCCCCAA 700
+010_0267113    AAAAGCGAAAAATCTAAAAAAACC----------------------------GAAAAAGGCTCCCCCCAA 700
+010_0414671    CCCCACGAAAAAAAACTCCCCCAC----------------------------GAAAAAAATATCCCCCAC 700
+010_0323554    ---------------------------------------------------------------------- 700
+010_0452989    CCCCACGAAAAAAATATCCCCCAC----------------------------GAAAAAAATTTCCCCCAC 700
+010_0534475    CCCCACGAAAAAAATATCCCCCTTTTCCCCCTGTTCCCCCCGGGAAAAAGCAGAAAAAGGGTCCCCCCGG 700
+                                                                                     
+
+010_0000105    ---------------------------------------------------------------------- 770
+010_0000076    ---------------------------------------------------------------------- 770
+010_0000021    ---------------------------------------------------------------------- 770
+010_0000001    ---------------------------------------------------------------------- 770
+010_0000122    GAAAAATAGTCCCCCTTTT--------------------------------------------------- 770
+010_0000112    ---------------------------------------------------------------------- 770
+010_0004097    GAAAAATAGTCCCCCTTTT--------------------------------------------------- 770
+010_0000910    GAAAAATAGTCCCCCTTTT--------------------------------------------------- 770
+010_0004257    ---------------------------------------------------------------------- 770
+010_0005734    -------GGTCCCCCTGTT--------------------------------------------------- 770
+010_0156165    ---------------------------------------------------------------------- 770
+010_0009525    GAAAAAGA-------------------------------------------------------------- 770
+010_0156608    GAAAAATAGTCCCCCTTTT--------------------------------------------------- 770
+010_0267113    GAAAAATAGTCCCCCTTTT--------------------------------------------------- 770
+010_0414671    GAAAAAAATTTCCCCCACGAAAAAAAT------------------------------------------- 770
+010_0323554    ---------------------------------------------------------------------- 770
+010_0452989    GAAAAAAATGTCCCCCACGAAAAAAATCGAAAAAACTTCCCCCGTTTCCCCCACGAAAAAAAGAAAAAAA 770
+010_0534475    AAAAAAAATTCCCCCC------------------------------------------------------ 770
+                                                                                     
+
+010_0000105    ---------------------------------------------------------------------- 840
+010_0000076    ---------------------------------------------------------------------- 840
+010_0000021    -------------------------------------------------------GAAAAAAAAGGAAAA 840
+010_0000001    ---------------------------------------------------------------------- 840
+010_0000122    ---------------------CCCCCCGGGAAAAATAGTCCCCCTTTTCCCCCCGGAAAAAAAAGGAAAA 840
+010_0000112    ---------------------------------------------------------------------- 840
+010_0004097    ---------------------CCCCCCGGGAAAAATAGTCCCCCTTTTCCCCCCGGAAAAAAAAGGAAAA 840
+010_0000910    ---------------------CCCCCCGGGAAAAATAGTCCCCCTTTTCCCCCCGGAAAAAAAAGGAAAA 840
+010_0004257    ---------------------------------------------------------------------- 840
+010_0005734    ---------------------CCCCCCGGAAAAAAAATTCCCCC-------------------------- 840
+010_0156165    ---------------------------------------------------------------------- 840
+010_0009525    ---------------------------------------------------------------------- 840
+010_0156608    ---------------------CCCCCCGGGAAAAATAGTCCCCCTTT----------------------- 840
+010_0267113    ---------------------CCCCCCGGGAAAAATAGTCCCCCTTTTCCCCCCGGAAAAAAAAGGAAAA 840
+010_0414671    -----------------------------GAAAAAAAATTCCCC--------CCCCAAAAAAA------- 840
+010_0323554    ---------------------------------------------------------------------- 840
+010_0452989    CCAAAAAAAATCGAAAAAACATCCCCCACGAAAAAAAGTTCCCC--------CACGAAAAAAAGGAAAAA 840
+010_0534475    -------------------CATCCCCCACGAAAAAAATTCCCCCGTCGTCCCCCACGAAAAAAATGCCCC 840
+                                                                                     
+
+010_0000105    ---------------------------------------------------------------------- 910
+010_0000076    -------------TCCCCCCAATCCCCCTGTTCCCCCCGGTCCCCCTGT--------------------- 910
+010_0000021    AGGGGAAAAAACCTCCCCCCAATCCCCCTGTTCCCCCCGGTCCCCCTGT--------------------- 910
+010_0000001    -------------TCCCCCCAATCCCCCTGTTCCCCCCGGTCCCCCTGT--------------------- 910
+010_0000122    AGGGGAAAAAACCTCCCCCCAATCCCCCTGTTCCCCCCGGTCCCCCTGT--------------------- 910
+010_0000112    -------------TCCCCCCAATCCCCCTGTTCCCCCCGGTCCCCCTGT--------------------- 910
+010_0004097    AGGGGAAAAAACCTCCCCCCGGAAAAAAAATTCCCCCCCATCCCCCTGT--------------------- 910
+010_0000910    AGGGGAAAAAACCTCCCCCCAATCCCCCTGTTCCCCCCGGTCCCCCTGT--------------------- 910
+010_0004257    -------------TCCCCCCAATCCCCCTGTTCCCCCCGGTCCCCCTGT--------------------- 910
+010_0005734    ----------CAATCCCCCTTATCCCCCCGGTCCCCCTGTTCCCCCCGGAAAAAAAAT------------ 910
+010_0156165    -------------------CAATCCCCCTGTTCCCCCCGGTCCCCCTGT--------------------- 910
+010_0009525    ---------------------------------------ATCCCCCTGT--------------------- 910
+010_0156608    -------------TCCCCCCAATCCCCCTGTTCCCCCCGGTCCCCCTGT--------------------- 910
+010_0267113    AGGGGAAAAAACCTCCCCCCAATCCCCCTGTTCCCCCCGGTCCCCCTGT--------------------- 910
+010_0414671    --TCGAAAAAGGGTCCCCCCAATCCCCCTTATCCCCCCGGTCCCCCTGTAAAAAAAATTCCCCCCCATCC 910
+010_0323554    -------------------CAATCCCCCTGTTCCCCCCGGTCCCCCTGT--------------------- 910
+010_0452989    AAATGAAAAAGGGTCCCCCCAATCCCCCTTATCCCCCCGGTCCCCCTGTAAAAAAAAT------------ 910
+010_0534475    CGGTAAAAAATTAGCCCCCGTCGCCCCCCATCTCCCCCCGTTCCCCCACGAAAAAAA------------- 910
+                                                                                     
+
+010_0000105    ---------------------------------------------------------------------- 980
+010_0000076    -------------TCCCCCCGG------------------------------------------------ 980
+010_0000021    -------------TCCCCCCGG------------------------------------------------ 980
+010_0000001    -------------TCCCCCCGG------------------------------------------------ 980
+010_0000122    -------------TCCCCCCGG------------------------------------------------ 980
+010_0000112    -------------TCCCCCCGG------------------------------------------------ 980
+010_0004097    -------------TCCCCCCGG------------------------------------------------ 980
+010_0000910    -------------TCCCCCCGG------------------------------------------------ 980
+010_0004257    -------------TCCCCCCGG------------------------------------------------ 980
+010_0005734    -------------TCCCCCCCA------------------------------------------------ 980
+010_0156165    ---------------------------------------------------------------------- 980
+010_0009525    -------------TCCCCCCGG------------------------------------------------ 980
+010_0156608    -------------TCCCCCCGG------------------------------------------------ 980
+010_0267113    -------------TCCCCCACG-----------------------------------------------A 980
+010_0414671    CCCACGAAAAAAATCTCCCCCACGAAAAAAAGATCCCCCACGAAAAAAA---------GTTCCCCCACGA 980
+010_0323554    -------------TCCCCCCGG------------------------------------------------ 980
+010_0452989    -------------TCCCCCCCA------------------------------------------------ 980
+010_0534475    -------------TCCCCCCGGTAAAAAATTAGCCCCCGTCGCCCCCCATCTCCCCCCGTTCCCCCACGA 980
+                                                                                     
+
+010_0000105    -------- 988
+010_0000076    -------- 988
+010_0000021    -------- 988
+010_0000001    -------- 988
+010_0000122    -------- 988
+010_0000112    -------- 988
+010_0004097    -------- 988
+010_0000910    -------- 988
+010_0004257    -------- 988
+010_0005734    -------- 988
+010_0156165    -------- 988
+010_0009525    -------- 988
+010_0156608    -------- 988
+010_0267113    AAAAAATG 988
+010_0414671    AAAAAAGG 988
+010_0323554    -------- 988
+010_0452989    -------- 988
+010_0534475    AAAAAAGA 988
+                       
+

@@ -16,12 +16,18 @@ import os
 from shutil import copyfile
 from math import log10
 from datetime import datetime
+import pandas as pd
+
+# To adjust the dataframe appearance
+pd.set_option('display.max_rows', 500)
+pd.set_option('display.max_columns', 20)
+pd.set_option('display.expand_frame_repr', False)
 
 # ===== PATHS =====
 # Edit a BATCH file to run the input and output Evolve files.
 path_evodir = r"C:\Program Files (x86)\Evolve"
-path_workdir = r"C:\Users\Julio Hong\Documents\LioHong\Evolve-Simulation\\"
-# path_workdir = r"C:\Users\Lio Hong\Documents\LioHong\Evolve-Simulation\\"
+# path_workdir = r"C:\Users\Julio Hong\Documents\LioHong\Evolve-Simulation\\"
+path_workdir = r"C:\Users\Lio Hong\Documents\LioHong\Evolve-Simulation\\"
 path_template_bat = os.path.join(path_workdir, "evo_template.bat")
 # Eventually can adjust based on user input.
 run_num = "015"
@@ -34,6 +40,7 @@ os.chdir(path_rundir)
 path_genome = os.path.join(path_rundir, "genomes_over_time_" + run_num + ".txt")
 path_strain_genome = os.path.join(path_rundir, "strain_genome_" + run_num + ".txt")
 path_book = os.path.join(path_rundir, "book_of_life_" + run_num + ".txt")
+path_fasta = os.path.join(path_rundir, "Individual Genomes")
 # All genomes present per timestep.
 genomes_over_time = {}
 # All genomes in the strain over time.
@@ -301,7 +308,113 @@ def fix_negnum_in_aaff(path_in):
         pstr.truncate(0)
         for line in torts:
             pstr.write(line)
-            
+
+
+# Take a string and automatically save it.
+# File_name is in format "run-num_org-id.seq".
+def save_aaff_to_fasta(aaff_string, file_name):
+    nt_seq = unspool_aaff_for_msa(aaff_string)
+    path_file = os.path.join(path_fasta, file_name + ".seq")
+    with open(path_file, "wt") as f:
+        f.write(nt_seq)
+  
+          
+# r"C:\Users\Lio Hong\Documents\LioHong\Evolve-Archives\book_of_life_010.txt"
+# r"C:\Users\Lio Hong\Documents\LioHong\Evolve-Archives\strain_genome_010.txt"
+# r"C:\Users\Lio Hong\Documents\LioHong\Evolve-Simulation\Runs\Run_015_big_bang\strain_genome_015a.txt"
+# r"C:\Users\Lio Hong\Documents\LioHong\Evolve-Simulation\Runs\Run_015_big_bang\book_of_life_015.txt"
+def examine_book_of_life(path_book):
+    # Open the text archive.
+    with open(path_book, "rt") as f:
+        bol = f.readlines()
+    # Format of an organism's entry: "31 1 1 1:[211, 387]/n"
+    # Process the string into lists.
+    idnums = [int(x.split(" ")[0]) for x in bol]
+    sporelayers = [int(x.split(" ")[1]) for x in bol]
+    sporeqks = [int(x.split(" ")[2]) for x in bol]
+    generations = [int(x.split(" ")[3].split(":")[0]) for x in bol] 
+    lifesteps = [x.split(":")[1][1:-2].split(",") for x in bol] 
+    birthsteps = [int(x[0]) for x in lifesteps] 
+    # For still-living organisms, set death-step to 0 so that lifespan will become negative.
+    deathsteps = [int(x[1]) if len(x)>1 else 0 for x in lifesteps]
+    # Combine all the lists into a df.
+    zipped = zip(idnums, sporelayers, sporeqks, generations, birthsteps, deathsteps)
+    bcols = ["ID", "Sporelayer", "Quickener", "Generation", "Birth_step", "Death_step"]
+    blife_df = pd.DataFrame(zipped, columns=bcols)
+    blife_df.set_index(["ID"], inplace=True)
+    # Sort because organisms aren't added to the archive in order.
+    blife_df = blife_df.sort_values(by=["ID"])
+    blife_df["Lifespan"] = blife_df.Death_step - blife_df.Birth_step
+    blife_df["Sex_check"] = blife_df.Quickener - blife_df.Sporelayer
+    
+    # ===== Data Handling =====
+    # Check which organism lived the longest. 
+    blife_df.Lifespan.max()
+    # Remove negative lifespans used to rep living organisms. Can raise threshold.
+    blife_df.loc[blife_df.Lifespan>-1,"Lifespan"].min()
+    # Check how many organisms managed to reproduce.
+    len(set(blife_df.Sporelayer))
+    len(set(blife_df.Quickener))
+    # Check which organism had the most children.
+    blife_df.Sporelayer.value_counts()
+    blife_df.Quickener.value_counts()
+    # Check which organism produced the most children via sexual reproduction.
+    blife_df.loc[blife_df.Sex_check!=0, "Sporelayer"].value_counts()
+    blife_df.loc[blife_df.Sex_check!=0, "Quickener"].value_counts()
+    # Find the oldest still-living organism.
+    blife_df.loc[blife_df.Lifespan<0, "Birth_step"].min()
+    # Related: Lifespan of oldest still-living organism.
+    blife_df.loc[blife_df.Lifespan>0, "Lifespan"].max()
+
+    return blife_df
+
+
+# Load as org_id:aaff_string. Other metadata isn't strictly required, alr in book_of_life.
+def load_strain_genome(path_sgen):
+    # Open the text archive.
+    with open(path_sgen, "rt") as f:
+        sfgen = f.readlines()
+    keys = [int(x.split(" ")[0]) for x in sfgen]
+    values = [x.split(":")[1][:-2] for x in sfgen]
+    sfgen_dict = dict(zip(keys, values))
+    return sfgen_dict
+
+from Bio.Seq import Seq
+from Bio.SeqRecord import SeqRecord
+from Bio.Align import MultipleSeqAlignment
+from Bio import AlignIO
+def align_multiple_ids(orgid_list, strain_genome_dict):
+    seqrec_list = []
+    for oid in orgid_list:
+        aaff_string = strain_genome_dict[oid]
+        # Unspool each aaff_string for each org_id.
+        nt_seq = unspool_aaff_for_msa(aaff_string)
+        # 'Hard' way of writing an alignment: MSA > SeqRecord > Seq
+        seqrec = SeqRecord(Seq(nt_seq), id=str(oid))
+        # Append to a list of SeqRecords.
+        seqrec_list.append(seqrec)
+    # MSA wrap around this list.
+    ms_align = MultipleSeqAlignment(seqrec_list)
+    return ms_align
+# # Write to a PHYLIP file.
+# AlignIO.write(my_alignments, "my_example.phy", "phylip")
+
+# # Stops line breaks when showing df in console.
+# pandas.set_option('display.expand_frame_repr', False)
+# overlaps = [x for x in bfif_df.index if x in blife_df.index]
+# # Book from run_010 takes precedence.
+# bkall_df = blife_df.combine_first(bfif_df)
+# len(bkall_df)
+# len(blife_df) + len(bfif_df) - len(overlaps)
+# # But the death_step for overlapping organisms is updated from run_015.
+# bkall_df.loc[overlaps, "Death_step"] = bfif_df.loc[overlaps, "Death_step"]
+# bkall_df["Lifespan"] = blife_df.Death_step - blife_df.Birth_step
+# bkall_df.loc[overlaps].head(20)
+# bkall_df["Lifespan"] = bkall_df.Death_step - bkall_df.Birth_step
+# bkall_df.loc[overlaps].head(20)
+# # Too many rows to view entirely in spreadsheet.
+# bkall_df.to_csv(os.path.join(path_rundir, "book_of_life_015_010.csv"))
+
             
 # # For future formatting of filenames.
 # num_lead_zeroes = int(log10(time_period)) + 1
@@ -481,8 +594,10 @@ def simulate_universe(time_period, runin_timestep=0, interval=1, express=False):
     
 
 # ===== EXECUTION =====
-runin_timestep = check_input_files(path_rundir)
-# simulate_universe(1000, express=True)
-# simulate_universe(100, runin_timestep, express=True)
-simulate_universe(10000, runin_timestep, 1, express=True)
-# simulate_universe(10000, runin_timestep, 100, express=True)
+if False:
+# if True:
+   runin_timestep = check_input_files(path_rundir)
+   # simulate_universe(1000, express=True)
+   # simulate_universe(100, runin_timestep, express=True)
+   simulate_universe(10000, runin_timestep, 1, express=True)
+   # simulate_universe(10000, runin_timestep, 100, express=True)
