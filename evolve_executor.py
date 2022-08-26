@@ -28,7 +28,8 @@ pd.set_option('display.expand_frame_repr', False)
 path_evodir = r"C:\Program Files (x86)\Evolve"
 path_workdir = r"C:\Users\Julio Hong\Documents\LioHong\Evolve-Simulation\\"
 # path_workdir = r"C:\Users\Lio Hong\Documents\LioHong\Evolve-Simulation\\"
-path_template_bat = os.path.join(path_workdir, "evo_template.bat")
+path_bat_evotemp = os.path.join(path_workdir, "evo_template.bat")
+path_bat_ugenetemp = os.path.join(path_workdir, "ugene_template.bat")
 # Eventually can adjust based on user input.
 run_num = "015"
 # Extract from filename?
@@ -423,7 +424,7 @@ def load_strain_genome(path_sgen):
 
 
 # From a list of org_ids from a file, create an ALN file to align with Unipro UGENE.
-def align_many_ids(strain_genome_dict, id_list, prefix, path_out, pad_digits=0):
+def align_many_ids(strain_genome_dict, id_list, prefix, path_aln, pad_digits=0):
     # Follow the format: "CLUSTAL W 2.0 multiple sequence alignment\n\n"
     # Blank line.
     aln_list = ["CLUSTAL W 2.0 multiple sequence alignment\n\n"]
@@ -466,11 +467,16 @@ def align_many_ids(strain_genome_dict, id_list, prefix, path_out, pad_digits=0):
         aln_list.append("\n\n")
 
     # Write to ALN file.
-    with open(path_out, "wt") as f:
+    with open(path_aln, "wt") as f:
         for line in aln_list:
             f.write(line)
 
     # Align with Unipro UGENE via batch file.
+    path_batrun_ugene = os.path.join(path_rundir, "run_" + run_num + "_" + run_name + "_ugene.bat")
+    copyfile(path_bat_ugenetemp, path_batrun_ugene)
+    replace_old_with_new(path_batrun_ugene, {"path_in":path_aln, "path_out":path_aln+"a"})
+    # Get the filename itself to run.
+    os.system(path_batrun_ugene.split('\\')[-1])
 
             
 # # For future formatting of filenames.
@@ -544,8 +550,8 @@ def simulate_universe(time_period, runin_timestep=0, interval=1, express=False):
             path_output_evo = os.path.join(path_rundir, run_name + "_" + str(runin_timestep+1))
             path_input_evo = path_start_evo
             # Copy the bat file and rename it.
-            path_run_bat = os.path.join(path_rundir, "run_" + run_num + "_" + run_name + ".bat")
-            copyfile(path_template_bat, path_run_bat)
+            path_batrun_evo = os.path.join(path_rundir, "run_" + run_num + "_" + run_name + "evolve.bat")
+            copyfile(path_bat_evotemp, path_batrun_evo)
             # Set the text to Find and Replace
             text_find_input = "path_in"
             text_find_output = "path_out"
@@ -553,9 +559,9 @@ def simulate_universe(time_period, runin_timestep=0, interval=1, express=False):
 
         # Run the batch file: Update paths in batch file based on timestep.
         replaceds = {text_find_output: path_output_evo, text_find_input: path_input_evo, "1u": str(interval)+"u"}
-        replace_old_with_new(path_run_bat, replaceds)
+        replace_old_with_new(path_batrun_evo, replaceds)
         # Get the filename itself to run.
-        os.system(path_run_bat.split('\\')[-1])
+        os.system(path_batrun_evo.split('\\')[-1])
 
         # Export PHASCII for output: Extract only the ORGANIC section from the PHASCII.
         path_output_phascii = path_output_evo + ".txt"
