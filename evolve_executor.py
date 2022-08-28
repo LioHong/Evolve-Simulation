@@ -386,10 +386,10 @@ def load_strain_genome(path_sgen):
 # sgall = sgfif | sgten
 # len(sgfif) + len(sgten) - len(sgall)
 
+
 # from Bio.Seq import Seq
 # from Bio.SeqRecord import SeqRecord
 # from Bio.Align import MultipleSeqAlignment
-# from Bio import AlignIO
 # def align_multiple_ids(orgid_list, strain_genome_dict):
 #     seqrec_list = []
 #     for oid in orgid_list:
@@ -462,12 +462,14 @@ def align_many_ids(strain_genome_dict, id_list, prefix, path_aln, pad_digits=0):
     for i in range(flen_max):
         for orgid in id_list:            
             # Sequence name + 4 spaces + 70 nts + 1 space + multiple of 70.
-            line = prefix + "_" + str(padded_ids_dict[orgid]) + " "*4 + frag_dict[orgid][i] + " " + str((i+1)*70) + "\n"
+            # line = prefix + "_" + str(padded_ids_dict[orgid]) + " "*4 + frag_dict[orgid][i] + " " + str((i+1)*70) + "\n"
+            # Max length of ID is 10 char, so omit prefix for now.
+            line = str(padded_ids_dict[orgid]) + " "*4 + frag_dict[orgid][i] + " " + str((i+1)*70) + "\n"
             aln_list.append(line)
         aln_list.append("\n\n")
 
     # Write to ALN file.
-    with open(path_aln, "wt") as f:
+    with open(path_aln+".aln", "wt") as f:
         for line in aln_list:
             f.write(line)
 
@@ -478,7 +480,36 @@ def align_many_ids(strain_genome_dict, id_list, prefix, path_aln, pad_digits=0):
     # Get the filename itself to run.
     os.system(path_batrun_ugene.split('\\')[-1])
 
-            
+    # Switch from UGENE to ClustalW 2.1.
+
+
+from Bio import Phylo, AlignIO
+from Bio.Phylo.TreeConstruction import DistanceCalculator, DistanceTreeConstructor
+path_phy_in = r"C:\Users\Julio Hong\Documents\LioHong\Evolve-Simulation\Runs\Run_015_big_bang\test_a.aln"
+path_phy_in = r'C:\Users\Julio Hong\Documents\LioHong\Evolve-Simulation\Runs\Run_015_big_bang\testb.phy'
+def draw_phylos(path_aln_in, path_phy_in):
+    # alignment = AlignIO.read(open(r"C:\Users\Julio Hong\Documents\LioHong\Evolve-Simulation\Runs\Run_015_big_bang\test.aln"), "clustal")
+    alignment = AlignIO.read(open(path_aln_in), "clustal")
+    print("Alignment length %i" % alignment.get_alignment_length())
+    for record in alignment:
+        print(record.seq + " " + record.id)
+    # align = AlignIO.read(r'C:\Users\Julio Hong\Documents\LioHong\Evolve-Simulation\Runs\Run_015_big_bang\testb.phy','phylip')
+    align = AlignIO.read(path_phy_in,'phylip')
+    print(align)
+    # Calculate the distance matrix
+    calculator = DistanceCalculator('identity')
+    distMatrix = calculator.get_distance(align)
+    print(distMatrix)
+    # Create a DistanceTreeConstructor object
+    constructor = DistanceTreeConstructor()# Construct the phlyogenetic tree using UPGMA algorithm
+    UPGMATree = constructor.upgma(distMatrix)# Construct the phlyogenetic tree using NJ algorithm
+    NJTree = constructor.nj(distMatrix)
+    # Draw the phlyogenetic tree.
+    Phylo.draw(UPGMATree)
+    # Draw the phlyogenetic tree using terminal
+    Phylo.draw_ascii(NJTree)
+
+       
 # # For future formatting of filenames.
 # num_lead_zeroes = int(log10(time_period)) + 1
 def simulate_universe(time_period, runin_timestep=0, interval=1, express=False):
