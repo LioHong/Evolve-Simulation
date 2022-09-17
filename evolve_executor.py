@@ -21,6 +21,7 @@ import pandas as pd
 # To adjust the dataframe appearance
 pd.set_option('display.max_rows', 500)
 pd.set_option('display.max_columns', 20)
+pd.set_option("display.width", 200)
 pd.set_option('display.expand_frame_repr', False)
 
 # ===== PATHS =====
@@ -31,7 +32,7 @@ path_workdir = r"C:\Users\Julio Hong\Documents\LioHong\Evolve-Simulation\\"
 path_bat_evotemp = os.path.join(path_workdir, "evo_template.bat")
 path_bat_ugenetemp = os.path.join(path_workdir, "ugene_template.bat")
 # Eventually can adjust based on user input.
-run_num = "015"
+run_num = "026"
 # Extract from filename?
 run_name = "big_bang"
 path_rundir = os.path.join(path_workdir, "Runs", "Run_" + run_num + "_" + run_name)
@@ -432,11 +433,13 @@ def align_many_ids(strain_genome_dict, id_list, prefix, path_aln, pad_digits=0):
     flen_max = 0
     for orgid in id_list:
         org_genome = unspool_aaff_for_msa(strain_genome_dict[orgid])
+        frag_len = 70
         # Split into fragments of length 70.
-        frag_list = [org_genome[s:s + 70] for s in range(0, len(org_genome), 70) if len(org_genome[s:s + 70]) > 69]
+        frag_list = [org_genome[s:s + frag_len] for s in range(0, len(org_genome), frag_len)
+                     if len(org_genome[s:s + frag_len]) > (frag_len-1)]
         # Add the final fragment of length < 70.
-        tail_frag = org_genome[len(frag_list) * 70:]
-        tail_frag = tail_frag + "-" * (70 - len(tail_frag))
+        tail_frag = org_genome[len(frag_list) * frag_len:]
+        tail_frag = tail_frag + "-" * (frag_len - len(tail_frag))
         frag_list.append(tail_frag)
         frag_dict[orgid] = frag_list
         
@@ -445,9 +448,10 @@ def align_many_ids(strain_genome_dict, id_list, prefix, path_aln, pad_digits=0):
     
     # Pad out the frag_list with dash-only fragments.
     for orgid in id_list:
+
         if len(frag_dict[orgid]) < flen_max:
             for i in range(flen_max - len(frag_dict[orgid])):
-                frag_dict[orgid].append("-" * 70)
+                frag_dict[orgid].append("-" * frag_len)
                 
     # Decide how many digits each org_id should have.
     padded_ids_dict = {}
@@ -485,7 +489,7 @@ def align_many_ids(strain_genome_dict, id_list, prefix, path_aln, pad_digits=0):
 
 from Bio import Phylo, AlignIO
 from Bio.Phylo.TreeConstruction import DistanceCalculator, DistanceTreeConstructor
-path_phy_in = r"C:\Users\Julio Hong\Documents\LioHong\Evolve-Simulation\Runs\Run_015_big_bang\test_a.aln"
+path_aln_in = r"C:\Users\Julio Hong\Documents\LioHong\Evolve-Simulation\Runs\Run_015_big_bang\test_a.aln"
 path_phy_in = r'C:\Users\Julio Hong\Documents\LioHong\Evolve-Simulation\Runs\Run_015_big_bang\testb.phy'
 def draw_phylos(path_aln_in, path_phy_in):
     # alignment = AlignIO.read(open(r"C:\Users\Julio Hong\Documents\LioHong\Evolve-Simulation\Runs\Run_015_big_bang\test.aln"), "clustal")
@@ -581,7 +585,7 @@ def simulate_universe(time_period, runin_timestep=0, interval=1, express=False):
             path_output_evo = os.path.join(path_rundir, run_name + "_" + str(runin_timestep+1))
             path_input_evo = path_start_evo
             # Copy the bat file and rename it.
-            path_batrun_evo = os.path.join(path_rundir, "run_" + run_num + "_" + run_name + "evolve.bat")
+            path_batrun_evo = os.path.join(path_rundir, "run_" + run_num + "_" + run_name + "_evolve.bat")
             copyfile(path_bat_evotemp, path_batrun_evo)
             # Set the text to Find and Replace
             text_find_input = "path_in"
@@ -685,7 +689,40 @@ def simulate_universe(time_period, runin_timestep=0, interval=1, express=False):
     file.close()
 
     # Automate archiving? Store run archive in Evolve-Archives, retain starting files and ending files.
+
+def find_child_parents(orgid, bolin_df):
+    # Adjust orgid.
+    orgid -= 1
+    sporelayer = bolin_df.loc[orgid, 'Sporelayer'] - 1
+    quickener = bolin_df.loc[orgid, 'Quickener'] - 1
+    parentage = bolin_df.loc[[orgid, sporelayer, quickener]]
     
+    print(parentage)
+    
+    gen_latest = parentage.Generation.max()
+    
+    if gen_latest != parentage.loc[orgid, 'Generation']:
+        gen_latest += 1
+    
+    print(gen_latest)
+
+# # r.ggenealogy works with df containing 'child' and 'parent.
+# # But getParent() only returns 1 value, even though it should return 2 values.    
+# # Both the code for getChild() and getParent() are very similar: Selection of column in df.
+# # So why can there be multiple children but not multiple parents?
+# # I added more rows for the second parent and it worked.
+bol_df = pd.read_csv(r"C:\Users\Julio Hong\Documents\LioHong\Evolve-Archives\book_of_life_015_010.csv")
+# onebol_df = bol_df.loc[:,['ID','Sporelayer']]
+# onebol_df.rename(columns={'ID':'child', 'Sporelayer':'parent'}, inplace=True)
+# twobol_df = bol_df.loc[:,['ID','Quickener']]
+# twobol_df.rename(columns={'ID':'child', 'Quickener':'parent'}, inplace=True)
+# # See how many 2nd parents there are.
+sexbol_df = bol_df.loc[bol_df.Sex_check != 0]
+# threebol_df = pd.concat([onebol_df,twobol_df.loc[bol_df.Sex_check != 0]])
+# bbbol_df = pd.read_csv(r"C:\Users\Julio Hong\Documents\LioHong\Evolve-Archives\bol_for_r.csv")
+bbbol_df = pd.read_csv(r"C:\Users\Julio Hong\Documents\LioHong\Evolve-Archives\bol_for_r.csv", index_col="Unnamed: 0")
+# Actually there is no limit to the number of parents.
+
 
 # ===== EXECUTION =====
 if False:
@@ -693,5 +730,6 @@ if False:
    runin_timestep = check_input_files(path_rundir)
    # simulate_universe(1000, express=True)
    # simulate_universe(100, runin_timestep, express=True)
-   simulate_universe(10000, runin_timestep, 1, express=True)
+   # simulate_universe(10000, runin_timestep, 1, express=True)
    # simulate_universe(10000, runin_timestep, 100, express=True)
+   simulate_universe(10000, runin_timestep, 1000, express=True)
