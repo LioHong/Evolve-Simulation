@@ -109,6 +109,10 @@ with open(os.path.join(path_workdir, "instr_b4_dict.txt"),'r') as filein:
 # AA-FF storage method.
 with open(os.path.join(path_workdir, "b4_aaff_dict.txt"),'r') as filein:
     b4_aaff_dict = eval(filein.read())
+    aaff_b4_dict = {v: k for k, v in b4_aaff_dict.items()}
+# AA-FF storage method. Must have UTF-8 or else UnicodeDecodeError.
+with open(os.path.join(path_workdir, "aaff_xascii_dict.txt"),'r', encoding='utf8') as filein:
+    aaff_xascii_dict = eval(filein.read())
 # Available range of integers: -131022 to 131022. (-2^17 - -49 to 2^17 - 49)
 # Useful for generating dict and adjusting based on instructions, but loading from file would be preferable.
 bitlength_evodons = 18
@@ -242,10 +246,20 @@ def retrieve_aaff(aaff_string):
 
 # Data de-compression.
 def convert_aaff_to_base4(aaff_genome):
-    aaff_b4_dict = {v: k for k, v in b4_aaff_dict.items()}
     b4_genome = [aaff_b4_dict[evd] if evd in aaff_b4_dict else evd for evd in aaff_genome]
     b4_genome = [num_b4_dict[keynum] if keynum in num_b4_dict else keynum for keynum in b4_genome]
     return b4_genome
+
+
+def convert_aaff_to_xascii(aaff_genome):
+    # Converts the double-letter format.
+    xa_genome = [aaff_xascii_dict[evd] if evd in aaff_xascii_dict else evd for evd in aaff_genome]
+    # Adds spacers to numbers.
+    # This accounts for single digits.
+    xa_genome = ["_"+x+"_" if x.isdigit() else x for x in xa_genome]
+    # This accounts for negative numbers. Single digits not included because of trailing underscore.
+    xa_genome = ["_"+x+"_" if x[1:].isdigit() else x for x in xa_genome]
+    return xa_genome
 
 
 # Single function to convert chosen AAFF strings into nucleotide sequences for MSA.
@@ -320,7 +334,8 @@ def save_aaff_to_fasta(aaff_string, file_name):
     with open(path_file, "wt") as f:
         f.write(nt_seq)
   
-          
+
+# Convert string of numbers into organised df.          
 # r"C:\Users\Lio Hong\Documents\LioHong\Evolve-Archives\book_of_life_010.txt"
 # r"C:\Users\Lio Hong\Documents\LioHong\Evolve-Archives\strain_genome_010.txt"
 # r"C:\Users\Lio Hong\Documents\LioHong\Evolve-Simulation\Runs\Run_015_big_bang\strain_genome_015a.txt"
@@ -380,6 +395,23 @@ def load_strain_genome(path_sgen):
     values = [x.split(":")[1][:-2] for x in sfgen]
     sfgen_dict = dict(zip(keys, values))
     return sfgen_dict
+
+
+# Fix negative numbers in strain_genome_015 as they were far too large.
+def fix_aaff_into_xascii(path_in):
+    with open(path_in, "rt") as sgen:
+        wrong = sgen.readlines()
+    org_gnm_pairlist = [x.split(":") for x in wrong]
+    orgid_list = [x[0] for x in org_gnm_pairlist]
+    genome_list = [x[1] for x in org_gnm_pairlist]
+    gxa_list = [''.join(convert_aaff_to_xascii(retrieve_aaff(gnm))) for gnm in genome_list] 
+    ogxa_pairlist = [':'.join([x,y]).replace("__","_") for x,y in zip(orgid_list, gxa_list)]
+    
+    with open(path_in, "wt") as pstr:
+        pstr.truncate(0)
+        for line in ogxa_pairlist:
+            pstr.write(line)
+
 
 # sgfif = load_strain_genome(r"C:\Users\Julio Hong\Documents\LioHong\Evolve-Archives\strain_genome_015a.txt")
 # sgten = load_strain_genome(r"C:\Users\Julio Hong\Documents\LioHong\Evolve-Archives\strain_genome_010a.txt")
