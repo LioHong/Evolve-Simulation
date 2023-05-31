@@ -731,72 +731,23 @@ def find_parents(orgid, bol_df_in):
     else:
         parentage = [sporelayer, quickener]
     return parentage
-    # gen_latest = parentage.Generation.max()
-    # if gen_latest != parentage.loc[orgid, 'Generation']:
-    #     gen_latest += 1
-    # print(gen_latest)
 
 
-def find_children(orgid, bol_df_in):
+def find_children(orgid, bol_df_in, sex=0):
     s_children = bol_df_in[bol_df_in.Sporelayer == orgid].index
     q_children = bol_df_in[bol_df_in.Quickener == orgid].index
     combo_children = list(set(list(s_children) + list(q_children)))
     combo_children.sort()
-    # return bol_df_in.loc[combo_children]
     return combo_children
 
-
-# Copy-paste of find_descendants for now... Might be able to switch between the two.
-def old_find_ancestors(orgid, bol_df_in, dist=3):
-    # Take a snapshot first.
-    gen = bol_df_in.loc[orgid, 'Generation']
-    gen_min = gen - dist
-    if gen_min < 0:
-        gen_min = 0
-    lineage_df = bol_df_in[(bol_df_in.Generation >= gen_min) & (bol_df_in.Generation <= gen-1)]
-
-
-    parents = find_parents(orgid, bol_df_in)
-    ancestors = [parents]
-    for i in range(gen-1-gen_min):
-        grandparents = []
-        for p in parents:
-            gp = find_parents(p, lineage_df)
-            grandparents.append(gp)
-        grandparents = [g for gp in grandparents for g in gp]
-        grandparents = list(set(grandparents))
-        grandparents.sort()
-        ancestors.append(grandparents)
-        parents = grandparents
-    ancestors = [a for ancs in ancestors for a in ancs]
-    ancestors = list(set(ancestors))
-    ancestors.sort()
-    return ancestors
-
-
-def old_find_descendants(orgid, bol_df_in, dist=3):
-    # Take a snapshot first.
-    gen = bol_df_in.loc[orgid, 'Generation']
-    gen_max = gen + dist
-    if gen_max > len(bol_df_in):
-        gen_max = len(bol_df_in)
-    lineage_df = bol_df_in[(bol_df_in.Generation >= gen+1) & (bol_df_in.Generation <= gen_max)]
-    childs = find_children(orgid, lineage_df)
-    descendants = [childs]
-    for i in range(gen_max-(gen+1)):
-        grandchilds = []
-        for c in childs:
-            gc = find_children(c, lineage_df)
-            grandchilds.append(gc)
-        grandchilds = [g for gc in grandchilds for g in gc]
-        grandchilds = list(set(grandchilds))
-        grandchilds.sort()
-        descendants.append(grandchilds)
-        childs = grandchilds
-    descendants = [d for dcnd in descendants for d in dcnd]
-    descendants = list(set(descendants))
-    descendants.sort()
-    return descendants
+    # s_children = bol_df_in[bol_df_in.Sporelayer == orgid].index
+    # if not sex:
+    #     combo_children = list(set(list(s_children)))
+    # # Quickener short-circuits the generations.
+    # else:
+    #     q_children = bol_df_in[bol_df_in.Quickener == orgid].index
+    #     combo_children = list(set(list(s_children) + list(q_children)))
+    # return combo_children
 
 
 def find_ancestors(orgid, bol_df_in, dist=3):
@@ -804,6 +755,9 @@ def find_ancestors(orgid, bol_df_in, dist=3):
     gen_min = gen - dist
     if gen_min < 0:
         gen_min = 0
+    # # Slicing breaks on the edge case of a parent from a generation out of bounds.
+    # # But also short-circuits the generations in-between.
+    # lineage_df = bol_df_in
     lineage_df = bol_df_in[(bol_df_in.Generation >= gen_min) & (bol_df_in.Generation <= gen)]
     # Normally equal to dist but depends on bounds.
     time_jump = gen - gen_min
@@ -815,6 +769,8 @@ def find_descendants(orgid, bol_df_in, dist=3):
     gen_max = gen + dist
     if gen_max > len(bol_df_in):
         gen_max = len(bol_df_in)
+    # # See find_ancestors().
+    # lineage_df = bol_df_in
     lineage_df = bol_df_in[(bol_df_in.Generation >= gen+1) & (bol_df_in.Generation <= gen_max)]
     # Normally equal to dist but depends on bounds.
     time_jump = gen_max - gen
@@ -826,15 +782,21 @@ def find_lineal_kin(orgid, lineage_df, time_jump, up_down):
     # Take a snapshot first.
     root = [orgid]
     lineal_kin = []
+    outofbounds_kin = []
 
     for i in range(time_jump):
         rootlets = []
         for r in root:
-            if up_down == 'up':
-                immed = find_parents(r, lineage_df)
-            elif up_down =='down':
-                immed = find_children(r, lineage_df)
-            rootlets.append(immed)
+            # Skip problematic roots.
+            try:
+                if up_down == 'up':
+                    immed = find_parents(r, lineage_df)
+                elif up_down =='down':
+                    immed = find_children(r, lineage_df)
+                rootlets.append(immed)
+            # Parent comes from a generation out of bounds.
+            except KeyError:
+                outofbounds_kin.append(r)
         rootlets = [i for immed in rootlets for i in immed]
         rootlets = list(set(rootlets))
         rootlets.sort()
@@ -843,7 +805,13 @@ def find_lineal_kin(orgid, lineage_df, time_jump, up_down):
     lineal_kin = [rl for rootlets in lineal_kin for rl in rootlets]
     lineal_kin = list(set(lineal_kin))
     lineal_kin.sort()
+
+    # # Remove false positives, but not sure why it shows up to begin with.
+    # outofbounds_kin = [o for o in outofbounds_kin if o not in lineage_df.index]
+    # outofbounds_kin = [o for o in outofbounds_kin if o not in lineal_kin]
+    print(outofbounds_kin)
     return lineal_kin
+
 
 # # r.ggenealogy works with df containing 'child' and 'parent.
 # # But getParent() only returns 1 value, even though it should return 2 values.    
