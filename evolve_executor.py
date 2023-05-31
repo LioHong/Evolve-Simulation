@@ -17,6 +17,7 @@ from shutil import copyfile
 from math import log10
 from datetime import datetime
 import pandas as pd
+import numpy as np
 
 # To adjust the dataframe appearance
 pd.set_option('display.max_rows', 500)
@@ -813,6 +814,98 @@ def find_lineal_kin(orgid, lineage_df, time_jump, up_down):
     return lineal_kin
 
 
+def naive_align(seq1, seq2):
+    # Use seq1 as template.
+    seq1 = retrieve_aaff(seq1)
+    seq2 = retrieve_aaff(seq2)
+    seq_diff = []
+    # Shortcut: Check if lengths are equal.
+    if len(seq1) == len(seq2):
+        # Shortcut: Check if last few words are equal ~ 3 words.
+        if seq1[-3:] == seq2[-3:]:
+            # seq_diff = ['|' if w1 in seq2 else 'X' for w1 in seq1]
+            for i in range(len(seq1)):
+                if seq1[i] == seq2[i]:
+                    seq_diff.append('|')
+                else:
+                    seq_diff.append('X')
+    alignment = pd.DataFrame(data=[seq1,seq2,seq_diff])
+    return alignment
+
+
+# https://johnlekberg.com/blog/2020-10-25-seq-align.html
+from itertools import product
+from collections import deque
+def needleman_wunsch(x, y, score_gap=-1, score_same=1, score_diff=-1):
+    """Run the Needleman-Wunsch algorithm on two sequences.
+    Code based on pseudocode in Section 3 of:
+    Naveed, Tahir; Siddiqui, Imitaz Saeed; Ahmed, Shaftab.
+    "Parallel Needleman-Wunsch Algorithm for Grid." n.d.
+    https://upload.wikimedia.org/wikipedia/en/c/c4/ParallelNeedlemanAlgorithm.pdf
+    """
+    N, M = len(x), len(y)
+    s = lambda a, b: int(a == b)
+    LEFT = -1, 0
+    UP = 0, -1
+    DIAG = -1, -1
+
+    # Create tables F and Ptr
+    F = {}
+    Ptr = {}
+
+    F[-1, -1] = 0
+    for i in range(N):
+        F[i, -1] = -i
+    for j in range(M):
+        F[-1, j] = -j
+        
+    print(F)
+
+    option_Ptr = DIAG, LEFT, UP
+    for i, j in product(range(N), range(M)):
+        option_F = (
+            F[i - 1, j - 1] + s(x[i], y[j]),
+            F[i - 1, j] - 1,
+            F[i, j - 1] - 1,
+        )
+        F[i, j], Ptr[i, j] = max(zip(option_F, option_Ptr))
+
+    print(F)
+    print(Ptr)
+
+    # Work backwards from (N - 1, M - 1) to (0, 0) to find the best alignment.
+    alignment = deque()
+    i, j = N - 1, M - 1
+    while i >= 0 and j >= 0:
+        direction = Ptr[i, j]
+        if direction == DIAG:
+            element = i, j
+        elif direction == LEFT:
+            element = i, None
+        elif direction == UP:
+            element = None, j
+        alignment.appendleft(element)
+        di, dj = direction
+        i, j = i + di, j + dj
+    while i >= 0:
+        alignment.appendleft((i, None))
+        i += score_gap
+    while j >= 0:
+        alignment.appendleft((None, j))
+        j += score_gap
+
+    return list(alignment)
+
+
+def prrrint_align(x, y):
+    alignment = needleman_wunsch(x,y)
+    print("".join(
+        "-" if i is None else x[i] for i, _ in alignment
+    ))
+    print("".join(
+        "-" if j is None else y[j] for _, j in alignment
+    ))
+
 # # r.ggenealogy works with df containing 'child' and 'parent.
 # # But getParent() only returns 1 value, even though it should return 2 values.    
 # # Both the code for getChild() and getParent() are very similar: Selection of column in df.
@@ -832,9 +925,8 @@ bbbol_df = pd.read_csv(r"C:\Users\Julio Hong\Documents\LioHong\Evolve-Archives\b
 
 
 # ===== EXECUTION =====
-bgen_df = pd.read_csv(r"C:/Users/Julio Hong/Documents/LioHong/Evolve-Archives/bol_gen_010.csv")
+bgen_df = pd.read_csv(r"C:/Users/Julio Hong/Documents/LioHong/Evolve-Archives/bol_gen_010.csv", index_col="Unnamed: 0")
 # Create a version without the genome col.
-# sbol_df = bgen_df[['Unnamed: 0', 'ID', 'Sporelayer', 'Quickener', 'Generation', 'Birth_step', 'Death_step', 'Lifespan', 'Sex_check']]
 sbol_df = bgen_df.iloc[:,:-1]
 
 if False:
