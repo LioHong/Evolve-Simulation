@@ -257,7 +257,7 @@ def convert_aaff_to_xascii(aaff_genome):
     # Adds spacers to numbers.
     # This accounts for single digits.
     xa_genome = ["_"+x+"_" if x.isdigit() else x for x in xa_genome]
-    # This accounts for negative numbers. Single digits not included because of trailing underscore.
+    # This accounts for negative numbers. Single digits not included due to trailing underscore.
     xa_genome = ["_"+x+"_" if x[1:].isdigit() else x for x in xa_genome]
     return xa_genome
 
@@ -397,7 +397,7 @@ def load_strain_genome(path_sgen):
     return sfgen_dict
 
 
-# Fix negative numbers in strain_genome_015 as they were far too large.
+# Change data storage format for strain_genome_015.
 def fix_aaff_into_xascii(path_in):
     with open(path_in, "rt") as sgen:
         wrong = sgen.readlines()
@@ -405,7 +405,7 @@ def fix_aaff_into_xascii(path_in):
     orgid_list = [x[0] for x in org_gnm_pairlist]
     genome_list = [x[1] for x in org_gnm_pairlist]
     gxa_list = [''.join(convert_aaff_to_xascii(retrieve_aaff(gnm))) for gnm in genome_list] 
-    ogxa_pairlist = [':'.join([x,y]).replace("__","_") for x,y in zip(orgid_list, gxa_list)]
+    ogxa_pairlist = [':'.join([x,y]).replace("__","_").replace("\n","") + "\n" for x,y in zip(orgid_list, gxa_list)]
     
     with open(path_in, "wt") as pstr:
         pstr.truncate(0)
@@ -722,21 +722,129 @@ def simulate_universe(time_period, runin_timestep=0, interval=1, express=False):
 
     # Automate archiving? Store run archive in Evolve-Archives, retain starting files and ending files.
 
-def find_child_parents(orgid, bolin_df):
-    # Adjust orgid.
-    orgid -= 1
-    sporelayer = bolin_df.loc[orgid, 'Sporelayer'] - 1
-    quickener = bolin_df.loc[orgid, 'Quickener'] - 1
-    parentage = bolin_df.loc[[orgid, sporelayer, quickener]]
-    
-    print(parentage)
-    
-    gen_latest = parentage.Generation.max()
-    
-    if gen_latest != parentage.loc[orgid, 'Generation']:
-        gen_latest += 1
-    
-    print(gen_latest)
+
+def find_parents(orgid, bol_df_in):
+    sporelayer = bol_df_in.loc[orgid, 'Sporelayer']
+    quickener = bol_df_in.loc[orgid, 'Quickener']
+    if sporelayer == quickener:
+        parentage = [sporelayer]
+    else:
+        parentage = [sporelayer, quickener]
+    return parentage
+    # gen_latest = parentage.Generation.max()
+    # if gen_latest != parentage.loc[orgid, 'Generation']:
+    #     gen_latest += 1
+    # print(gen_latest)
+
+
+def find_children(orgid, bol_df_in):
+    s_children = bol_df_in[bol_df_in.Sporelayer == orgid].index
+    q_children = bol_df_in[bol_df_in.Quickener == orgid].index
+    combo_children = list(set(list(s_children) + list(q_children)))
+    combo_children.sort()
+    # return bol_df_in.loc[combo_children]
+    return combo_children
+
+
+# Copy-paste of find_descendants for now... Might be able to switch between the two.
+def old_find_ancestors(orgid, bol_df_in, dist=3):
+    # Take a snapshot first.
+    gen = bol_df_in.loc[orgid, 'Generation']
+    gen_min = gen - dist
+    if gen_min < 0:
+        gen_min = 0
+    lineage_df = bol_df_in[(bol_df_in.Generation >= gen_min) & (bol_df_in.Generation <= gen-1)]
+
+
+    parents = find_parents(orgid, bol_df_in)
+    ancestors = [parents]
+    for i in range(gen-1-gen_min):
+        grandparents = []
+        for p in parents:
+            gp = find_parents(p, lineage_df)
+            grandparents.append(gp)
+        grandparents = [g for gp in grandparents for g in gp]
+        grandparents = list(set(grandparents))
+        grandparents.sort()
+        ancestors.append(grandparents)
+        parents = grandparents
+    ancestors = [a for ancs in ancestors for a in ancs]
+    ancestors = list(set(ancestors))
+    ancestors.sort()
+    return ancestors
+
+
+def old_find_descendants(orgid, bol_df_in, dist=3):
+    # Take a snapshot first.
+    gen = bol_df_in.loc[orgid, 'Generation']
+    gen_max = gen + dist
+    if gen_max > len(bol_df_in):
+        gen_max = len(bol_df_in)
+    lineage_df = bol_df_in[(bol_df_in.Generation >= gen+1) & (bol_df_in.Generation <= gen_max)]
+    childs = find_children(orgid, lineage_df)
+    descendants = [childs]
+    for i in range(gen_max-(gen+1)):
+        grandchilds = []
+        for c in childs:
+            gc = find_children(c, lineage_df)
+            grandchilds.append(gc)
+        grandchilds = [g for gc in grandchilds for g in gc]
+        grandchilds = list(set(grandchilds))
+        grandchilds.sort()
+        descendants.append(grandchilds)
+        childs = grandchilds
+    descendants = [d for dcnd in descendants for d in dcnd]
+    descendants = list(set(descendants))
+    descendants.sort()
+    return descendants
+
+
+def find_ancestors(orgid, bol_df_in, dist=3):
+    gen = bol_df_in.loc[orgid, 'Generation']
+    gen_min = gen - dist
+    if gen_min < 0:
+        gen_min = 0
+    # lineage_df = bol_df_in[(bol_df_in.Generation >= gen_min) & (bol_df_in.Generation <= gen-1)]
+    lineage_df = bol_df_in[(bol_df_in.Generation <= gen-1)]
+    # Normally equal to dist but depends on bounds.
+    time_jump = (gen-1) - gen_min
+    return find_lineal_kin(orgid, lineage_df, time_jump, 'up')
+
+
+def find_descendants(orgid, bol_df_in, dist=3):
+    gen = bol_df_in.loc[orgid, 'Generation']
+    gen_max = gen + dist
+    if gen_max > len(bol_df_in):
+        gen_max = len(bol_df_in)
+    lineage_df = bol_df_in[(bol_df_in.Generation >= gen+1) & (bol_df_in.Generation <= gen_max)]
+    # Normally equal to dist but depends on bounds.
+    time_jump = gen_max - gen
+    return find_lineal_kin(orgid, lineage_df, time_jump, 'down')
+
+
+# up_down means ancestor or descendant.
+def find_lineal_kin(orgid, lineage_df, time_jump, up_down):
+    # Take a snapshot first.
+    root = [orgid]
+    lineal_kin = []
+
+    for i in range(time_jump):
+        rootlets = []
+        for r in root:
+            if up_down == 'up':
+                immed = find_parents(r, lineage_df)
+            elif up_down =='down':
+                immed = find_children(r, lineage_df)
+            rootlets.append(immed)
+        rootlets = [i for immed in rootlets for i in immed]
+        rootlets = list(set(rootlets))
+        rootlets.sort()
+        lineal_kin.append(rootlets)
+        root = rootlets
+    lineal_kin = [rl for rootlets in lineal_kin for rl in rootlets]
+    lineal_kin = list(set(lineal_kin))
+    lineal_kin.sort()
+    return lineal_kin
 
 # # r.ggenealogy works with df containing 'child' and 'parent.
 # # But getParent() only returns 1 value, even though it should return 2 values.    
@@ -757,6 +865,11 @@ bbbol_df = pd.read_csv(r"C:\Users\Julio Hong\Documents\LioHong\Evolve-Archives\b
 
 
 # ===== EXECUTION =====
+bgen_df = pd.read_csv(r"C:/Users/Julio Hong/Documents/LioHong/Evolve-Archives/bol_gen_010.csv")
+# Create a version without the genome col.
+# sbol_df = bgen_df[['Unnamed: 0', 'ID', 'Sporelayer', 'Quickener', 'Generation', 'Birth_step', 'Death_step', 'Lifespan', 'Sex_check']]
+sbol_df = bgen_df.iloc[:,:-1]
+
 if False:
 # if True:
    runin_timestep = check_input_files(path_rundir)
