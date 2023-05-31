@@ -804,10 +804,9 @@ def find_ancestors(orgid, bol_df_in, dist=3):
     gen_min = gen - dist
     if gen_min < 0:
         gen_min = 0
-    # lineage_df = bol_df_in[(bol_df_in.Generation >= gen_min) & (bol_df_in.Generation <= gen-1)]
-    lineage_df = bol_df_in[(bol_df_in.Generation <= gen-1)]
+    lineage_df = bol_df_in[(bol_df_in.Generation >= gen_min) & (bol_df_in.Generation <= gen)]
     # Normally equal to dist but depends on bounds.
-    time_jump = (gen-1) - gen_min
+    time_jump = gen - gen_min
     return find_lineal_kin(orgid, lineage_df, time_jump, 'up')
 
 
