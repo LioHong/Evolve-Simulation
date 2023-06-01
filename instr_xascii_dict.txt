@@ -97,5 +97,4 @@
 "AGE": "ÿ",
 "NUM-CELS": "#",
 "HAS-NEIGHBOR": "$",
-"main": "%",
-"row": "&"}
+"main": "%"}

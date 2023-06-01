@@ -97,5 +97,4 @@
 "EV": "AGE",
 "EW": "NUM-CELS",
 "EX": "HAS-NEIGHBOR",
-"EY": "main",
-"BX": "row"}
+"EY": "main"}

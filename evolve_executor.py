@@ -176,7 +176,9 @@ def convert_b4_to_intstr(evd):
 # Base-4 format used for compatibility with bits and ATGC.
 def convert_kforth_to_base4(kforth_genome):
     # When converting genomes from instructions and ints to base-pairs, convert instructions first.
-    b4_genome = [instr_b4_dict[instruction] if instruction in instr_b4_dict else instruction for instruction in kforth_genome]
+    b4_genome = [instr_b4_dict[i] if i in instr_b4_dict else i for i in kforth_genome]
+    # Then convert rows with numbering.
+    b4_genome = ['F' + str(chr(int(i[3:])+64)) if i[:3] == 'row' else i for i in kforth_genome]
     # Then convert ints.
     b4_genome = [num_b4_dict[keynum] if keynum in num_b4_dict else keynum for keynum in b4_genome]
     return b4_genome
@@ -560,8 +562,8 @@ def simulate_universe(time_period, runin_timestep=0, interval=1, express=False):
         indiv_genome = ' '.join(indiv_genome)
         # Change of spacer: Convert tabs to spaces.
         indiv_genome = indiv_genome.replace("    ", " ")
-        # Separate "rowX" into "row X".
-        indiv_genome = indiv_genome.replace("row", "row ")
+        # # Separate "rowX" into "row X".
+        # indiv_genome = indiv_genome.replace("row", "row ")
         # Remove multiple spaces.
         while "  " in indiv_genome:
             indiv_genome = indiv_genome.replace("  ", " ")
@@ -849,7 +851,7 @@ def compress_row_aaff(aaff_in):
     # Replace the digit using ord() and offset.
 
     # Alt pattern: Numerical.
-    # fa_list = ['F' + str(ord(x[x.index('_')]+64)) + x[(x.index('_')+1):] for x in af_list[1:]]
+    # fa_list = ['F' + str(chr(x[x.index('_')]+64)) + x[(x.index('_')+1):] for x in af_list[1:]]
     fa_list = ['F' + str(chr(af_list.index(x)+64))+ x[af_list.index(x)//10+2:] for x in af_list[1:]]
     fa_list.insert(0, af_list[0])
     return ''.join(fa_list)
