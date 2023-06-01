@@ -835,8 +835,24 @@ def naive_align(seq1, seq2):
     return alignment
 
 
+# Simplify the inputs.
 def driver(base, target, gap=-1, match=1, mismatch=-1, debug=False):
     GlobalAlignment.driver(retrieve_aaff(bgen_df.loc[base,'Genome']), retrieve_aaff(bgen_df.loc[target,'Genome']), gap, match, mismatch, debug)
+
+
+# Convert row numbers from format of 'BX_#_' to 'F-'
+def compress_row_aaff(aaff_in):
+    # Split by 'BX'.
+    af_list = aaff_in.split('BX_')
+    # Find first '_' in non-main substrings.
+    # Find the digit.
+    # Replace the digit using ord() and offset.
+
+    # Alt pattern: Numerical.
+    # fa_list = ['F' + str(ord(x[x.index('_')]+64)) + x[(x.index('_')+1):] for x in af_list[1:]]
+    fa_list = ['F' + str(chr(af_list.index(x)+64))+ x[af_list.index(x)//10+2:] for x in af_list[1:]]
+    fa_list.insert(0, af_list[0])
+    return ''.join(fa_list)
 
 # # r.ggenealogy works with df containing 'child' and 'parent.
 # # But getParent() only returns 1 value, even though it should return 2 values.    
@@ -860,7 +876,7 @@ bbbol_df = pd.read_csv(r"C:\Users\Julio Hong\Documents\LioHong\Evolve-Archives\b
 bgen_df = pd.read_csv(r"C:/Users/Julio Hong/Documents/LioHong/Evolve-Archives/bol_gen_010.csv", index_col="Unnamed: 0")
 # Create a version without the genome col.
 sbol_df = bgen_df.iloc[:,:-1]
-driver(7638, 7854, -1, 1, -1, debug=True)
+# driver(7638, 7854, -1, 1, -1, debug=True)
 # bgen_df.loc[find_ancestors(949,sbol_df,5),'Genome']
 
 if False:
