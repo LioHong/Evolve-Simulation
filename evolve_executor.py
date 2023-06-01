@@ -175,21 +175,40 @@ def convert_b4_to_intstr(evd):
 # Most likely usage: Pick genomes from data storage, then convert them into nucleotides for MSA.
 # Base-4 format used for compatibility with bits and ATGC.
 def convert_kforth_to_base4(kforth_genome):
+    def rownum_to_b4(rn):
+        elm = np.binary_repr(2**17 - 1 - 48 - int(rn), width=18)
+        ppairs_list = pair_split(elm)
+        return ''.join([str(int(p,2)) for p in ppairs_list])
+        # return ''.join([str(int(elm[s:s + 2],2)) for s in range(0, len(elm), 2) if len(elm[s:s + 2]) > 1])
+
     # When converting genomes from instructions and ints to base-pairs, convert instructions first.
     b4_genome = [instr_b4_dict[i] if i in instr_b4_dict else i for i in kforth_genome]
     # Then convert rows with numbering.
-    b4_genome = ['F' + str(chr(int(i[3:])+64)) if i[:3] == 'row' else i for i in kforth_genome]
+    # b4_genome = ['F' + str(chr(int(i[3:])+64)) if i[:3] == 'row' else i for i in b4_genome]
+    b4_genome = [rownum_to_b4(i[3:]) if i[:3] == 'row' else i for i in b4_genome]
     # Then convert ints.
     b4_genome = [num_b4_dict[keynum] if keynum in num_b4_dict else keynum for keynum in b4_genome]
     return b4_genome
 
 
 def convert_base4_to_kforth(b4_genome):
+    fa_num = 2 ** 17 - 1 - 48
+    def test(evnum):
+        try:
+            if int(evnum,4) > (fa_num-52):
+                return int(evnum,4) <= fa_num
+            else:
+                return False
+        except:
+            return False
     # Invert dicts
     b4_instr_dict = {v: k for k, v in instr_b4_dict.items()}
     br_num_dict = {v: k for k, v in num_b4_dict.items()}
     kforth_genome = [b4_instr_dict[evd_b4] if evd_b4 in b4_instr_dict else evd_b4 for evd_b4 in b4_genome]
+    # Convert row numbering.
+    kforth_genome = ['row'+str(fa_num-int(evnum,4)) if test(evnum) else evnum for evnum in kforth_genome]
     kforth_genome = [br_num_dict[evnum] if evnum in br_num_dict else evnum for evnum in kforth_genome]
+
     return kforth_genome
 
 
@@ -219,7 +238,18 @@ def convert_nucleotide_to_base4(nt_genome):
 
 # Convert keywords to AA-FF for storage.
 def convert_base4_to_aaff(b4_genome):
+    fa_num = 2 ** 17 - 1 - 48
+    def test(evd):
+        try:
+            if int(evd,4) > (fa_num-52):
+                return int(evd,4) <= fa_num
+            else:
+                return False
+        except:
+            return False
     aaff_genome = [b4_aaff_dict[evd] if evd in b4_aaff_dict else evd for evd in b4_genome]
+    # Convert row numbering.
+    aaff_genome = ['F'+chr(fa_num-int(evd,4)+64) if test(evd) else evd for evd in aaff_genome]
     # Converts to integer string.
     aaff_genome = [str(convert_b4_to_intstr(evd)) if len(evd) > 2 else evd for evd in aaff_genome]
     return aaff_genome
@@ -228,6 +258,10 @@ def convert_base4_to_aaff(b4_genome):
 def store_aaff(aaff_genome):
     aaff_string = ''.join(aaff_genome)
     return aaff_string.replace("__","_")
+
+
+def pair_split(elm):
+    return [elm[s:s + 2] for s in range(0, len(elm), 2) if len(elm[s:s + 2]) > 1]
 
 
 def retrieve_aaff(aaff_string):
@@ -239,7 +273,8 @@ def retrieve_aaff(aaff_string):
     for elm in aaff_list:
         if not (elm.isdigit() or elm[0] == "-"):
             # Split all the remaining AAFFs into pairs.
-            evd_list = [elm[s:s + 2] for s in range(0, len(elm), 2) if len(elm[s:s + 2]) > 1]
+            # evd_list = [elm[s:s + 2] for s in range(0, len(elm), 2) if len(elm[s:s + 2]) > 1]
+            evd_list = pair_split(elm)
             # Flatten the list.
             for evd in evd_list:
                 aaff_genome.append(evd)
@@ -251,7 +286,13 @@ def retrieve_aaff(aaff_string):
 
 # Data de-compression.
 def convert_aaff_to_base4(aaff_genome):
+    def fa_to_b4(fa_a):
+        elm = np.binary_repr(2**17 - 1 - 48 - ord(fa_a)+64, width=18)
+        ppairs_list = pair_split(elm)
+        return ''.join([str(int(p,2)) for p in ppairs_list])
+
     b4_genome = [aaff_b4_dict[evd] if evd in aaff_b4_dict else evd for evd in aaff_genome]
+    b4_genome = [fa_to_b4(evd[1]) if evd[0] == 'F' else evd for evd in b4_genome]
     b4_genome = [num_b4_dict[keynum] if keynum in num_b4_dict else keynum for keynum in b4_genome]
     return b4_genome
 
