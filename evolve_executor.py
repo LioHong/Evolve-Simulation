@@ -96,14 +96,17 @@ def replace_old_with_new(path_input, old_new_dict):
             for line in new_text:
                 f.write(line)
 
+# https://stackoverflow.com/questions/28730961/python-slicing-string-in-three-character-substrings
+def pair_split(elm):
+    return [elm[s:s + 2] for s in range(0, len(elm), 2) if len(elm[s:s + 2]) > 1]
+
 
 # Function to convert from binary to base-4, so as to retain 2's complement.
 binfour_dict = {"00": "0", "01": "1", "10": "2", "11": "3"}
 b4_nt_dict = {"0": "A", "1": "T", "2": "G", "3": "C"}
 def convert_binary_to_base4(bin_num):
-    # Split into pairs.
-    # https://stackoverflow.com/questions/28730961/python-slicing-string-in-three-character-substrings
-    subs = [bin_num[s:s+2] for s in range(0,len(bin_num),2) if len(bin_num[s:s+2]) > 1]
+    # subs = [bin_num[s:s+2] for s in range(0,len(bin_num),2) if len(bin_num[s:s+2]) > 1]
+    subs = pair_split(bin_num)
     subs = [binfour_dict[x] for x in subs]
     return "".join(subs)
 # Convert KFORTH genome to DNA: 0123 for ATGC.
@@ -166,7 +169,7 @@ def convert_b4_to_decimal(evd):
 # KIV as another possible data compression technique.
 def convert_b4_to_intstr(evd):
     dec_num = convert_b4_to_decimal(evd)
-    # return str(dec_num) + "."
+    # return str(dec_num) + "_"
     return "_" + str(dec_num) + "_"
 
 
@@ -252,16 +255,13 @@ def convert_base4_to_aaff(b4_genome):
     aaff_genome = ['F'+chr(fa_num-int(evd,4)+64) if test(evd) else evd for evd in aaff_genome]
     # Converts to integer string.
     aaff_genome = [str(convert_b4_to_intstr(evd)) if len(evd) > 2 else evd for evd in aaff_genome]
+    # aaff_genome = ["_"+str(int(evd,4))+"_" if len(evd) > 2 else evd for evd in aaff_genome]
     return aaff_genome
 
 
 def store_aaff(aaff_genome):
     aaff_string = ''.join(aaff_genome)
     return aaff_string.replace("__","_")
-
-
-def pair_split(elm):
-    return [elm[s:s + 2] for s in range(0, len(elm), 2) if len(elm[s:s + 2]) > 1]
 
 
 def retrieve_aaff(aaff_string):
@@ -336,7 +336,7 @@ def translate_aaff_to_kforth(aaff_string):
     b4_genome = convert_aaff_to_base4(aaff_genome)
     kforth_genome = convert_base4_to_kforth(b4_genome)
     kforth_string = ' '.join(kforth_genome)
-    kforth_string = kforth_string.replace("row ", "row")    
+    # kforth_string = kforth_string.replace("row ", "row")
     return kforth_string
 
 
@@ -879,6 +879,7 @@ def naive_align(seq1, seq2):
 
 
 # Simplify the inputs.
+# But need to specify the bol_in_df eventually.
 def driver(base, target, gap=-1, match=1, mismatch=-1, debug=False):
     GlobalAlignment.driver(retrieve_aaff(bgen_df.loc[base,'Genome']), retrieve_aaff(bgen_df.loc[target,'Genome']), gap, match, mismatch, debug)
 
@@ -897,6 +898,53 @@ def compress_row_aaff(aaff_in):
     fa_list.insert(0, af_list[0])
     return ''.join(fa_list)
 
+
+# Compare genome of parent/child or child/parent, then highlight gen of change.
+# Very slow: 36 hr for 500K orgids.
+def trace_asexual_lines(bol_df_in):
+    lines = {}
+    pretracked_orgids = []
+    for i in range(len(bol_df_in)-1,-1,-1):
+        if i in pretracked_orgids:
+            continue
+        sex_num = bol_df_in.loc[i, 'Sex_check']
+        # If orgid arose sexually, add its line and then move on.
+        if bol_df_in.loc[i, 'Sex_check']:
+            lines[i] = 0
+        else:
+            p = i
+            # Track within line of descent
+            while not sex_num:
+                if not p:
+                    break
+                p = find_parents(p, bol_df_in)[0]
+                sex_num += bol_df_in.loc[p, 'Sex_check']
+                # Remove orgid from tracking.
+                pretracked_orgids.append(p)
+                print(p)
+                print("Progress update at " + datetime.now().strftime("%H:%M:%S"))
+            # Track last asexual ancestor.
+            lines[i] = bol_df_in.loc[i, 'Generation'] - bol_df_in.loc[p, 'Generation']
+
+        print(i)
+        print("Progress update at " + datetime.now().strftime("%H:%M:%S"))
+    return lines
+
+
+# Receives index of lines.
+def sift_lines_by_length(lines_df, bol_in_df, min_len=70):
+    sift_df = lines_df[lines_df['0'] > 70]
+    changers = {}
+    for line in sift_df.index:
+        lilen = lines_df.loc[line,'0']
+        anc = sbol_df.loc[find_ancestors(line, sbol_df, dist=lilen)]
+        anc_counts = len(anc.glen.value_counts())
+        if anc_counts < 3:
+            continue
+        else:
+            changers[line] = anc_counts
+    return changers
+
 # # r.ggenealogy works with df containing 'child' and 'parent.
 # # But getParent() only returns 1 value, even though it should return 2 values.    
 # # Both the code for getChild() and getParent() are very similar: Selection of column in df.
@@ -914,6 +962,12 @@ sexbol_df = bol_df.loc[bol_df.Sex_check != 0]
 bbbol_df = pd.read_csv(r"C:\Users\Julio Hong\Documents\LioHong\Evolve-Archives\bol_for_r.csv", index_col="Unnamed: 0")
 # Actually there is no limit to the number of parents.
 
+# # Which organisms retained the original genome?
+# ooo = {}
+# for g in range(215):
+#     itmd = bgen_df[bgen_df.Generation == g]
+#     ooo[g] = list(itmd[bgen_df.Genome == og_gen].index)
+# oiu = pd.DataFrame.from_dict(ooo,'index')
 
 # ===== EXECUTION =====
 bgen_df = pd.read_csv(r"C:/Users/Julio Hong/Documents/LioHong/Evolve-Archives/bol_gen_010.csv", index_col="Unnamed: 0")

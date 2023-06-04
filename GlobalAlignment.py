@@ -79,7 +79,7 @@ def globalAlign(x,y,score):
 				traceBack[i][j] = 'diag'
 	return matrix, traceBack
 
-
+# Use '-' and ' ' to handle numbers.
 def getAlignedSequences(x,y,matrix,traceBack):
 	# Obtain x and y globally aligned sequence arrays using the bottom-up approach.
 	xSeq = []
@@ -95,13 +95,13 @@ def getAlignedSequences(x,y,matrix,traceBack):
 			j = j-1
 		elif traceBack[i][j] == 'left':
 			# Left holds true when '-' is added from x string and y[j-1] from y string
-			xSeq.append('--')
+			xSeq.append('-' * len(y[j-1]))
 			ySeq.append(y[j-1])
 			j = j-1
 		elif traceBack[i][j] == 'up':
 			# Up holds true when '-' is added from y string and x[j-1] from x string
 			xSeq.append(x[i-1])
-			ySeq.append('--')
+			ySeq.append('-' * len(x[i-1]))
 			i = i-1
 		elif traceBack[i][j] == 'done':
 			# Break condition when we reach the [0,0] cell of traceback matrix
@@ -126,14 +126,15 @@ def driver(x, y, gap=-1, match=1, mismatch=-1, debug=False):
         print('Input sequences are: ')
         print(x)
         print(y)
-        
+
         print('Printing the score matrix:')
         printMatrix(matrix)
         print('Printing the trace back matrix:')
         printMatrix(traceBack)
-    
+
     print('The globally aligned sequences are:')
     print(*xSeq[::-1])
+    # Add pipes and crosses somehow.
     print(*ySeq[::-1])
     
 # driver('aaac', 'agc', -2, 1, -1, debug=True)
