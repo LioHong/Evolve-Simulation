@@ -945,21 +945,42 @@ def sift_lines_by_length(lines_df, bol_in_df, min_len=70):
             changers[line] = anc_counts
     return changers
 
+
+# phylotrackpy takes in Organism objects.
+# https://stackoverflow.com/questions/53192602/convert-a-pandas-dataframe-into-a-list-of-objects
+class Evorg(object):
+    def __init__(self, Orgid, Sporelayer, Quickener, Generation, Birth_step, Death_step, Lifespan, Sex_check, Gnm_Len, Genome):
+        self.Orgid = Orgid
+        self.Sporelayer = Sporelayer
+        self.Quickener = Quickener
+        self.Generation = Generation
+        self.Birth_step = Birth_step
+        self.Death_step = Death_step
+        self.Lifespan = Lifespan
+        self.Sex_check = Sex_check
+        self.Gnm_Len = Gnm_Len
+        self.Genome = Genome
+        self.taxon = Orgid
+        # self.Genome = retrieve_aaff(Genome)
+    def __repr__(self):
+        return "Evorg object " + self.Genome
+
+
 # # r.ggenealogy works with df containing 'child' and 'parent.
 # # But getParent() only returns 1 value, even though it should return 2 values.    
 # # Both the code for getChild() and getParent() are very similar: Selection of column in df.
 # # So why can there be multiple children but not multiple parents?
 # # I added more rows for the second parent and it worked.
-bol_df = pd.read_csv(r"C:\Users\Julio Hong\Documents\LioHong\Evolve-Archives\book_of_life_015_010.csv")
+# bol_df = pd.read_csv(r"C:\Users\Julio Hong\Documents\LioHong\Evolve-Archives\book_of_life_015_010.csv")
 # onebol_df = bol_df.loc[:,['ID','Sporelayer']]
 # onebol_df.rename(columns={'ID':'child', 'Sporelayer':'parent'}, inplace=True)
 # twobol_df = bol_df.loc[:,['ID','Quickener']]
 # twobol_df.rename(columns={'ID':'child', 'Quickener':'parent'}, inplace=True)
 # # See how many 2nd parents there are.
-sexbol_df = bol_df.loc[bol_df.Sex_check != 0]
+# sexbol_df = bol_df.loc[bol_df.Sex_check != 0]
 # threebol_df = pd.concat([onebol_df,twobol_df.loc[bol_df.Sex_check != 0]])
 # bbbol_df = pd.read_csv(r"C:\Users\Julio Hong\Documents\LioHong\Evolve-Archives\bol_for_r.csv")
-bbbol_df = pd.read_csv(r"C:\Users\Julio Hong\Documents\LioHong\Evolve-Archives\bol_for_r.csv", index_col="Unnamed: 0")
+# bbbol_df = pd.read_csv(r"C:\Users\Julio Hong\Documents\LioHong\Evolve-Archives\bol_for_r.csv", index_col="Unnamed: 0")
 # Actually there is no limit to the number of parents.
 
 # # Which organisms retained the original genome?
@@ -975,6 +996,20 @@ bgen_df = pd.read_csv(r"C:/Users/Julio Hong/Documents/LioHong/Evolve-Archives/bo
 sbol_df = bgen_df.iloc[:,:-1]
 # driver(7638, 7854, -1, 1, -1, debug=True)
 # bgen_df.loc[find_ancestors(949,sbol_df,5),'Genome']
+
+evorgs = [Evorg(**kwargs) for kwargs in bgen_df.to_dict(orient='records')]
+from phylotrackpy import systematics
+# sys = systematics.Systematics(lambda Evorg: Evorg.Genome)
+sys = systematics.Systematics(lambda Evorg: Evorg.__repr__(), True, True, False, False)
+for e in evorgs[1:100]:
+    e.taxon = sys.add_org(e)
+    s_children = bgen_df[bgen_df.Sporelayer == e.Orgid].index
+    q_children = bgen_df[bgen_df.Quickener == e.Orgid].index
+    # Just ignore q_children for now.
+    for s in s_children:
+        evorgs[s].taxon = sys.add_org(s, e.taxon)
+    if not e.Death_step:
+        sys.remove_org(e.taxon)
 
 if False:
 # if True:
