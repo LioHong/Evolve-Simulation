@@ -1,0 +1,49 @@
+Artificial Life and Phylogenomics Part 1: Genome
+
+Evolve 4.0 was modelled after Core Wars, so the organism was designed as a computer program. Hence each gene in its genome represents either a value or an instruction that acts on at least one value. These instructions are in turn split broadly into KFORTH instructions which act on a value or a pair of values in the stack, and organism instructions which enable the organism to interact within itself or its environment.
+
+**Resources**
+
+The main resources available to an organism can be reduced to energy, space and processing power. Other resources spring from these. To paraphrase Ken's words, energy can be seen as a 3rd dimension that serves to limit growth (population size) and encourage efficiency (stack friendliness). Only three actions result in the transfer of energy: GROW (adding more cells), MAKE-SPORE (laying or fertilising a spore) and EAT (gain energy from the target cell). When an organism's energy reaches zero, it dies.
+
+Besides this, each cell can process a number of instructions, that is, it has a certain amount of processing power. This increases with the number of cells available, conferring an explicit benefit to multicellularity and allowing the specialisation of cells. Many of the default genomes detail the process of a multicellular organism, which incidentally may take any form including groups, lines or gigantic blobs.
+
+**Genome Handling**
+
+Within the simulator, the ‘View Organism’ dialog as attached will display its biodata and genome on the left. An overview of the organism’s body, its strain and processing data are shown on the right. This processing data includes details of the current point of execution in the code, the registers, the data stack, the call stack and vision data. For a quick check, use the KFORTH Instruction Help dialog for a quick summary of each instruction with its inputs and outputs, attached below.
+
+Although the genome is displayed as scripts that are organised into rows, it is actually interpreted in a tabular format with program counter (PC) as the horizontal heading and code block/row (CB) as the vertical heading. An example image by Ken is included with this article. Execution always starts on the first row, and an element may contain a value or instruction of arbitrary length. To compare this to biological systems, each element would contain a single nucleotide or amino acid residue, and regulatory sequences might serve as a rough analogy to function calls.
+
+(Note: Like in many other a-life simulators, the genome in Evolve immediately directs the organism's behaviour, whereas according to the Central Dogma, DNA encodes RNA which encode proteins. Each of these biomolecules may act on each other or the environment, hence there are many indirect relationships that are not readily apparent.)
+
+**Implications**
+
+To programmers, this might sound like a trivial quirk of a language, but this is actually a key consideration for bioinformaticians, who rely on sequence alignment algorithms to conduct any sort of analysis on the wealth of genetic and proteomic data available. I attempted to circumvent this in a manner of ways, including the interim EVOLVE-codon or '*evodon*' method which converts each gene into a 9-nucleotide sequence. However, this had plenty of its own problems as well as genes were frequently split up. In addition, the range of integers that could be encoded as evodons was limited to the range of -131021 to 131021. 
+
+I am currently searching or designing a variant of the Needleman-Wunsch or Smith-Watermann algorithms that operates on elements of a list rather than the hardcoded 4 nucleotides of DNA/RNA and 22 amino acids. Each element could have arbitary length, allowing genomic comparisons within any artificial life simulator. However, running tests of this algorithm versus current phylogenetic algorithms would become much harder.
+
+There are 77 KFORTH instructions and 22 organism instructions, which I have sorted into groups with two attached infographics. KFORTH instructions usually act on a value or a pair of values on the stack and return an output to the stack or elsewhere. On the other hand, organism instructions enable the organism to sense the environment as well as itself so as to act on the sensory data. (Evolve 5.0 adds more instructions, some of which pertain to the release and detection of pheromones. These pheromones are secreted by organisms into the environment.)
+
+Organism instructions
+- Interactions
+- Vision
+- Cells
+- Self
+- Genome
+
+KFORTH instructions
+- Flow
+- Stack
+- Pair
+- Maths Single
+- Maths Pair
+- Equality
+- Logic
+- Register Read
+- Register Write
+- Bit Manipulation
+
+This writeup is a bit shorter because of the infographics and because I just moved, but the next step would be describing the remaining bits of the simulator and how to automatically run it.
+
+Image credit: Ken J Stauffer
+Icon credits: Flaticon

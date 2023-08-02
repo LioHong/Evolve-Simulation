@@ -1,0 +1,57 @@
+Artificial Life and Phylogenomics Part 0: Background
+
+*"Evolve 4.0 is a simulator of evolution using a simplified 2-dimensional universe. This software lets you create new simulations, run them, and visualize the behavior of the evolving creatures.*
+
+*The first version of this software was created in 1996. Fortunately, it has evolved (just like the creatures that live in the simulator) into an awsome piece of software. The most recent version is a complete windows application with a well designed GUI and lots of features for examining the evolved creatures."*
+
+So reads the overview of the artificial life simulator simply called Evolve 4.0 as of 2007. 
+
+It was one of my first introductions to artificial life and programming in general in my teens. I had also been exposed to the concept of genetics via Frank Herbert’s *Dune*, and this gave me an opportunity to explore it in a readily accessible manner. But it was only last year, also concidentally soon after Villeneuve's *Dune 2020* was released to critical appeal, that I picked up this old simulator and approached it with more modern tools.
+
+The field of artificial life (A-life) seeks to develop organisms from the ground-up to understand them better. A-life is a small but active field, christened by Christopher Langton, the discoverer of Langton’s ant which is a kind of cellular automata. Nowadays, it is considered as the lesser-known sibling to the hotter field of artificial intelligence (AI). What they share is a drive to re-capitulate biological processes so as to better understand those processes, namely evolution and of course intelligence. Where they differ is that A-life explicitly seeks out open-endedness and emergence, a somewhat idiosyncratic goal for a scientific endeavour. Today, the premier society in the field is the International Society of Artificial Life (ISAL) that publishes the journal *Artificial Life* with MIT Press. The upcoming A-Life 2023 conference will be held in Sapporo next month.
+
+Personally, I kept up with A-life on and off, hearing about recent projects like The Bibites, Lenia, Neuraquarium and Simulife Hub’s digital trees. Tierra is often cited as a forerunner, together with Avida. Avida continues to go strong to this day at Michigan State University under the guidance of Charles Ofria and Chris Adami, whose team has assembled a veritable suite of bioinformatic tools to handle the intricacies of their simulator.
+
+Anyway, Evolve itself was first released in 1996 by Ken J Stauffer, and paused at version 4.0 in 2007 as an open-source project after changing languages a few times. There had been some discussion around it, with contributors sharing their own generated genomes with Ken on a dedicated forum, which he included as default examples. The source code was eventually uploaded and preserved by rubberduck203 on Github while ilyar preserved the website. This provided me the resources to examine the simulator in detail. Sadly, neither of us were able to re-compile it on our own. It resumed development when Ken released Evolve 5.0 for iOS in 2022. 
+
+For myself, my training was in bioengineering, while I did lab attachments in biomaterials projects. Only after I picked up Python and Java in 2019 did I begin looking more at bioinformatics, so my techniques and concepts might be a bit basic at this juncture, especially as I work full-time in academic publishing. But I hope to document my learning process in detail.
+
+**Technical stuff**
+
+Evolve files are called universes with the file extension EVOLVE. Various universes can be loaded, usually with different starting geographies and distributions of organisms. The geography is based in a 2D grid, resembling a cellular automata, with barriers blocking movement of organisms. As for the stars of the show, the organisms start with a host of biodata, most notably a genome, an energy level and a strain. The genome contains the instructions that dictates the behaviour of the organism. There are about 100 instructions that determine how an organism senses the environment, navigates it and interacts with other organisms. It is written in a fork of the procedural stack-based language FORTH called KFORTH, enabling users to precisely track how the organism behaves.
+
+The GUI is rather to-the-point, allowing speed control, drawing of barriers and selection of organisms. Double-clicking on an organism brings up its biodata. The Find Dialog allows filtering organisms by conditions, marking them with a radioactive tracer. These features and more are comprehensively covered in the User Manual.
+
+More interesting to myself was the discovery of the batch utility, a basic API for running the Evolve program from the command line. This was the foundation for my own repo for running it automatically and collecting the population data created. The other key part was that each universe could be exported to a PHASCII file which contained the biodata of every organism as well as other details of the universe. After verifying that the simulator was deterministic - that is, it would run exactly the same way given the same starting conditions - this allowed me to run a universe step-by-step until time step 10,000. I was then able to extract data of interest from the PHASCII - the organism's id (shortened to orgid), its parents, its generation and most importantly, its genome.
+
+My main goals are to test various algorithms used for sequence alignment and phylogenetic trees. Even simplified, the simulator captures a rich and comprehensive dataset ripe for analysis. Plus the simplification would serve as a good introduction as its quirks would be more easily apparent as compared to genomes from real-life organisms, which may have any number of peculiar adaptations that cascade into ad-hoc and specific modifications to their respective bioinformatics pipelines. Moreover, I was inspired by a paper that explored the benefits of whole-genome duplication in yeast by studying the phenomenon in digital organisms, and I've already noticed some interesting trends with gene duplication. (https://ieeexplore.ieee.org/document/7985809)
+
+**Addendum**
+
+This write-up would have originally ended here, but I took some time to read more literature, much of which came from the Ofria lab. They have already encountered and are currently dealing with many of the issues I’ve only begun to run into myself. Namely that digital phylogenies suffer from a glut of data accumulated from the progenitor, as compared to biological phylogenies which are reconstructed from the present and missing vast chunks of information due to past extinctions. 
+
+At any rate, this write-up is nowhere nearly as authoritative as I’d like to be. So having shared my own meandering story of discovery, I’ll now point to some other resources I’ve stumbled upon over time. (Also that if I continue to obsess over this I might never get this out.) 
+
+While I’m here, the dream would be to design my own simulator that would start from particles and end in organisms. It’s not realistic, which is why I call it a dream. But who knows what will happen?
+
+The Evolve simulator
+- Evolve 4.0 repository - https://github.com/rubberduck203/Evolve 
+- Evolve 4.0 manual - https://rubberduck203.github.io/Evolve/
+- Evolve 5.0 repository - https://github.com/kjs452/Evolve5 
+- Evolve 5.0 manual - https://etcutmp.com/evolve5/ 
+
+Other simulators
+- Avida-ED page - https://avida-ed.msu.edu 
+- The Bibites - https://thebibites.itch.io/the-bibites
+- Thrive - https://revolutionarygamesstudio.com
+- Lenia - https://chakazul.github.io/lenia.html
+- ALIEN - https://github.com/chrxh/alien
+- Neuraquarium - https://urocyongames.itch.io/neuraquarium
+- Tierra - https://github.com/bioerrorlog/Tierra
+
+The field of A-Life
+- *Artificial Life* (MIT Press) - https://direct.mit.edu/artl
+- A-Life Newsletter - https://alife-newsletter.github.io/Newsletter/
+- The Encyclopedia of Artificial Life - https://alife.org/encyclopedia/ 
+
+Image credit: Ken J Stauffer
