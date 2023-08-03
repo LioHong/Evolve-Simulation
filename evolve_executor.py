@@ -881,7 +881,9 @@ def naive_align(seq1, seq2):
 # Simplify the inputs.
 # But need to specify the bol_in_df eventually.
 def driver(base, target, gap=-1, match=1, mismatch=-1, debug=False):
-    GlobalAlignment.driver(retrieve_aaff(bgen_df.loc[base,'Genome']), retrieve_aaff(bgen_df.loc[target,'Genome']), gap, match, mismatch, debug)
+    gb = translate_aaff_to_kforth(bgen_df.loc[base, 'Genome']).split(' ')
+    gt = translate_aaff_to_kforth(bgen_df.loc[target,'Genome']).split(' ')
+    GlobalAlignment.driver(gb, gt, gap, match, mismatch, debug)
 
 
 # Convert row numbers from format of 'BX_#_' to 'F-'

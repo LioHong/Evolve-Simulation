@@ -26,7 +26,14 @@ class ScoreParams:
 
     def misMatchChar(self,x,y):
         if x != y:
-            return self.mismatch
+            if 'row' in x and 'row' in y:
+                return self.mismatch
+            # Instructions are str and numbers are int.
+            elif type(x) != type(y):
+                return -2
+            # Penalise swapping row and gene.
+            else:
+                return -2
         else:
             return self.match
 
@@ -155,12 +162,14 @@ def driver(x, y, gap=-1, match=1, mismatch=-1, debug=False):
         # aln_df[2] = aln_df[0].equals(aln_df[1])
         aln_df[2] = np.where(aln_df[0] == aln_df[1], '=', 'x')
         aln_df = aln_df[[0,2,1]]
-        aln_df = aln_df.rename(columns={0: 'base', 2:'match', 1:'new'})
+        simil = (aln_df[2] == '=').sum() / len(aln_df) * 100
+        aln_df = aln_df.rename(columns={2:'d'})
 
         # Add pipes and crosses somehow.
 
+        print('Similarity: ' + "{:3.1f}".format(simil) + '%')
         print('The globally aligned sequences are:')
         print(aln_df)
 
 # driver('aaac', 'agc', -2, 1, -1, debug=True)
-driver(['a','a','a','c'], ['a','g','c'], -2, 1, -1, debug=True)
+# driver(['a','a','a','c'], ['a','g','c'], -2, 1, -1, debug=True)
