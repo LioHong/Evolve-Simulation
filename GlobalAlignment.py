@@ -18,22 +18,30 @@ pd.set_option('display.expand_frame_repr', False)
 
 class ScoreParams:
     # Define scores for each parameter
-    def __init__(self,gap,match,mismatch):
+    def __init__(self,gap,match,mismatch,rmis=-2,tmis=-2):
         self.gap = gap
         self.match = match
         self.mismatch = mismatch
+        # Row mismatch.
+        self.rmis = rmis
+        # Type mismatch.
+        self.tmis = tmis
 
 
     def misMatchChar(self,x,y):
         if x != y:
-            if 'row' in x and 'row' in y:
-                return self.mismatch
-            # Instructions are str and numbers are int.
+            if 'row' in x or 'main' in x:
+                if 'row' in y or 'main' in y:
+                    return self.mismatch
+                # Penalise swapping row and gene.
+                else:
+                    return self.rmis
+            # Penalise swapping instr and num. Instr is str and num is int.
             elif type(x) != type(y):
-                return -2
-            # Penalise swapping row and gene.
+                return self.tmis
+            # Swap non-rows and within instr/num.
             else:
-                return -2
+                return self.mismatch
         else:
             return self.match
 
@@ -145,31 +153,25 @@ def driver(x, y, gap=-1, match=1, mismatch=-1, debug=False):
         print('Input sequences are: ')
         print(x)
         print(y)
-
         print('Printing the score matrix:')
         printMatrix(matrix)
         print('Printing the trace back matrix:')
         printMatrix(traceBack)
-    if False:
-        print('The globally aligned sequences are:')
-        print(*xSeq[::-1])
-        # Add pipes and crosses somehow.
-        print(*ySeq[::-1])
-    else:
-        # aln_df = pd.DataFrame(data=[xSeq,ySeq],columns=['base','new'])
-        aln_df = pd.DataFrame(data=[xSeq[::-1],ySeq[::-1]])
-        aln_df = aln_df.transpose()
-        # aln_df[2] = aln_df[0].equals(aln_df[1])
-        aln_df[2] = np.where(aln_df[0] == aln_df[1], '=', 'x')
-        aln_df = aln_df[[0,2,1]]
-        simil = (aln_df[2] == '=').sum() / len(aln_df) * 100
-        aln_df = aln_df.rename(columns={2:'d'})
 
-        # Add pipes and crosses somehow.
+    # aln_df = pd.DataFrame(data=[xSeq,ySeq],columns=['base','new'])
+    aln_df = pd.DataFrame(data=[xSeq[::-1],ySeq[::-1]])
+    aln_df = aln_df.transpose()
+    # aln_df[2] = aln_df[0].equals(aln_df[1])
+    aln_df[2] = np.where(aln_df[0] == aln_df[1], '=', 'x')
+    aln_df = aln_df[[0,2,1]]
+    simil = (aln_df[2] == '=').sum() / len(aln_df) * 100
+    aln_df = aln_df.rename(columns={2:'d'})
 
-        print('Similarity: ' + "{:3.1f}".format(simil) + '%')
-        print('The globally aligned sequences are:')
-        print(aln_df)
+    # Add pipes and crosses somehow.
+
+    print('Similarity: ' + "{:3.1f}".format(simil) + '%')
+    print('The globally aligned sequences are:')
+    print(aln_df)
 
 # driver('aaac', 'agc', -2, 1, -1, debug=True)
 # driver(['a','a','a','c'], ['a','g','c'], -2, 1, -1, debug=True)
