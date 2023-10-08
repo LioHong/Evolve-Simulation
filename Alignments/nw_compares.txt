@@ -1,0 +1,17 @@
+Take this as practice for converting phylo algorithms to work with lists.
+
+GlobalAlignment: Packaged the df format of alignments into pandalign()
+nw_01: Works with list.
+nw_02: Too many print(), 1 char/line. Not sure what's going on but it does return a final alignment.
+nw_03: Crams a lot of data into nested list ALIGNMENTS: ALIGNMENTS.append([top_aln[::-1],side_aln[::-1],elem,aln_info,aln_count])
+Good thing is generation of multiple alignments and all the steps taken, though there is Dir Error: print_alns_only() vs print_all()
+Successfully re-wrote code to handle input lists instead of strings.
+Fixed Dir Error also by comparing '1','2','3', instead of 1,2,3. The function now prints arrows!
+nw_04: Added pandalign() to replace the last few functions, and somehow still works with list elements of arbitrary length. But the pipe is added directly into the sequence.
+nw_05: Doesn't even work by itself, uses argparse somehow.
+nw_06: Cannot run because of weird indentations.
+
+=> nw_01, nw_03 and nw_04 (maybe) can work.
+
+Incorporate the stepwise walk? Or rather the various alternatives.
+
