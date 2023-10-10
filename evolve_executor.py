@@ -264,7 +264,7 @@ def store_aaff(aaff_genome):
     return aaff_string.replace("__","_")
 
 
-def retrieve_aaff(aaff_string):
+def retrieve_aaff(aaff_string,snum=False):
     # Separate out all the numbers.
     aaff_list = aaff_string.split("_")
     # Remove any empty strings.
@@ -280,7 +280,10 @@ def retrieve_aaff(aaff_string):
                 aaff_genome.append(evd)
         # Filter out all the numbers
         else:
-            aaff_genome.append(elm)
+            if not snum:
+                aaff_genome.append(elm)
+            else:
+                aaff_genome.append(str(elm))
     return aaff_genome
 
 
@@ -999,6 +1002,48 @@ sbol_df = bgen_df.iloc[:,:-1]
 # driver(7638, 7854, -1, 1, -1, debug=True)
 # bgen_df.loc[find_ancestors(949,sbol_df,5),'Genome']
 
+# Try to fit this into https://github.com/alife-data-standards/alife-std-dev-python/tree/master
+digevo_df = bgen_df.copy()
+digevo_df['ancestor_list'] = digevo_df.loc[:,['Sporelayer','Quickener']].values.tolist()
+# # Remove columns.
+# digevo_df = digevo_df.drop(columns=['Sporelayer','Quickener'])
+# Set id as index.
+digevo_df.set_index('Orgid')
+digevo_df.ancestor_list = digevo_df.ancestor_list.apply(lambda x: list(set(x)))
+# This works but head() doesn't show that.
+digevo_df.ancestor_list = digevo_df.ancestor_list.apply(lambda x: [y for y in x])
+digevo_df.rename(columns={'Orgid':'id', 'Birth_step':'origin_time', 'Death_step':'destruction_time', 'Genome':'sequence'}, inplace=True)
+# digevo_df.sequence = digevo_df.sequence.apply(lambda x: retrieve_aaff(x),snum=True)
+
+# from ALifeStdDev import phylogeny as asd_phylo
+# deeeee = asd_phylo.pandas_df_to_networkx(digevo_df)
+# tjhiorpra = asd_phylo.load_phylogeny_to_pandas_df(r"C:\Users\Julio Hong\Documents\LioHong\alife-std-dev-python-master\example_data\asexual_phylogeny_test.csv")
+# digevo_df.to_csv(r"C:\Users\Julio Hong\Documents\LioHong\Evolve-Archives\digevo_std_bgen010.csv")
+
+phylogeny = digevo_df.loc[:20,'ancestor_list'].to_dict()
+
+from deap import base
+from deap import tools
+toolbox = base.Toolbox()
+history = tools.History()
+
+import matplotlib.pyplot as plt
+import networkx
+from networkx.drawing.nx_pydot import graphviz_layout
+
+
+def evalOneMax(individual):
+    return sum(individual),
+toolbox.register("evaluate", evalOneMax)
+
+graph = networkx.DiGraph(phylogeny)
+graph = graph.reverse()     # Make the graph top-down
+colors = [toolbox.evaluate(phylogeny[i])[0] for i in graph]
+pos = graphviz_layout(graph, prog="dot")
+# networkx.draw(graph, node_color=colors, pos=pos)
+networkx.draw_networkx(graph, node_color=colors, pos=pos)
+plt.show()
+
 evorgs = [Evorg(**kwargs) for kwargs in bgen_df.to_dict(orient='records')]
 from phylotrackpy import systematics
 # sys = systematics.Systematics(lambda Evorg: Evorg.Genome)
@@ -1021,3 +1066,4 @@ if False:
    # simulate_universe(10000, runin_timestep, 1, express=True)
    # simulate_universe(10000, runin_timestep, 100, express=True)
    simulate_universe(10000, runin_timestep, 1000, express=True)
+

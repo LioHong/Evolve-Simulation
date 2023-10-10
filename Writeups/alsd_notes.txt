@@ -1,0 +1,138 @@
+Index(['Orgid', 'Sporelayer', 'Quickener', 'Generation', 'Birth_step', 'Death_step', 'Lifespan', 'Sex_check', 'Gnm_Len'], dtype='object')
+Index(['ancestor_list', 'origin_time', 'src', 'src_args', 'num_units', 'total_units', 'length', 'merit', 'gest_time', 'fitness', 'gen_born', 'update_born', 'update_deactivated', 'depth', 'hw_type', 'inst_set', 'sequence', 'cells', 'gest_offset', 'lineage'], dtype='object')
+
+'Orgid':'id'
+'Birth_step':'origin_time'
+'Death_step':'destruction_time'
+'Genome':'sequence'
+
+.
+└── alife-std-dev-python/
+    ├── .github/workflows/
+    │   └── CI.yaml
+    ├── ALifeStdDev/
+    │   └── __init__.py
+    ├── phylogeny/
+    │   ├── __init__.py
+    │   ├── loader.py/
+    │   │   ├── def load_phylogeny_to_pandas_df(filename)
+    │   │   ├── def load_phylogeny_to_networkx(filename)
+    │   │   ├── def pandas_df_to_networkx(data)
+    │   │   └── def networkx_to_pandas_df(g, bonus_cols=None)
+    │   ├── metrics.py/
+    │   │   ├── # ===== asexual lineage metrics =====/
+    │   │   │   ├── def get_asexual_lineage_length(lineage)
+    │   │   │   ├── def get_asexual_lineage_num_discrete_state_changes(lineage, attribute_list)
+    │   │   │   ├── def get_asexual_lineage_num_discrete_unique_states(lineage, attribute_list)
+    │   │   │   └── def get_asexual_lineage_mutation_accumulation(lineage, mutation_attributes, skip_root=False)
+    │   │   ├── # ===== asexual phylogeny metrics =====/
+    │   │   │   └── def get_mrca_tree_depth_asexual(phylogeny, ids=None)
+    │   │   └── # ===== phylogenetic richness =====/
+    │   │       └── def calc_phylogenetic_diversity_asexual(phylogeny, ids=None)
+    │   └── utils.py/
+    │       ├── # ===== Verification =====/
+    │       │   ├── def all_taxa_have_attribute(phylogeny, attribute)
+    │       │   ├── def all_taxa_have_attributes(phylogeny, attribute_list)
+    │       │   ├── def is_asexual(phylogeny)
+    │       │   └── def is_asexual_lineage(phylogeny)
+    │       ├── # ===== Rootedness-related utilities =====/
+    │       │   ├── def has_single_root(phylogeny)
+    │       │   ├── def get_root_ids(phylogeny)
+    │       │   ├── def get_roots(phylogeny)
+    │       │   ├── def get_num_roots(phylogeny)
+    │       │   ├── def get_num_independent_phylogenies(phylogeny)
+    │       │   └── def get_independent_phylogenies(phylogeny)
+    │       ├── # ===== Extracting the extant taxa =====/
+    │       │   ├── def get_leaf_taxa(phylogeny)
+    │       │   ├── def get_leaf_taxa_ids(phylogeny)
+    │       │   ├── def get_extant_taxa_ids(phylogeny, time="present", not_destroyed_value="none", destruction_attribute="destruction_time", origin_attribute="origin_time")
+    │       │   ├── def get_extant_taxa(phylogeny, time="present", not_destroyed_value="none", destruction_attribute="destruction_time", origin_attribute="origin_time")
+    │       │   ├── def taxon_is_alive(node, time, not_destroyed_value="none", destruction_attribute="destruction_time", origin_attribute="origin_time")
+    │       │   ├── def validate_destruction_time(phylogeny, attribute="destruction_time")
+    │       │   └── def validate_origin_time(phylogeny, attribute="origin_time")
+    │       ├── # ===== lineages-specific utilities =====/
+    │       │   ├── def extract_asexual_lineage(phylogeny, taxa_id)
+    │       │   ├── def extract_asexual_lineage_ids(phylogeny, taxa_id)
+    │       │   ├── def abstract_asexual_lineage(lineage, attribute_list, origin_time_attr="origin_time", destruction_time_attr="destruction_time")
+    │       │   └── def abstract_asexual_phylogeny(phylogeny, attribute_list, origin_time_attr="origin_time", destruction_time_attr="destruction_time")
+    │       ├── # ===== lod ====/
+    │       │   ├── def extract_asexual_lod(phylogeny)
+    │       │   └── def is_ancestor_asexual(phylogeny, tax1, tax2)
+    │       ├── # ===== mrca =====/
+    │       │   ├── def has_common_ancestor_asexual(phylogeny, ids=None)
+    │       │   ├── def get_mrca_id_asexual(phylogeny, ids=None)
+    │       │   └── def get_mrca_asexual(phylogeny, ids=None)
+    │       └── # ===== miscellaneous =====/
+    │           └── def get_pairwise_distances(phylogeny, ids)          
+    ├── example_data/
+    │   ├── asexual_phylogeny_test.csv
+    │   ├── example-standard-asexual-phylogeny.csv
+    │   ├── example-standard-asexual-phylogeny.json
+    │   ├── example-standard-sexual-phylogeny.csv
+    │   ├── example-standard-toy-asexual-lineage.csv
+    │   ├── example-standard-toy-asexual-phylogeny-multi-roots.csv
+    │   ├── example-standard-toy-asexual-phylogeny-not-pruned.csv
+    │   ├── example-standard-toy-asexual-phylogeny.csv
+    │   ├── example-standard-toy-sexual-phylogeny.csv
+    │   ├── sexual_phylogeny_test.csv
+    │   └── should_fail.csv
+    ├── tests/
+    │   ├── __init__.py
+    │   ├── test_flat_namespace.py
+    │   ├── test_phylogeny_loader.py
+    │   ├── test_phylogeny_metrics.py
+    │   └── test_phylogeny_utils.py
+    ├── .bumpversion.cfg
+    ├── .gitignore
+    ├── LICENSE
+    ├── README.md
+    ├── requirements.in
+    ├── requirements.txt
+    └── setup.py
+
+.
+└── phylotrackpy/
+    ├── .github/
+    │   ├── ISSUE_TEMPLATE/
+    │   │   ├── bug_report.md
+    │   │   └── feature_request
+    │   ├── workflows/
+    │   │   └── ci.yml
+    │   └── dependabot.yml
+    ├── Empirical @ 1578787
+    ├── docs/
+    │   ├── images/
+    │   │   ├── FullPhylogeny.png
+    │   │   └── phylogeny.jpg
+    │   ├── Makefile
+    │   ├── bibliography.bib
+    │   ├── conf.py
+    │   ├── index.md
+    │   ├── make.bat
+    │   └── systematics.inc
+    ├── joss/
+    │   ├── bibtex-tidy.sh
+    │   ├── paper.bib
+    │   └── paper.md
+    ├── phylotrackpy/
+    │   └── __init__.py
+    ├── test/
+    │   ├── assets/
+    │   │   ├── consolidated.csv
+    │   │   ├── full.csv
+    │   │   └── systematics_snapshot.csv
+    │   ├── __init__.py
+    │   └── test_systematics.py
+    ├── .gitignore
+    ├── .gitmodules
+    ├── .readthedocs.yaml
+    ├── CONTRIBUTING.md
+    ├── LICENSE
+    ├── Makefile
+    ├── README.md
+    ├── pyproject.toml
+    ├── requirements.in
+    ├── requirements.txt
+    └── setup.cfg
+    └── setup.py
+    └── systematics_bindings.cpp

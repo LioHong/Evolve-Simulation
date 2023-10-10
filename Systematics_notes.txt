@@ -1,0 +1,70 @@
+.
+└── include/emp/Evolve/Systematics.hpp/
+    ├── namespace datastruct
+    ├── class Taxon
+    ├── class SystematicsBase
+    ├── class Systematics : public SystematicsBase<ORG>
+    ├── void Systematics<ORG, ORG_INFO, DATA_STRUCT>::Prune(Ptr<taxon_t> taxon)
+    ├── void Systematics<ORG, ORG_INFO, DATA_STRUCT>::RemoveOffspring(Ptr<taxon_t> offspring, Ptr<taxon_t> taxon)
+    ├── void Systematics<ORG, ORG_INFO, DATA_STRUCT>::MarkExtinct(Ptr<taxon_t> taxon, int time)
+    ├── Ptr<typename Systematics<ORG, ORG_INFO, DATA_STRUCT>::taxon_t> Systematics<ORG, ORG_INFO, DATA_STRUCT>::GetMRCA() const
+    ├── int Systematics<ORG, ORG_INFO, DATA_STRUCT>::GetMRCADepth() const
+    ├── void Systematics<ORG, ORG_INFO, DATA_STRUCT>::AddOrg(ORG & org, WorldPosition pos, int update)
+    ├── void Systematics<ORG, ORG_INFO, DATA_STRUCT>::AddOrg(ORG && org, WorldPosition pos, int update)
+    ├── Systematics<ORG, ORG_INFO, DATA_STRUCT>::AddOrg(ORG & org, Ptr<taxon_t> parent, int update)
+    ├── Systematics<ORG, ORG_INFO, DATA_STRUCT>::AddOrg(ORG && org, Ptr<taxon_t> parent, int update)
+    ├── Systematics<ORG, ORG_INFO, DATA_STRUCT>::AddOrg(ORG && org, WorldPosition pos, Ptr<taxon_t> parent, int update)
+    ├── Systematics<ORG, ORG_INFO, DATA_STRUCT>::AddOrg(ORG & org, WorldPosition pos, Ptr<taxon_t> parent, int update)
+    ├── void Systematics<ORG, ORG_INFO, DATA_STRUCT>::RemoveOrgAfterRepro(WorldPosition pos, int time)
+    ├── void Systematics<ORG, ORG_INFO, DATA_STRUCT>::RemoveOrgAfterRepro(Ptr<taxon_t> taxon, int time)
+    ├── bool Systematics<ORG, ORG_INFO, DATA_STRUCT>::RemoveOrg(WorldPosition pos, int time)
+    ├── bool Systematics<ORG, ORG_INFO, DATA_STRUCT>::RemoveOrg(Ptr<taxon_t> taxon, int time)
+    ├── Ptr<typename Systematics<ORG, ORG_INFO, DATA_STRUCT>::taxon_t> Systematics<ORG, ORG_INFO, DATA_STRUCT>::Parent(Ptr<taxon_t> taxon) const
+    ├── void Systematics<ORG, ORG_INFO, DATA_STRUCT>::PrintStatus(std::ostream & os) const
+    ├── void Systematics<ORG, ORG_INFO, DATA_STRUCT>::PrintLineage(Ptr<taxon_t> taxon, std::ostream & os) const
+    ├── void Systematics<ORG, ORG_INFO, DATA_STRUCT>::Snapshot(const std::string & file_path) const
+    └── double Systematics<ORG, ORG_INFO, DATA_STRUCT>::CalcDiversity() const
+	
+.
+└── include/emp/Evolve/Systematics.hpp/
+    ├── /// optional second template type that can store additional data about each taxon/
+    │   └── namespace datastruct
+    ├── /// @brief A Taxon represents a type of organism in a phylogeny e.g. genotype./
+    │   └── class Taxon
+    ├── /// A base class for Systematics, maintaining information common to all systematics managers and providing virtual functions./
+    │   └── class SystematicsBase
+    ├── /// @brief A tool to track phylogenetic relationships among organisms./
+    │   └── class Systematics : public SystematicsBase<ORG>
+    ├── // Should be called wheneven a taxon has no organisms AND no descendants./
+    │   └── void Systematics<ORG, ORG_INFO, DATA_STRUCT>::Prune(Ptr<taxon_t> taxon)
+    ├── void Systematics<ORG, ORG_INFO, DATA_STRUCT>::RemoveOffspring(Ptr<taxon_t> offspring, Ptr<taxon_t> taxon)
+    ├── // Mark a taxon extinct if there are no more living members.  There may be descendants./
+    │   └── void Systematics<ORG, ORG_INFO, DATA_STRUCT>::MarkExtinct(Ptr<taxon_t> taxon, int time)
+    ├── // Request a pointer to the Most-Recent Common Ancestor for the population./
+    │   └── Ptr<typename Systematics<ORG, ORG_INFO, DATA_STRUCT>::taxon_t> Systematics<ORG, ORG_INFO, DATA_STRUCT>::GetMRCA() const
+    ├── // Request the depth of the Most-Recent Common Ancestor; return -1 for none./
+    │   └── int Systematics<ORG, ORG_INFO, DATA_STRUCT>::GetMRCADepth() const
+    ├── // Add information about a new organism, including its stored info and parent's taxon;/
+    │   ├── void Systematics<ORG, ORG_INFO, DATA_STRUCT>::AddOrg(ORG & org, WorldPosition pos, int update)
+    │   └── void Systematics<ORG, ORG_INFO, DATA_STRUCT>::AddOrg(ORG && org, WorldPosition pos, int update)
+    ├── // Version for if you aren't tracking positions/
+    │   ├── Systematics<ORG, ORG_INFO, DATA_STRUCT>::AddOrg(ORG & org, Ptr<taxon_t> parent, int update)
+    │   └── Systematics<ORG, ORG_INFO, DATA_STRUCT>::AddOrg(ORG && org, Ptr<taxon_t> parent, int update)
+    ├── // Add information about a new organism, including its stored info and parent's taxon;/
+    │   ├── Systematics<ORG, ORG_INFO, DATA_STRUCT>::AddOrg(ORG && org, WorldPosition pos, Ptr<taxon_t> parent, int update)
+    │   └── Systematics<ORG, ORG_INFO, DATA_STRUCT>::AddOrg(ORG & org, WorldPosition pos, Ptr<taxon_t> parent, int update)
+    ├── void Systematics<ORG, ORG_INFO, DATA_STRUCT>::RemoveOrgAfterRepro(WorldPosition pos, int time)
+    ├── void Systematics<ORG, ORG_INFO, DATA_STRUCT>::RemoveOrgAfterRepro(Ptr<taxon_t> taxon, int time)
+    ├── // Remove an instance of an organism; track when it's gone./
+    │   ├── bool Systematics<ORG, ORG_INFO, DATA_STRUCT>::RemoveOrg(WorldPosition pos, int time)
+    │   └── bool Systematics<ORG, ORG_INFO, DATA_STRUCT>::RemoveOrg(Ptr<taxon_t> taxon, int time)
+    ├── // Climb up a lineage.../
+    │   └── Ptr<typename Systematics<ORG, ORG_INFO, DATA_STRUCT>::taxon_t> Systematics<ORG, ORG_INFO, DATA_STRUCT>::Parent(Ptr<taxon_t> taxon) const
+    ├── // Print details about the Systematics manager./
+    │   └── void Systematics<ORG, ORG_INFO, DATA_STRUCT>::PrintStatus(std::ostream & os) const
+    ├── // Print whole lineage./
+    │   └── void Systematics<ORG, ORG_INFO, DATA_STRUCT>::PrintLineage(Ptr<taxon_t> taxon, std::ostream & os) const
+    ├── /// Take a snapshot of current state of taxon phylogeny./
+    │   └── void Systematics<ORG, ORG_INFO, DATA_STRUCT>::Snapshot(const std::string & file_path) const
+    └── // Calculate the genetic diversity of the population./
+        └── double Systematics<ORG, ORG_INFO, DATA_STRUCT>::CalcDiversity() const
