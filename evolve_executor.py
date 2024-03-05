@@ -38,7 +38,8 @@ path_bat_ugenetemp = os.path.join(path_workdir, "ugene_template.bat")
 run_num = "026"
 # Extract from filename?
 run_name = "big_bang"
-path_rundir = os.path.join(path_workdir, "Runs", "Run_" + run_num + "_" + run_name)
+# path_rundir = os.path.join(path_workdir, "Runs", "Set_001", "Run_" + run_num + "_" + run_name)
+path_rundir = os.path.join(path_workdir, "Runs", "Set_001", "Run_" + run_num)
 # Have to change workdir before the batch file can be successfully run.
 os.chdir(path_rundir)
 # Genome summary.
@@ -1020,8 +1021,10 @@ digevo_df.rename(columns={'Orgid':'id', 'Birth_step':'origin_time', 'Death_step'
 # tjhiorpra = asd_phylo.load_phylogeny_to_pandas_df(r"C:\Users\Julio Hong\Documents\LioHong\alife-std-dev-python-master\example_data\asexual_phylogeny_test.csv")
 # digevo_df.to_csv(r"C:\Users\Julio Hong\Documents\LioHong\Evolve-Archives\digevo_std_bgen010.csv")
 
-phylogeny = digevo_df.loc[:20,'ancestor_list'].to_dict()
+phylogeny = digevo_df.loc[:200,'ancestor_list'].to_dict()
 
+# https://colab.research.google.com/github/emilydolson/alife-phylogeny-tutorial/blob/main/perfect_tracking_final.ipynb#scrollTo=AQleBmbYENpC
+# https://deap.readthedocs.io/en/master/api/tools.html?highlight=history#deap.tools.History
 from deap import base
 from deap import tools
 toolbox = base.Toolbox()
@@ -1030,7 +1033,6 @@ history = tools.History()
 import matplotlib.pyplot as plt
 import networkx
 from networkx.drawing.nx_pydot import graphviz_layout
-
 
 def evalOneMax(individual):
     return sum(individual),
