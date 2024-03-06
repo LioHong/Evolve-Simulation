@@ -7,15 +7,14 @@ Purpose: Package all attempts at tracking phylogenies.
 Steps:
 
 """
-import os
-from shutil import copyfile
-from math import log10
 from datetime import datetime
 import pandas as pd
-import numpy as np
-# This is a borrowed algorithm.
-import GlobalAlignment
-import genome_handler
+from deap import base
+from deap import tools
+import matplotlib.pyplot as plt
+import networkx
+from networkx.drawing.nx_pydot import graphviz_layout
+from phylotrackpy import systematics
 
 # To adjust the dataframe appearance
 pd.set_option('display.max_rows', 500)
@@ -214,3 +213,61 @@ class Evorg(object):
         # self.Genome = retrieve_aaff(Genome)
     def __repr__(self):
         return "Evorg object " + self.Genome
+
+
+# Try to fit this into https://github.com/alife-data-standards/alife-std-dev-python/tree/master
+def fit_phylogeny(inp_df):
+    digevo_df = inp_df.copy()
+    digevo_df['ancestor_list'] = digevo_df.loc[:, ['Sporelayer', 'Quickener']].values.tolist()
+    # # Remove columns.
+    # digevo_df = digevo_df.drop(columns=['Sporelayer','Quickener'])
+    # Set id as index.
+    digevo_df.set_index('Orgid')
+    digevo_df.ancestor_list = digevo_df.ancestor_list.apply(lambda x: list(set(x)))
+    # This works but head() doesn't show that.
+    digevo_df.ancestor_list = digevo_df.ancestor_list.apply(lambda x: [y for y in x])
+    digevo_df.rename(
+        columns={'Orgid': 'id', 'Birth_step': 'origin_time', 'Death_step': 'destruction_time', 'Genome': 'sequence'},
+        inplace=True)
+    # digevo_df.sequence = digevo_df.sequence.apply(lambda x: retrieve_aaff(x),snum=True)
+
+    # from ALifeStdDev import phylogeny as asd_phylo
+    # deeeee = asd_phylo.pandas_df_to_networkx(digevo_df)
+    # tjhiorpra = asd_phylo.load_phylogeny_to_pandas_df(r"C:\Users\Julio Hong\Documents\LioHong\alife-std-dev-python-master\example_data\asexual_phylogeny_test.csv")
+    # digevo_df.to_csv(r"C:\Users\Julio Hong\Documents\LioHong\Evolve-Archives\digevo_std_bgen010.csv")
+
+    evorgs = [Evorg(**kwargs) for kwargs in inp_df.to_dict(orient='records')]
+
+    # sys = systematics.Systematics(lambda Evorg: Evorg.Genome)
+    sys = systematics.Systematics(lambda Evorg: Evorg.__repr__(), True, True, False, False)
+    for e in evorgs[1:100]:
+        e.taxon = sys.add_org(e)
+        s_children = inp_df[inp_df.Sporelayer == e.Orgid].index
+        q_children = inp_df[inp_df.Quickener == e.Orgid].index
+        # Just ignore q_children for now.
+        for s in s_children:
+            evorgs[s].taxon = sys.add_org(s, e.taxon)
+        if not e.Death_step:
+            sys.remove_org(e.taxon)
+
+    return digevo_df
+
+
+# https://colab.research.google.com/github/emilydolson/alife-phylogeny-tutorial/blob/main/perfect_tracking_final.ipynb#scrollTo=AQleBmbYENpC
+# https://deap.readthedocs.io/en/master/api/tools.html?highlight=history#deap.tools.History
+def draw_phylogeny(digevo_df):
+    def evalOneMax(individual):
+        return sum(individual),
+
+    phylogeny = digevo_df.loc[:200, 'ancestor_list'].to_dict()
+    toolbox = base.Toolbox()
+    history = tools.History()
+    toolbox.register("evaluate", evalOneMax)
+
+    graph = networkx.DiGraph(phylogeny)
+    graph = graph.reverse()  # Make the graph top-down
+    colors = [toolbox.evaluate(phylogeny[i])[0] for i in graph]
+    pos = graphviz_layout(graph, prog="dot")
+    # networkx.draw(graph, node_color=colors, pos=pos)
+    networkx.draw_networkx(graph, node_color=colors, pos=pos)
+    plt.show()

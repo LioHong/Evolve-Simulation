@@ -6,20 +6,12 @@ Date created: 2024/03/05, Tue, 21:04:00 (UTC+8)
 Purpose: Packages all functions relating to KFORTH genome handling.
 Steps:
 """
-import os
-from shutil import copyfile
-from math import log10
-from datetime import datetime
-import pandas as pd
 import numpy as np
-# This is a borrowed algorithm.
-import GlobalAlignment
 
-# To adjust the dataframe appearance
-pd.set_option('display.max_rows', 500)
-pd.set_option('display.max_columns', 20)
-pd.set_option("display.width", 200)
-pd.set_option('display.expand_frame_repr', False)
+
+# https://stackoverflow.com/questions/28730961/python-slicing-string-in-three-character-substrings
+def pair_split(elm):
+    return [elm[s:s + 2] for s in range(0, len(elm), 2) if len(elm[s:s + 2]) > 1]
 
 
 # Small but useful for quick manual exports: Copy list to clipboard for pasting elsewhere.
@@ -45,7 +37,6 @@ def get_organics_from_universe(file_phascii):
                     # Must remove the Energy and Age which can change over time.
                     org_dict[organic].append(line.split(' ')[:-2])
     return org_dict
-
 
 
 # These conversion functions are packaged primarily for readability of wrangle_genome() and also conversion of archives.
