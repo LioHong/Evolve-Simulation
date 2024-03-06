@@ -7,6 +7,7 @@ Purpose: Packages all functions relating to KFORTH genome handling.
 Steps:
 """
 import numpy as np
+from os import path, system
 
 
 # https://stackoverflow.com/questions/28730961/python-slicing-string-in-three-character-substrings
@@ -14,12 +15,43 @@ def pair_split(elm):
     return [elm[s:s + 2] for s in range(0, len(elm), 2) if len(elm[s:s + 2]) > 1]
 
 
+# Function to convert from binary to base-4, so as to retain 2's complement.
+binfour_dict = {"00": "0", "01": "1", "10": "2", "11": "3"}
+b4_nt_dict = {"0": "A", "1": "T", "2": "G", "3": "C"}
+def convert_binary_to_base4(bin_num):
+    # subs = [bin_num[s:s+2] for s in range(0,len(bin_num),2) if len(bin_num[s:s+2]) > 1]
+    subs = pair_split(bin_num)
+    subs = [binfour_dict[x] for x in subs]
+    return "".join(subs)
+
+# Available range of integers: -131022 to 131022. (-2^17 - -49 to 2^17 - 49)
+# Useful for generating dict and adjusting based on instructions, but loading from file would be preferable.
+bitlength_evodons = 18
+num_b4_dict = {}
+for posnum in range(0, 131023):
+    num_b4_dict[str(posnum)] = convert_binary_to_base4(format(posnum, "#020b")[2:])
+for negnum in range(-1, -131023, -1):
+    num_b4_dict[str(negnum)] = convert_binary_to_base4(bin(negnum & (2 ** bitlength_evodons - 1))[2:])
+
+path_workdir = r"C:\Users\Julio Hong\Documents\LioHong\Evolve-Simulation\\"
+# Convert KFORTH genome to DNA: 0123 for ATGC.
+with open(path.join(path_workdir, "instr_b4_dict.txt"),'r') as filein:
+    instr_b4_dict = eval(filein.read())
+# AA-FF storage method.
+with open(path.join(path_workdir, "b4_aaff_dict.txt"),'r') as filein:
+    b4_aaff_dict = eval(filein.read())
+    aaff_b4_dict = {v: k for k, v in b4_aaff_dict.items()}
+# AA-FF storage method. Must have UTF-8 or else UnicodeDecodeError.
+with open(path.join(path_workdir, "aaff_xascii_dict.txt"),'r', encoding='utf8') as filein:
+    aaff_xascii_dict = eval(filein.read())
+
+
 # Small but useful for quick manual exports: Copy list to clipboard for pasting elsewhere.
 def addToClipBoard(read_list):
     # Use spaces to separate.
     text = '_'.join(read_list)
     command = 'echo ' + text.strip() + '| clip'
-    os.system(command)
+    system(command)
 
 
 # Setup the dicts as basis for comparison.
@@ -231,19 +263,6 @@ def unspool_aaff_for_msa(aaff_string):
     return nt_seq
 
 
-# This function is used for variable inputs.
-def check_input_files(path_run_in):
-    # Read the filenames of the template files.
-    files_list = os.listdir(path_run_in)
-    files_list = [x.split('.')[0] for x in files_list]
-    # Check that the names of the EVOLVE and PHASCII both match.
-    if len(set(files_list)) > 1:
-        print("Mismatch in EVOLVE and PHASCII detected.")
-    # Then extract the timestep.
-    else:
-        return int(files_list[0].split('_')[-1])
-
-
 # To eyeball the genome.
 def translate_aaff_to_kforth(aaff_string):
     aaff_genome = retrieve_aaff(aaff_string)
@@ -290,7 +309,7 @@ def fix_negnum_in_aaff(path_in):
 # File_name is in format "run-num_org-id.seq".
 def save_aaff_to_fasta(aaff_string, file_name):
     nt_seq = unspool_aaff_for_msa(aaff_string)
-    path_file = os.path.join(path_fasta, file_name + ".seq")
+    path_file = path.join(path_fasta, file_name + ".seq")
     with open(path_file, "wt") as f:
         f.write(nt_seq)
 
@@ -320,3 +339,31 @@ def fix_aaff_into_xascii(path_in):
         pstr.truncate(0)
         for line in ogxa_pairlist:
             pstr.write(line)
+
+
+# Use keys to point to genomes.
+# Work with bgen_df first.
+def cache_genomes(bgen_df):
+    # Store progenitor genome: orgid=0 or smallest.
+    # Approach #1: This is ordered chronologically.
+    cache_gnm_dict = {1:bgen_df.loc[bgen_df.index[1],'Genome']}
+    # Set threshold.
+    threshold = 5
+    # Check len of dict and use it as key for next genome.
+    # Approach #2: This is ordered by frequency.
+    gnm_counts = bgen_df.Genome.value_counts()
+    gnm_counts = gnm_counts[gnm_counts>threshold]
+    cgd = {k:v for k, v in zip(range(len(gnm_counts)), gnm_counts.index)}
+    dgc = {v:k for k, v in cgd.items()}
+
+
+    def isindict(strx):
+        try:
+            return dgc[strx]
+        except:
+            return strx
+    bgen_df['cgd'] = bgen_df.Genome.apply(lambda x: isindict(x))
+
+    return bgen_df
+
+# Get genome using key.

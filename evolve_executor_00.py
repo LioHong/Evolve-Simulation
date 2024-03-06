@@ -33,18 +33,16 @@ pd.set_option('display.expand_frame_repr', False)
 # path_evodir = r"C:\Program Files (x86)\Evolve"
 path_workdir = r"C:\Users\Julio Hong\Documents\LioHong\Evolve-Simulation\\"
 path_bat_evotemp = os.path.join(path_workdir, "evo_template.bat")
-path_bat_ugenetemp = os.path.join(path_workdir, "ugene_template.bat")
 # Eventually can adjust based on user input.
 # set_num =  "001"
 # run_num = "026"
-set_num =  "002"
-run_num = "009"
+grp_num =  "002"
+run_num = "013"
 # Extract from filename?
 # run_name = "big_bang"
 run_name = "need_for_speed"
-path_rundir = os.path.join(path_workdir, "Runs", "Set_" + set_num, "Run_" + run_num)
-# Have to change workdir before the batch file can be successfully run.
-os.chdir(path_rundir)
+path_grpdir = os.path.join(path_workdir, "Runs", "Grp_" + grp_num)
+path_rundir = os.path.join(path_grpdir, "Run_" + run_num)
 # Genome summary.
 path_genome = os.path.join(path_rundir, "genomes_over_time_" + run_num + ".txt")
 path_strain_genome = os.path.join(path_rundir, "strain_genome_" + run_num + ".txt")
@@ -75,39 +73,35 @@ def replace_old_with_new(path_input, old_new_dict):
                 f.write(line)
 
 
-# Function to convert from binary to base-4, so as to retain 2's complement.
-binfour_dict = {"00": "0", "01": "1", "10": "2", "11": "3"}
-b4_nt_dict = {"0": "A", "1": "T", "2": "G", "3": "C"}
-def convert_binary_to_base4(bin_num):
-    # subs = [bin_num[s:s+2] for s in range(0,len(bin_num),2) if len(bin_num[s:s+2]) > 1]
-    subs = geha.pair_split(bin_num)
-    subs = [binfour_dict[x] for x in subs]
-    return "".join(subs)
 
-# Available range of integers: -131022 to 131022. (-2^17 - -49 to 2^17 - 49)
-# Useful for generating dict and adjusting based on instructions, but loading from file would be preferable.
-bitlength_evodons = 18
-num_b4_dict = {}
-for posnum in range(0, 131023):
-    num_b4_dict[str(posnum)] = convert_binary_to_base4(format(posnum, "#020b")[2:])
-for negnum in range(-1, -131023, -1):
-    num_b4_dict[str(negnum)] = convert_binary_to_base4(bin(negnum & (2 ** bitlength_evodons - 1))[2:])
 
-# Convert KFORTH genome to DNA: 0123 for ATGC.
-with open(os.path.join(path_workdir, "instr_b4_dict.txt"),'r') as filein:
-    instr_b4_dict = eval(filein.read())
-# AA-FF storage method.
-with open(os.path.join(path_workdir, "b4_aaff_dict.txt"),'r') as filein:
-    b4_aaff_dict = eval(filein.read())
-    aaff_b4_dict = {v: k for k, v in b4_aaff_dict.items()}
-# AA-FF storage method. Must have UTF-8 or else UnicodeDecodeError.
-with open(os.path.join(path_workdir, "aaff_xascii_dict.txt"),'r', encoding='utf8') as filein:
-    aaff_xascii_dict = eval(filein.read())
+# This function is used for variable inputs.
+def check_input_files(path_run_in):
+    # Read the filenames of the template files.
+    files_list = os.listdir(path_run_in)
+    files_list = [x.split('.')[0] for x in files_list]
+    # Check that the names of the EVOLVE and PHASCII both match.
+    if len(set(files_list)) > 1:
+        print("Mismatch in EVOLVE and PHASCII detected.")
+    # Then extract the timestep.
+    else:
+        return int(files_list[0].split('_')[-1])
+
+
+# Use if I'm testing a bunch of runs with the same universe and PHASCII.
+def prep_new_run():
+    grp_file_list = os.listdir(path_grpdir)
+    univ = [x for x in grp_file_list if '.evolve' in x][0]
+    phascii = [x for x in grp_file_list if '.txt' in x][0]
+    os.makedirs(path_rundir, exist_ok=True)
+    # Check if template universe and PHASCII already exist.
+    copyfile(os.path.join(path_grpdir, univ), os.path.join(path_rundir, univ))
+    copyfile(os.path.join(path_grpdir, phascii), os.path.join(path_rundir, phascii))
 
 
 # # For future formatting of filenames.
 # num_lead_zeroes = int(log10(time_period)) + 1
-def simulate_universe(time_period, runin_timestep=0, interval=1, express=False):
+def simulate_universe(time_period, runin_timestep=0, interval=1, express=False, prep=False):
     # Packaged to ease readability of simulate_universe().
     def wrangle_genome(indiv_genome):
         # Save the stats of the organism while removing from genome.
@@ -129,11 +123,11 @@ def simulate_universe(time_period, runin_timestep=0, interval=1, express=False):
             indiv_genome.remove('')
 
         # type(evodon_genome) = string, containing 0123.
-        b4_genome = geha.convert_kforth_to_base4(indiv_genome,instr_b4_dict,num_b4_dict)
+        b4_genome = geha.convert_kforth_to_base4(indiv_genome, geha.instr_b4_dict, geha.num_b4_dict)
         # type(nucleotide_genome) = string, containing ATGC.
-        nt_genome = geha.convert_base4_to_nucleotide(b4_genome, b4_nt_dict)
+        nt_genome = geha.convert_base4_to_nucleotide(b4_genome, geha.b4_nt_dict)
         # # type(ab_genome) = string, containing AA-FF.
-        aaff_genome = geha.convert_base4_to_aaff(b4_genome, b4_aaff_dict)
+        aaff_genome = geha.convert_base4_to_aaff(b4_genome, geha.b4_aaff_dict)
         aaff_string = geha.store_aaff(aaff_genome)
 
         # nucleotide_genome = convert_base4_to_nucelotide(evodon_genome)
@@ -150,7 +144,12 @@ def simulate_universe(time_period, runin_timestep=0, interval=1, express=False):
     
     # Performance metric.
     print("Scraper started at " + datetime.now().strftime("%H:%M:%S"))
-    
+
+    if prep:
+        prep_new_run()
+    # Have to change workdir before the batch file can be successfully run.
+    os.chdir(path_rundir)
+
     for timestep in range(runin_timestep, runin_timestep+time_period, interval):
         # Progress update. Adjust the frequency if time_period becomes larger?
         if timestep % (max(time_period//100,1)) == 0:
@@ -310,24 +309,30 @@ def examine_book_of_life(path_book):
 
     # ===== Data Handling =====
     # Check which organism lived the longest.
-    blife_df.Lifespan.max()
+    print('Longest-lived:')
+    print(blife_df.Lifespan.max())
     # Remove negative lifespans used to rep living organisms. Can raise threshold.
     blife_df.loc[blife_df.Lifespan > -1, "Lifespan"].min()
-    # Check how many organisms managed to reproduce.
-    len(set(blife_df.Sporelayer))
-    len(set(blife_df.Quickener))
-    # Check which organism had the most children.
-    blife_df.Sporelayer.value_counts()
-    blife_df.Quickener.value_counts()
-    # Check which organism produced the most children via sexual reproduction.
-    blife_df.loc[blife_df.Sex_check != 0, "Sporelayer"].value_counts()
-    blife_df.loc[blife_df.Sex_check != 0, "Quickener"].value_counts()
     # Find the oldest still-living organism.
-    blife_df.loc[blife_df.Lifespan < 0, "Birth_step"].min()
+    print('Oldest living:')
+    print(blife_df.loc[blife_df.Lifespan < 0, "Birth_step"].min())
     # Related: Lifespan of oldest still-living organism.
-    blife_df.loc[blife_df.Lifespan > 0, "Lifespan"].max()
+    print('Lifespan of oldest living:')
+    print(blife_df.loc[blife_df.Lifespan > 0, "Lifespan"].max())
+    # Check how many organisms managed to reproduce.
+    print('Number of organisms who reproduced (S,Q):')
+    print(len(set(blife_df.Sporelayer)))
+    print(len(set(blife_df.Quickener)))
+    # Check which organism had the most children.
+    print('Most children:')
+    print(blife_df.Sporelayer.value_counts().head())
+    print(blife_df.Quickener.value_counts().head())
+    # Check which organism produced the most children via sexual reproduction.
+    print('Most children via sex:')
+    print(blife_df.loc[blife_df.Sex_check != 0, "Sporelayer"].value_counts().head())
+    print(blife_df.loc[blife_df.Sex_check != 0, "Quickener"].value_counts().head())
 
-    return blife_df
+    # return blife_df
 
 
 # Simplify the inputs.
