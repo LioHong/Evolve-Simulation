@@ -88,7 +88,7 @@ def convert_b4_to_intstr(evd):
 # Consider whether to keep genomes as type list, then ''.join(list) only for the MSA and data storage?
 # Most likely usage: Pick genomes from data storage, then convert them into nucleotides for MSA.
 # Base-4 format used for compatibility with bits and ATGC.
-def convert_kforth_to_base4(kforth_genome):
+def convert_kforth_to_base4(kforth_genome,instr_b4_dict,num_b4_dict):
     def rownum_to_b4(rn):
         elm = np.binary_repr(2**17 - 1 - 48 - int(rn), width=18)
         ppairs_list = pair_split(elm)
@@ -127,7 +127,7 @@ def convert_base4_to_kforth(b4_genome):
 
 
 # Full conversion to ATGC.
-def convert_base4_to_nucleotide(b4_genome):
+def convert_base4_to_nucleotide(b4_genome, b4_nt_dict):
     nt_genome = []
     for elm in b4_genome:
         # nt_genome = [b4_nt_dict[digit] for digit in b4_genome]
@@ -151,7 +151,7 @@ def convert_nucleotide_to_base4(nt_genome):
 
 
 # Convert keywords to AA-FF for storage.
-def convert_base4_to_aaff(b4_genome):
+def convert_base4_to_aaff(b4_genome, b4_aaff_dict):
     fa_num = 2 ** 17 - 1 - 48
     def test(evd):
         try:
