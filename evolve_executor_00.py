@@ -37,7 +37,7 @@ path_bat_evotemp = os.path.join(path_workdir, "evo_template.bat")
 # set_num =  "001"
 # run_num = "026"
 grp_num =  "002"
-run_num = "013"
+run_num = "007"
 # Extract from filename?
 # run_name = "big_bang"
 run_name = "need_for_speed"
@@ -47,6 +47,9 @@ path_rundir = os.path.join(path_grpdir, "Run_" + run_num)
 path_genome = os.path.join(path_rundir, "genomes_over_time_" + run_num + ".txt")
 path_strain_genome = os.path.join(path_rundir, "strain_genome_" + run_num + ".txt")
 path_book = os.path.join(path_rundir, "book_of_life_" + run_num + ".txt")
+path_bgen = os.path.join(path_rundir, "bgen_" + run_num + ".csv")
+path_cgen = os.path.join(path_rundir, "cgen_" + run_num + ".csv")
+path_cgd = os.path.join(path_rundir, "cgd_" + run_num + ".csv")
 path_fasta = os.path.join(path_rundir, "Individual Genomes")
 # All genomes present per timestep.
 genomes_over_time = {}
@@ -71,8 +74,6 @@ def replace_old_with_new(path_input, old_new_dict):
             f.truncate(0)
             for line in new_text:
                 f.write(line)
-
-
 
 
 # This function is used for variable inputs.
@@ -283,7 +284,7 @@ def simulate_universe(time_period, runin_timestep=0, interval=1, express=False, 
 
 
 # Convert string of numbers into organised df.
-def examine_book_of_life(path_book):
+def organise_book_of_life(path_book):
     # Open the text archive.
     with open(path_book, "rt") as f:
         bol = f.readlines()
@@ -306,7 +307,12 @@ def examine_book_of_life(path_book):
     blife_df = blife_df.sort_values(by=["ID"])
     blife_df["Lifespan"] = blife_df.Death_step - blife_df.Birth_step
     blife_df["Sex_check"] = blife_df.Quickener - blife_df.Sporelayer
+    blife_df.to_csv(path_bgen)
 
+    return blife_df
+
+
+def examine_book_of_life(blife_df):
     # ===== Data Handling =====
     # Check which organism lived the longest.
     print('Longest-lived:')
@@ -332,8 +338,6 @@ def examine_book_of_life(path_book):
     print(blife_df.loc[blife_df.Sex_check != 0, "Sporelayer"].value_counts().head())
     print(blife_df.loc[blife_df.Sex_check != 0, "Quickener"].value_counts().head())
 
-    # return blife_df
-
 
 # Simplify the inputs.
 # But need to specify the bol_in_df eventually.
@@ -346,11 +350,13 @@ def driver(base, target, gap=-1, match=1, mismatch=-1, debug=False):
 bgen_df = pd.read_csv(r"C:/Users/Julio Hong/Documents/LioHong/Evolve-Archives/bol_gen_010.csv", index_col="Unnamed: 0")
 # Create a version without the genome col.
 sbol_df = bgen_df.iloc[:,:-1]
+bgen_df = organise_book_of_life(path_book)
+cgen_df, cgd = geha.compress_book(bgen_df, path_bgen, path_strain_genome, path_cgen, path_cgd, threshold=5)
 # driver(7638, 7854, -1, 1, -1, debug=True)
 # bgen_df.loc[find_ancestors(949,sbol_df,5),'Genome']
 
-digevo_df = tphy.fit_phylogeny(bgen_df)
-tphy.draw_phylogeny(digevo_df)
+# digevo_df = tphy.fit_phylogeny(bgen_df)
+# tphy.draw_phylogeny(digevo_df)
 
 if False:
 # if True:

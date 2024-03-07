@@ -8,6 +8,7 @@ Steps:
 """
 import numpy as np
 from os import path, system
+from json import dump
 
 
 # https://stackoverflow.com/questions/28730961/python-slicing-string-in-three-character-substrings
@@ -314,17 +315,6 @@ def save_aaff_to_fasta(aaff_string, file_name):
         f.write(nt_seq)
 
 
-# Load as org_id:aaff_string. Other metadata isn't strictly required, alr in book_of_life.
-def load_strain_genome(path_sgen):
-    # Open the text archive.
-    with open(path_sgen, "rt") as f:
-        sfgen = f.readlines()
-    keys = [int(x.split(" ")[0]) for x in sfgen]
-    values = [x.split(":")[1][:-2] for x in sfgen]
-    sfgen_dict = dict(zip(keys, values))
-    return sfgen_dict
-
-
 # Change data storage format for strain_genome_015.
 def fix_aaff_into_xascii(path_in):
     with open(path_in, "rt") as sgen:
@@ -341,14 +331,31 @@ def fix_aaff_into_xascii(path_in):
             pstr.write(line)
 
 
+# Load as org_id:aaff_string. Other metadata isn't strictly required, alr in book_of_life.
+def load_strain_genome(path_sgen):
+    # Open the text archive.
+    with open(path_sgen, "rt") as f:
+        sfgen = f.readlines()
+    keys = [int(x.split(" ")[0]) for x in sfgen]
+    values = [x.split(":")[1][:-2] for x in sfgen]
+    sfgen_dict = dict(zip(keys, values))
+    return sfgen_dict
+
+
+# Combine book_of_life and strain_genome.
+def stitch_sgen(bgen_df, path_sgen):
+    sfgen_dict = load_strain_genome(path_sgen)
+    bgen_df['Genome'] = bgen_df.index.map(sfgen_dict)
+    return bgen_df
+
+
 # Use keys to point to genomes.
 # Work with bgen_df first.
-def cache_genomes(bgen_df):
+def cache_genomes(bgen_df,threshold=5):
     # Store progenitor genome: orgid=0 or smallest.
     # Approach #1: This is ordered chronologically.
     cache_gnm_dict = {1:bgen_df.loc[bgen_df.index[1],'Genome']}
     # Set threshold.
-    threshold = 5
     # Check len of dict and use it as key for next genome.
     # Approach #2: This is ordered by frequency.
     gnm_counts = bgen_df.Genome.value_counts()
@@ -362,8 +369,20 @@ def cache_genomes(bgen_df):
             return dgc[strx]
         except:
             return strx
-    bgen_df['cgd'] = bgen_df.Genome.apply(lambda x: isindict(x))
+    bgen_df['cgen'] = bgen_df.Genome.apply(lambda x: isindict(x))
 
-    return bgen_df
+    return bgen_df, cgd
+
+
+# Leave only combined, cached bgen_df - cgen_df.
+def compress_book(bgen_df, path_bgen, path_sgen, path_cgen, path_cgd, threshold=5):
+    bgen_df = stitch_sgen(bgen_df, path_sgen)
+    bgen_df.to_csv(path_bgen)
+    cgen_df, cgd = cache_genomes(bgen_df, threshold)
+    cgen_df.drop(columns=['Genome']).to_csv(path_cgen)
+    with open(path_cgd, "w") as outfile:
+        dump(cgd, outfile)
+    return cgen_df, cgd
+
 
 # Get genome using key.
