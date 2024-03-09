@@ -13,7 +13,9 @@ Steps:
 
 """
 import os
+from os import system
 from shutil import copyfile
+from pathlib import Path
 from math import log10
 from datetime import datetime
 import pandas as pd
@@ -30,27 +32,23 @@ pd.set_option('display.expand_frame_repr', False)
 
 # ===== PATHS =====
 # Edit a BATCH file to run the input and output Evolve files.
-# path_evodir = r"C:\Program Files (x86)\Evolve"
-path_workdir = r"C:\Users\Julio Hong\Documents\LioHong\Evolve-Simulation\\"
-path_bat_evotemp = os.path.join(path_workdir, "evo_template.bat")
+bat_tmpl_path = Path(".") / "evo_template.bat"
 # Eventually can adjust based on user input.
 # set_num =  "001"
 # run_num = "026"
 grp_num =  "002"
-run_num = "007"
+run_num = "014"
 # Extract from filename?
 # run_name = "big_bang"
 run_name = "need_for_speed"
-path_grpdir = os.path.join(path_workdir, "Runs", "Grp_" + grp_num)
-path_rundir = os.path.join(path_grpdir, "Run_" + run_num)
+grp_dirpath = Path(".") / "Runs" / ("Grp_" + grp_num)
+run_dirpath = grp_dirpath / ("Run_" + run_num)
 # Genome summary.
-path_genome = os.path.join(path_rundir, "genomes_over_time_" + run_num + ".txt")
-path_strain_genome = os.path.join(path_rundir, "strain_genome_" + run_num + ".txt")
-path_book = os.path.join(path_rundir, "book_of_life_" + run_num + ".txt")
-path_bgen = os.path.join(path_rundir, "bgen_" + run_num + ".csv")
-path_cgen = os.path.join(path_rundir, "cgen_" + run_num + ".csv")
-path_cgd = os.path.join(path_rundir, "cgd_" + run_num + ".csv")
-path_fasta = os.path.join(path_rundir, "Individual Genomes")
+strain_genome_path = run_dirpath / ("strain_genome_" + run_num + ".txt")
+book_path = run_dirpath / ("book_of_life_" + run_num + ".txt")
+bgen_path = run_dirpath / ("bgen_" + run_num + ".csv")
+cgen_path = run_dirpath / ("cgen_" + run_num + ".csv")
+cgd_path = run_dirpath / ("cgd_" + run_num + ".csv")
 # All genomes present per timestep.
 genomes_over_time = {}
 # All genomes in the strain over time.
@@ -58,29 +56,20 @@ strain_genome = {}
 book_of_life = {}
 
 
-def replace_old_with_new(path_input, old_new_dict):
+def replace_old_with_new(input_path, old_new_dict):
+    text = input_path.read_text(encoding="utf-8").splitlines()
+    # new_text = text.splitlines()
     for oldnew in old_new_dict:
-        with open(path_input, "rt") as f:
-            text = f.readlines()
-
-        new_text = []
-        for line in text:
-            if oldnew in line:
-                new_text.append(line.replace(oldnew, old_new_dict[oldnew]))
-            else:
-                new_text.append(line)
-
-        with open(path_input, "wt") as f:
-            f.truncate(0)
-            for line in new_text:
-                f.write(line)
+        text = [line.replace(oldnew, old_new_dict[oldnew]) if oldnew in line else line for line in text]
+    input_path.write_text("\n".join(text), encoding="utf-8")
 
 
 # This function is used for variable inputs.
-def check_input_files(path_run_in):
+def check_input_files(run_path):
     # Read the filenames of the template files.
-    files_list = os.listdir(path_run_in)
+    files_list = os.listdir(run_path)
     files_list = [x.split('.')[0] for x in files_list]
+    # files_list = [x for x in run_path.iterdir() if x.is_file()]
     # Check that the names of the EVOLVE and PHASCII both match.
     if len(set(files_list)) > 1:
         print("Mismatch in EVOLVE and PHASCII detected.")
@@ -91,13 +80,14 @@ def check_input_files(path_run_in):
 
 # Use if I'm testing a bunch of runs with the same universe and PHASCII.
 def prep_new_run():
-    grp_file_list = os.listdir(path_grpdir)
-    univ = [x for x in grp_file_list if '.evolve' in x][0]
-    phascii = [x for x in grp_file_list if '.txt' in x][0]
-    os.makedirs(path_rundir, exist_ok=True)
+    # grp_file_list = os.listdir(grp_dirpath)
+    grp_file_list = [x for x in grp_dirpath.iterdir() if x.is_file()]
+    univ = [x for x in grp_file_list if '.evolve' in x.name][0]
+    phascii = [x for x in grp_file_list if '.txt' in x.name][0]
+    Path(run_dirpath).mkdir(exist_ok=True)
     # Check if template universe and PHASCII already exist.
-    copyfile(os.path.join(path_grpdir, univ), os.path.join(path_rundir, univ))
-    copyfile(os.path.join(path_grpdir, phascii), os.path.join(path_rundir, phascii))
+    copyfile(univ, run_dirpath / univ.name)
+    copyfile(phascii, run_dirpath / phascii.name)
 
 
 # # For future formatting of filenames.
@@ -148,8 +138,6 @@ def simulate_universe(time_period, runin_timestep=0, interval=1, express=False, 
 
     if prep:
         prep_new_run()
-    # Have to change workdir before the batch file can be successfully run.
-    os.chdir(path_rundir)
 
     for timestep in range(runin_timestep, runin_timestep+time_period, interval):
         # Progress update. Adjust the frequency if time_period becomes larger?
@@ -160,51 +148,59 @@ def simulate_universe(time_period, runin_timestep=0, interval=1, express=False, 
         # Step-by-step initialisation.
         if timestep != runin_timestep:
             # Set the text to Find and Replace
-            text_find_input = path_input_evo
-            text_find_output = path_output_evo
+            text_find_input = evin_fname
+            text_find_output = evout_fname
             # Old output becomes input.
-            path_input_evo = path_output_evo
+            evin_fname = evout_fname
             # Name the output file based on original simulation and time-step.
-            path_output_evo = os.path.join(path_rundir, run_name + "_" + str(timestep+interval))
+            # evout_fname = os.path.join(run_dirpath, run_name + "_" + str(timestep+interval))
+            evout_fname = run_name + "_" + str(timestep+interval)
             # Lives summary from output becomes that for input.
             lives_input = lives_output
 
         # Timestep equals 1, beginning of simulation. Initialise from template.
         else:
             # Copy EVOLVE and PHASCII from template?
-            path_start_evo = os.path.join(path_rundir, run_name + "_" + str(runin_timestep))
-            path_output_evo = os.path.join(path_rundir, run_name + "_" + str(runin_timestep+interval))
-            path_input_evo = path_start_evo
+            evstart_path = run_name + "_" + str(runin_timestep)
+            evout_fname = run_name + "_" + str(runin_timestep+interval)
+            evin_fname = evstart_path
             # Copy the bat file and rename it.
-            path_batrun_evo = os.path.join(path_rundir, "run_" + run_num + "_" + run_name + "_evolve.bat")
-            copyfile(path_bat_evotemp, path_batrun_evo)
+            bat_run_path = run_dirpath / ("run_" + run_num + "_" + run_name + "_evolve.bat")
+            copyfile(bat_tmpl_path, bat_run_path)
             # Set the text to Find and Replace
-            text_find_input = "path_in"
-            text_find_output = "path_out"
+            text_find_input = "p_in"
+            text_find_output = "p_out"
 
         # Run the batch file: Update paths in batch file based on timestep.
-        replaceds = {text_find_output: path_output_evo, text_find_input: path_input_evo, "1u": str(interval)+"u"}
-        replace_old_with_new(path_batrun_evo, replaceds)
+        replaceds = {text_find_output: evout_fname, text_find_input: evin_fname, "1u": str(interval)+"u"}
+        replace_old_with_new(bat_run_path, replaceds)
         # Get the filename itself to run.
-        os.system(path_batrun_evo.split('\\')[-1])
+        system(str(bat_run_path))
 
         # Export PHASCII for output: Extract only the ORGANIC section from the PHASCII.
-        path_output_phascii = path_output_evo + ".txt"
+        # phas_path = evout_fname + ".txt"
+        phas_path = run_dirpath / (evout_fname + ".txt")
         # Find the 'ORGANIC' entry and then slice the lines list.
-        with open(path_output_phascii, "rt") as phas:
-            fas_text = phas.readlines()
-        newfas_text = fas_text[fas_text.index("ORGANIC {\n"):]
-        with open(path_output_phascii, "wt") as phas:
-            phas.truncate(0)
-            for line in newfas_text:
-                phas.write(line)
+        # with open(phas_path, "rt") as phas:
+        #     fas_text = phas.readlines()
+        # newfas_text = fas_text[fas_text.index("ORGANIC {\n"):]
+        # with open(phas_path, "wt") as phas:
+        #     phas.truncate(0)
+        #     for line in newfas_text:
+        #         phas.write(line)
+
+        phas = phas_path.read_text(encoding="utf-8").splitlines()
+        newphas = phas[phas.index("ORGANIC {"):]
+        phas_path.write_text("\n".join(newphas), encoding="utf-8")
+
         # Update instructions in genome to avoid collisions during genome handling step.
         fix_collisions_dict = {"MAKE-SPORE": "MAKE-SPOR", " - ": " ~ ", "NUM-CELLS": "NUM-CELS"}
-        replace_old_with_new(path_output_phascii, fix_collisions_dict)
+        replace_old_with_new(phas_path, fix_collisions_dict)
 
         # Extract genomes of all organisms in universe.
-        with open(path_output_phascii, "rt") as phile:
-            raw_phile = phile.readlines()
+        # with open(phas_path, "rt") as phile:
+        #     raw_phile = phile.readlines()
+        raw_phile = phas_path.read_text(encoding="utf-8").splitlines()
         org_flag = False
         popn_genome = {}
         organisms_in_timestep = []
@@ -247,14 +243,15 @@ def simulate_universe(time_period, runin_timestep=0, interval=1, express=False, 
         # Test which data format takes up the least memory: char-num, char-atgc, binary?
 
         # Operation: Delete the old input evolve file.
-        os.remove(path_input_evo + ".evolve")
+        # os.remove(evin_fname + ".evolve")
+        (run_dirpath / (evin_fname + ".evolve")).unlink()
         # # Add population genome to genome tracking over time.
         # genomes_over_time[timestep] = popn_genome
         # Compare the ORGANISMS section of the input and output PHASCII files.
-        lives_output = geha.get_organics_from_universe(path_output_phascii)
+        lives_output = geha.get_organics_from_universe(phas_path)
         # # If the summaries are identical, then delete the output PHASCII (not lines in console).
         # if lives_input == lives_output and timestep != time_period:
-        #     os.remove(path_output_phascii)
+        #     os.remove(phas_path)
         #     # genomes_over_time.pop(timestep)
         # Include a mode which DELETES the intermediate PHASCIIs.
         # Would it be better not to create in the first place? But would require rewrite of the code.
@@ -262,18 +259,19 @@ def simulate_universe(time_period, runin_timestep=0, interval=1, express=False, 
             express = False
         if express:
             try:
-                os.remove(path_output_phascii)
+                # os.remove(phas_path)
+                phas_path.unlink()
             except:
                 pass
 
     # Create another alternative dict that only records genomes of organisms. Takes up far less memory.
-    file = open(path_strain_genome, "w")
+    file = open(strain_genome_path, "w")
     for key, value in strain_genome.items():
         file.write('%s:%s\n' % (key, value))
     file.close()
     
     # For phylogenetics, record book_of_life.
-    file = open(path_book, "w")
+    file = open(book_path, "w")
     for key, value in book_of_life.items():
         file.write('%s:%s\n' % (key, value))
     file.close()
@@ -284,9 +282,9 @@ def simulate_universe(time_period, runin_timestep=0, interval=1, express=False, 
 
 
 # Convert string of numbers into organised df.
-def organise_book_of_life(path_book):
+def organise_book_of_life(book_path):
     # Open the text archive.
-    with open(path_book, "rt") as f:
+    with open(book_path, "rt") as f:
         bol = f.readlines()
     # Format of an organism's entry: "31 1 1 1:[211, 387]/n"
     # Process the string into lists.
@@ -307,7 +305,7 @@ def organise_book_of_life(path_book):
     blife_df = blife_df.sort_values(by=["ID"])
     blife_df["Lifespan"] = blife_df.Death_step - blife_df.Birth_step
     blife_df["Sex_check"] = blife_df.Quickener - blife_df.Sporelayer
-    blife_df.to_csv(path_bgen)
+    blife_df.to_csv(bgen_path)
 
     return blife_df
 
@@ -350,8 +348,8 @@ def driver(base, target, gap=-1, match=1, mismatch=-1, debug=False):
 bgen_df = pd.read_csv(r"C:/Users/Julio Hong/Documents/LioHong/Evolve-Archives/bol_gen_010.csv", index_col="Unnamed: 0")
 # Create a version without the genome col.
 sbol_df = bgen_df.iloc[:,:-1]
-bgen_df = organise_book_of_life(path_book)
-cgen_df, cgd = geha.compress_book(bgen_df, path_bgen, path_strain_genome, path_cgen, path_cgd, threshold=5)
+bgen_df = organise_book_of_life(book_path)
+cgen_df, cgd = geha.compress_book(bgen_df, bgen_path, strain_genome_path, cgen_path, cgd_path, threshold=5)
 # driver(7638, 7854, -1, 1, -1, debug=True)
 # bgen_df.loc[find_ancestors(949,sbol_df,5),'Genome']
 
@@ -360,7 +358,7 @@ cgen_df, cgd = geha.compress_book(bgen_df, path_bgen, path_strain_genome, path_c
 
 if False:
 # if True:
-   runin_timestep = check_input_files(path_rundir)
+   runin_timestep = check_input_files(run_dirpath)
    # simulate_universe(1000, express=True)
    # simulate_universe(100, runin_timestep, express=True)
    # simulate_universe(10000, runin_timestep, 1, express=True)
