@@ -12,7 +12,6 @@ Steps:
 5. (Operation) Delete the old input file.
 
 """
-import os
 from os import system
 from shutil import copyfile
 from pathlib import Path
@@ -34,8 +33,6 @@ pd.set_option('display.expand_frame_repr', False)
 # Edit a BATCH file to run the input and output Evolve files.
 bat_tmpl_path = Path(".") / "evo_template.bat"
 # Eventually can adjust based on user input.
-# set_num =  "001"
-# run_num = "026"
 grp_num =  "002"
 run_num = "014"
 # Extract from filename?
@@ -56,31 +53,27 @@ strain_genome = {}
 book_of_life = {}
 
 
-def replace_old_with_new(input_path, old_new_dict):
-    text = input_path.read_text(encoding="utf-8").splitlines()
-    # new_text = text.splitlines()
+def replace_old_with_new(text, old_new_dict):
     for oldnew in old_new_dict:
         text = [line.replace(oldnew, old_new_dict[oldnew]) if oldnew in line else line for line in text]
-    input_path.write_text("\n".join(text), encoding="utf-8")
+    return text
 
 
 # This function is used for variable inputs.
 def check_input_files(run_path):
     # Read the filenames of the template files.
-    files_list = os.listdir(run_path)
-    files_list = [x.split('.')[0] for x in files_list]
-    # files_list = [x for x in run_path.iterdir() if x.is_file()]
+    grp_file_list = [x for x in run_path.iterdir() if x.is_file()]
+    grp_file_list = [x.name.split('.')[0] for x in grp_file_list]
     # Check that the names of the EVOLVE and PHASCII both match.
-    if len(set(files_list)) > 1:
+    if len(set(grp_file_list)) > 1:
         print("Mismatch in EVOLVE and PHASCII detected.")
     # Then extract the timestep.
     else:
-        return int(files_list[0].split('_')[-1])
+        print("Files matched.")
 
 
 # Use if I'm testing a bunch of runs with the same universe and PHASCII.
 def prep_new_run():
-    # grp_file_list = os.listdir(grp_dirpath)
     grp_file_list = [x for x in grp_dirpath.iterdir() if x.is_file()]
     univ = [x for x in grp_file_list if '.evolve' in x.name][0]
     phascii = [x for x in grp_file_list if '.txt' in x.name][0]
@@ -88,6 +81,14 @@ def prep_new_run():
     # Check if template universe and PHASCII already exist.
     copyfile(univ, run_dirpath / univ.name)
     copyfile(phascii, run_dirpath / phascii.name)
+
+
+# Mainly outputs strain_genome and book_of_life TXTs.
+def glue_book(input_path, data_dict):
+    lines = []
+    for key, value in data_dict.items():
+        lines.append('%s:%s\n' % (key, value))
+    input_path.write_text("".join(lines), encoding="utf-8")
 
 
 # # For future formatting of filenames.
@@ -101,8 +102,6 @@ def simulate_universe(time_period, runin_timestep=0, interval=1, express=False, 
         indiv_genome = ' '.join(indiv_genome)
         # Change of spacer: Convert tabs to spaces.
         indiv_genome = indiv_genome.replace("    ", " ")
-        # # Separate "rowX" into "row X".
-        # indiv_genome = indiv_genome.replace("row", "row ")
         # Remove multiple spaces.
         while "  " in indiv_genome:
             indiv_genome = indiv_genome.replace("  ", " ")
@@ -112,33 +111,19 @@ def simulate_universe(time_period, runin_timestep=0, interval=1, express=False, 
         # type(indiv_genome) = list.
         while '' in indiv_genome:
             indiv_genome.remove('')
-
-        # type(evodon_genome) = string, containing 0123.
-        b4_genome = geha.convert_kforth_to_base4(indiv_genome, geha.instr_b4_dict, geha.num_b4_dict)
-        # type(nucleotide_genome) = string, containing ATGC.
-        nt_genome = geha.convert_base4_to_nucleotide(b4_genome, geha.b4_nt_dict)
-        # # type(ab_genome) = string, containing AA-FF.
-        aaff_genome = geha.convert_base4_to_aaff(b4_genome, geha.b4_aaff_dict)
+        aaff_genome = geha.shrink_kforth_to_aaff(indiv_genome)
         aaff_string = geha.store_aaff(aaff_genome)
-
-        # nucleotide_genome = convert_base4_to_nucelotide(evodon_genome)
-        # popn_genome[vital_stats] = nucleotide_genome
         # Remove ENERGY and AGE from vital_stats.
         vs_list = vital_stats.split(" ")
         vital_stats = vs_list[1] + " " + " ".join(vs_list[4:7])
         # Can just keep adding genome repeatedly and it'll overwrite.
-        # strain_genome[vital_stats] = nucleotide_genome
-        popn_genome[vital_stats] = aaff_string
         strain_genome[vital_stats] = aaff_string
-
-        return vital_stats, aaff_string, nt_genome, list(popn_genome.keys())
+        return vital_stats, aaff_string, list(strain_genome.keys())
     
     # Performance metric.
     print("Scraper started at " + datetime.now().strftime("%H:%M:%S"))
-
-    if prep:
-        prep_new_run()
-
+    # Copy EVOLVE and PHASCII from template.
+    if prep: prep_new_run()
     for timestep in range(runin_timestep, runin_timestep+time_period, interval):
         # Progress update. Adjust the frequency if time_period becomes larger?
         if timestep % (max(time_period//100,1)) == 0:
@@ -153,14 +138,12 @@ def simulate_universe(time_period, runin_timestep=0, interval=1, express=False, 
             # Old output becomes input.
             evin_fname = evout_fname
             # Name the output file based on original simulation and time-step.
-            # evout_fname = os.path.join(run_dirpath, run_name + "_" + str(timestep+interval))
             evout_fname = run_name + "_" + str(timestep+interval)
             # Lives summary from output becomes that for input.
             lives_input = lives_output
 
         # Timestep equals 1, beginning of simulation. Initialise from template.
         else:
-            # Copy EVOLVE and PHASCII from template?
             evstart_path = run_name + "_" + str(runin_timestep)
             evout_fname = run_name + "_" + str(runin_timestep+interval)
             evin_fname = evstart_path
@@ -172,60 +155,47 @@ def simulate_universe(time_period, runin_timestep=0, interval=1, express=False, 
             text_find_output = "p_out"
 
         # Run the batch file: Update paths in batch file based on timestep.
-        replaceds = {text_find_output: evout_fname, text_find_input: evin_fname, "1u": str(interval)+"u"}
-        replace_old_with_new(bat_run_path, replaceds)
+        br_replaceds = {text_find_output: evout_fname, text_find_input: evin_fname, "1u": str(interval)+"u"}
+        text = bat_run_path.read_text(encoding="utf-8").splitlines()
+        text = replace_old_with_new(text, br_replaceds)
+        bat_run_path.write_text("\n".join(text), encoding="utf-8")
         # Get the filename itself to run.
         system(str(bat_run_path))
 
         # Export PHASCII for output: Extract only the ORGANIC section from the PHASCII.
-        # phas_path = evout_fname + ".txt"
         phas_path = run_dirpath / (evout_fname + ".txt")
         # Find the 'ORGANIC' entry and then slice the lines list.
-        # with open(phas_path, "rt") as phas:
-        #     fas_text = phas.readlines()
-        # newfas_text = fas_text[fas_text.index("ORGANIC {\n"):]
-        # with open(phas_path, "wt") as phas:
-        #     phas.truncate(0)
-        #     for line in newfas_text:
-        #         phas.write(line)
-
         phas = phas_path.read_text(encoding="utf-8").splitlines()
-        newphas = phas[phas.index("ORGANIC {"):]
-        phas_path.write_text("\n".join(newphas), encoding="utf-8")
-
+        phas = phas[phas.index("ORGANIC {"):]
+        # Replace everything in indiv_genome that's not a keyword.
+        removables = ["\t", "\n", ":", "{", "}", "# program", '"']
+        for rmvb in removables: phas = [r.replace(rmvb, "") for r in phas]
         # Update instructions in genome to avoid collisions during genome handling step.
         fix_collisions_dict = {"MAKE-SPORE": "MAKE-SPOR", " - ": " ~ ", "NUM-CELLS": "NUM-CELS"}
-        replace_old_with_new(phas_path, fix_collisions_dict)
+        phas = replace_old_with_new(phas, fix_collisions_dict)
 
         # Extract genomes of all organisms in universe.
-        # with open(phas_path, "rt") as phile:
-        #     raw_phile = phile.readlines()
-        raw_phile = phas_path.read_text(encoding="utf-8").splitlines()
         org_flag = False
-        popn_genome = {}
         organisms_in_timestep = []
-        for phline in raw_phile:
-            # Add "ORGANISM" line via org_flag=True.
+        # When see "ORGANISM", start recording the genome.
+        for phline in phas:
             if "ORGANISM" in phline:
                 org_flag = True
                 indiv_genome = []
-            # Avoid adding the "CELL" line via org_flag=False.
+            # "CELL" indicates end of genome, so store collated biodata.
             if "CELL" in phline and org_flag:
                 org_flag = False
-                vital_stats, indiv_genome, nucleotide_genome, population = wrangle_genome(indiv_genome)
+                vital_stats, indiv_genome, population = wrangle_genome(indiv_genome)
                 # Add organism to list of living.
                 organisms_in_timestep.append(vital_stats)
                 # Add birth-step of organism.
                 if vital_stats not in book_of_life:
                     book_of_life[vital_stats] = [timestep]
+            # Line-by-line, record the genome.
             if org_flag:
-                # Replace everything in indiv_genome that's not a keyword.
-                removables = ["\t", "\n", ":", "{", "}", "# program", '"']
-                phresh = phline
-                for rmvb in removables:
-                    phresh = phresh.replace(rmvb, "")
                 # Add line.
-                indiv_genome.append(phresh)
+                indiv_genome.append(phline)
+
         # Add death-step of organism.
         for vs_org in book_of_life:
             # Check that organism was still alive.
@@ -243,39 +213,27 @@ def simulate_universe(time_period, runin_timestep=0, interval=1, express=False, 
         # Test which data format takes up the least memory: char-num, char-atgc, binary?
 
         # Operation: Delete the old input evolve file.
-        # os.remove(evin_fname + ".evolve")
         (run_dirpath / (evin_fname + ".evolve")).unlink()
         # # Add population genome to genome tracking over time.
         # genomes_over_time[timestep] = popn_genome
         # Compare the ORGANISMS section of the input and output PHASCII files.
-        lives_output = geha.get_organics_from_universe(phas_path)
+        lives_output = geha.get_organics_from_universe(phas)
+        phas_path.write_text("\n".join(phas), encoding="utf-8")
         # # If the summaries are identical, then delete the output PHASCII (not lines in console).
         # if lives_input == lives_output and timestep != time_period:
-        #     os.remove(phas_path)
+        #     phas_path.unlink()
         #     # genomes_over_time.pop(timestep)
         # Include a mode which DELETES the intermediate PHASCIIs.
         # Would it be better not to create in the first place? But would require rewrite of the code.
-        if timestep == time_period:
-            express = False
+        if timestep == time_period: express = False
         if express:
-            try:
-                # os.remove(phas_path)
-                phas_path.unlink()
-            except:
-                pass
+            try: phas_path.unlink()
+            except: pass
 
     # Create another alternative dict that only records genomes of organisms. Takes up far less memory.
-    file = open(strain_genome_path, "w")
-    for key, value in strain_genome.items():
-        file.write('%s:%s\n' % (key, value))
-    file.close()
-    
+    glue_book(strain_genome_path, strain_genome)
     # For phylogenetics, record book_of_life.
-    file = open(book_path, "w")
-    for key, value in book_of_life.items():
-        file.write('%s:%s\n' % (key, value))
-    file.close()
-
+    glue_book(book_path, book_of_life)
     print("Scraper finished at " + datetime.now().strftime("%H:%M:%S"))
 
     # Automate archiving? Store run archive in Evolve-Archives, retain starting files and ending files.
@@ -306,7 +264,6 @@ def organise_book_of_life(book_path):
     blife_df["Lifespan"] = blife_df.Death_step - blife_df.Birth_step
     blife_df["Sex_check"] = blife_df.Quickener - blife_df.Sporelayer
     blife_df.to_csv(bgen_path)
-
     return blife_df
 
 
@@ -345,10 +302,9 @@ def driver(base, target, gap=-1, match=1, mismatch=-1, debug=False):
     GlobalAlignment.driver(gb, gt, gap, match, mismatch, debug)
 
 # ===== EXECUTION =====
-bgen_df = pd.read_csv(r"C:/Users/Julio Hong/Documents/LioHong/Evolve-Archives/bol_gen_010.csv", index_col="Unnamed: 0")
 # Create a version without the genome col.
-sbol_df = bgen_df.iloc[:,:-1]
-bgen_df = organise_book_of_life(book_path)
+sbol_df = organise_book_of_life(book_path)
+bgen_df = geha.stitch_sgen(sbol_df, strain_genome_path)
 cgen_df, cgd = geha.compress_book(bgen_df, bgen_path, strain_genome_path, cgen_path, cgd_path, threshold=5)
 # driver(7638, 7854, -1, 1, -1, debug=True)
 # bgen_df.loc[find_ancestors(949,sbol_df,5),'Genome']
