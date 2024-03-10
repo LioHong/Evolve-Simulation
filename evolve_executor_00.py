@@ -34,7 +34,7 @@ pd.set_option('display.expand_frame_repr', False)
 bat_tmpl_path = Path(".") / "evo_template.bat"
 # Eventually can adjust based on user input.
 grp_num =  "002"
-run_num = "014"
+run_num = "021"
 # Extract from filename?
 # run_name = "big_bang"
 run_name = "need_for_speed"
@@ -128,7 +128,7 @@ def simulate_universe(time_period, start_step=0, interval=1, delete=False, prep=
     lives_output = ""
     for timestep in range(start_step, start_step+time_period, interval):
         # Progress update. Adjust the frequency if time_period becomes larger?
-        if timestep % (max(time_period//100,1)) == 0:
+        if (timestep-start_step) % (max(time_period//100,1)) == 0:
             print(timestep)
             print("Progress update at " + datetime.now().strftime("%H:%M:%S"))
 
@@ -226,11 +226,14 @@ def simulate_universe(time_period, start_step=0, interval=1, delete=False, prep=
             #     # genomes_over_time.pop(timestep)
             # Include a mode which DELETES the intermediate PHASCIIs.
             # Would it be better not to create in the first place? But would require rewrite of the code.
-            if timestep == time_period: delete = False
+            if (timestep-start_step) == time_period:
+                print('(Timestep-start_step) equal to time period.')
+                delete = False
+
         # Operation: Delete the old PHASCII.
         if delete:
             try: phas_path.unlink()
-            except FileNotFoundError: pass
+            except FileNotFoundError: print('FileNotFoundError but passing.')
         # Operation: Delete the old input evolve universe.
         (run_dirpath / (evin_fname + ".evolve")).unlink()
 
