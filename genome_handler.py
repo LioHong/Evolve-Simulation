@@ -158,3 +158,53 @@ def compress_book(bgen_df, path_bgen, path_sgen, path_cgen, path_cgd, threshold=
 
 
 # Get genome using key.
+
+# Another problem: How to stitch book_of_life and strain_genome from consecutive runs?
+def collate_books(run_nums_list,grp_num="002"):
+    # Assume list of ints.
+    run_nums_list.sort()
+    r_nstr_list = [f"{x:03}" for x in run_nums_list]
+    last = f"{run_nums_list[-1]:03}"
+    # Merge with the later run as priority.
+    coll_b = []
+    coll_s = []
+    for r in reversed(r_nstr_list):
+        print("Progress update at " + datetime.now().strftime("%H:%M:%S"))
+        rdpath = Path(".") / "Runs" / ("Grp_" + grp_num) / ("Run_" + r)
+        bkpath = rdpath / ("book_of_life_" + r + ".txt")
+        sgpath = rdpath / ("strain_genome_" + r + ".txt")
+        bk = bkpath.read_text(encoding="utf-8").splitlines()
+        sg = sgpath.read_text(encoding="utf-8").splitlines()
+        # Refer from book_of_life because smaller filesize is easier to manage.
+        orgids = [b.split(' ')[0] for b in bk]
+        if (coll_b):
+            og = [b.split(' ')[0] for b in coll_b]
+            # Add orgids only if not in later run.
+            # add_b = [bk[orgids.index(bb)] for bb in orgids if bb not in og]
+            # lost_ones = [orgids.index(bb) for bb in orgids if bb not in og]
+            lost_ones = [bb for bb in orgids if bb not in og]
+            lost_ones = [orgids.index(lo) for lo in lost_ones]
+            add_b = [bk[i] for i in lost_ones]
+            add_s = [sg[i] for i in lost_ones]
+            # Combine lists.
+            coll_b = coll_b + add_b
+            coll_s = coll_s + add_s
+            coll_b.sort()
+            coll_s.sort()
+        else:
+            coll_b = bk[:]
+            coll_s = sg[:]
+        (rdpath / ("book_of_life_" + last + "_combo.txt")).write_text("\n".join(coll_b), encoding="utf-8")
+        (rdpath / ("strain_genome_" + last + "_combo.txt")).write_text("\n".join(coll_s), encoding="utf-8")
+
+
+# Measure genome length
+# pandas filter genome length
+
+# Branch from execution of next batch
+# Input blacklist
+# Find organism and all its cells
+# Maybe have to find the next orgid, then find the line before that
+# Last orgid: Just find the last line.
+# Remove current EVOLVE universe. (Is this redundant?)
+# Convert PHASCII to new EVOLVE.

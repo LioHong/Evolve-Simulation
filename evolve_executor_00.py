@@ -34,10 +34,10 @@ pd.set_option('display.expand_frame_repr', False)
 bat_tmpl_path = Path(".") / "evo_template.bat"
 # Eventually can adjust based on user input.
 grp_num =  "002"
-run_num = "023"
+run_num = "030"
 # Extract from filename?
-# run_name = "big_bang"
-run_name = "need_for_speed"
+run_name = "smol02"
+# run_name = "need_for_speed"
 grp_dirpath = Path(".") / "Runs" / ("Grp_" + grp_num)
 run_dirpath = grp_dirpath / ("Run_" + run_num)
 # Genome summary.
@@ -248,10 +248,12 @@ def simulate_universe(time_period, start_step=0, interval=1, delete=False, prep=
 
 
 # Convert string of numbers into organised df.
-def organise_book_of_life(book_path):
+def organise_book_of_life(book_path, save=True):
     # Open the text archive.
     with open(book_path, "rt") as f:
         bol = f.readlines()
+    # bol = book_path.read_text(encoding="utf-8").splitlines()
+
     # Format of an organism's entry: "31 1 1 1:[211, 387]/n"
     # Process the string into lists.
     idnums = [int(x.split(" ")[0]) for x in bol]
@@ -271,7 +273,7 @@ def organise_book_of_life(book_path):
     blife_df = blife_df.sort_values(by=["ID"])
     blife_df["Lifespan"] = blife_df.Death_step - blife_df.Birth_step
     blife_df["Sex_check"] = blife_df.Quickener - blife_df.Sporelayer
-    blife_df.to_csv(bgen_path)
+    if save: blife_df.to_csv(bgen_path)
     return blife_df
 
 
@@ -300,6 +302,27 @@ def examine_book_of_life(blife_df):
     print('Most children via sex:')
     print(blife_df.loc[blife_df.Sex_check != 0, "Sporelayer"].value_counts().head())
     print(blife_df.loc[blife_df.Sex_check != 0, "Quickener"].value_counts().head())
+
+
+# Another problem: How to stitch book_of_life and strain_genome from consecutive runs?
+def collate_books(run_nums_list,grp_num="002"):
+    # Assume list of ints.
+    run_nums_list.sort()
+    r_nstr_list = [f"{x:03}" for x in run_nums_list]
+    coll_b = pd.DataFrame()
+    # Merge with the later run as priority.
+    for r in reversed(r_nstr_list):
+        print("Progress update at " + datetime.now().strftime("%H:%M:%S"))
+        rdpath = Path(".") / "Runs" / ("Grp_" + grp_num) / ("Run_" + r)
+        bkpath = rdpath / ("book_of_life_" + r + ".txt")
+        sgpath = rdpath / ("strain_genome_" + r + ".txt")
+        sdf = organise_book_of_life(bkpath, save=False)
+        bdf = geha.stitch_sgen(sdf, sgpath)
+        if not coll_b.empty:
+            coll_b = pd.concat([coll_b, bdf]).drop_duplicates()
+        else:
+            coll_b = bdf.loc[:]
+    return coll_b
 
 
 # Simplify the inputs.
