@@ -217,12 +217,12 @@ class Evorg(object):
 
 # Try to fit this into https://github.com/alife-data-standards/alife-std-dev-python/tree/master
 def fit_phylogeny(inp_df):
-    digevo_df = inp_df.copy()
+    digevo_df = inp_df[:]
     digevo_df['ancestor_list'] = digevo_df.loc[:, ['Sporelayer', 'Quickener']].values.tolist()
     # # Remove columns.
     # digevo_df = digevo_df.drop(columns=['Sporelayer','Quickener'])
     # Set id as index.
-    digevo_df.set_index('Orgid')
+    # digevo_df.set_index('ID')
     digevo_df.ancestor_list = digevo_df.ancestor_list.apply(lambda x: list(set(x)))
     # This works but head() doesn't show that.
     digevo_df.ancestor_list = digevo_df.ancestor_list.apply(lambda x: [y for y in x])
@@ -237,10 +237,12 @@ def fit_phylogeny(inp_df):
     # digevo_df.to_csv(r"C:\Users\Julio Hong\Documents\LioHong\Evolve-Archives\digevo_std_bgen010.csv")
 
     evorgs = [Evorg(**kwargs) for kwargs in inp_df.to_dict(orient='records')]
+    print(evorgs[:100])
 
     # sys = systematics.Systematics(lambda Evorg: Evorg.Genome)
     sys = systematics.Systematics(lambda Evorg: Evorg.__repr__(), True, True, False, False)
     for e in evorgs[1:100]:
+    # for e in evorgs:
         e.taxon = sys.add_org(e)
         s_children = inp_df[inp_df.Sporelayer == e.Orgid].index
         q_children = inp_df[inp_df.Quickener == e.Orgid].index
@@ -255,19 +257,24 @@ def fit_phylogeny(inp_df):
 
 # https://colab.research.google.com/github/emilydolson/alife-phylogeny-tutorial/blob/main/perfect_tracking_final.ipynb#scrollTo=AQleBmbYENpC
 # https://deap.readthedocs.io/en/master/api/tools.html?highlight=history#deap.tools.History
-def draw_phylogeny(digevo_df):
+def draw_phylogeny(digevo_df,fsize=(12,12)):
     def evalOneMax(individual):
         return sum(individual),
 
-    phylogeny = digevo_df.loc[:200, 'ancestor_list'].to_dict()
+    phylogeny = digevo_df.loc[:, 'ancestor_list'].to_dict()
     toolbox = base.Toolbox()
     history = tools.History()
     toolbox.register("evaluate", evalOneMax)
 
     graph = networkx.DiGraph(phylogeny)
     graph = graph.reverse()  # Make the graph top-down
+    print(phylogeny.keys())
+    print([i for i in graph])
     colors = [toolbox.evaluate(phylogeny[i])[0] for i in graph]
+    # colors = [toolbox.evaluate(phylogeny[i])[0] for i in range(len(graph))]
+    # colors = [toolbox.evaluate(phylogeny[i])[0] for i in graph if i!=0]
     pos = graphviz_layout(graph, prog="dot")
     # networkx.draw(graph, node_color=colors, pos=pos)
+    plt.figure(3, figsize=fsize)
     networkx.draw_networkx(graph, node_color=colors, pos=pos)
     plt.show()

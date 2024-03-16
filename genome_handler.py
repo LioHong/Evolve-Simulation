@@ -8,8 +8,9 @@ Steps:
 """
 import numpy as np
 from os import system
-from json import dump
+from json import dump, loads
 from pathlib import Path
+from pandas import read_csv
 
 # https://stackoverflow.com/questions/28730961/python-slicing-string-in-three-character-substrings
 def pair_split(elm):
@@ -115,10 +116,18 @@ def load_strain_genome(path_sgen):
 
 
 # Combine book_of_life and strain_genome.
-def stitch_sgen(bgen_df, path_sgen):
+def stitch_sgen(sbol_df, path_sgen):
+    bgen_df = sbol_df[:]
     sfgen_dict = load_strain_genome(path_sgen)
     bgen_df['Genome'] = bgen_df.index.map(sfgen_dict)
     return bgen_df
+
+
+def isindict(ipdf, strx):
+    try:
+        return ipdf[strx]
+    except:
+        return strx
 
 
 # Use keys to point to genomes.
@@ -134,16 +143,20 @@ def cache_genomes(bgen_df,threshold=5):
     gnm_counts = gnm_counts[gnm_counts>threshold]
     cgd = {k:v for k, v in zip(range(len(gnm_counts)), gnm_counts.index)}
     dgc = {v:k for k, v in cgd.items()}
-
-
-    def isindict(strx):
-        try:
-            return dgc[strx]
-        except:
-            return strx
-    bgen_df['cgen'] = bgen_df.Genome.apply(lambda x: isindict(x))
-
+    bgen_df['cgen'] = bgen_df.Genome.apply(lambda x: isindict(dgc, x))
     return bgen_df, cgd
+
+
+# Reverse of cache_genomes().
+def expand_genomes(cgen_p, cgd_p):
+    cgen_df = read_csv(cgen_p)
+    clines = cgd_p.read_text(encoding="utf-8")
+    cgd = loads(clines)
+    # Insert 'Genome' before 'cgd' like in bgen_df.
+    cgen_df.insert(8, 'Genome', 0)
+    cgen_df['Genome'] = cgen_df.cgen.apply(lambda x: isindict(cgd, x))
+    cgen_df.set_index('ID',inplace=True)
+    return cgen_df, cgd
 
 
 # Leave only combined, cached bgen_df - cgen_df.
@@ -156,8 +169,6 @@ def compress_book(bgen_df, path_bgen, path_sgen, path_cgen, path_cgd, threshold=
         dump(cgd, outfile)
     return cgen_df, cgd
 
-
-# Get genome using key.
 
 # Another problem: How to stitch book_of_life and strain_genome from consecutive runs?
 def collate_books(run_nums_list,grp_num="002"):

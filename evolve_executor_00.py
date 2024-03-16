@@ -34,7 +34,7 @@ pd.set_option('display.expand_frame_repr', False)
 bat_tmpl_path = Path(".") / "evo_template.bat"
 # Eventually can adjust based on user input.
 grp_num =  "002"
-run_num = "030"
+run_num = "036"
 # Extract from filename?
 run_name = "smol02"
 # run_name = "need_for_speed"
@@ -310,6 +310,7 @@ def collate_books(run_nums_list,grp_num="002"):
     run_nums_list.sort()
     r_nstr_list = [f"{x:03}" for x in run_nums_list]
     coll_b = pd.DataFrame()
+    # dfdict = {}
     # Merge with the later run as priority.
     for r in reversed(r_nstr_list):
         print("Progress update at " + datetime.now().strftime("%H:%M:%S"))
@@ -318,11 +319,35 @@ def collate_books(run_nums_list,grp_num="002"):
         sgpath = rdpath / ("strain_genome_" + r + ".txt")
         sdf = organise_book_of_life(bkpath, save=False)
         bdf = geha.stitch_sgen(sdf, sgpath)
+        # dfdict[r] = bdf[:]
         if not coll_b.empty:
-            coll_b = pd.concat([coll_b, bdf]).drop_duplicates()
+            # coll_b = pd.concat([coll_b, bdf]).drop_duplicates()
+            coll_b = pd.concat([coll_b, bdf])
+            coll_b = coll_b[~coll_b.index.duplicated(keep='first')]
         else:
             coll_b = bdf.loc[:]
-    return coll_b
+    # return coll_b, dfdict
+    return coll_b.sort_index()
+
+
+# Tweak dataframe columns.
+def refit_phylo(ip_df):
+    nice_df = ip_df[:]
+    nice_df = nice_df.drop(columns=['cgen'])
+    nice_df.insert(7,'Gnm_Len',False)
+    nice_df.Gnm_Len = nice_df.Genome.apply(lambda x: len(geha.pair_split(x)))
+    nice_df.insert(0,'Orgid',False)
+    nice_df.Orgid = nice_df.index
+    nice_df.iloc[0] = nice_df.iloc[1]
+    nice_df.sort_index(inplace=True)
+    return nice_df
+
+
+# Easy to draw.
+def really_draw(ip_df,lastgen=100,fsize=(12,12)):
+    nice_df = refit_phylo(ip_df)
+    digevo_df = tphy.fit_phylogeny(nice_df)
+    tphy.draw_phylogeny(digevo_df.loc[:lastgen],fsize)
 
 
 # Simplify the inputs.
@@ -334,9 +359,9 @@ def driver(base, target, gap=-1, match=1, mismatch=-1, debug=False):
 
 # ===== EXECUTION =====
 # Create a version without the genome col.
-sbol_df = organise_book_of_life(book_path)
-bgen_df = geha.stitch_sgen(sbol_df, strain_genome_path)
-cgen_df, cgd = geha.compress_book(bgen_df, bgen_path, strain_genome_path, cgen_path, cgd_path, threshold=5)
+# sbol_df = organise_book_of_life(book_path)
+# bgen_df = geha.stitch_sgen(sbol_df, strain_genome_path)
+# cgen_df, cgd = geha.compress_book(bgen_df, bgen_path, strain_genome_path, cgen_path, cgd_path, threshold=5)
 # driver(7638, 7854, -1, 1, -1, debug=True)
 # bgen_df.loc[find_ancestors(949,sbol_df,5),'Genome']
 
