@@ -1,0 +1,449 @@
+\.Rhistory
+\Alignments
+\Alignments\Alignment_2015.pdf
+\Alignments\GlobalAlignment.py
+\Alignments\NeedlemanWunsch.pdf
+\Alignments\nw_01.py
+\Alignments\nw_02.py
+\Alignments\nw_03.py
+\Alignments\nw_03a.py
+\Alignments\nw_04.py
+\Alignments\nw_05.py
+\Alignments\nw_06.py
+\Alignments\nw_compares.txt
+\Alignments\ugene_template.bat
+\ClustalW2 - Shortcut.lnk
+\ClustalX2 - Shortcut.lnk
+\Data
+\Data\010_256306_phylo.txt
+\Data\010_original_genome.csv
+\Data\aaff_xascii_dict.txt
+\Data\b4_aaff_dict.txt
+\Data\bol_for_r.csv
+\Data\bol_gen_010.csv
+\Data\book_of_life.rda
+\Data\book_of_life_010.7z
+\Data\book_of_life_015.7z
+\Data\book_of_life_015.txt
+\Data\book_of_life_015_010.7z
+\Data\book_of_life_015_010.csv
+\Data\changers_010.csv
+\Data\changers_010.txt
+\Data\genomes_over_time_003.7z
+\Data\instr_b4_dict.txt
+\Data\instr_xascii_dict.txt
+\Data\lines_010.csv
+\Data\mixbol_for_r - Copy.csv
+\Data\mixbol_for_r.csv
+\Data\sgen_010_mixbol.csv
+\Data\smolbol_for_r.csv
+\Data\strain_genome_005.7z
+\Data\strain_genome_007.7z
+\Data\strain_genome_010.7z
+\Data\strain_genome_010a - Copy.txt
+\Data\strain_genome_010a.7z
+\Data\strain_genome_010a.txt
+\Data\strain_genome_015.7z
+\Data\strain_genome_015a - Copy.txt
+\Data\strain_genome_015a.7z
+\Data\strain_genome_015a.txt
+\Data\xascii_instr_dict.txt
+\Evolve Study
+\Evolve Study\Edward K. Conklin, Elizabeth D. Rather - Forth Programmer's Handbook-BookSurge Publishing (2010).pdf
+\Evolve Study\Evolve Contents.md
+\Evolve Study\Starting-FORTH.pdf
+\Evolve Study\big_bang_study.evolve
+\Evolve Study\big_bang_study.txt
+\Evolve Study\default_evobat_02.txt
+\Evolve Study\default_evobat_03.evolve
+\Evolve Study\default_evobat_04.evolve
+\Evolve Study\default_evobat_04.txt
+\Evolve Study\default_evobat_04a.txt
+\Evolve Study\evolve.txt
+\Evolve-kforth-lio.7z
+\Evolve_KFORTH - Shortcut.lnk
+\Genomics - Shortcut.lnk
+\Unipro UGENE v42 - Shortcut.lnk
+\Universes
+\Universes\Grp_001
+\Universes\Grp_001\Run_001
+\Universes\Grp_001\Run_001\Run_001_big_bang.7z - Shortcut.lnk
+\Universes\Grp_001\Run_001\big_bang.evolve
+\Universes\Grp_001\Run_001\big_bang.txt
+\Universes\Grp_001\Run_001\big_bang_0.txt
+\Universes\Grp_001\Run_001\big_bang_1.evolve
+\Universes\Grp_001\Run_001\big_bang_1.txt
+\Universes\Grp_001\Run_001\big_bang_1000.evolve
+\Universes\Grp_001\Run_001\big_bang_1000.txt
+\Universes\Grp_001\Run_001\big_bang_1000_2.txt
+\Universes\Grp_001\Run_001\run_001_big_bang - Copy.bat
+\Universes\Grp_001\Run_001\run_001_big_bang.bat
+\Universes\Grp_001\Run_001_big_bang.7z
+\Universes\Grp_001\Run_002
+\Universes\Grp_001\Run_002\Run_002_big_bang.7z - Shortcut.lnk
+\Universes\Grp_001\Run_002\big_bang.evolve
+\Universes\Grp_001\Run_002\big_bang.txt
+\Universes\Grp_001\Run_002\big_bang_0.txt
+\Universes\Grp_001\Run_002\big_bang_7564.evolve
+\Universes\Grp_001\Run_002\big_bang_7564.txt
+\Universes\Grp_001\Run_002\big_bang_7565.evolve
+\Universes\Grp_001\Run_002\big_bang_7565.txt
+\Universes\Grp_001\Run_002\run_002_big_bang.bat
+\Universes\Grp_001\Run_002_big_bang.7z
+\Universes\Grp_001\Run_003
+\Universes\Grp_001\Run_003\Run_003_big_bang.7z - Shortcut.lnk
+\Universes\Grp_001\Run_003\big_bang.evolve
+\Universes\Grp_001\Run_003\big_bang.txt
+\Universes\Grp_001\Run_003\big_bang_0.txt
+\Universes\Grp_001\Run_003\big_bang_1000.evolve
+\Universes\Grp_001\Run_003\big_bang_1000.txt
+\Universes\Grp_001\Run_003\genomes_over_time_003.7z - Shortcut.lnk
+\Universes\Grp_001\Run_003\run_003_big_bang.bat
+\Universes\Grp_001\Run_003_big_bang.7z
+\Universes\Grp_001\Run_004
+\Universes\Grp_001\Run_004\Run_004_big_bang.7z - Shortcut.lnk
+\Universes\Grp_001\Run_004\big_bang.evolve
+\Universes\Grp_001\Run_004\big_bang.txt
+\Universes\Grp_001\Run_004\big_bang_0.txt
+\Universes\Grp_001\Run_004\big_bang_1000.evolve
+\Universes\Grp_001\Run_004\big_bang_1000.txt
+\Universes\Grp_001\Run_004\run_004_big_bang.bat
+\Universes\Grp_001\Run_004\strain_genome_004.txt
+\Universes\Grp_001\Run_004_big_bang.7z
+\Universes\Grp_001\Run_005
+\Universes\Grp_001\Run_005\big_bang.evolve
+\Universes\Grp_001\Run_005\big_bang.txt
+\Universes\Grp_001\Run_005\big_bang_0.txt
+\Universes\Grp_001\Run_005\big_bang_2244.evolve
+\Universes\Grp_001\Run_005\big_bang_2245.evolve
+\Universes\Grp_001\Run_005\big_bang_2245.txt
+\Universes\Grp_001\Run_005\run_005_big_bang.bat
+\Universes\Grp_001\Run_005\strain_genome_005.7z - Shortcut.lnk
+\Universes\Grp_001\Run_006
+\Universes\Grp_001\Run_006\AAFF_1000_strain_genome_006.txt
+\Universes\Grp_001\Run_006\AAFF_strain_genome_006.txt
+\Universes\Grp_001\Run_006\NT_1000_strain_genome_006.txt
+\Universes\Grp_001\Run_006\NT_strain_genome_006.txt
+\Universes\Grp_001\Run_006\NUMDEC_strain_genome_006.txt
+\Universes\Grp_001\Run_006\NUMRAW_strain_genome_006.txt
+\Universes\Grp_001\Run_006\big_bang.evolve
+\Universes\Grp_001\Run_006\big_bang.txt
+\Universes\Grp_001\Run_006\big_bang_0.txt
+\Universes\Grp_001\Run_006\big_bang_2500.evolve
+\Universes\Grp_001\Run_006\big_bang_2500.txt
+\Universes\Grp_001\Run_006\organisms_over_time.txt
+\Universes\Grp_001\Run_006\run_006_big_bang.bat
+\Universes\Grp_001\Run_006\strain_genome_006.txt
+\Universes\Grp_001\Run_007
+\Universes\Grp_001\Run_007\big_bang_0.txt
+\Universes\Grp_001\Run_007\big_bang_3289.evolve
+\Universes\Grp_001\Run_007\big_bang_3289.txt
+\Universes\Grp_001\Run_007\big_bang_3290.evolve
+\Universes\Grp_001\Run_007\big_bang_3290.txt
+\Universes\Grp_001\Run_007\book_of_life_007.txt
+\Universes\Grp_001\Run_007\run_007_big_bang.bat
+\Universes\Grp_001\Run_007\strain_genome_007.7z - Shortcut.lnk
+\Universes\Grp_001\Run_008
+\Universes\Grp_001\Run_008\big_bang_815.txt
+\Universes\Grp_001\Run_008\big_bang_916.evolve
+\Universes\Grp_001\Run_008\book_of_life_008.txt
+\Universes\Grp_001\Run_008\run_008_big_bang.bat
+\Universes\Grp_001\Run_008\strain_genome_008.txt
+\Universes\Grp_001\Run_009
+\Universes\Grp_001\Run_009\big_bang_0.txt
+\Universes\Grp_001\Run_009\big_bang_1001.evolve
+\Universes\Grp_001\Run_009\big_bang_1001.txt
+\Universes\Grp_001\Run_009\book_of_life_009.txt
+\Universes\Grp_001\Run_009\run_009_big_bang.bat
+\Universes\Grp_001\Run_009\strain_genome_009.txt
+\Universes\Grp_001\Run_010
+\Universes\Grp_001\Run_010\big_bang_0.txt
+\Universes\Grp_001\Run_010\big_bang_10001.evolve
+\Universes\Grp_001\Run_010\big_bang_10001.txt
+\Universes\Grp_001\Run_010\book_of_life_010.7z - Shortcut.lnk
+\Universes\Grp_001\Run_010\run_010_big_bang.bat
+\Universes\Grp_001\Run_010\strain_genome_010a.7z - Shortcut.lnk
+\Universes\Grp_001\Run_011
+\Universes\Grp_001\Run_011\big_bang_0.txt
+\Universes\Grp_001\Run_011\big_bang_10001.evolve
+\Universes\Grp_001\Run_011\big_bang_10001.txt
+\Universes\Grp_001\Run_011\book_of_life_011.txt
+\Universes\Grp_001\Run_011\run_011_big_bang.bat
+\Universes\Grp_001\Run_011\strain_genome_011.txt
+\Universes\Grp_001\Run_012
+\Universes\Grp_001\Run_012\big_bang_0.txt
+\Universes\Grp_001\Run_012\big_bang_10001.evolve
+\Universes\Grp_001\Run_012\big_bang_10001.txt
+\Universes\Grp_001\Run_012\book_of_life_012.txt
+\Universes\Grp_001\Run_012\run_012_big_bang.bat
+\Universes\Grp_001\Run_012\strain_genome_012.txt
+\Universes\Grp_001\Run_013
+\Universes\Grp_001\Run_013\big_bang_0.txt
+\Universes\Grp_001\Run_013\big_bang_1.evolve
+\Universes\Grp_001\Run_013\book_of_life_013.txt
+\Universes\Grp_001\Run_013\run_013_big_bang.bat
+\Universes\Grp_001\Run_013\strain_genome_013.txt
+\Universes\Grp_001\Run_014
+\Universes\Grp_001\Run_014\big_bang_0.txt
+\Universes\Grp_001\Run_014\big_bang_10001.evolve
+\Universes\Grp_001\Run_014\big_bang_9901.evolve
+\Universes\Grp_001\Run_014\book_of_life_014.txt
+\Universes\Grp_001\Run_014\run_014_big_bang.bat
+\Universes\Grp_001\Run_014\strain_genome_014.txt
+\Universes\Grp_001\Run_015
+\Universes\Grp_001\Run_015\Individual Genomes
+\Universes\Grp_001\Run_015\Individual Genomes\010_0000001.seq
+\Universes\Grp_001\Run_015\Individual Genomes\010_0000021.seq
+\Universes\Grp_001\Run_015\Individual Genomes\010_0000076.seq
+\Universes\Grp_001\Run_015\Individual Genomes\010_0000105.seq
+\Universes\Grp_001\Run_015\Individual Genomes\010_0000112.seq
+\Universes\Grp_001\Run_015\Individual Genomes\010_0000122.seq
+\Universes\Grp_001\Run_015\Individual Genomes\010_0000910.seq
+\Universes\Grp_001\Run_015\Individual Genomes\010_0004097.seq
+\Universes\Grp_001\Run_015\Individual Genomes\010_0004257.seq
+\Universes\Grp_001\Run_015\Individual Genomes\010_0005734.seq
+\Universes\Grp_001\Run_015\Individual Genomes\010_0009525.seq
+\Universes\Grp_001\Run_015\Individual Genomes\010_01 - Copy.aln
+\Universes\Grp_001\Run_015\Individual Genomes\010_01.aln
+\Universes\Grp_001\Run_015\Individual Genomes\010_0156165.seq
+\Universes\Grp_001\Run_015\Individual Genomes\010_0156608.seq
+\Universes\Grp_001\Run_015\Individual Genomes\010_02.aln
+\Universes\Grp_001\Run_015\Individual Genomes\010_0267113.seq
+\Universes\Grp_001\Run_015\Individual Genomes\010_03.aln
+\Universes\Grp_001\Run_015\Individual Genomes\010_0323554.seq
+\Universes\Grp_001\Run_015\Individual Genomes\010_0414671.seq
+\Universes\Grp_001\Run_015\Individual Genomes\010_0452989.seq
+\Universes\Grp_001\Run_015\Individual Genomes\010_0534475.seq
+\Universes\Grp_001\Run_015\Individual Genomes\run.info
+\Universes\Grp_001\Run_015\big_bang_10001.txt
+\Universes\Grp_001\Run_015\big_bang_150001.evolve
+\Universes\Grp_001\Run_015\big_bang_20001.evolve
+\Universes\Grp_001\Run_015\big_bang_30001.evolve
+\Universes\Grp_001\Run_015\book_of_life_015.7z - Shortcut.lnk
+\Universes\Grp_001\Run_015\book_of_life_015_010.7z - Shortcut.lnk
+\Universes\Grp_001\Run_015\phylip-1661553578.aln
+\Universes\Grp_001\Run_015\run_015_big_bang.bat
+\Universes\Grp_001\Run_015\run_015_big_bang_ugene.bat
+\Universes\Grp_001\Run_015\strain_genome_015a.7z - Shortcut.lnk
+\Universes\Grp_001\Run_015\test.aln
+\Universes\Grp_001\Run_015\test1.aln
+\Universes\Grp_001\Run_015\test1a.aln
+\Universes\Grp_001\Run_015\test1b.phy
+\Universes\Grp_001\Run_015\test1c.phy
+\Universes\Grp_001\Run_015\test_a.aln
+\Universes\Grp_001\Run_015\test_aa.phy
+\Universes\Grp_001\Run_015\testa.aln
+\Universes\Grp_001\Run_015\till_150001.txt
+\Universes\Grp_001\Run_016
+\Universes\Grp_001\Run_016\big_bang_0.txt
+\Universes\Grp_001\Run_016\big_bang_1000.evolve
+\Universes\Grp_001\Run_016\big_bang_16_1000.txt
+\Universes\Grp_001\Run_016\book_of_life_016.txt
+\Universes\Grp_001\Run_016\run_016_big_bang_evolve.bat
+\Universes\Grp_001\Run_016\strain_genome_016.txt
+\Universes\Grp_001\Run_017
+\Universes\Grp_001\Run_017\big_bang_0.txt
+\Universes\Grp_001\Run_017\big_bang_17_1000.txt
+\Universes\Grp_001\Run_017\big_bang_999.evolve
+\Universes\Grp_001\Run_017\book_of_life_017.txt
+\Universes\Grp_001\Run_017\run_017_big_bang_evolve.bat
+\Universes\Grp_001\Run_017\strain_genome_017.txt
+\Universes\Grp_001\Run_018
+\Universes\Grp_001\Run_018\big_bang_0.txt
+\Universes\Grp_001\Run_018\big_bang_18_1000.txt
+\Universes\Grp_001\Run_018\big_bang_991.evolve
+\Universes\Grp_001\Run_018\book_of_life_018.txt
+\Universes\Grp_001\Run_018\run_018_big_bang_evolve.bat
+\Universes\Grp_001\Run_018\strain_genome_018.txt
+\Universes\Grp_001\Run_019
+\Universes\Grp_001\Run_019\big_bang_0.txt
+\Universes\Grp_001\Run_019\big_bang_19_1000.txt
+\Universes\Grp_001\Run_019\big_bang_901.evolve
+\Universes\Grp_001\Run_019\book_of_life_019.txt
+\Universes\Grp_001\Run_019\run_019_big_bang_evolve.bat
+\Universes\Grp_001\Run_019\strain_genome_019.txt
+\Universes\Grp_001\Run_020
+\Universes\Grp_001\Run_020\big_bang_0.txt
+\Universes\Grp_001\Run_020\big_bang_1.evolve
+\Universes\Grp_001\Run_020\big_bang_20_1000.txt
+\Universes\Grp_001\Run_020\book_of_life_020.txt
+\Universes\Grp_001\Run_020\run_020_big_bang_evolve.bat
+\Universes\Grp_001\Run_020\strain_genome_020.txt
+\Universes\Grp_001\Run_021
+\Universes\Grp_001\Run_021\big_bang_0.txt
+\Universes\Grp_001\Run_021\big_bang_21_1000.txt
+\Universes\Grp_001\Run_021\big_bang_9981.evolve
+\Universes\Grp_001\Run_021\book_of_life_021.txt
+\Universes\Grp_001\Run_021\run_021_big_bang_evolve.bat
+\Universes\Grp_001\Run_021\strain_genome_021.txt
+\Universes\Grp_001\Run_022
+\Universes\Grp_001\Run_022\big_bang_0.txt
+\Universes\Grp_001\Run_022\big_bang_22_1000.txt
+\Universes\Grp_001\Run_022\book_of_life_022.txt
+\Universes\Grp_001\Run_022\run_022_big_bang_evolve.bat
+\Universes\Grp_001\Run_022\strain_genome_022.txt
+\Universes\Grp_001\Run_023
+\Universes\Grp_001\Run_023\big_bang_0.txt
+\Universes\Grp_001\Run_023\big_bang_23_1000.txt
+\Universes\Grp_001\Run_023\book_of_life_023.txt
+\Universes\Grp_001\Run_023\run_023_big_bang_evolve.bat
+\Universes\Grp_001\Run_023\strain_genome_023.txt
+\Universes\Grp_001\Run_024
+\Universes\Grp_001\Run_024\big_bang_0.txt
+\Universes\Grp_001\Run_024\big_bang_24_1000.txt
+\Universes\Grp_001\Run_024\book_of_life_024.txt
+\Universes\Grp_001\Run_024\run_024_big_bang_evolve.bat
+\Universes\Grp_001\Run_024\strain_genome_024.txt
+\Universes\Grp_001\Run_025
+\Universes\Grp_001\Run_025\big_bang_0.txt
+\Universes\Grp_001\Run_025\big_bang_25_1000.txt
+\Universes\Grp_001\Run_025\book_of_life_025.txt
+\Universes\Grp_001\Run_025\run_025_big_bang_evolve.bat
+\Universes\Grp_001\Run_025\strain_genome_025.txt
+\Universes\Grp_001\Run_026
+\Universes\Grp_001\Run_026\big_bang_10001.txt
+\Universes\Grp_001\Run_026\big_bang_11001.txt
+\Universes\Grp_001\Run_026\big_bang_12001.txt
+\Universes\Grp_001\Run_026\big_bang_13001.txt
+\Universes\Grp_001\Run_026\big_bang_14001.txt
+\Universes\Grp_001\Run_026\big_bang_15001.txt
+\Universes\Grp_001\Run_026\big_bang_16001.txt
+\Universes\Grp_001\Run_026\big_bang_17001.txt
+\Universes\Grp_001\Run_026\big_bang_18001.txt
+\Universes\Grp_001\Run_026\big_bang_19001.evolve
+\Universes\Grp_001\Run_026\big_bang_19001.txt
+\Universes\Grp_001\Run_026\book_of_life_026.txt
+\Universes\Grp_001\Run_026\run_026_big_bang_evolve.bat
+\Universes\Grp_001\Run_026\strain_genome_026.txt
+\Universes\Grp_001\Run_027
+\Universes\Grp_001\Run_027\big_bang_10001.txt
+\Universes\Grp_001\Run_027\big_bang_12001.txt
+\Universes\Grp_001\Run_027\big_bang_14001.txt
+\Universes\Grp_001\Run_027\big_bang_16001.txt
+\Universes\Grp_001\Run_027\big_bang_18001.evolve
+\Universes\Grp_001\Run_027\big_bang_18001.txt
+\Universes\Grp_001\Run_027\book_of_life_027.txt
+\Universes\Grp_001\Run_027\run_027_big_bang_evolve.bat
+\Universes\Grp_001\Run_027\strain_genome_027.txt
+\Universes\Grp_001\Run_028
+\Universes\Grp_001\Run_028\big_bang_10001.txt
+\Universes\Grp_001\Run_028\big_bang_12501.txt
+\Universes\Grp_001\Run_028\big_bang_15001.txt
+\Universes\Grp_001\Run_028\big_bang_17501.evolve
+\Universes\Grp_001\Run_028\big_bang_17501.txt
+\Universes\Grp_001\Run_028\book_of_life_028.txt
+\Universes\Grp_001\Run_028\run_028_big_bang_evolve.bat
+\Universes\Grp_001\Run_028\strain_genome_028.txt
+\Universes\Grp_001\Run_029
+\Universes\Grp_001\Run_029\big_bang_15001.txt
+\Universes\Grp_001\Run_029\big_bang_20001.evolve
+\Universes\Grp_001\Run_029\big_bang_20001.txt
+\Universes\Grp_001\Run_029\book_of_life_029.txt
+\Universes\Grp_001\Run_029\run_029_big_bang_evolve.bat
+\Universes\Grp_001\Run_029\strain_genome_029.txt
+\Universes\Grp_001\Run_030
+\Universes\Grp_001\Run_030\big_bang_20001.evolve
+\Universes\Grp_001\Run_030\big_bang_20001.txt
+\Universes\Grp_001\Run_030\big_bang_20001a.txt
+\Universes\Grp_001\Run_030\big_bang_20001b.evolve
+\Universes\Grp_001\Run_030\book_of_life_030.txt
+\Universes\Grp_001\Run_030\run_030_big_bang_evolve.bat
+\Universes\Grp_001\Run_030\strain_genome_030.txt
+\Universes\Grp_001\big_bang_0.evolve
+\Universes\Grp_001\big_bang_0.txt
+\Universes\Grp_001\big_bang_1.evolve
+\Universes\Grp_001\big_bang_10000.txt
+\Universes\Grp_001\big_bang_8001.evolve
+\Universes\Grp_001\big_bang_9001.evolve
+\Universes\Grp_001\big_bang_9901.evolve
+\Universes\Grp_002
+\Universes\Grp_002\Grp_002.7z
+\Universes\Grp_002\Run_020
+\Universes\Grp_002\Run_020\bgen_020.csv
+\Universes\Grp_002\Run_020\book_of_life_020.txt
+\Universes\Grp_002\Run_020\strain_genome_020.txt
+\Universes\Grp_002\Run_021
+\Universes\Grp_002\Run_021\bgen_021.csv
+\Universes\Grp_002\Run_021\book_of_life_021.txt
+\Universes\Grp_002\Run_021\cgen_021.csv
+\Universes\Grp_002\Run_021\strain_genome_021.txt
+\Universes\Grp_002\Run_027
+\Universes\Grp_002\Run_027\bgen_027.csv
+\Universes\Grp_002\Run_027\book_of_life_027.txt
+\Universes\Grp_002\Run_027\cgd_027.csv
+\Universes\Grp_002\Run_027\cgen_027.csv
+\Universes\Grp_002\Run_027\run_027_smol02_evolve.bat
+\Universes\Grp_002\Run_027\smol02_0.txt
+\Universes\Grp_002\Run_027\smol02_5000.evolve
+\Universes\Grp_002\Run_027\strain_genome_027.txt
+\Universes\Grp_002\Run_028
+\Universes\Grp_002\Run_028\book_of_life_028.txt
+\Universes\Grp_002\Run_028\run_028_smol02_evolve.bat
+\Universes\Grp_002\Run_028\smol02_20000.evolve
+\Universes\Grp_002\Run_028\smol02_5000.txt
+\Universes\Grp_002\Run_028\strain_genome_028.txt
+\Universes\Grp_002\Run_029
+\Universes\Grp_002\Run_029\book_of_life_029.txt
+\Universes\Grp_002\Run_029\run_029_smol02_evolve.bat
+\Universes\Grp_002\Run_029\smol02_20000.txt
+\Universes\Grp_002\Run_029\smol02_40000.evolve
+\Universes\Grp_002\Run_029\strain_genome_029.txt
+\Universes\Grp_002\Run_030
+\Universes\Grp_002\Run_030\bgen_030.csv
+\Universes\Grp_002\Run_030\book_of_life_030.txt
+\Universes\Grp_002\Run_030\cgd_030.csv
+\Universes\Grp_002\Run_030\cgen_030.csv
+\Universes\Grp_002\Run_030\run_030_smol02_evolve.bat
+\Universes\Grp_002\Run_030\smol02_40000.txt
+\Universes\Grp_002\Run_030\strain_genome_030.txt
+\Universes\Grp_002\Run_031
+\Universes\Grp_002\Run_031\book_of_life_031.txt
+\Universes\Grp_002\Run_031\book_of_life_031_combo.txt
+\Universes\Grp_002\Run_031\run_031_smol02_evolve.bat
+\Universes\Grp_002\Run_031\smol02_100000.txt
+\Universes\Grp_002\Run_031\smol02_125000.evolve
+\Universes\Grp_002\Run_031\strain_genome_031.txt
+\Universes\Grp_002\Run_031\strain_genome_031_combo.txt
+\Universes\Grp_002\Run_032
+\Universes\Grp_002\Run_032\book_of_life_032.txt
+\Universes\Grp_002\Run_032\cgd_027_032.csv
+\Universes\Grp_002\Run_032\cgen_027_032.7z
+\Universes\Grp_002\Run_032\cgen_027_032.csv
+\Universes\Grp_002\Run_032\run_032_smol02_evolve.bat
+\Universes\Grp_002\Run_032\smol02_125000.txt
+\Universes\Grp_002\Run_032\smol02_150000.evolve
+\Universes\Grp_002\Run_032\strain_genome_032.txt
+\Universes\Grp_002\Run_033
+\Universes\Grp_002\Run_033\Figure 2024-03-16 084552.png
+\Universes\Grp_002\Run_033\Figure 2024-03-16 085019.png
+\Universes\Grp_002\Run_033\Figure 2024-03-16 085108.png
+\Universes\Grp_002\Run_033\Figure 2024-03-16 085205.png
+\Universes\Grp_002\Run_033\Figure 2024-03-16 085442.png
+\Universes\Grp_002\Run_033\Figure 2024-03-16 090716.png
+\Universes\Grp_002\Run_033\Figure 2024-03-16 115803.png
+\Universes\Grp_002\Run_033\bgen_033.csv
+\Universes\Grp_002\Run_033\book_of_life_033.txt
+\Universes\Grp_002\Run_033\cgd_027_033.csv
+\Universes\Grp_002\Run_033\cgen_027_033.7z
+\Universes\Grp_002\Run_033\cgen_027_033.csv
+\Universes\Grp_002\Run_033\phylogeny_000100_033.png
+\Universes\Grp_002\Run_033\phylogeny_000200_033.png
+\Universes\Grp_002\Run_033\phylogeny_001000_033.png
+\Universes\Grp_002\Run_033\phylogeny_010000_033.png
+\Universes\Grp_002\Run_033\run_033_smol02_evolve.bat
+\Universes\Grp_002\Run_033\smol02_150000.txt
+\Universes\Grp_002\Run_033\smol02_200000.evolve
+\Universes\Grp_002\Run_033\strain_genome_033.txt
+\Universes\Grp_002\Run_034
+\Universes\Grp_002\Run_034\book_of_life_034.txt
+\Universes\Grp_002\Run_034\run_034_smol02_evolve.bat
+\Universes\Grp_002\Run_034\smol02_200000.txt
+\Universes\Grp_002\Run_034\smol02_300000.evolve
+\Universes\Grp_002\Run_034\smol02_300000.txt
+\Universes\Grp_002\Run_034\strain_genome_034.txt
+\Universes\bigbang_smol.kf
+\Universes\bigbang_smol_02.kf
+\Universes\smol.evolve
+\Universes\smol02.evolve
+\Universes\smol02_minimal.evolve
+\ggenealogy_data - Shortcut.lnk
