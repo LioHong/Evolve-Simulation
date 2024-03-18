@@ -13,7 +13,7 @@ Steps:
 
 """
 # from os import system
-from subprocess import Popen
+import subprocess
 from shutil import copyfile
 from pathlib import Path
 from math import log10
@@ -191,23 +191,39 @@ def simulate_universe(time_period, start_step=0, interval=1, delete=False, prep=
     # Copy EVOLVE and PHASCII from template.
     if prep: prep_new_run()
     lives_output = ""
-    for brp in bfpaths: Popen(str(brp))
-    data_files = [dfile for dfile in run_dirpath.glob('*')]
-    dbat_files = [db for db in data_files if '.bat' in str(db)]
-    devo_files = [de for de in data_files if '.evolve' in str(de)]
-    dphs_files = [dp for dp in data_files if '.txt' in str(dp)]
-    # if len(bfpaths) == len(dbat_files):
-    if ~(len(dbat_files) == len(devo_files) and len(dbat_files) == len(dphs_files)):
+    pproc = []
+    for brp in bfpaths:
+        # proc = subprocess.Popen(str(brp))
+        # proc.wait()
+        # sleep(0.1)
+        # proc.kill()
+        # proc = subprocess.run(str(brp))
+        pproc.append(subprocess.Popen(str(brp)))
+    # sleep(120)
+    flag = True
+    count = 0
+    while flag:
+        data_files = [dfile for dfile in run_dirpath.glob('*')]
+        dbat_files = [db for db in data_files if '.bat' in str(db)]
+        devo_files = [de for de in data_files if '.evolve' in str(de)]
+        dphs_files = [dp for dp in data_files if '.txt' in str(dp)]
+        # if len(bfpaths) == len(dbat_files):
+        # if ~(len(!dbat_files) == len(devo_files) and len(dbat_files) == len(dphs_files)):
         # de_nums = [den.split('.')[0].split('_')[-1] for den in devo_files]
         db_nums = [str(dbn).split('.')[0].split('_')[-1] for dbn in dbat_files]
         dp_nums = [str(dpn).split('.')[0].split('_')[-1] for dpn in dphs_files]
         gones = [dbn for dbn in db_nums if dbn not in dp_nums]
-        print(gones)
+        count += 1
+        if not gones:
+            flag = False
+        if count % 10 == 0:
+            print(count)
     # for g in gones:
     # Check if all EVOLVE/PHASCII pairs are generated. (Base off PHASCII only first.)
-
+    for pp in pproc:
+        pp.kill()    
     print("Popen finished at " + datetime.now().strftime("%H:%M:%S"))
-    sleep(0.075)
+    # sleep(0.075)
     evin_fname = run_name + "_" + str(start_step)
     for timestep in range(start_step, start_step+time_period, interval):
         # Progress update. Adjust the frequency if time_period becomes larger?
