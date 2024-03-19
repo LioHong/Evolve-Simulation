@@ -13,12 +13,13 @@ Steps:
 
 """
 # from os import system
-from subprocess import Popen
+import subprocess
 from shutil import copyfile
 from pathlib import Path
 from math import log10
 from datetime import datetime
 import pandas as pd
+from numpy import array_split
 # This is a borrowed algorithm.
 import GlobalAlignment
 import genome_handler as geha
@@ -37,7 +38,7 @@ pd.set_option('display.expand_frame_repr', False)
 bat_tmpl_path = Path(".") / "evo_template.bat"
 # Eventually can adjust based on user input.
 grp_num =  "002"
-run_num = "046"
+run_num = "045"
 # Extract from filename?
 run_name = "smol02"
 # run_name = "need_for_speed"
@@ -191,24 +192,38 @@ def simulate_universe(time_period, start_step=0, interval=1, delete=False, prep=
     # Copy EVOLVE and PHASCII from template.
     if prep: prep_new_run()
     lives_output = ""
-    for brp in bfpaths: Popen(str(brp))
-    data_files = [dfile for dfile in run_dirpath.glob('*')]
-    dbat_files = [db for db in data_files if '.bat' in str(db)]
-    devo_files = [de for de in data_files if '.evolve' in str(de)]
-    dphs_files = [dp for dp in data_files if '.txt' in str(dp)]
-    # if len(bfpaths) == len(dbat_files):
-    if ~(len(dbat_files) == len(devo_files) and len(dbat_files) == len(dphs_files)):
-        # de_nums = [den.split('.')[0].split('_')[-1] for den in devo_files]
-        db_nums = [str(dbn).split('.')[0].split('_')[-1] for dbn in dbat_files]
-        dp_nums = [str(dpn).split('.')[0].split('_')[-1] for dpn in dphs_files]
-        gones = [dbn for dbn in db_nums if dbn not in dp_nums]
-        print(gones)
-    # for g in gones:
+    beefs = array_split(bfpaths,10)
+    bstart = 0
+    for beef in beefs:
+        pproc = []
+        for brp in beef:
+            pproc.append(subprocess.Popen(str(brp)))
+        flag = True
+        count = 0
+        while flag:
+            data_files = [dfile for dfile in run_dirpath.glob('*')]
+            dbat_files = [db for db in data_files if '.bat' in str(db)]
+            # devo_files = [de for de in data_files if '.evolve' in str(de)]
+            dphs_files = [dp for dp in data_files if '.txt' in str(dp)]
+            # de_nums = [den.split('.')[0].split('_')[-1] for den in devo_files]
+            db_nums = [str(dbn).split('.')[0].split('_')[-1] for dbn in dbat_files[bstart:bstart+len(beef)]]
+            dp_nums = [str(dpn).split('.')[0].split('_')[-1] for dpn in dphs_files[bstart:]]
+            # if int(dp_nums[0]) == start_step:
+            #     dp_nums.append(str(dphs_files[-1]).split('.')[0].split('_')[-1])
+            gones = [dbn for dbn in db_nums if dbn not in dp_nums]
+            count += 1
+            # print(dp_nums)
+            if not gones:
+                flag = False
+                bstart += len(beef)
+                print(bstart)
+        print(count)
+        for pp in pproc:
+            pp.kill()
     # Check if all EVOLVE/PHASCII pairs are generated. (Base off PHASCII only first.)
 
     print("Popen finished at " + datetime.now().strftime("%H:%M:%S"))
-    sleep(0.075)
-    evin_fname = run_name + "_" + str(start_step)
+    # evin_fname = run_name + "_" + str(start_step)
     for timestep in range(start_step, start_step+time_period, interval):
         # Progress update. Adjust the frequency if time_period becomes larger?
         if (timestep-start_step) % (max(time_period//100,1)) == 0:
@@ -292,9 +307,9 @@ def simulate_universe(time_period, start_step=0, interval=1, delete=False, prep=
             try: phas_path.unlink()
             except FileNotFoundError: print('FileNotFoundError but passing.')
         # Operation: Delete the old input evolve universe.
-        (run_dirpath / (evin_fname + ".evolve")).unlink()
+        # (run_dirpath / (evin_fname + ".evolve")).unlink()
         bat_run_path.unlink()
-        evin_fname = evoofnames[idx]
+        # evin_fname = evoofnames[idx]
 
     # If not speed, outputs empty files.
     # strain_genome file: Stores genomes only.
