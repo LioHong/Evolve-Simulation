@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-Filename: evolve_executor.py
-Date created: 2024/03/05, Tue, 21:04:00 (UTC+8)
+Filename: 
+Date created: 2022/08/06, Sat, 12:00:34 (UTC+8)
 @author: LioHong
 Purpose: Automatically execute an Evolve file (universe) step-by-step for a defined time period and output PHASCII files.
 Steps:
@@ -12,20 +12,14 @@ Steps:
 5. (Operation) Delete the old input file.
 
 """
-# from os import system
-import subprocess
+import os
 from shutil import copyfile
-from pathlib import Path
 from math import log10
 from datetime import datetime
 import pandas as pd
-from numpy import array_split
+import numpy as np
 # This is a borrowed algorithm.
 import GlobalAlignment
-import genome_handler as geha
-import track_phylogeny as tphy
-
-from time import sleep
 
 # To adjust the dataframe appearance
 pd.set_option('display.max_rows', 500)
@@ -35,21 +29,23 @@ pd.set_option('display.expand_frame_repr', False)
 
 # ===== PATHS =====
 # Edit a BATCH file to run the input and output Evolve files.
-bat_tmpl_path = Path(".") / "evo_template.bat"
+path_evodir = r"C:\Program Files (x86)\Evolve"
+path_workdir = r"C:\Users\Julio Hong\Documents\LioHong\Evolve-Simulation\\"
+# path_workdir = r"C:\Users\Lio Hong\Documents\LioHong\Evolve-Simulation\\"
+path_bat_evotemp = os.path.join(path_workdir, "evo_template.bat")
+path_bat_ugenetemp = os.path.join(path_workdir, "ugene_template.bat")
 # Eventually can adjust based on user input.
-grp_num =  "002"
-run_num = "045"
+run_num = "026"
 # Extract from filename?
-run_name = "smol02"
-# run_name = "need_for_speed"
-grp_dirpath = Path(".") / "Runs" / ("Grp_" + grp_num)
-run_dirpath = grp_dirpath / ("Run_" + run_num)
+run_name = "big_bang"
+path_rundir = os.path.join(path_workdir, "Runs", "Run_" + run_num + "_" + run_name)
+# Have to change workdir before the batch file can be successfully run.
+os.chdir(path_rundir)
 # Genome summary.
-strain_genome_path = run_dirpath / ("strain_genome_" + run_num + ".txt")
-book_path = run_dirpath / ("book_of_life_" + run_num + ".txt")
-bgen_path = run_dirpath / ("bgen_" + run_num + ".csv")
-cgen_path = run_dirpath / ("cgen_" + run_num + ".csv")
-cgd_path = run_dirpath / ("cgd_" + run_num + ".csv")
+path_genome = os.path.join(path_rundir, "genomes_over_time_" + run_num + ".txt")
+path_strain_genome = os.path.join(path_rundir, "strain_genome_" + run_num + ".txt")
+path_book = os.path.join(path_rundir, "book_of_life_" + run_num + ".txt")
+path_fasta = os.path.join(path_rundir, "Individual Genomes")
 # All genomes present per timestep.
 genomes_over_time = {}
 # All genomes in the strain over time.
@@ -57,288 +53,353 @@ strain_genome = {}
 book_of_life = {}
 
 
-def replace_old_with_new(text, old_new_dict):
+# ===== FUNCTIONS =====
+# Small but useful for quick manual exports: Copy list to clipboard for pasting elsewhere.
+def addToClipBoard(read_list):
+    # Use spaces to separate.
+    text = '_'.join(read_list)
+    command = 'echo ' + text.strip() + '| clip'
+    os.system(command)
+
+
+# Setup the dicts as basis for comparison.
+def get_organics_from_universe(file_phascii):
+    with open(file_phascii, "rt") as fph:
+        text_phascii = fph.readlines()
+
+    org_dict = {"SPORE": [], "ORGANISM": []}
+    for organic in org_dict:
+        for line in text_phascii:
+            if organic in line:
+                if organic == "SPORE":
+                    org_dict[organic].append(line)
+                elif organic == "ORGANISM":
+                    # Must remove the Energy and Age which can change over time.
+                    org_dict[organic].append(line.split(' ')[:-2])
+    return org_dict
+
+
+def replace_old_with_new(path_input, old_new_dict):
     for oldnew in old_new_dict:
-        text = [line.replace(oldnew, old_new_dict[oldnew]) if oldnew in line else line for line in text]
-    return text
+        with open(path_input, "rt") as f:
+            text = f.readlines()
+
+        new_text = []
+        for line in text:
+            if oldnew in line:
+                new_text.append(line.replace(oldnew, old_new_dict[oldnew]))
+            else:
+                new_text.append(line)
+
+        with open(path_input, "wt") as f:
+            f.truncate(0)
+            for line in new_text:
+                f.write(line)
+
+# https://stackoverflow.com/questions/28730961/python-slicing-string-in-three-character-substrings
+def pair_split(elm):
+    return [elm[s:s + 2] for s in range(0, len(elm), 2) if len(elm[s:s + 2]) > 1]
+
+
+# Function to convert from binary to base-4, so as to retain 2's complement.
+binfour_dict = {"00": "0", "01": "1", "10": "2", "11": "3"}
+b4_nt_dict = {"0": "A", "1": "T", "2": "G", "3": "C"}
+def convert_binary_to_base4(bin_num):
+    # subs = [bin_num[s:s+2] for s in range(0,len(bin_num),2) if len(bin_num[s:s+2]) > 1]
+    subs = pair_split(bin_num)
+    subs = [binfour_dict[x] for x in subs]
+    return "".join(subs)
+# Convert KFORTH genome to DNA: 0123 for ATGC.
+with open(os.path.join(path_workdir, "instr_b4_dict.txt"),'r') as filein:
+    instr_b4_dict = eval(filein.read())
+# AA-FF storage method.
+with open(os.path.join(path_workdir, "b4_aaff_dict.txt"),'r') as filein:
+    b4_aaff_dict = eval(filein.read())
+    aaff_b4_dict = {v: k for k, v in b4_aaff_dict.items()}
+# AA-FF storage method. Must have UTF-8 or else UnicodeDecodeError.
+with open(os.path.join(path_workdir, "aaff_xascii_dict.txt"),'r', encoding='utf8') as filein:
+    aaff_xascii_dict = eval(filein.read())
+# Available range of integers: -131022 to 131022. (-2^17 - -49 to 2^17 - 49)
+# Useful for generating dict and adjusting based on instructions, but loading from file would be preferable.
+bitlength_evodons = 18
+num_b4_dict = {}
+for posnum in range(0, 131023):
+    num_b4_dict[str(posnum)] = convert_binary_to_base4(format(posnum, "#020b")[2:])
+for negnum in range(-1, -131023, -1):
+    num_b4_dict[str(negnum)] = convert_binary_to_base4(bin(negnum & (2 ** bitlength_evodons - 1))[2:])
+
+# These conversion functions are packaged primarily for readability of wrangle_genome() and also conversion of archives.
+# Testing an alternative storage method.
+
+# Formats in use: KFORTH kewyord, base4 evodon, nucleotide evodon, AAFF evodon
+# Dicts currently added: KFORTH to base4, base4 to nt (simple), base4 to AAFF
+# From KFORTH to base4, convert the raw genome into processed genome: keywords separated by spaces.
+# Then convert keywords into base4 evodons and then concat into a single string.
+# Base4 and nt are equivalent. Just use string.replace() or list comprehension and string.join(list).
+# Intuitively, I think list comprehension is slower because of the need to iterate over all of the elements. Unless string.replace() is already a list comprehension.
+# From length-9 evodons to formats of other lengths like KFORTH or AAFF, need to split the genome into substrings of length 9.
+
+# Also consider intervals of variable length since all the simulations are deterministic.
+
+
+def convert_b4_to_decimal(evd):
+    # 1 & 0 are positive.
+    if evd[0] == '0':
+        dec_num = 0
+    if evd[0] == '1':
+        dec_num = 2 ** 16
+    # 2 & 3 are negative.
+    elif evd[0] == '2':
+        dec_num = -2 ** 17
+    elif evd[0] == '3':
+        dec_num = -2 ** 16
+
+    for i in range(1, len(evd)):
+        real_num = int(evd[i]) * 4 ** (len(evd) - i - 1)
+        dec_num += real_num
+    return dec_num
+
+
+# Add another function around this for spacers.
+# Spacers on either side would be safe, but would increase the memory usage by numbers.
+# Change to "_" for easier selection of aaff_strings.
+# Is there a way to detect the first occurrence of a number after AAFF evodons?
+# Maybe slice the genome into two types of sublists: Evodons only and numbers only.
+# Sort them into a dict with their relative order as the key, and the sublist as the value.
+# KIV as another possible data compression technique.
+def convert_b4_to_intstr(evd):
+    dec_num = convert_b4_to_decimal(evd)
+    # return str(dec_num) + "_"
+    return "_" + str(dec_num) + "_"
+
+
+# Base-4 format used for compatibility with bits and ATGC.
+# Consider whether to keep genomes as type list, then ''.join(list) only for the MSA and data storage?
+# Most likely usage: Pick genomes from data storage, then convert them into nucleotides for MSA.
+# Base-4 format used for compatibility with bits and ATGC.
+def convert_kforth_to_base4(kforth_genome):
+    def rownum_to_b4(rn):
+        elm = np.binary_repr(2**17 - 1 - 48 - int(rn), width=18)
+        ppairs_list = pair_split(elm)
+        return ''.join([str(int(p,2)) for p in ppairs_list])
+        # return ''.join([str(int(elm[s:s + 2],2)) for s in range(0, len(elm), 2) if len(elm[s:s + 2]) > 1])
+
+    # When converting genomes from instructions and ints to base-pairs, convert instructions first.
+    b4_genome = [instr_b4_dict[i] if i in instr_b4_dict else i for i in kforth_genome]
+    # Then convert rows with numbering.
+    # b4_genome = ['F' + str(chr(int(i[3:])+64)) if i[:3] == 'row' else i for i in b4_genome]
+    b4_genome = [rownum_to_b4(i[3:]) if i[:3] == 'row' else i for i in b4_genome]
+    # Then convert ints.
+    b4_genome = [num_b4_dict[keynum] if keynum in num_b4_dict else keynum for keynum in b4_genome]
+    return b4_genome
+
+
+def convert_base4_to_kforth(b4_genome):
+    fa_num = 2 ** 17 - 1 - 48
+    def test(evnum):
+        try:
+            if int(evnum,4) > (fa_num-52):
+                return int(evnum,4) <= fa_num
+            else:
+                return False
+        except:
+            return False
+    # Invert dicts
+    b4_instr_dict = {v: k for k, v in instr_b4_dict.items()}
+    br_num_dict = {v: k for k, v in num_b4_dict.items()}
+    kforth_genome = [b4_instr_dict[evd_b4] if evd_b4 in b4_instr_dict else evd_b4 for evd_b4 in b4_genome]
+    # Convert row numbering.
+    kforth_genome = ['row'+str(fa_num-int(evnum,4)) if test(evnum) else evnum for evnum in kforth_genome]
+    kforth_genome = [br_num_dict[evnum] if evnum in br_num_dict else evnum for evnum in kforth_genome]
+
+    return kforth_genome
+
+
+# Full conversion to ATGC.
+def convert_base4_to_nucleotide(b4_genome):
+    nt_genome = []
+    for elm in b4_genome:
+        # nt_genome = [b4_nt_dict[digit] for digit in b4_genome]
+        for digit in b4_nt_dict:
+            elm = elm.replace(digit, b4_nt_dict[digit])
+        nt_genome.append(elm)
+    return nt_genome
+
+
+def join_genome_for_msa(nt_genome):
+    return ''.join(nt_genome)
+
+
+# Not sure why this would ever be needed but just include it for the sake of completeness.
+def convert_nucleotide_to_base4(nt_genome):
+    b4_genome = nt_genome
+    nt_b4_dict = {v: k for k, v in b4_nt_dict.items()}
+    for nt in nt_b4_dict:
+        b4_genome = b4_genome.replace(nt, nt_b4_dict[nt])
+    return b4_genome
+
+
+# Convert keywords to AA-FF for storage.
+def convert_base4_to_aaff(b4_genome):
+    fa_num = 2 ** 17 - 1 - 48
+    def test(evd):
+        try:
+            if int(evd,4) > (fa_num-52):
+                return int(evd,4) <= fa_num
+            else:
+                return False
+        except:
+            return False
+    aaff_genome = [b4_aaff_dict[evd] if evd in b4_aaff_dict else evd for evd in b4_genome]
+    # Convert row numbering.
+    aaff_genome = ['F'+chr(fa_num-int(evd,4)+64) if test(evd) else evd for evd in aaff_genome]
+    # Converts to integer string.
+    aaff_genome = [str(convert_b4_to_intstr(evd)) if len(evd) > 2 else evd for evd in aaff_genome]
+    # aaff_genome = ["_"+str(int(evd,4))+"_" if len(evd) > 2 else evd for evd in aaff_genome]
+    return aaff_genome
+
+
+def store_aaff(aaff_genome):
+    aaff_string = ''.join(aaff_genome)
+    return aaff_string.replace("__","_")
+
+
+def retrieve_aaff(aaff_string):
+    # Separate out all the numbers.
+    aaff_list = aaff_string.split("_")
+    # Remove any empty strings.
+    aaff_list = [x for x in aaff_list if x != ""]
+    aaff_genome = []
+    for elm in aaff_list:
+        if not (elm.isdigit() or elm[0] == "-"):
+            # Split all the remaining AAFFs into pairs.
+            # evd_list = [elm[s:s + 2] for s in range(0, len(elm), 2) if len(elm[s:s + 2]) > 1]
+            evd_list = pair_split(elm)
+            # Flatten the list.
+            for evd in evd_list:
+                aaff_genome.append(evd)
+        # Filter out all the numbers
+        else:
+            aaff_genome.append(elm)
+    return aaff_genome
+
+
+# Data de-compression.
+def convert_aaff_to_base4(aaff_genome):
+    def fa_to_b4(fa_a):
+        elm = np.binary_repr(2**17 - 1 - 48 - ord(fa_a)+64, width=18)
+        ppairs_list = pair_split(elm)
+        return ''.join([str(int(p,2)) for p in ppairs_list])
+
+    b4_genome = [aaff_b4_dict[evd] if evd in aaff_b4_dict else evd for evd in aaff_genome]
+    b4_genome = [fa_to_b4(evd[1]) if evd[0] == 'F' else evd for evd in b4_genome]
+    b4_genome = [num_b4_dict[keynum] if keynum in num_b4_dict else keynum for keynum in b4_genome]
+    return b4_genome
+
+
+def convert_aaff_to_xascii(aaff_genome):
+    # Converts the double-letter format.
+    xa_genome = [aaff_xascii_dict[evd] if evd in aaff_xascii_dict else evd for evd in aaff_genome]
+    # Adds spacers to numbers.
+    # This accounts for single digits.
+    xa_genome = ["_"+x+"_" if x.isdigit() else x for x in xa_genome]
+    # This accounts for negative numbers. Single digits not included due to trailing underscore.
+    xa_genome = ["_"+x+"_" if x[1:].isdigit() else x for x in xa_genome]
+    return xa_genome
+
+
+# Single function to convert chosen AAFF strings into nucleotide sequences for MSA.
+def unspool_aaff_for_msa(aaff_string):
+    aaff_genome = retrieve_aaff(aaff_string)
+    b4_genome = convert_aaff_to_base4(aaff_genome)
+    nt_genome = convert_base4_to_nucleotide(b4_genome)
+    nt_seq = join_genome_for_msa(nt_genome)
+    return nt_seq
 
 
 # This function is used for variable inputs.
-def check_input_files(run_path):
+def check_input_files(path_run_in):
     # Read the filenames of the template files.
-    grp_file_list = [x for x in run_path.iterdir() if x.is_file()]
-    grp_file_list = [x.name.split('.')[0] for x in grp_file_list]
+    files_list = os.listdir(path_run_in)
+    files_list = [x.split('.')[0] for x in files_list]
     # Check that the names of the EVOLVE and PHASCII both match.
-    if len(set(grp_file_list)) > 1:
+    if len(set(files_list)) > 1:
         print("Mismatch in EVOLVE and PHASCII detected.")
     # Then extract the timestep.
     else:
-        print("Files matched.")
+        return int(files_list[0].split('_')[-1])
 
 
-# Use if I'm testing a bunch of runs with the same universe and PHASCII.
-def prep_new_run():
-    grp_file_list = [x for x in grp_dirpath.iterdir() if x.is_file()]
-    univ = [x for x in grp_file_list if '.evolve' in x.name][0]
-    phascii = [x for x in grp_file_list if '.txt' in x.name][0]
-    Path(run_dirpath).mkdir(exist_ok=True)
-    # Check if template universe and PHASCII already exist.
-    copyfile(univ, run_dirpath / univ.name)
-    copyfile(phascii, run_dirpath / phascii.name)
+# To eyeball the genome.
+def translate_aaff_to_kforth(aaff_string):
+    aaff_genome = retrieve_aaff(aaff_string)
+    b4_genome = convert_aaff_to_base4(aaff_genome)
+    kforth_genome = convert_base4_to_kforth(b4_genome)
+    kforth_string = ' '.join(kforth_genome)
+    # kforth_string = kforth_string.replace("row ", "row")
+    return kforth_string
 
 
-# Mainly outputs strain_genome and book_of_life TXTs.
-def glue_book(input_path, data_dict):
-    lines = []
-    for key, value in data_dict.items():
-        lines.append('%s:%s\n' % (key, value))
-    input_path.write_text("".join(lines), encoding="utf-8")
+# Split into rows for readability.
+def split_kforth_to_read(aaff_string):
+    kforth_string = translate_aaff_to_kforth(aaff_string)
+    kforth_rows_list = kforth_string.split("row")
+    kforth_rows_list = [kforth_rows_list[0]] + ["row"+row for row in kforth_rows_list[1:]]
+    return kforth_rows_list
 
 
-# Pre-generate BAT files.
-# Expected max time_period = 100K (~20 MB).
-def pregen_batches_00(start_step, time_period, interval):
-    bfnumbered = "run_" + run_num + "_" + run_name + "_evolve_STNM.bat"
-    bfnames = [bfnumbered.replace("STNM", str(start_step+x+1)) for x in range(0,(time_period), interval)]
-    evoofnames = [run_name + "_" + str(start_step+x+1) for x in range(0,(time_period), interval)]
-    bfpaths = [run_dirpath / bfn for bfn in bfnames]
-    btmpl_text = bat_tmpl_path.read_text(encoding="utf-8").splitlines()
-
-    text_find_input = "p_in"
-    text_find_output = "p_out"
-    # timestep = start_step
-    evin_fname = run_name + "_" + str(start_step)
-    # br_replaceds = {"1u": str(interval) + "u"}
-    # Odd range to avoid IndexError.
-    try:
-        for i in range(interval, (time_period + interval), interval):
-            # Name the output file based on original simulation and time-step.
-            idx = int(i / interval)
-            evout_fname = evoofnames[idx-1]
-            # br_replaceds = {text_find_output: evout_fname, text_find_input: evin_fname, "1u": str(interval) + "u"}
-            br_replaceds = {"p_out": evout_fname, "p_in": evin_fname, "1u": str(interval) + "u"}
-            # br_replaceds[text_find_output] = evout_fname
-            # br_replaceds[text_find_input] = evin_fname
-            bfp = bfpaths[idx-1]
-            copyfile(bat_tmpl_path, bfp)
-            br_text = replace_old_with_new(btmpl_text, br_replaceds)
-            bfp.write_text("\n".join(br_text), encoding="utf-8")
-            # text_find_input = evin_fname
-            # text_find_output = run_name + "_" + str(start_step + i + interval)
-            # text_find_output = evoofnames[idx]
-            evin_fname = evout_fname
-    except IndexError: pass
-    return bfpaths, evoofnames
+# Fix negative numbers in strain_genome_015 as they were far too large.
+def fix_negnum_in_aaff(path_in):
+    with open(path_in, "rt") as sgen:
+        wrong = sgen.readlines()
+    rabbit = [x.split("_") for x in wrong]
+    turtles = []
+    for bun in rabbit:
+        ninja = []
+        for b in bun:
+            if b.isdigit() and len(b) == 5 and b[0] == '3':
+                c = int(b) - 2**15
+                ninja.append(str(c))
+            else:
+                ninja.append(b)
+        turtles.append(ninja)
+        
+    torts = ["_".join(t) for t in turtles]
+    torts = [t.replace("__", "_") + "\n" for t in torts]
+    with open(path_in, "wt") as pstr:
+        pstr.truncate(0)
+        for line in torts:
+            pstr.write(line)
 
 
-def pregen_batches(start_step, time_period, interval):
-    bfnumbered = "run_" + run_num + "_" + run_name + "_evolve_STNM.bat"
-    bfnames = [bfnumbered.replace("STNM", str(start_step+x+1)) for x in range(0,(time_period), interval)]
-    evoofnames = [run_name + "_" + str(start_step+x+1) for x in range(0,(time_period), interval)]
-    bfpaths = [run_dirpath / bfn for bfn in bfnames]
-    btmpl_text = bat_tmpl_path.read_text(encoding="utf-8").splitlines()
-    evin_fname = run_name + "_" + str(start_step)
-    # Odd range to avoid IndexError.
-    try:
-        for i in range(interval, (time_period + interval), interval):
-            # Name the output file based on original simulation and time-step.
-            idx = int(i / interval)
-            evout_fname = evoofnames[idx-1]
-            br_replaceds = {"p_out": evout_fname, "p_in": evin_fname, "1u": str(i) + "u"}
-            bfp = bfpaths[idx-1]
-            copyfile(bat_tmpl_path, bfp)
-            br_text = replace_old_with_new(btmpl_text, br_replaceds)
-            bfp.write_text("\n".join(br_text), encoding="utf-8")
-    except IndexError: pass
-    return bfpaths, evoofnames
+# Take a string and automatically save it.
+# File_name is in format "run-num_org-id.seq".
+def save_aaff_to_fasta(aaff_string, file_name):
+    nt_seq = unspool_aaff_for_msa(aaff_string)
+    path_file = os.path.join(path_fasta, file_name + ".seq")
+    with open(path_file, "wt") as f:
+        f.write(nt_seq)
+  
 
-
-import cProfile
-# # For future formatting of filenames.
-# num_lead_zeroes = int(log10(time_period)) + 1
-def simulate_universe(time_period, start_step=0, interval=1, delete=False, prep=False, speed=False):
-    pr = cProfile.Profile()
-    pr.enable()
-    # Split and tidy biodata from a single organism.
-    def wrangle_biodata(indiv_biodata):
-        # Save the stats of the organism while removing from genome.
-        vital_stats = indiv_biodata.pop(0)
-        # Convert indiv_biodata from a list of keywords into a single string.
-        indiv_biodata = ' '.join(indiv_biodata)
-        # Change of spacer: Convert tabs to spaces.
-        indiv_biodata = indiv_biodata.replace("    ", " ")
-        # Remove multiple spaces.
-        while "  " in indiv_biodata:
-            indiv_biodata = indiv_biodata.replace("  ", " ")
-        # Split into separate instructions and nums using single spaces for translation of keywords only.
-        indiv_biodata = indiv_biodata.split(" ")
-        # Remove blank strings.
-        # type(indiv_biodata) = list.
-        while '' in indiv_biodata:
-            indiv_biodata.remove('')
-        aaff_genome = geha.shrink_kforth_to_aaff(indiv_biodata)
-        aaff_string = geha.store_aaff(aaff_genome)
-        # Remove ENERGY and AGE from vital_stats.
-        vs_list = vital_stats.split(" ")
-        vital_stats = vs_list[1] + " " + " ".join(vs_list[4:7])
-        # Can just keep adding genome repeatedly and it'll overwrite.
-        popn_genome[vital_stats] = aaff_string
-        strain_genome[vital_stats] = aaff_string
-        return vital_stats, aaff_string, list(popn_genome.keys())
-
-    bfpaths, evoofnames = pregen_batches(start_step, time_period, interval)
-    # Performance metric.
-    print("Scraper started at " + datetime.now().strftime("%H:%M:%S"))
-    # Copy EVOLVE and PHASCII from template.
-    if prep: prep_new_run()
-    lives_output = ""
-    beefs = array_split(bfpaths,10)
-    bstart = 0
-    for beef in beefs:
-        pproc = []
-        for brp in beef:
-            pproc.append(subprocess.Popen(str(brp)))
-        flag = True
-        count = 0
-        while flag:
-            data_files = [dfile for dfile in run_dirpath.glob('*')]
-            dbat_files = [db for db in data_files if '.bat' in str(db)]
-            # devo_files = [de for de in data_files if '.evolve' in str(de)]
-            dphs_files = [dp for dp in data_files if '.txt' in str(dp)]
-            # de_nums = [den.split('.')[0].split('_')[-1] for den in devo_files]
-            db_nums = [str(dbn).split('.')[0].split('_')[-1] for dbn in dbat_files[bstart:bstart+len(beef)]]
-            dp_nums = [str(dpn).split('.')[0].split('_')[-1] for dpn in dphs_files[bstart:]]
-            # if int(dp_nums[0]) == start_step:
-            #     dp_nums.append(str(dphs_files[-1]).split('.')[0].split('_')[-1])
-            gones = [dbn for dbn in db_nums if dbn not in dp_nums]
-            count += 1
-            # print(dp_nums)
-            if not gones:
-                flag = False
-                bstart += len(beef)
-                print(bstart)
-        print(count)
-        for pp in pproc:
-            pp.kill()
-    # Check if all EVOLVE/PHASCII pairs are generated. (Base off PHASCII only first.)
-
-    print("Popen finished at " + datetime.now().strftime("%H:%M:%S"))
-    # evin_fname = run_name + "_" + str(start_step)
-    for timestep in range(start_step, start_step+time_period, interval):
-        # Progress update. Adjust the frequency if time_period becomes larger?
-        if (timestep-start_step) % (max(time_period//100,1)) == 0:
-            print(timestep)
-            print("Progress update at " + datetime.now().strftime("%H:%M:%S"))
-
-        idx = int((timestep-start_step)/interval)
-        bat_run_path = bfpaths[idx]
-        # Popen(str(bat_run_path))
-
-        # Export PHASCII for output: Extract only the ORGANIC section from the PHASCII.
-        phas_path = run_dirpath / (evoofnames[idx] + ".txt")
-        # sleep(0.075)
-        if not speed:
-            # Find the 'ORGANIC' entry and then slice the lines list.
-            phas = phas_path.read_text(encoding="utf-8").splitlines()
-            phas = phas[phas.index("ORGANIC {"):]
-            # Replace everything in indiv_biodata that's not a keyword.
-            removables = ["\t", "\n", ":", "{", "}", "# program", '"']
-            for rmvb in removables: phas = [r.replace(rmvb, "") for r in phas]
-            # Update instructions in genome to avoid collisions during genome handling step.
-            fix_collisions_dict = {"MAKE-SPORE": "MAKE-SPOR", " - ": " ~ ", "NUM-CELLS": "NUM-CELS"}
-            phas = replace_old_with_new(phas, fix_collisions_dict)
-
-            # Extract genomes of all organisms in universe.
-            org_flag = False
-            # Needed for death-step. Actually just need to copy orgids per timestep.
-            popn_genome = {}
-            organisms_in_timestep = []
-            # When see "ORGANISM", start recording the genome.
-            for phline in phas:
-                if "ORGANISM" in phline:
-                    org_flag = True
-                    indiv_biodata = []
-                # "CELL" indicates end of genome, so store collated biodata.
-                if "CELL" in phline and org_flag:
-                    org_flag = False
-                    vital_stats, indiv_biodata, population = wrangle_biodata(indiv_biodata)
-                    # Add organism to list of living.
-                    organisms_in_timestep.append(vital_stats)
-                    # Add birth-step of organism.
-                    if vital_stats not in book_of_life:
-                        book_of_life[vital_stats] = [timestep]
-                # Line-by-line, record the genome.
-                if org_flag:
-                    # Add line.
-                    indiv_biodata.append(phline)
-
-
-            # Add death-step of organism.
-            for vs_org in book_of_life:
-                # Check that organism was still alive.
-                if len(book_of_life[vs_org]) < 2:
-                    # Check that organism is no longer listed among living organisms.
-                    if vs_org not in population:
-                        # Add death-step. Subtract 1 to get final step while alive.
-                        book_of_life[vs_org].append(timestep-1)
-
-                # For spores, just find the lines between each index of spore, then the final entry.
-                # Or pop 1st spore, then find 2nd spore.
-                # Then slice the list up until 2nd spore.
-                # Repeat until last spore popped, leaving the final entry?
-
-            # # Add population genome to genome tracking over time.
-            # genomes_over_time[timestep] = popn_genome
-            # Compare the ORGANISMS section of the input and output PHASCII files.
-            lives_output = geha.get_organics_from_universe(phas)
-            phas_path.write_text("\n".join(phas), encoding="utf-8")
-            # # If the summaries are identical, then delete the output PHASCII (not lines in console).
-            # if lives_input == lives_output and timestep != time_period:
-            #     phas_path.unlink()
-            #     # genomes_over_time.pop(timestep)
-            # Include a mode which DELETES the intermediate PHASCIIs.
-            # Would it be better not to create in the first place? But would require rewrite of the code.
-            if (timestep-start_step) == time_period:
-                print('(Timestep-start_step) equal to time period.')
-                delete = False
-
-        # Operation: Delete the old PHASCII.
-        if delete:
-            try: phas_path.unlink()
-            except FileNotFoundError: print('FileNotFoundError but passing.')
-        # Operation: Delete the old input evolve universe.
-        # (run_dirpath / (evin_fname + ".evolve")).unlink()
-        bat_run_path.unlink()
-        # evin_fname = evoofnames[idx]
-
-    # If not speed, outputs empty files.
-    # strain_genome file: Stores genomes only.
-    glue_book(strain_genome_path, strain_genome)
-    # book_of_life file: Records parentage. Genealogy to phylogeny.
-    glue_book(book_path, book_of_life)
-    print("Scraper finished at " + datetime.now().strftime("%H:%M:%S"))
-    pr.disable()
-    pr.print_stats(sort='time')
-
-    # Automate archiving? Store run archive in Evolve-Archives, retain starting files and ending files.
-
-
-# Convert string of numbers into organised df.
-def organise_book_of_life(book_path, save=True):
+# Convert string of numbers into organised df.          
+# r"C:\Users\Lio Hong\Documents\LioHong\Evolve-Archives\book_of_life_010.txt"
+# r"C:\Users\Lio Hong\Documents\LioHong\Evolve-Archives\strain_genome_010.txt"
+# r"C:\Users\Lio Hong\Documents\LioHong\Evolve-Simulation\Runs\Run_015_big_bang\strain_genome_015a.txt"
+# r"C:\Users\Lio Hong\Documents\LioHong\Evolve-Simulation\Runs\Run_015_big_bang\book_of_life_015.txt"
+def examine_book_of_life(path_book):
     # Open the text archive.
-    with open(book_path, "rt") as f:
+    with open(path_book, "rt") as f:
         bol = f.readlines()
-    # bol = book_path.read_text(encoding="utf-8").splitlines()
     # Format of an organism's entry: "31 1 1 1:[211, 387]/n"
     # Process the string into lists.
     idnums = [int(x.split(" ")[0]) for x in bol]
     sporelayers = [int(x.split(" ")[1]) for x in bol]
     sporeqks = [int(x.split(" ")[2]) for x in bol]
-    generations = [int(x.split(" ")[3].split(":")[0]) for x in bol]
-    lifesteps = [x.split(":")[1][1:-2].split(",") for x in bol]
-    birthsteps = [int(x[0]) for x in lifesteps]
+    generations = [int(x.split(" ")[3].split(":")[0]) for x in bol] 
+    lifesteps = [x.split(":")[1][1:-2].split(",") for x in bol] 
+    birthsteps = [int(x[0]) for x in lifesteps] 
     # For still-living organisms, set death-step to 0 so that lifespan will become negative.
-    deathsteps = [int(x[1]) if len(x) > 1 else 0 for x in lifesteps]
+    deathsteps = [int(x[1]) if len(x)>1 else 0 for x in lifesteps]
     # Combine all the lists into a df.
     zipped = zip(idnums, sporelayers, sporeqks, generations, birthsteps, deathsteps)
     bcols = ["ID", "Sporelayer", "Quickener", "Generation", "Birth_step", "Death_step"]
@@ -348,121 +409,615 @@ def organise_book_of_life(book_path, save=True):
     blife_df = blife_df.sort_values(by=["ID"])
     blife_df["Lifespan"] = blife_df.Death_step - blife_df.Birth_step
     blife_df["Sex_check"] = blife_df.Quickener - blife_df.Sporelayer
-    if save: blife_df.to_csv(bgen_path)
+    
+    # ===== Data Handling =====
+    # Check which organism lived the longest. 
+    blife_df.Lifespan.max()
+    # Remove negative lifespans used to rep living organisms. Can raise threshold.
+    blife_df.loc[blife_df.Lifespan>-1,"Lifespan"].min()
+    # Check how many organisms managed to reproduce.
+    len(set(blife_df.Sporelayer))
+    len(set(blife_df.Quickener))
+    # Check which organism had the most children.
+    blife_df.Sporelayer.value_counts()
+    blife_df.Quickener.value_counts()
+    # Check which organism produced the most children via sexual reproduction.
+    blife_df.loc[blife_df.Sex_check!=0, "Sporelayer"].value_counts()
+    blife_df.loc[blife_df.Sex_check!=0, "Quickener"].value_counts()
+    # Find the oldest still-living organism.
+    blife_df.loc[blife_df.Lifespan<0, "Birth_step"].min()
+    # Related: Lifespan of oldest still-living organism.
+    blife_df.loc[blife_df.Lifespan>0, "Lifespan"].max()
+
     return blife_df
 
 
-def examine_book_of_life(blife_df):
-    # ===== Data Handling =====
-    # Check which organism lived the longest.
-    print('Longest-lived:')
-    print(blife_df.Lifespan.max())
-    # Remove negative lifespans used to rep living organisms. Can raise threshold.
-    blife_df.loc[blife_df.Lifespan > -1, "Lifespan"].min()
-    # Find the oldest still-living organism.
-    print('Oldest living:')
-    print(blife_df.loc[blife_df.Lifespan < 0, "Birth_step"].min())
-    # Related: Lifespan of oldest still-living organism.
-    print('Lifespan of oldest living:')
-    print(blife_df.loc[blife_df.Lifespan > 0, "Lifespan"].max())
-    # Check how many organisms managed to reproduce.
-    print('Number of organisms who reproduced (S,Q):')
-    print(len(set(blife_df.Sporelayer)))
-    print(len(set(blife_df.Quickener)))
-    # Check which organism had the most children.
-    print('Most children:')
-    print(blife_df.Sporelayer.value_counts().head())
-    print(blife_df.Quickener.value_counts().head())
-    # Check which organism produced the most children via sexual reproduction.
-    print('Most children via sex:')
-    print(blife_df.loc[blife_df.Sex_check != 0, "Sporelayer"].value_counts().head())
-    print(blife_df.loc[blife_df.Sex_check != 0, "Quickener"].value_counts().head())
+# Load as org_id:aaff_string. Other metadata isn't strictly required, alr in book_of_life.
+def load_strain_genome(path_sgen):
+    # Open the text archive.
+    with open(path_sgen, "rt") as f:
+        sfgen = f.readlines()
+    keys = [int(x.split(" ")[0]) for x in sfgen]
+    values = [x.split(":")[1][:-2] for x in sfgen]
+    sfgen_dict = dict(zip(keys, values))
+    return sfgen_dict
 
 
-# Track contents of archive.
-def record_archives():
-    rxiv_path = Path.cwd().parent / 'Evolve-Archives'
-    rlevels = ['*','*/*','*/*/*','*/*/*/*','*/*/*/*/*']
-    rxiv_files = [str(rfile).split('Evolve-Archives')[1] for rl in rlevels for rfile in rxiv_path.glob(rl)]
-    # rxiv_files = []
-    # for rl in rlevels:
-    #     for rfile in rxiv_path.glob(rl):
-    #         rxiv_files.append(str(rfile))
-    # rxiv_files = [r.split('Evolve-Archives')[1] for r in rxiv_files]
-    rxiv_files.sort()
-    (Path(".") / "archive_records.txt").write_text("\n".join(rxiv_files), encoding="utf-8")
+# Change data storage format for strain_genome_015.
+def fix_aaff_into_xascii(path_in):
+    with open(path_in, "rt") as sgen:
+        wrong = sgen.readlines()
+    org_gnm_pairlist = [x.split(":") for x in wrong]
+    orgid_list = [x[0] for x in org_gnm_pairlist]
+    genome_list = [x[1] for x in org_gnm_pairlist]
+    gxa_list = [''.join(convert_aaff_to_xascii(retrieve_aaff(gnm))) for gnm in genome_list] 
+    ogxa_pairlist = [':'.join([x,y]).replace("__","_").replace("\n","") + "\n" for x,y in zip(orgid_list, gxa_list)]
+    
+    with open(path_in, "wt") as pstr:
+        pstr.truncate(0)
+        for line in ogxa_pairlist:
+            pstr.write(line)
 
 
-# Another problem: How to stitch book_of_life and strain_genome from consecutive runs?
-def collate_books(run_nums_list,grp_num="002"):
-    # Assume list of ints.
-    run_nums_list.sort()
-    r_nstr_list = [f"{x:03}" for x in run_nums_list]
-    coll_b = pd.DataFrame()
-    # dfdict = {}
-    # Merge with the later run as priority.
-    for r in reversed(r_nstr_list):
-        print("Progress update at " + datetime.now().strftime("%H:%M:%S"))
-        rdpath = Path(".") / "Runs" / ("Grp_" + grp_num) / ("Run_" + r)
-        bkpath = rdpath / ("book_of_life_" + r + ".txt")
-        sgpath = rdpath / ("strain_genome_" + r + ".txt")
-        sdf = organise_book_of_life(bkpath, save=False)
-        bdf = geha.stitch_sgen(sdf, sgpath)
-        # dfdict[r] = bdf[:]
-        if not coll_b.empty:
-            # coll_b = pd.concat([coll_b, bdf]).drop_duplicates()
-            coll_b = pd.concat([coll_b, bdf])
-            coll_b = coll_b[~coll_b.index.duplicated(keep='first')]
+# sgfif = load_strain_genome(r"C:\Users\Julio Hong\Documents\LioHong\Evolve-Archives\strain_genome_015a.txt")
+# sgten = load_strain_genome(r"C:\Users\Julio Hong\Documents\LioHong\Evolve-Archives\strain_genome_010a.txt")
+# overlaps = [x for x in sgfif if x in sgten]
+# sgall = sgfif | sgten
+# len(sgfif) + len(sgten) - len(sgall)
+
+
+# from Bio.Seq import Seq
+# from Bio.SeqRecord import SeqRecord
+# from Bio.Align import MultipleSeqAlignment
+# def align_multiple_ids(orgid_list, strain_genome_dict):
+#     seqrec_list = []
+#     for oid in orgid_list:
+#         aaff_string = strain_genome_dict[oid]
+#         # Unspool each aaff_string for each org_id.
+#         nt_seq = unspool_aaff_for_msa(aaff_string)
+#         # 'Hard' way of writing an alignment: MSA > SeqRecord > Seq
+#         seqrec = SeqRecord(Seq(nt_seq), id=str(oid))
+#         # Append to a list of SeqRecords.
+#         seqrec_list.append(seqrec)
+#     # MSA wrap around this list.
+#     ms_align = MultipleSeqAlignment(seqrec_list)
+#     return ms_align
+# # Write to a PHYLIP file.
+# AlignIO.write(my_alignments, "my_example.phy", "phylip")
+
+# # Stops line breaks when showing df in console.
+# pandas.set_option('display.expand_frame_repr', False)
+# overlaps = [x for x in bfif_df.index if x in blife_df.index]
+# # Book from run_010 takes precedence.
+# bkall_df = blife_df.combine_first(bfif_df)
+# len(bkall_df)
+# len(blife_df) + len(bfif_df) - len(overlaps)
+# # But the death_step for overlapping organisms is updated from run_015.
+# bkall_df.loc[overlaps, "Death_step"] = bfif_df.loc[overlaps, "Death_step"]
+# bkall_df["Lifespan"] = blife_df.Death_step - blife_df.Birth_step
+# bkall_df.loc[overlaps].head(20)
+# bkall_df["Lifespan"] = bkall_df.Death_step - bkall_df.Birth_step
+# bkall_df.loc[overlaps].head(20)
+# # Too many rows to view entirely in spreadsheet.
+# bkall_df.to_csv(os.path.join(path_rundir, "book_of_life_015_010.csv"))
+
+
+# From a list of org_ids from a file, create an ALN file to align with Unipro UGENE.
+def align_many_ids(strain_genome_dict, id_list, prefix, path_aln, pad_digits=0):
+    # Follow the format: "CLUSTAL W 2.0 multiple sequence alignment\n\n"
+    # Blank line.
+    aln_list = ["CLUSTAL W 2.0 multiple sequence alignment\n\n"]
+    frag_dict = {}
+    flen_max = 0
+    for orgid in id_list:
+        org_genome = unspool_aaff_for_msa(strain_genome_dict[orgid])
+        frag_len = 70
+        # Split into fragments of length 70.
+        frag_list = [org_genome[s:s + frag_len] for s in range(0, len(org_genome), frag_len)
+                     if len(org_genome[s:s + frag_len]) > (frag_len-1)]
+        # Add the final fragment of length < 70.
+        tail_frag = org_genome[len(frag_list) * frag_len:]
+        tail_frag = tail_frag + "-" * (frag_len - len(tail_frag))
+        frag_list.append(tail_frag)
+        frag_dict[orgid] = frag_list
+        
+        if len(frag_list) > flen_max:
+            flen_max = len(frag_list)
+    
+    # Pad out the frag_list with dash-only fragments.
+    for orgid in id_list:
+
+        if len(frag_dict[orgid]) < flen_max:
+            for i in range(flen_max - len(frag_dict[orgid])):
+                frag_dict[orgid].append("-" * frag_len)
+                
+    # Decide how many digits each org_id should have.
+    padded_ids_dict = {}
+    oid_max = len(str(max(id_list)))
+    for orgid in id_list:
+        if len(str(orgid)) < oid_max:
+            padded_ids_dict[orgid] = "0" * (oid_max - len(str(orgid)) + pad_digits) + str(orgid)
         else:
-            coll_b = bdf.loc[:]
-    # return coll_b, dfdict
-    return coll_b.sort_index()
+            padded_ids_dict[orgid] = "0" * pad_digits + str(orgid)
+
+    # Add the fragments by org_id and multiple of 70.
+    for i in range(flen_max):
+        for orgid in id_list:            
+            # Sequence name + 4 spaces + 70 nts + 1 space + multiple of 70.
+            # line = prefix + "_" + str(padded_ids_dict[orgid]) + " "*4 + frag_dict[orgid][i] + " " + str((i+1)*70) + "\n"
+            # Max length of ID is 10 char, so omit prefix for now.
+            line = str(padded_ids_dict[orgid]) + " "*4 + frag_dict[orgid][i] + " " + str((i+1)*70) + "\n"
+            aln_list.append(line)
+        aln_list.append("\n\n")
+
+    # Write to ALN file.
+    with open(path_aln+".aln", "wt") as f:
+        for line in aln_list:
+            f.write(line)
+
+    # Align with Unipro UGENE via batch file.
+    path_batrun_ugene = os.path.join(path_rundir, "run_" + run_num + "_" + run_name + "_ugene.bat")
+    copyfile(path_bat_ugenetemp, path_batrun_ugene)
+    replace_old_with_new(path_batrun_ugene, {"path_in":path_aln, "path_out":path_aln+"a"})
+    # Get the filename itself to run.
+    os.system(path_batrun_ugene.split('\\')[-1])
+
+    # Switch from UGENE to ClustalW 2.1.
 
 
-# Tweak dataframe columns.
-def refit_phylo(ip_df):
-    nice_df = ip_df[:]
-    nice_df = nice_df.drop(columns=['cgen'])
-    nice_df.insert(7,'Gnm_Len',False)
-    nice_df.Gnm_Len = nice_df.Genome.apply(lambda x: len(geha.pair_split(x)))
-    nice_df.insert(0,'Orgid',False)
-    nice_df.Orgid = nice_df.index
-    nice_df.iloc[0] = nice_df.iloc[1]
-    nice_df.sort_index(inplace=True)
-    return nice_df
+from Bio import Phylo, AlignIO
+from Bio.Phylo.TreeConstruction import DistanceCalculator, DistanceTreeConstructor
+path_aln_in = r"C:\Users\Julio Hong\Documents\LioHong\Evolve-Simulation\Runs\Run_015_big_bang\test_a.aln"
+path_phy_in = r'C:\Users\Julio Hong\Documents\LioHong\Evolve-Simulation\Runs\Run_015_big_bang\testb.phy'
+def draw_phylos(path_aln_in, path_phy_in):
+    # alignment = AlignIO.read(open(r"C:\Users\Julio Hong\Documents\LioHong\Evolve-Simulation\Runs\Run_015_big_bang\test.aln"), "clustal")
+    alignment = AlignIO.read(open(path_aln_in), "clustal")
+    print("Alignment length %i" % alignment.get_alignment_length())
+    for record in alignment:
+        print(record.seq + " " + record.id)
+    # align = AlignIO.read(r'C:\Users\Julio Hong\Documents\LioHong\Evolve-Simulation\Runs\Run_015_big_bang\testb.phy','phylip')
+    align = AlignIO.read(path_phy_in,'phylip')
+    print(align)
+    # Calculate the distance matrix
+    calculator = DistanceCalculator('identity')
+    distMatrix = calculator.get_distance(align)
+    print(distMatrix)
+    # Create a DistanceTreeConstructor object
+    constructor = DistanceTreeConstructor()# Construct the phlyogenetic tree using UPGMA algorithm
+    UPGMATree = constructor.upgma(distMatrix)# Construct the phlyogenetic tree using NJ algorithm
+    NJTree = constructor.nj(distMatrix)
+    # Draw the phlyogenetic tree.
+    Phylo.draw(UPGMATree)
+    # Draw the phlyogenetic tree using terminal
+    Phylo.draw_ascii(NJTree)
+
+       
+# # For future formatting of filenames.
+# num_lead_zeroes = int(log10(time_period)) + 1
+def simulate_universe(time_period, runin_timestep=0, interval=1, express=False):
+    # Packaged to ease readability of simulate_universe().
+    def wrangle_genome(indiv_genome):
+        # Save the stats of the organism while removing from genome.
+        vital_stats = indiv_genome.pop(0)
+        # Convert indiv_genome from a list of keywords into a single string.
+        indiv_genome = ' '.join(indiv_genome)
+        # Change of spacer: Convert tabs to spaces.
+        indiv_genome = indiv_genome.replace("    ", " ")
+        # # Separate "rowX" into "row X".
+        # indiv_genome = indiv_genome.replace("row", "row ")
+        # Remove multiple spaces.
+        while "  " in indiv_genome:
+            indiv_genome = indiv_genome.replace("  ", " ")
+        # Split into separate instructions and nums using single spaces for translation of keywords only.
+        indiv_genome = indiv_genome.split(" ")
+        # Remove blank strings.
+        # type(indiv_genome) = list.
+        while '' in indiv_genome:
+            indiv_genome.remove('')
+
+        # type(evodon_genome) = string, containing 0123.
+        b4_genome = convert_kforth_to_base4(indiv_genome)
+        # type(nucleotide_genome) = string, containing ATGC.
+        nt_genome = convert_base4_to_nucleotide(b4_genome)
+        # # type(ab_genome) = string, containing AA-FF.
+        aaff_genome = convert_base4_to_aaff(b4_genome)
+        aaff_string = store_aaff(aaff_genome)
+
+        # nucleotide_genome = convert_base4_to_nucelotide(evodon_genome)
+        # popn_genome[vital_stats] = nucleotide_genome
+        # Remove ENERGY and AGE from vital_stats.
+        vs_list = vital_stats.split(" ")
+        vital_stats = vs_list[1] + " " + " ".join(vs_list[4:7])
+        # Can just keep adding genome repeatedly and it'll overwrite.
+        # strain_genome[vital_stats] = nucleotide_genome
+        popn_genome[vital_stats] = aaff_string
+        strain_genome[vital_stats] = aaff_string
+
+        return vital_stats, aaff_string, nt_genome, list(popn_genome.keys())
+    
+    # Performance metric.
+    print("Scraper started at " + datetime.now().strftime("%H:%M:%S"))
+    
+    for timestep in range(runin_timestep, runin_timestep+time_period, interval):
+        # Progress update. Adjust the frequency if time_period becomes larger?
+        if timestep % (max(time_period//100,1)) == 0:
+            print(timestep)
+            print("Progress update at " + datetime.now().strftime("%H:%M:%S"))
+
+        # Step-by-step initialisation.
+        if timestep != runin_timestep:
+            # Set the text to Find and Replace
+            text_find_input = path_input_evo
+            text_find_output = path_output_evo
+            # Old output becomes input.
+            path_input_evo = path_output_evo
+            # Name the output file based on original simulation and time-step.
+            path_output_evo = os.path.join(path_rundir, run_name + "_" + str(timestep+1))
+            # Lives summary from output becomes that for input.
+            lives_input = lives_output
+
+        # Timestep equals 1, beginning of simulation. Initialise from template.
+        else:
+            # Copy EVOLVE and PHASCII from template?
+            path_start_evo = os.path.join(path_rundir, run_name + "_" + str(runin_timestep))
+            path_output_evo = os.path.join(path_rundir, run_name + "_" + str(runin_timestep+1))
+            path_input_evo = path_start_evo
+            # Copy the bat file and rename it.
+            path_batrun_evo = os.path.join(path_rundir, "run_" + run_num + "_" + run_name + "_evolve.bat")
+            copyfile(path_bat_evotemp, path_batrun_evo)
+            # Set the text to Find and Replace
+            text_find_input = "path_in"
+            text_find_output = "path_out"
 
 
-# Easy to draw.
-def really_draw(ip_df,lastgen=100,fsize=(12,12)):
-    nice_df = refit_phylo(ip_df)
-    digevo_df = tphy.fit_phylogeny(nice_df)
-    tphy.draw_phylogeny(digevo_df.loc[:lastgen],fsize)
+        # Run the batch file: Update paths in batch file based on timestep.
+        replaceds = {text_find_output: path_output_evo, text_find_input: path_input_evo, "1u": str(interval)+"u"}
+        replace_old_with_new(path_batrun_evo, replaceds)
+        # Get the filename itself to run.
+        os.system(path_batrun_evo.split('\\')[-1])
+
+        # Export PHASCII for output: Extract only the ORGANIC section from the PHASCII.
+        path_output_phascii = path_output_evo + ".txt"
+        # Find the 'ORGANIC' entry and then slice the lines list.
+        with open(path_output_phascii, "rt") as phas:
+            fas_text = phas.readlines()
+        newfas_text = fas_text[fas_text.index("ORGANIC {\n"):]
+        with open(path_output_phascii, "wt") as phas:
+            phas.truncate(0)
+            for line in newfas_text:
+                phas.write(line)
+        # Update instructions in genome to avoid collisions during genome handling step.
+        fix_collisions_dict = {"MAKE-SPORE": "MAKE-SPOR", " - ": " ~ ", "NUM-CELLS": "NUM-CELS"}
+        replace_old_with_new(path_output_phascii, fix_collisions_dict)
+
+        # Extract genomes of all organisms in universe.
+        with open(path_output_phascii, "rt") as phile:
+            raw_phile = phile.readlines()
+        org_flag = False
+        popn_genome = {}
+        organisms_in_timestep = []
+        for phline in raw_phile:
+            # Add "ORGANISM" line via org_flag=True.
+            if "ORGANISM" in phline:
+                org_flag = True
+                indiv_genome = []
+            # Avoid adding the "CELL" line via org_flag=False.
+            if "CELL" in phline and org_flag:
+                org_flag = False
+                vital_stats, indiv_genome, nucleotide_genome, population = wrangle_genome(indiv_genome)
+                # Add organism to list of living.
+                organisms_in_timestep.append(vital_stats)
+                # Add birth-step of organism.
+                if vital_stats not in book_of_life:
+                    book_of_life[vital_stats] = [timestep]
+            if org_flag:
+                # Replace everything in indiv_genome that's not a keyword.
+                removables = ["\t", "\n", ":", "{", "}", "# program", '"']
+                phresh = phline
+                for rmvb in removables:
+                    phresh = phresh.replace(rmvb, "")
+                # Add line.
+                indiv_genome.append(phresh)
+        # Add death-step of organism.
+        for vs_org in book_of_life:
+            # Check that organism was still alive.
+            if len(book_of_life[vs_org]) < 2:
+                # Check that organism is no longer listed among living organisms.
+                if vs_org not in population:
+                    # Add death-step. Subtract 1 to get final step while alive.
+                    book_of_life[vs_org].append(timestep-1)
+        
+            # For spores, just find the lines between each index of spore, then the final entry.
+            # Or pop 1st spore, then find 2nd spore.
+            # Then slice the list up until 2nd spore.
+            # Repeat until last spore popped, leaving the final entry?
+
+        # Test which data format takes up the least memory: char-num, char-atgc, binary?
+
+        # Operation: Delete the old input evolve file.
+        os.remove(path_input_evo + ".evolve")
+        # # Add population genome to genome tracking over time.
+        # genomes_over_time[timestep] = popn_genome
+        # Compare the ORGANISMS section of the input and output PHASCII files.
+        lives_output = get_organics_from_universe(path_output_phascii)
+        # # If the summaries are identical, then delete the output PHASCII (not lines in console).
+        # if lives_input == lives_output and timestep != time_period:
+        #     os.remove(path_output_phascii)
+        #     # genomes_over_time.pop(timestep)
+        # Include a mode which DELETES the intermediate PHASCIIs.
+        # Would it be better not to create in the first place? But would require rewrite of the code.
+        if timestep == time_period:
+            express = False
+        if express:
+            try:
+                os.remove(path_output_phascii)
+            except:
+                pass
+
+    # Create another alternative dict that only records genomes of organisms. Takes up far less memory.
+    file = open(path_strain_genome, "w")
+    for key, value in strain_genome.items():
+        file.write('%s:%s\n' % (key, value))
+    file.close()
+    
+    # For phylogenetics, record book_of_life.
+    file = open(path_book, "w")
+    for key, value in book_of_life.items():
+        file.write('%s:%s\n' % (key, value))
+    file.close()
+
+    # Automate archiving? Store run archive in Evolve-Archives, retain starting files and ending files.
+
+
+def find_parents(orgid, bol_df_in):
+    sporelayer = bol_df_in.loc[orgid, 'Sporelayer']
+    quickener = bol_df_in.loc[orgid, 'Quickener']
+    if sporelayer == quickener:
+        parentage = [sporelayer]
+    else:
+        parentage = [sporelayer, quickener]
+    return parentage
+
+
+def find_children(orgid, bol_df_in, sex=0):
+    s_children = bol_df_in[bol_df_in.Sporelayer == orgid].index
+    q_children = bol_df_in[bol_df_in.Quickener == orgid].index
+    combo_children = list(set(list(s_children) + list(q_children)))
+    combo_children.sort()
+    return combo_children
+
+    # s_children = bol_df_in[bol_df_in.Sporelayer == orgid].index
+    # if not sex:
+    #     combo_children = list(set(list(s_children)))
+    # # Quickener short-circuits the generations.
+    # else:
+    #     q_children = bol_df_in[bol_df_in.Quickener == orgid].index
+    #     combo_children = list(set(list(s_children) + list(q_children)))
+    # return combo_children
+
+
+def find_ancestors(orgid, bol_df_in, dist=3):
+    gen = bol_df_in.loc[orgid, 'Generation']
+    gen_min = gen - dist
+    if gen_min < 0:
+        gen_min = 0
+    # # Slicing breaks on the edge case of a parent from a generation out of bounds.
+    # # But also short-circuits the generations in-between.
+    # lineage_df = bol_df_in
+    lineage_df = bol_df_in[(bol_df_in.Generation >= gen_min) & (bol_df_in.Generation <= gen)]
+    # Normally equal to dist but depends on bounds.
+    time_jump = gen - gen_min
+    return find_lineal_kin(orgid, lineage_df, time_jump, 'up')
+
+
+def find_descendants(orgid, bol_df_in, dist=3):
+    gen = bol_df_in.loc[orgid, 'Generation']
+    gen_max = gen + dist
+    if gen_max > len(bol_df_in):
+        gen_max = len(bol_df_in)
+    # # See find_ancestors().
+    # lineage_df = bol_df_in
+    lineage_df = bol_df_in[(bol_df_in.Generation >= gen+1) & (bol_df_in.Generation <= gen_max)]
+    # Normally equal to dist but depends on bounds.
+    time_jump = gen_max - gen
+    return find_lineal_kin(orgid, lineage_df, time_jump, 'down')
+
+
+# up_down means ancestor or descendant.
+def find_lineal_kin(orgid, lineage_df, time_jump, up_down):
+    # Take a snapshot first.
+    root = [orgid]
+    lineal_kin = []
+    outofbounds_kin = []
+
+    for i in range(time_jump):
+        rootlets = []
+        for r in root:
+            # Skip problematic roots.
+            try:
+                if up_down == 'up':
+                    immed = find_parents(r, lineage_df)
+                elif up_down =='down':
+                    immed = find_children(r, lineage_df)
+                rootlets.append(immed)
+            # Parent comes from a generation out of bounds.
+            except KeyError:
+                outofbounds_kin.append(r)
+        rootlets = [i for immed in rootlets for i in immed]
+        rootlets = list(set(rootlets))
+        rootlets.sort()
+        lineal_kin.append(rootlets)
+        root = rootlets
+    lineal_kin = [rl for rootlets in lineal_kin for rl in rootlets]
+    lineal_kin = list(set(lineal_kin))
+    lineal_kin.sort()
+
+    # # Remove false positives, but not sure why it shows up to begin with.
+    # outofbounds_kin = [o for o in outofbounds_kin if o not in lineage_df.index]
+    # outofbounds_kin = [o for o in outofbounds_kin if o not in lineal_kin]
+    print(outofbounds_kin)
+    return lineal_kin
+
+
+def naive_align(seq1, seq2):
+    # Use seq1 as template.
+    seq1 = retrieve_aaff(seq1)
+    seq2 = retrieve_aaff(seq2)
+    seq_diff = []
+    # Shortcut: Check if lengths are equal.
+    if len(seq1) == len(seq2):
+        # Shortcut: Check if last few words are equal ~ 3 words.
+        if seq1[-3:] == seq2[-3:]:
+            # seq_diff = ['|' if w1 in seq2 else 'X' for w1 in seq1]
+            for i in range(len(seq1)):
+                if seq1[i] == seq2[i]:
+                    seq_diff.append('|')
+                else:
+                    seq_diff.append('X')
+    alignment = pd.DataFrame(data=[seq1,seq2,seq_diff])
+    return alignment
 
 
 # Simplify the inputs.
 # But need to specify the bol_in_df eventually.
 def driver(base, target, gap=-1, match=1, mismatch=-1, debug=False):
-    gb = geha.translate_aaff_to_kforth(bgen_df.loc[base, 'Genome']).split(' ')
-    gt = geha.translate_aaff_to_kforth(bgen_df.loc[target,'Genome']).split(' ')
+    gb = translate_aaff_to_kforth(bgen_df.loc[base, 'Genome']).split(' ')
+    gt = translate_aaff_to_kforth(bgen_df.loc[target,'Genome']).split(' ')
     GlobalAlignment.driver(gb, gt, gap, match, mismatch, debug)
 
+
+# Convert row numbers from format of 'BX_#_' to 'F-'
+def compress_row_aaff(aaff_in):
+    # Split by 'BX'.
+    af_list = aaff_in.split('BX_')
+    # Find first '_' in non-main substrings.
+    # Find the digit.
+    # Replace the digit using ord() and offset.
+
+    # Alt pattern: Numerical.
+    # fa_list = ['F' + str(chr(x[x.index('_')]+64)) + x[(x.index('_')+1):] for x in af_list[1:]]
+    fa_list = ['F' + str(chr(af_list.index(x)+64))+ x[af_list.index(x)//10+2:] for x in af_list[1:]]
+    fa_list.insert(0, af_list[0])
+    return ''.join(fa_list)
+
+
+# Compare genome of parent/child or child/parent, then highlight gen of change.
+# Very slow: 36 hr for 500K orgids.
+def trace_asexual_lines(bol_df_in):
+    lines = {}
+    pretracked_orgids = []
+    for i in range(len(bol_df_in)-1,-1,-1):
+        if i in pretracked_orgids:
+            continue
+        sex_num = bol_df_in.loc[i, 'Sex_check']
+        # If orgid arose sexually, add its line and then move on.
+        if bol_df_in.loc[i, 'Sex_check']:
+            lines[i] = 0
+        else:
+            p = i
+            # Track within line of descent
+            while not sex_num:
+                if not p:
+                    break
+                p = find_parents(p, bol_df_in)[0]
+                sex_num += bol_df_in.loc[p, 'Sex_check']
+                # Remove orgid from tracking.
+                pretracked_orgids.append(p)
+                print(p)
+                print("Progress update at " + datetime.now().strftime("%H:%M:%S"))
+            # Track last asexual ancestor.
+            lines[i] = bol_df_in.loc[i, 'Generation'] - bol_df_in.loc[p, 'Generation']
+
+        print(i)
+        print("Progress update at " + datetime.now().strftime("%H:%M:%S"))
+    return lines
+
+
+# Receives index of lines.
+def sift_lines_by_length(lines_df, bol_in_df, min_len=70):
+    sift_df = lines_df[lines_df['0'] > 70]
+    changers = {}
+    for line in sift_df.index:
+        lilen = lines_df.loc[line,'0']
+        anc = sbol_df.loc[find_ancestors(line, sbol_df, dist=lilen)]
+        anc_counts = len(anc.glen.value_counts())
+        if anc_counts < 3:
+            continue
+        else:
+            changers[line] = anc_counts
+    return changers
+
+
+# phylotrackpy takes in Organism objects.
+# https://stackoverflow.com/questions/53192602/convert-a-pandas-dataframe-into-a-list-of-objects
+class Evorg(object):
+    def __init__(self, Orgid, Sporelayer, Quickener, Generation, Birth_step, Death_step, Lifespan, Sex_check, Gnm_Len, Genome):
+        self.Orgid = Orgid
+        self.Sporelayer = Sporelayer
+        self.Quickener = Quickener
+        self.Generation = Generation
+        self.Birth_step = Birth_step
+        self.Death_step = Death_step
+        self.Lifespan = Lifespan
+        self.Sex_check = Sex_check
+        self.Gnm_Len = Gnm_Len
+        self.Genome = Genome
+        self.taxon = Orgid
+        # self.Genome = retrieve_aaff(Genome)
+    def __repr__(self):
+        return "Evorg object " + self.Genome
+
+
+# # r.ggenealogy works with df containing 'child' and 'parent.
+# # But getParent() only returns 1 value, even though it should return 2 values.    
+# # Both the code for getChild() and getParent() are very similar: Selection of column in df.
+# # So why can there be multiple children but not multiple parents?
+# # I added more rows for the second parent and it worked.
+# bol_df = pd.read_csv(r"C:\Users\Julio Hong\Documents\LioHong\Evolve-Archives\book_of_life_015_010.csv")
+# onebol_df = bol_df.loc[:,['ID','Sporelayer']]
+# onebol_df.rename(columns={'ID':'child', 'Sporelayer':'parent'}, inplace=True)
+# twobol_df = bol_df.loc[:,['ID','Quickener']]
+# twobol_df.rename(columns={'ID':'child', 'Quickener':'parent'}, inplace=True)
+# # See how many 2nd parents there are.
+# sexbol_df = bol_df.loc[bol_df.Sex_check != 0]
+# threebol_df = pd.concat([onebol_df,twobol_df.loc[bol_df.Sex_check != 0]])
+# bbbol_df = pd.read_csv(r"C:\Users\Julio Hong\Documents\LioHong\Evolve-Archives\bol_for_r.csv")
+# bbbol_df = pd.read_csv(r"C:\Users\Julio Hong\Documents\LioHong\Evolve-Archives\bol_for_r.csv", index_col="Unnamed: 0")
+# Actually there is no limit to the number of parents.
+
+# # Which organisms retained the original genome?
+# ooo = {}
+# for g in range(215):
+#     itmd = bgen_df[bgen_df.Generation == g]
+#     ooo[g] = list(itmd[bgen_df.Genome == og_gen].index)
+# oiu = pd.DataFrame.from_dict(ooo,'index')
+
 # ===== EXECUTION =====
+bgen_df = pd.read_csv(r"C:/Users/Julio Hong/Documents/LioHong/Evolve-Archives/bol_gen_010.csv", index_col="Unnamed: 0")
 # Create a version without the genome col.
-# sbol_df = organise_book_of_life(book_path)
-# bgen_df = geha.stitch_sgen(sbol_df, strain_genome_path)
-# cgen_df, cgd = geha.compress_book(bgen_df, bgen_path, strain_genome_path, cgen_path, cgd_path, threshold=5)
+sbol_df = bgen_df.iloc[:,:-1]
 # driver(7638, 7854, -1, 1, -1, debug=True)
 # bgen_df.loc[find_ancestors(949,sbol_df,5),'Genome']
 
-# digevo_df = tphy.fit_phylogeny(bgen_df)
-# tphy.draw_phylogeny(digevo_df)
+evorgs = [Evorg(**kwargs) for kwargs in bgen_df.to_dict(orient='records')]
+from phylotrackpy import systematics
+# sys = systematics.Systematics(lambda Evorg: Evorg.Genome)
+sys = systematics.Systematics(lambda Evorg: Evorg.__repr__(), True, True, False, False)
+for e in evorgs[1:100]:
+    e.taxon = sys.add_org(e)
+    s_children = bgen_df[bgen_df.Sporelayer == e.Orgid].index
+    q_children = bgen_df[bgen_df.Quickener == e.Orgid].index
+    # Just ignore q_children for now.
+    for s in s_children:
+        evorgs[s].taxon = sys.add_org(s, e.taxon)
+    if not e.Death_step:
+        sys.remove_org(e.taxon)
 
 if False:
 # if True:
-   start_step = check_input_files(run_dirpath)
-   # simulate_universe(1000, delete=True)
-   # simulate_universe(100, start_step, delete=True)
-   # simulate_universe(10000, start_step, 1, delete=True)
-   # simulate_universe(10000, start_step, 100, delete=True)
-   simulate_universe(10000, start_step, 1000, delete=True)
-
+   runin_timestep = check_input_files(path_rundir)
+   # simulate_universe(1000, express=True)
+   # simulate_universe(100, runin_timestep, express=True)
+   # simulate_universe(10000, runin_timestep, 1, express=True)
+   # simulate_universe(10000, runin_timestep, 100, express=True)
+   simulate_universe(10000, runin_timestep, 1000, express=True)
