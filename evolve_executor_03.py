@@ -12,7 +12,8 @@ Steps:
 5. (Operation) Delete the old input file.
 
 """
-from os import system
+# from os import system
+from subprocess import Popen
 from shutil import copyfile
 from pathlib import Path
 from math import log10
@@ -23,6 +24,8 @@ import GlobalAlignment
 import genome_handler as geha
 import track_phylogeny as tphy
 
+from time import sleep
+
 # To adjust the dataframe appearance
 pd.set_option('display.max_rows', 500)
 pd.set_option('display.max_columns', 20)
@@ -31,10 +34,10 @@ pd.set_option('display.expand_frame_repr', False)
 
 # ===== PATHS =====
 # Edit a BATCH file to run the input and output Evolve files.
-bat_tmpl_path = Path(".") / "evo_template_01.bat"
+bat_tmpl_path = Path(".") / "evo_template_02.bat"
 # Eventually can adjust based on user input.
 grp_num =  "002"
-run_num = "052"
+run_num = "046"
 # Extract from filename?
 run_name = "smol02"
 # run_name = "need_for_speed"
@@ -90,6 +93,65 @@ def glue_book(input_path, data_dict):
         lines.append('%s:%s\n' % (key, value))
     input_path.write_text("".join(lines), encoding="utf-8")
 
+
+# Pre-generate BAT files.
+# Expected max time_period = 100K (~20 MB).
+def pregen_batches_00(start_step, time_period, interval):
+    bfnumbered = "run_" + run_num + "_" + run_name + "_evolve_STNM.bat"
+    bfnames = [bfnumbered.replace("STNM", str(start_step+x+1)) for x in range(0,(time_period), interval)]
+    evoofnames = [run_name + "_" + str(start_step+x+1) for x in range(0,(time_period), interval)]
+    bfpaths = [run_dirpath / bfn for bfn in bfnames]
+    btmpl_text = bat_tmpl_path.read_text(encoding="utf-8").splitlines()
+
+    text_find_input = "p_in"
+    text_find_output = "p_out"
+    # timestep = start_step
+    evin_fname = run_name + "_" + str(start_step)
+    # br_replaceds = {"1u": str(interval) + "u"}
+    # Odd range to avoid IndexError.
+    try:
+        for i in range(interval, (time_period + interval), interval):
+            # Name the output file based on original simulation and time-step.
+            idx = int(i / interval)
+            evout_fname = evoofnames[idx-1]
+            # br_replaceds = {text_find_output: evout_fname, text_find_input: evin_fname, "1u": str(interval) + "u"}
+            br_replaceds = {"p_out": evout_fname, "p_in": evin_fname, "1u": str(interval) + "u"}
+            # br_replaceds[text_find_output] = evout_fname
+            # br_replaceds[text_find_input] = evin_fname
+            bfp = bfpaths[idx-1]
+            copyfile(bat_tmpl_path, bfp)
+            br_text = replace_old_with_new(btmpl_text, br_replaceds)
+            bfp.write_text("\n".join(br_text), encoding="utf-8")
+            # text_find_input = evin_fname
+            # text_find_output = run_name + "_" + str(start_step + i + interval)
+            # text_find_output = evoofnames[idx]
+            evin_fname = evout_fname
+    except IndexError: pass
+    return bfpaths, evoofnames
+
+
+def pregen_batches(start_step, time_period, interval):
+    bfnumbered = "run_" + run_num + "_" + run_name + "_evolve_STNM.bat"
+    bfnames = [bfnumbered.replace("STNM", str(start_step+x+1)) for x in range(0,(time_period), interval)]
+    evoofnames = [run_name + "_" + str(start_step+x+1) for x in range(0,(time_period), interval)]
+    bfpaths = [run_dirpath / bfn for bfn in bfnames]
+    btmpl_text = bat_tmpl_path.read_text(encoding="utf-8").splitlines()
+    evin_fname = run_name + "_" + str(start_step)
+    # Odd range to avoid IndexError.
+    try:
+        for i in range(interval, (time_period + interval), interval):
+            # Name the output file based on original simulation and time-step.
+            idx = int(i / interval)
+            evout_fname = evoofnames[idx-1]
+            br_replaceds = {"p_out": evout_fname, "p_in": evin_fname, "1u": str(i) + "u"}
+            bfp = bfpaths[idx-1]
+            copyfile(bat_tmpl_path, bfp)
+            br_text = replace_old_with_new(btmpl_text, br_replaceds)
+            bfp.write_text("\n".join(br_text), encoding="utf-8")
+    except IndexError: pass
+    return bfpaths, evoofnames
+
+
 import cProfile
 # # For future formatting of filenames.
 # num_lead_zeroes = int(log10(time_period)) + 1
@@ -122,51 +184,44 @@ def simulate_universe(time_period, start_step=0, interval=1, delete=False, prep=
         popn_genome[vital_stats] = aaff_string
         strain_genome[vital_stats] = aaff_string
         return vital_stats, aaff_string, list(popn_genome.keys())
-    
+
+    bfpaths, evoofnames = pregen_batches(start_step, time_period, interval)
     # Performance metric.
     print("Scraper started at " + datetime.now().strftime("%H:%M:%S"))
     # Copy EVOLVE and PHASCII from template.
     if prep: prep_new_run()
     lives_output = ""
+    for brp in bfpaths: Popen(str(brp))
+    data_files = [dfile for dfile in run_dirpath.glob('*')]
+    dbat_files = [db for db in data_files if '.bat' in str(db)]
+    devo_files = [de for de in data_files if '.evolve' in str(de)]
+    dphs_files = [dp for dp in data_files if '.txt' in str(dp)]
+    # if len(bfpaths) == len(dbat_files):
+    if ~(len(dbat_files) == len(devo_files) and len(dbat_files) == len(dphs_files)):
+        # de_nums = [den.split('.')[0].split('_')[-1] for den in devo_files]
+        db_nums = [str(dbn).split('.')[0].split('_')[-1] for dbn in dbat_files]
+        dp_nums = [str(dpn).split('.')[0].split('_')[-1] for dpn in dphs_files]
+        gones = [dbn for dbn in db_nums if dbn not in dp_nums]
+        print(gones)
+    # for g in gones:
+    # Check if all EVOLVE/PHASCII pairs are generated. (Base off PHASCII only first.)
+
+    print("Popen finished at " + datetime.now().strftime("%H:%M:%S"))
+    sleep(0.075)
+    evin_fname = run_name + "_" + str(start_step)
     for timestep in range(start_step, start_step+time_period, interval):
         # Progress update. Adjust the frequency if time_period becomes larger?
         if (timestep-start_step) % (max(time_period//100,1)) == 0:
             print(timestep)
             print("Progress update at " + datetime.now().strftime("%H:%M:%S"))
 
-        # Step-by-step initialisation.
-        if timestep != start_step:
-            # Set the text to Find and Replace
-            text_find_input = evin_fname
-            text_find_output = evout_fname
-            # Old output becomes input.
-            evin_fname = evout_fname
-            # Name the output file based on original simulation and time-step.
-            evout_fname = run_name + "_" + str(timestep+interval)
-            # Lives summary from output becomes that for input.
-            lives_input = lives_output
+        idx = int((timestep-start_step)/interval)
+        bat_run_path = bfpaths[idx]
+        # Popen(str(bat_run_path))
 
-        # Timestep equals 1, beginning of simulation. Initialise from template.
-        else:
-            evstart_path = run_name + "_" + str(start_step)
-            evout_fname = run_name + "_" + str(start_step+interval)
-            evin_fname = evstart_path
-            # Copy the bat file and rename it.
-            bat_run_path = run_dirpath / ("run_" + run_num + "_" + run_name + "_evolve.bat")
-            copyfile(bat_tmpl_path, bat_run_path)
-            # Set the text to Find and Replace
-            text_find_input = "p_in"
-            text_find_output = "p_out"
-
-        # Run the batch file: Update paths in batch file based on timestep.
-        br_replaceds = {text_find_output: evout_fname, text_find_input: evin_fname, "1u": str(interval)+"u"}
-        text = bat_run_path.read_text(encoding="utf-8").splitlines()
-        text = replace_old_with_new(text, br_replaceds)
-        bat_run_path.write_text("\n".join(text), encoding="utf-8")
-        # Get the filename itself to run.
-        system(str(bat_run_path))
         # Export PHASCII for output: Extract only the ORGANIC section from the PHASCII.
-        phas_path = run_dirpath / (evout_fname + ".txt")
+        phas_path = run_dirpath / (evoofnames[idx] + ".txt")
+        # sleep(0.075)
         if not speed:
             # Find the 'ORGANIC' entry and then slice the lines list.
             phas = phas_path.read_text(encoding="utf-8").splitlines()
@@ -238,6 +293,8 @@ def simulate_universe(time_period, start_step=0, interval=1, delete=False, prep=
             except FileNotFoundError: print('FileNotFoundError but passing.')
         # Operation: Delete the old input evolve universe.
         (run_dirpath / (evin_fname + ".evolve")).unlink()
+        bat_run_path.unlink()
+        evin_fname = evoofnames[idx]
 
     # If not speed, outputs empty files.
     # strain_genome file: Stores genomes only.
@@ -247,6 +304,7 @@ def simulate_universe(time_period, start_step=0, interval=1, delete=False, prep=
     print("Scraper finished at " + datetime.now().strftime("%H:%M:%S"))
     pr.disable()
     pr.print_stats(sort='time')
+
     # Automate archiving? Store run archive in Evolve-Archives, retain starting files and ending files.
 
 
@@ -256,7 +314,6 @@ def organise_book_of_life(book_path, save=True):
     with open(book_path, "rt") as f:
         bol = f.readlines()
     # bol = book_path.read_text(encoding="utf-8").splitlines()
-
     # Format of an organism's entry: "31 1 1 1:[211, 387]/n"
     # Process the string into lists.
     idnums = [int(x.split(" ")[0]) for x in bol]
@@ -327,6 +384,7 @@ def collate_books(run_nums_list,grp_num="002"):
     run_nums_list.sort()
     r_nstr_list = [f"{x:03}" for x in run_nums_list]
     coll_b = pd.DataFrame()
+    # dfdict = {}
     # Merge with the later run as priority.
     for r in reversed(r_nstr_list):
         print("Progress update at " + datetime.now().strftime("%H:%M:%S"))
@@ -335,11 +393,35 @@ def collate_books(run_nums_list,grp_num="002"):
         sgpath = rdpath / ("strain_genome_" + r + ".txt")
         sdf = organise_book_of_life(bkpath, save=False)
         bdf = geha.stitch_sgen(sdf, sgpath)
+        # dfdict[r] = bdf[:]
         if not coll_b.empty:
-            coll_b = pd.concat([coll_b, bdf]).drop_duplicates()
+            # coll_b = pd.concat([coll_b, bdf]).drop_duplicates()
+            coll_b = pd.concat([coll_b, bdf])
+            coll_b = coll_b[~coll_b.index.duplicated(keep='first')]
         else:
             coll_b = bdf.loc[:]
-    return coll_b
+    # return coll_b, dfdict
+    return coll_b.sort_index()
+
+
+# Tweak dataframe columns.
+def refit_phylo(ip_df):
+    nice_df = ip_df[:]
+    nice_df = nice_df.drop(columns=['cgen'])
+    nice_df.insert(7,'Gnm_Len',False)
+    nice_df.Gnm_Len = nice_df.Genome.apply(lambda x: len(geha.pair_split(x)))
+    nice_df.insert(0,'Orgid',False)
+    nice_df.Orgid = nice_df.index
+    nice_df.iloc[0] = nice_df.iloc[1]
+    nice_df.sort_index(inplace=True)
+    return nice_df
+
+
+# Easy to draw.
+def really_draw(ip_df,lastgen=100,fsize=(12,12)):
+    nice_df = refit_phylo(ip_df)
+    digevo_df = tphy.fit_phylogeny(nice_df)
+    tphy.draw_phylogeny(digevo_df.loc[:lastgen],fsize)
 
 
 # Simplify the inputs.
@@ -350,7 +432,6 @@ def driver(base, target, gap=-1, match=1, mismatch=-1, debug=False):
     GlobalAlignment.driver(gb, gt, gap, match, mismatch, debug)
 
 # ===== EXECUTION =====
-record_archives()
 # Create a version without the genome col.
 # sbol_df = organise_book_of_life(book_path)
 # bgen_df = geha.stitch_sgen(sbol_df, strain_genome_path)

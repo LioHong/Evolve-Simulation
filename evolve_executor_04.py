@@ -13,6 +13,8 @@ Steps:
 
 """
 from os import system
+import subprocess
+import psutil
 from shutil import copyfile
 from pathlib import Path
 from math import log10
@@ -34,7 +36,7 @@ pd.set_option('display.expand_frame_repr', False)
 bat_tmpl_path = Path(".") / "evo_template_01.bat"
 # Eventually can adjust based on user input.
 grp_num =  "002"
-run_num = "052"
+run_num = "056"
 # Extract from filename?
 run_name = "smol02"
 # run_name = "need_for_speed"
@@ -93,6 +95,7 @@ def glue_book(input_path, data_dict):
 import cProfile
 # # For future formatting of filenames.
 # num_lead_zeroes = int(log10(time_period)) + 1
+# This is a wrapper around batch utility right? Then create a minimal version.
 def simulate_universe(time_period, start_step=0, interval=1, delete=False, prep=False, speed=False):
     pr = cProfile.Profile()
     pr.enable()
@@ -163,10 +166,29 @@ def simulate_universe(time_period, start_step=0, interval=1, delete=False, prep=
         text = bat_run_path.read_text(encoding="utf-8").splitlines()
         text = replace_old_with_new(text, br_replaceds)
         bat_run_path.write_text("\n".join(text), encoding="utf-8")
-        # Get the filename itself to run.
-        system(str(bat_run_path))
-        # Export PHASCII for output: Extract only the ORGANIC section from the PHASCII.
+        evo_path = run_dirpath / (evout_fname + ".evolve")
         phas_path = run_dirpath / (evout_fname + ".txt")
+        # Get the filename itself to run.
+        # system(str(bat_run_path))
+        proc = subprocess.Popen(str(bat_run_path))
+        flag = True
+        while flag:
+            if phas_path.is_file() and evo_path.is_file():
+                proc.kill()
+                flag = False
+                # poll = proc.poll()
+                # if poll is None:
+                #     print('dead')
+                #     flag = False
+            # try:
+            #     if phas_path.is_file() and evo_path.is_file():
+            #         proc.kill()
+            #         flag = False
+            # except FileNotFoundError:
+            #     pass
+
+        # Export PHASCII for output: Extract only the ORGANIC section from the PHASCII.
+
         if not speed:
             # Find the 'ORGANIC' entry and then slice the lines list.
             phas = phas_path.read_text(encoding="utf-8").splitlines()
@@ -202,7 +224,6 @@ def simulate_universe(time_period, start_step=0, interval=1, delete=False, prep=
                     # Add line.
                     indiv_biodata.append(phline)
 
-
             # Add death-step of organism.
             for vs_org in book_of_life:
                 # Check that organism was still alive.
@@ -228,14 +249,37 @@ def simulate_universe(time_period, start_step=0, interval=1, delete=False, prep=
             #     # genomes_over_time.pop(timestep)
             # Include a mode which DELETES the intermediate PHASCIIs.
             # Would it be better not to create in the first place? But would require rewrite of the code.
-            if (timestep-start_step) == time_period:
-                print('(Timestep-start_step) equal to time period.')
-                delete = False
+
+        if (timestep-start_step) == time_period:
+            print('(Timestep-start_step) equal to time period.')
+            delete = False
+        psutil.Process().open_files()
+        # pids = psutil.pids()
+        # for pid in pids:
+        #     try:
+        #         print('pid: ' + str(pid))
+        #         print(psutil.Process(pid).open_files())
+        #     except:
+        #         pass
+        # psutil.process_iter()
 
         # Operation: Delete the old PHASCII.
         if delete:
             try: phas_path.unlink()
             except FileNotFoundError: print('FileNotFoundError but passing.')
+        # dflag = True
+        # while dflag:
+        #     if delete:
+        #         try:
+        #             phas_path.unlink()
+        #             dflag = False
+        #         except FileNotFoundError:
+        #             print('FileNotFoundError but passing.')
+        #             pass
+        #         except PermissionError:
+        #             # print('PermissionError but passing.')
+        #             pass
+
         # Operation: Delete the old input evolve universe.
         (run_dirpath / (evin_fname + ".evolve")).unlink()
 

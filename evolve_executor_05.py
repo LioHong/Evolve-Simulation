@@ -13,6 +13,7 @@ Steps:
 
 """
 from os import system
+import subprocess
 from shutil import copyfile
 from pathlib import Path
 from math import log10
@@ -29,12 +30,13 @@ pd.set_option('display.max_columns', 20)
 pd.set_option("display.width", 200)
 pd.set_option('display.expand_frame_repr', False)
 
+# Declare function to set paths.
 # ===== PATHS =====
 # Edit a BATCH file to run the input and output Evolve files.
 bat_tmpl_path = Path(".") / "evo_template_01.bat"
 # Eventually can adjust based on user input.
 grp_num =  "002"
-run_num = "052"
+run_num = "059"
 # Extract from filename?
 run_name = "smol02"
 # run_name = "need_for_speed"
@@ -122,122 +124,134 @@ def simulate_universe(time_period, start_step=0, interval=1, delete=False, prep=
         popn_genome[vital_stats] = aaff_string
         strain_genome[vital_stats] = aaff_string
         return vital_stats, aaff_string, list(popn_genome.keys())
-    
+
+
     # Performance metric.
     print("Scraper started at " + datetime.now().strftime("%H:%M:%S"))
     # Copy EVOLVE and PHASCII from template.
     if prep: prep_new_run()
     lives_output = ""
-    for timestep in range(start_step, start_step+time_period, interval):
-        # Progress update. Adjust the frequency if time_period becomes larger?
-        if (timestep-start_step) % (max(time_period//100,1)) == 0:
-            print(timestep)
-            print("Progress update at " + datetime.now().strftime("%H:%M:%S"))
+    try:
+        for timestep in range(start_step, start_step+time_period, interval):
+            # Progress update. Adjust the frequency if time_period becomes larger?
+            if (timestep-start_step) % (max(time_period//100,1)) == 0:
+                print(timestep)
+                print("Progress update at " + datetime.now().strftime("%H:%M:%S"))
 
-        # Step-by-step initialisation.
-        if timestep != start_step:
-            # Set the text to Find and Replace
-            text_find_input = evin_fname
-            text_find_output = evout_fname
-            # Old output becomes input.
-            evin_fname = evout_fname
-            # Name the output file based on original simulation and time-step.
-            evout_fname = run_name + "_" + str(timestep+interval)
-            # Lives summary from output becomes that for input.
-            lives_input = lives_output
+            # Step-by-step initialisation.
+            if timestep != start_step:
+                # Set the text to Find and Replace
+                text_find_input = evin_fname
+                text_find_output = evout_fname
+                # Old output becomes input.
+                evin_fname = evout_fname
+                # Name the output file based on original simulation and time-step.
+                evout_fname = run_name + "_" + str(timestep+interval)
+                # Lives summary from output becomes that for input.
+                lives_input = lives_output
 
-        # Timestep equals 1, beginning of simulation. Initialise from template.
-        else:
-            evstart_path = run_name + "_" + str(start_step)
-            evout_fname = run_name + "_" + str(start_step+interval)
-            evin_fname = evstart_path
-            # Copy the bat file and rename it.
-            bat_run_path = run_dirpath / ("run_" + run_num + "_" + run_name + "_evolve.bat")
-            copyfile(bat_tmpl_path, bat_run_path)
-            # Set the text to Find and Replace
-            text_find_input = "p_in"
-            text_find_output = "p_out"
+            # Timestep equals 1, beginning of simulation. Initialise from template.
+            else:
+                evstart_path = run_name + "_" + str(start_step)
+                evout_fname = run_name + "_" + str(start_step+interval)
+                evin_fname = evstart_path
+                # Copy the bat file and rename it.
+                bat_run_path = run_dirpath / ("run_" + run_num + "_" + run_name + "_evolve.bat")
+                copyfile(bat_tmpl_path, bat_run_path)
+                # Set the text to Find and Replace
+                text_find_input = "p_in"
+                text_find_output = "p_out"
 
-        # Run the batch file: Update paths in batch file based on timestep.
-        br_replaceds = {text_find_output: evout_fname, text_find_input: evin_fname, "1u": str(interval)+"u"}
-        text = bat_run_path.read_text(encoding="utf-8").splitlines()
-        text = replace_old_with_new(text, br_replaceds)
-        bat_run_path.write_text("\n".join(text), encoding="utf-8")
-        # Get the filename itself to run.
-        system(str(bat_run_path))
-        # Export PHASCII for output: Extract only the ORGANIC section from the PHASCII.
-        phas_path = run_dirpath / (evout_fname + ".txt")
-        if not speed:
-            # Find the 'ORGANIC' entry and then slice the lines list.
-            phas = phas_path.read_text(encoding="utf-8").splitlines()
-            phas = phas[phas.index("ORGANIC {"):]
-            # Replace everything in indiv_biodata that's not a keyword.
-            removables = ["\t", "\n", ":", "{", "}", "# program", '"']
-            for rmvb in removables: phas = [r.replace(rmvb, "") for r in phas]
-            # Update instructions in genome to avoid collisions during genome handling step.
-            fix_collisions_dict = {"MAKE-SPORE": "MAKE-SPOR", " - ": " ~ ", "NUM-CELLS": "NUM-CELS"}
-            phas = replace_old_with_new(phas, fix_collisions_dict)
+            # Run the batch file: Update paths in batch file based on timestep.
+            br_replaceds = {text_find_output: evout_fname, text_find_input: evin_fname, "1u": str(interval)+"u"}
+            text = bat_run_path.read_text(encoding="utf-8").splitlines()
+            text = replace_old_with_new(text, br_replaceds)
+            bat_run_path.write_text("\n".join(text), encoding="utf-8")
+            # Get the filename itself to run.
+            # system(str(bat_run_path))
+            proc = subprocess.run(str(bat_run_path), shell=True, capture_output=True, text=True)
+            # proc = subprocess.run(str(bat_run_path), shell=True, capture_output=True)
+            # proc = subprocess.call(str(bat_run_path))
+            # print(proc.stdout)
+            # proc.kill()
 
-            # Extract genomes of all organisms in universe.
-            org_flag = False
-            # Needed for death-step. Actually just need to copy orgids per timestep.
-            popn_genome = {}
-            organisms_in_timestep = []
-            # When see "ORGANISM", start recording the genome.
-            for phline in phas:
-                if "ORGANISM" in phline:
-                    org_flag = True
-                    indiv_biodata = []
-                # "CELL" indicates end of genome, so store collated biodata.
-                if "CELL" in phline and org_flag:
-                    org_flag = False
-                    vital_stats, indiv_biodata, population = wrangle_biodata(indiv_biodata)
-                    # Add organism to list of living.
-                    organisms_in_timestep.append(vital_stats)
-                    # Add birth-step of organism.
-                    if vital_stats not in book_of_life:
-                        book_of_life[vital_stats] = [timestep]
-                # Line-by-line, record the genome.
-                if org_flag:
-                    # Add line.
-                    indiv_biodata.append(phline)
+            # Export PHASCII for output: Extract only the ORGANIC section from the PHASCII.
+            phas_path = run_dirpath / (evout_fname + ".txt")
+            if not speed:
+                # Find the 'ORGANIC' entry and then slice the lines list.
+                phas = phas_path.read_text(encoding="utf-8").splitlines()
+                phas = phas[phas.index("ORGANIC {"):]
+                # Replace everything in indiv_biodata that's not a keyword.
+                removables = ["\t", "\n", ":", "{", "}", "# program", '"']
+                for rmvb in removables: phas = [r.replace(rmvb, "") for r in phas]
+                # Update instructions in genome to avoid collisions during genome handling step.
+                fix_collisions_dict = {"MAKE-SPORE": "MAKE-SPOR", " - ": " ~ ", "NUM-CELLS": "NUM-CELS"}
+                phas = replace_old_with_new(phas, fix_collisions_dict)
+
+                # Extract genomes of all organisms in universe.
+                org_flag = False
+                # Needed for death-step. Actually just need to copy orgids per timestep.
+                popn_genome = {}
+                organisms_in_timestep = []
+                # When see "ORGANISM", start recording the genome.
+                for phline in phas:
+                    if "ORGANISM" in phline:
+                        org_flag = True
+                        indiv_biodata = []
+                    # "CELL" indicates end of genome, so store collated biodata.
+                    if "CELL" in phline and org_flag:
+                        org_flag = False
+                        vital_stats, indiv_biodata, population = wrangle_biodata(indiv_biodata)
+                        # Add organism to list of living.
+                        organisms_in_timestep.append(vital_stats)
+                        # Add birth-step of organism.
+                        if vital_stats not in book_of_life:
+                            book_of_life[vital_stats] = [timestep]
+                    # Line-by-line, record the genome.
+                    if org_flag:
+                        # Add line.
+                        indiv_biodata.append(phline)
 
 
-            # Add death-step of organism.
-            for vs_org in book_of_life:
-                # Check that organism was still alive.
-                if len(book_of_life[vs_org]) < 2:
-                    # Check that organism is no longer listed among living organisms.
-                    if vs_org not in population:
-                        # Add death-step. Subtract 1 to get final step while alive.
-                        book_of_life[vs_org].append(timestep-1)
+                # Add death-step of organism.
+                for vs_org in book_of_life:
+                    # Check that organism was still alive.
+                    if len(book_of_life[vs_org]) < 2:
+                        # Check that organism is no longer listed among living organisms.
+                        if vs_org not in population:
+                            # Add death-step. Subtract 1 to get final step while alive.
+                            book_of_life[vs_org].append(timestep-1)
 
-                # For spores, just find the lines between each index of spore, then the final entry.
-                # Or pop 1st spore, then find 2nd spore.
-                # Then slice the list up until 2nd spore.
-                # Repeat until last spore popped, leaving the final entry?
+                    # For spores, just find the lines between each index of spore, then the final entry.
+                    # Or pop 1st spore, then find 2nd spore.
+                    # Then slice the list up until 2nd spore.
+                    # Repeat until last spore popped, leaving the final entry?
 
-            # # Add population genome to genome tracking over time.
-            # genomes_over_time[timestep] = popn_genome
-            # Compare the ORGANISMS section of the input and output PHASCII files.
-            lives_output = geha.get_organics_from_universe(phas)
-            phas_path.write_text("\n".join(phas), encoding="utf-8")
-            # # If the summaries are identical, then delete the output PHASCII (not lines in console).
-            # if lives_input == lives_output and timestep != time_period:
-            #     phas_path.unlink()
-            #     # genomes_over_time.pop(timestep)
-            # Include a mode which DELETES the intermediate PHASCIIs.
-            # Would it be better not to create in the first place? But would require rewrite of the code.
-            if (timestep-start_step) == time_period:
-                print('(Timestep-start_step) equal to time period.')
-                delete = False
+                # # Add population genome to genome tracking over time.
+                # genomes_over_time[timestep] = popn_genome
+                # Compare the ORGANISMS section of the input and output PHASCII files.
+                lives_output = geha.get_organics_from_universe(phas)
+                phas_path.write_text("\n".join(phas), encoding="utf-8")
+                # # If the summaries are identical, then delete the output PHASCII (not lines in console).
+                # if lives_input == lives_output and timestep != time_period:
+                #     phas_path.unlink()
+                #     # genomes_over_time.pop(timestep)
+                # Include a mode which DELETES the intermediate PHASCIIs.
+                # Would it be better not to create in the first place? But would require rewrite of the code.
+                if (timestep-start_step) == time_period:
+                    print('(Timestep-start_step) equal to time period.')
+                    delete = False
 
-        # Operation: Delete the old PHASCII.
-        if delete:
-            try: phas_path.unlink()
-            except FileNotFoundError: print('FileNotFoundError but passing.')
-        # Operation: Delete the old input evolve universe.
-        (run_dirpath / (evin_fname + ".evolve")).unlink()
+            # Operation: Delete the old PHASCII.
+            if delete:
+                try: phas_path.unlink()
+                except FileNotFoundError: print('FileNotFoundError but passing.')
+            # Operation: Delete the old input evolve universe.
+            (run_dirpath / (evin_fname + ".evolve")).unlink()
+    except:
+        print('Interrupted at timestep ' + str(timestep))
+        glue_book(strain_genome_path, strain_genome)
+        glue_book(book_path, book_of_life)
 
     # If not speed, outputs empty files.
     # strain_genome file: Stores genomes only.
@@ -248,6 +262,18 @@ def simulate_universe(time_period, start_step=0, interval=1, delete=False, prep=
     pr.disable()
     pr.print_stats(sort='time')
     # Automate archiving? Store run archive in Evolve-Archives, retain starting files and ending files.
+
+
+# Automatically parallellise a single run.
+
+
+# Continue interrupted run within same run folder?
+# Or create new folder?
+# Add suffix if run folder already exists.
+# Find closest X'000 step.
+# Re-create the initial universe.
+# Create quick BAT file (simulate_universe() too slow.)
+# Feed outputted X'000 into simulate_universe().
 
 
 # Convert string of numbers into organised df.
