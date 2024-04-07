@@ -1,0 +1,11293 @@
+# PHOTON ASCII
+
+struct ORGANIC[N] {
+	X
+	Y
+	ENERGY
+}
+
+struct BARRIER[N] {
+	X
+	Y
+}
+
+struct ER {
+	FIDX
+	RIDX
+	STATE[N] {
+		VALUE
+	}
+}
+
+struct KFMO {
+	MAX_CODE_BLOCKS
+	MAX_APPLY
+	PROB_MUTATE_CODEBLOCK
+	PROB_DUPLICATE
+	PROB_DELETE
+	PROB_INSERT
+	PROB_TRANSPOSE
+	PROB_MODIFY
+}
+
+struct SPORE {
+	X
+	Y
+	ENERGY
+	PARENT
+	STRAIN
+	SFLAGS
+	PROGRAM[N] {
+		TEXT_LINE
+	}
+}
+
+struct CELL {
+	ORGANISM_ID
+	X
+	Y
+	MOOD
+	MESSAGE
+
+	MACHINE {
+		TERMINATED
+		CB
+		PC
+		R[N] {
+			VALUE
+		}
+
+		CALL_STACK[N] {
+			CB
+			PC
+		}
+
+		DATA_STACK[N] {
+			VALUE
+		}
+	}
+}
+
+struct ORGANISM {
+	ORGANISM_ID
+	STRAIN
+	OFLAGS
+	PARENT1
+	PARENT2
+	GENERATION
+	ENERGY
+	AGE
+	PROGRAM[N] {
+		TEXT_LINE
+	}
+}
+
+struct KEYLIST {
+	KEY
+	VALUE
+}
+struct PLAYER {
+	TERMINATED
+	X
+	Y
+	ENERGY
+	AGE
+	CMD {
+		TYPE
+		X
+		Y
+	}
+}
+
+struct UNIVERSE {
+	SEED
+	STEP
+	NEXT_ID
+	NBORN
+	NDIE
+	WIDTH
+	HEIGHT
+}
+
+UNIVERSE 474810828 1050000 8400645 8400643 8400479 100 100
+
+ER 50 49 63
+	-1305618444	-1096188673	-1786857998	2039023441
+	1273945190	-449068516	164174799	1925708704
+	-1874423060	-655593906	618185525	-756290799
+	1148800852	2104322334	1023179353	1687899007
+	1563691957	1924578759	-1114131377	2102547041
+	-724512658	54301870	2144166380	-1045967166
+	-976520090	-2047331416	156569766	-1403045347
+	-1550110672	503272705	-1146632575	2138170186
+	154017018	-1829944984	491619845	1393758357
+	-1239840724	706234187	-469018858	-1893366784
+	-565440254	61481264	-2056429289	-435543452
+	-1464327788	350472088	1397389192	-1196749416
+	632773116	1868936875	-1403922675	1720354094
+	-1732218109	46709819	471013186	-1359175866
+	-1881102755	834219219	1221153573	13942088
+	1364520198	1934987832	1767019325
+
+
+KFMO
+	1
+	1
+	2500
+	200
+	600
+	200
+	200
+	200
+
+
+BARRIER {
+	26	45
+	26	46
+	26	47
+	26	48
+	26	49
+	26	50
+	26	51
+	26	52
+	26	53
+	26	54
+	26	55
+	26	56
+	27	42
+	27	43
+	27	44
+	27	45
+	27	56
+	27	57
+	27	58
+	27	59
+	28	39
+	28	40
+	28	41
+	28	42
+	28	59
+	28	60
+	28	61
+	28	62
+	29	36
+	29	37
+	29	38
+	29	39
+	29	62
+	29	63
+	29	64
+	29	65
+	30	35
+	30	36
+	30	65
+	30	66
+	31	34
+	31	35
+	31	66
+	31	67
+	32	32
+	32	33
+	32	34
+	32	67
+	32	68
+	32	69
+	33	31
+	33	32
+	33	69
+	33	70
+	34	31
+	34	70
+	35	30
+	35	31
+	35	70
+	35	71
+	36	29
+	36	30
+	36	71
+	36	72
+	37	28
+	37	29
+	37	72
+	37	73
+	38	28
+	38	73
+	39	27
+	39	28
+	39	73
+	39	74
+	40	27
+	40	74
+	41	27
+	41	74
+	42	26
+	42	27
+	42	74
+	42	75
+	43	26
+	43	75
+	44	26
+	44	75
+	45	25
+	45	26
+	45	75
+	45	76
+	46	25
+	46	76
+	47	25
+	47	76
+	48	25
+	48	76
+	49	25
+	49	76
+	50	25
+	50	76
+	51	25
+	51	76
+	52	25
+	52	76
+	53	25
+	53	76
+	54	25
+	54	76
+	55	25
+	55	76
+	56	25
+	56	26
+	56	75
+	56	76
+	57	26
+	57	75
+	58	26
+	58	75
+	59	26
+	59	27
+	59	74
+	59	75
+	60	27
+	60	74
+	61	27
+	61	74
+	62	27
+	62	28
+	62	73
+	62	74
+	63	28
+	63	73
+	64	28
+	64	29
+	64	72
+	64	73
+	65	29
+	65	30
+	65	71
+	65	72
+	66	30
+	66	31
+	66	70
+	66	71
+	67	31
+	67	70
+	68	31
+	68	32
+	68	69
+	68	70
+	69	32
+	69	33
+	69	34
+	69	67
+	69	68
+	69	69
+	70	34
+	70	35
+	70	66
+	70	67
+	71	35
+	71	36
+	71	65
+	71	66
+	72	36
+	72	37
+	72	38
+	72	39
+	72	62
+	72	63
+	72	64
+	72	65
+	73	39
+	73	40
+	73	41
+	73	42
+	73	59
+	73	60
+	73	61
+	73	62
+	74	42
+	74	43
+	74	44
+	74	45
+	74	56
+	74	57
+	74	58
+	74	59
+	75	45
+	75	46
+	75	47
+	75	48
+	75	49
+	75	50
+	75	51
+	75	52
+	75	53
+	75	54
+	75	55
+	75	56
+}
+
+KEYLIST "HadStrain0" "Y"
+
+ORGANIC {
+	35	32	3
+	49	41	1
+	72	59	2
+}
+
+SPORE 32 56 23 8399365 0 0
+  {  # program
+	"main:"
+	"{"
+	"      23  ENERGY  93  R2  GROW  EAT  -82  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -97  3  R0!  EAT  -98  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  28  ?loop "
+	"}"
+  }
+
+SPORE 34 32 1 8399851 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  if  MOOD"
+	"      R0  EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 34 38 1 8399190 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  if  MOOD"
+	"      R0  EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 36 32 1 8399851 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  if  MOOD"
+	"      R0  EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 36 38 1 8399190 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  if  MOOD"
+	"      R0  EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 38 54 1 8399365 0 0
+  {  # program
+	"main:"
+	"{"
+	"      23  ENERGY  93  R2  GROW  EAT  -82  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -97  3  R0!  EAT  -98  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  28  ?loop "
+	"}"
+  }
+
+SPORE 38 61 20 8399189 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 39 29 20 8390208 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  NUM-CELLS"
+	"      EAT  R0  EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 40 37 20 8400209 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  if  MOOD"
+	"      R0  EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 40 43 50 8400479 0 0
+  {  # program
+	"main:"
+	"{"
+	"      17  ENERGY  -96  R2  GROW  R1  -72  2swap  MAKE-SPORE  NUM-CELLS  EAT  R0  EAT"
+	"      NEAREST  R6!  GROW  GROW  -98  3  BROADCAST  50  R0!  EAT  -97  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  28  ?loop "
+	"}"
+  }
+
+SPORE 40 62 1 8399821 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 41 52 1 8400069 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 42 32 1 8400435 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  if  MOOD"
+	"      R0  EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 42 43 1 8399647 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0  EAT"
+	"      NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE  MAKE-SPORE"
+	"      EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 42 56 1 8399773 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 42 64 1 8383689 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 43 28 20 8396490 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  NUM-CELLS"
+	"      EAT  R0  EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  GROW  -96  EAT  -94  2dup"
+	"      R0  MAKE-SPORE  MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 43 29 20 8396490 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  NUM-CELLS"
+	"      EAT  R0  EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  GROW  -96  EAT  -94  2dup"
+	"      R0  MAKE-SPORE  MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 43 30 20 8396490 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  NUM-CELLS"
+	"      EAT  R0  EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  GROW  -96  EAT  -94  2dup"
+	"      R0  MAKE-SPORE  MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 43 41 1 8399930 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0  EAT"
+	"      NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE  MAKE-SPORE"
+	"      EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 43 60 1 8400376 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 43 62 1 8399638 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 43 65 20 8400300 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 44 27 20 8397477 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  NUM-CELLS"
+	"      EAT  R0  EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  GROW  -96  EAT  -94  2dup"
+	"      R0  MAKE-SPORE  MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 44 28 20 8397477 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  NUM-CELLS"
+	"      EAT  R0  EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  GROW  -96  EAT  -94  2dup"
+	"      R0  MAKE-SPORE  MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 44 29 20 8397477 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  NUM-CELLS"
+	"      EAT  R0  EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  GROW  -96  EAT  -94  2dup"
+	"      R0  MAKE-SPORE  MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 44 31 1 8397293 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  NUM-CELLS"
+	"      EAT  R0  EAT  NEAREST  R6!  GROW  GROW  22  /mod  83  28  -96  1  R0!  EAT"
+	"      -94  2dup  R0  MAKE-SPORE  MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 44 36 1 8399631 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  if  MOOD"
+	"      R0  EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 44 37 1 8399921 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  if  MOOD"
+	"      R0  EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 44 38 1 8399769 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  if  MOOD"
+	"      R0  EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 44 42 1 8399947 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0  EAT"
+	"      NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE  MAKE-SPORE"
+	"      EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 44 49 1 8399847 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 44 56 1 8400250 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 44 63 1 8400434 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 44 69 20 8400148 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 45 39 1 8400287 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0  EAT"
+	"      NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE  MAKE-SPORE"
+	"      EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 45 49 1 8399847 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 45 60 1 8400370 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 46 35 1 8400132 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  if  MOOD"
+	"      R0  EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 47 32 20 8399163 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  NUM-CELLS"
+	"      EAT  R0  EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 47 35 1 8400132 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  if  MOOD"
+	"      R0  EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 47 36 1 8399999 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  if  MOOD"
+	"      R0  EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 47 54 1 8400527 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 48 38 1 8400401 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0  EAT"
+	"      NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE  MAKE-SPORE"
+	"      EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 48 44 1 8397850 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  R6!  GROW  GROW  -96  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  ENERGY  96  R2  GROW  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 48 52 1 8399578 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  R2  GROW  EAT  -94  2dup  R0  MAKE-SPORE  EAT  R0  EAT  EAT  R6!  GROW"
+	"      -96  1  R0!  NEAREST  -78  2swap  MAKE-SPORE  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 48 68 20 8399124 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 49 43 1 8397937 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  R6!  GROW  GROW  -96  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  ENERGY  96  R2  GROW  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 49 52 1 8399578 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  R2  GROW  EAT  -94  2dup  R0  MAKE-SPORE  EAT  R0  EAT  EAT  R6!  GROW"
+	"      -96  1  R0!  NEAREST  -78  2swap  MAKE-SPORE  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 49 67 20 8399124 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 50 41 1 8397706 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  MAKE-SPORE  MAKE-SPORE  EAT  GROW  GROW  -96  1  R0!  EAT"
+	"      -94  2dup  R0  MAKE-SPORE  MAKE-SPORE  EAT  R0  max  NEAREST  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 50 43 1 8397937 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  R6!  GROW  GROW  -96  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  ENERGY  96  R2  GROW  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 50 61 1 8399645 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 50 62 1 8399511 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 50 63 1 8400445 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 50 71 1 8400529 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 50 73 20 8397237 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 51 56 1 8400483 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  NEAREST"
+	"      R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE  MAKE-SPORE  EAT"
+	"      R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 51 62 1 8400283 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 53 40 1 8397870 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  R6!  GROW  GROW  -96  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  ENERGY  96  R2  GROW  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  ?loop "
+	"}"
+  }
+
+SPORE 53 41 1 8397906 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  R6!  GROW  GROW  -96  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  ENERGY  96  R2  GROW  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 53 49 1 8400236 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  R2  GROW  EAT  -94  2dup  R0  MAKE-SPORE  EAT  R0  EAT  EAT  R6!  GROW"
+	"      -96  1  R0!  NEAREST  -78  2swap  MAKE-SPORE  MAKE-SPORE  MAKE-SPORE  GROW"
+	"      if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 53 56 1 8400482 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  NEAREST"
+	"      R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE  MAKE-SPORE  EAT"
+	"      R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 53 64 1 8400313 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 54 40 1 8397870 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  R6!  GROW  GROW  -96  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  ENERGY  96  R2  GROW  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  ?loop "
+	"}"
+  }
+
+SPORE 54 41 1 8397906 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  R6!  GROW  GROW  -96  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  ENERGY  96  R2  GROW  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 54 48 1 8400400 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  R2  GROW  EAT  -94  2dup  R0  MAKE-SPORE  EAT  R0  EAT  EAT  R6!  GROW"
+	"      -96  1  R0!  NEAREST  -78  2swap  MAKE-SPORE  MAKE-SPORE  MAKE-SPORE  GROW"
+	"      if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 54 51 1 8399764 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  R2  GROW  EAT  -94  2dup  R0  MAKE-SPORE  EAT  R0  EAT  EAT  R6!  GROW"
+	"      -96  1  R0!  NEAREST  -78  2swap  MAKE-SPORE  MAKE-SPORE  MAKE-SPORE  GROW"
+	"      if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 54 56 1 8400359 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 54 64 1 8400313 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 55 55 1 8399676 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 55 63 1 8399435 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  EAT  NEAREST  R6!  GROW  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  -96  1  R0!  EAT  -94  2dup  -45  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 56 36 1 8399282 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  max  NEAREST  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 56 43 1 8399800 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  R6!  GROW  GROW  -96  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  ENERGY  96  R2  GROW  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 56 62 1 8399665 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      20  ENERGY  R0  MAKE-SPORE  MAKE-SPORE  NEAREST  R6!  GROW  GROW  -96  1  R0!"
+	"      EAT  -94  2dup  96  R2  EAT  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 56 72 1 8383689 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 57 60 4 8399130 0 0
+  {  # program
+	"main:"
+	"{"
+	"      24  ENERGY  92  R2  GROW  EAT  -76  2swap  EAT  NEAREST  R6!  GROW  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  -93  4  R0!  EAT  -92  2dup  R0  MAKE-SPORE  MAKE-SPORE"
+	"      EAT  R0  GROW  if  EAT  31  ?loop "
+	"}"
+  }
+
+SPORE 57 63 1 8399600 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  EAT  NEAREST  R6!  GROW  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE  MAKE-SPORE"
+	"      EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 58 35 1 8399748 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  max  NEAREST  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 58 41 1 8397521 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      EAT  R0  MAKE-SPORE  EAT  R0  max  NEAREST  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 58 48 1 8400257 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  R6!  GROW  GROW  -96  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  ENERGY  96  R2  GROW  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 58 63 1 8399600 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  EAT  NEAREST  R6!  GROW  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE  MAKE-SPORE"
+	"      EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 58 65 1 8400205 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 59 35 1 8399748 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  max  NEAREST  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 59 60 4 8399136 0 0
+  {  # program
+	"main:"
+	"{"
+	"      24  ENERGY  92  R2  GROW  EAT  -76  2swap  EAT  NEAREST  R6!  GROW  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  -93  4  R0!  EAT  -92  2dup  R0  MAKE-SPORE  MAKE-SPORE"
+	"      EAT  R0  GROW  if  EAT  31  ?loop "
+	"}"
+  }
+
+SPORE 59 64 1 8400309 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 59 72 1 8400498 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 60 34 1 8399406 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  56  R8  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT"
+	"      R0  EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  max  NEAREST  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 60 35 1 8399746 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  max  NEAREST  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 60 41 1 8397521 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      EAT  R0  MAKE-SPORE  EAT  R0  max  NEAREST  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 60 47 1 8400238 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  R6!  GROW  GROW  -96  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  ENERGY  96  R2  GROW  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  ?loop "
+	"}"
+  }
+
+SPORE 60 59 4 8399115 0 0
+  {  # program
+	"main:"
+	"{"
+	"      24  ENERGY  92  R2  GROW  EAT  -76  2swap  EAT  NEAREST  R6!  GROW  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  -93  4  R0!  EAT  -92  2dup  R0  MAKE-SPORE  MAKE-SPORE"
+	"      EAT  R0  GROW  if  EAT  31  ?loop "
+	"}"
+  }
+
+SPORE 60 60 4 8399136 0 0
+  {  # program
+	"main:"
+	"{"
+	"      24  ENERGY  92  R2  GROW  EAT  -76  2swap  EAT  NEAREST  R6!  GROW  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  -93  4  R0!  EAT  -92  2dup  R0  MAKE-SPORE  MAKE-SPORE"
+	"      EAT  R0  GROW  if  EAT  31  ?loop "
+	"}"
+  }
+
+SPORE 60 64 1 8400309 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 61 34 1 8400156 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  max  NEAREST  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 61 40 1 8399997 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      EAT  R0  MAKE-SPORE  EAT  R0  max  NEAREST  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 61 62 1 8400122 0 0
+  {  # program
+	"main:"
+	"{"
+	"      -20  nip  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0  EAT"
+	"      NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE  MAKE-SPORE"
+	"      EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 62 48 1 8400536 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  R6!  GROW  GROW  -96  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  ENERGY  96  R2  GROW  1  R0!  R0  MAKE-SPORE  MAKE-SPORE  EAT"
+	"      -82  78  <>  WHAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 62 50 1 8400392 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  R6!  GROW  GROW  -96  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  ENERGY  96  R2  GROW  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 62 59 4 8399115 0 0
+  {  # program
+	"main:"
+	"{"
+	"      24  ENERGY  92  R2  GROW  EAT  -76  2swap  EAT  NEAREST  R6!  GROW  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  -93  4  R0!  EAT  -92  2dup  R0  MAKE-SPORE  MAKE-SPORE"
+	"      EAT  R0  GROW  if  EAT  31  ?loop "
+	"}"
+  }
+
+SPORE 62 62 1 8400277 0 0
+  {  # program
+	"main:"
+	"{"
+	"      -20  nip  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0  EAT"
+	"      NEAREST  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE  MAKE-SPORE"
+	"      EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 62 67 1 8400320 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 63 31 1 8400383 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  max  NEAREST  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 63 39 1 8398421 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  R0  GROW  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 64 46 1 8400206 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  R6!  GROW  GROW  -96  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  ENERGY  96  R2  GROW  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 64 48 1 8400104 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  R6!  GROW  GROW  -96  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  ENERGY  96  R2  GROW  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 64 66 1 8400448 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 65 42 1 8400095 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      EAT  R0  MAKE-SPORE  EAT  R0  max  NEAREST  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 65 46 1 8400206 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  R6!  GROW  GROW  -96  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  ENERGY  96  R2  GROW  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 65 66 1 8400448 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 66 32 1 8400167 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  max  NEAREST  EAT  27  ?loop  2swap  MAKE-SPORE  MAKE-SPORE "
+	"}"
+  }
+
+SPORE 66 61 1 8400276 0 0
+  {  # program
+	"main:"
+	"{"
+	"      -20  nip  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0  EAT"
+	"      NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE  MAKE-SPORE"
+	"      EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 67 48 1 8400199 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  if  EAT  27  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE  MAKE-SPORE"
+	"      EAT  R0  GROW  NEAREST  R6!  GROW  ?loop "
+	"}"
+  }
+
+SPORE 67 58 1 8397022 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  R0  EAT  NEAREST  R6!  GROW  GROW"
+	"      -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE  MAKE-SPORE  EAT  R0  GROW  if"
+	"      EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 67 61 1 8400276 0 0
+  {  # program
+	"main:"
+	"{"
+	"      -20  nip  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0  EAT"
+	"      NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE  MAKE-SPORE"
+	"      EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 68 35 1 8397878 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  GROW  EAT  2swap  MAKE-SPORE  MAKE-SPORE"
+	"      EAT  R0  -44  EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0"
+	"      MAKE-SPORE  MAKE-SPORE  EAT  R0  max  NEAREST  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 68 40 1 8399811 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  R0  GROW  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 68 41 1 8400391 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      EAT  R0  MAKE-SPORE  EAT  R0  max  NEAREST  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 68 42 1 8400095 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      EAT  R0  MAKE-SPORE  EAT  R0  max  NEAREST  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 68 44 1 8399107 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  R0  GROW  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 68 48 1 8400199 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  if  EAT  27  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE  MAKE-SPORE"
+	"      EAT  R0  GROW  NEAREST  R6!  GROW  ?loop "
+	"}"
+  }
+
+SPORE 68 54 1 8397985 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  R0  EAT  NEAREST  R6!  GROW  -25"
+	"      ?dup  7  HAS-NEIGHBOR  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE  MAKE-SPORE"
+	"      EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 68 58 1 8397022 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  R0  EAT  NEAREST  R6!  GROW  GROW"
+	"      -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE  MAKE-SPORE  EAT  R0  GROW  if"
+	"      EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 69 49 1 8400065 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  if  EAT  27  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE  MAKE-SPORE"
+	"      EAT  R0  GROW  NEAREST  R6!  GROW  ?loop "
+	"}"
+  }
+
+SPORE 69 53 1 8396514 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  R0  EAT  NEAREST  R6!  GROW  GROW"
+	"      -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE  MAKE-SPORE  EAT  R0  GROW  if"
+	"      EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 70 42 1 8399863 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  R0  GROW  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 70 43 1 8399750 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  R0  GROW  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 71 41 1 8397428 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  pack4  ?loop "
+	"}"
+  }
+
+SPORE 71 43 1 8399750 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  R0  GROW  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 71 53 1 8396322 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  R0  EAT  NEAREST  R6!  GROW  GROW"
+	"      -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE  MAKE-SPORE  EAT  R0  GROW  if"
+	"      EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 71 59 1 8395407 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  EAT  -78  2swap  R0  EAT  NEAREST  R6!  GROW  GROW  -96  1"
+	"      R0!  EAT  -94  2dup  R0  MAKE-SPORE  MAKE-SPORE  EAT  27  ?loop "
+	"}"
+  }
+
+SPORE 72 41 1 8397428 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  pack4  ?loop "
+	"}"
+  }
+
+SPORE 72 57 1 8395528 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  EAT  -78  2swap  R0  EAT  NEAREST  R6!  GROW  GROW  -96  1"
+	"      R0!  EAT  -94  2dup  R0  MAKE-SPORE  MAKE-SPORE  EAT  27 "
+	"}"
+  }
+
+SPORE 73 57 1 8395528 0 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  EAT  -78  2swap  R0  EAT  NEAREST  R6!  GROW  GROW  -96  1"
+	"      R0!  EAT  -94  2dup  R0  MAKE-SPORE  MAKE-SPORE  EAT  27 "
+	"}"
+  }
+
+ORGANISM 8383689 0 0 8362369 8362369 5569 37403 2692
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8383689 38 65
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 34 60
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 46 70
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 42 65
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 36 61
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 38 63
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 42 67
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 42 66
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 47 73
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 57 73
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 41 66
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 41 67
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 37 63
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 35 61
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 41 68
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 40 68
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 36 65
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 55 73
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 41 65
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 34 61
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 -1 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 36 63
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 40 67
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 40 66
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 39 67
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 48 74
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 35 63
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 33 61
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 45 70
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 40 65
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 33 60
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 32 60
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 46 71
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 39 65
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 43 70
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 56 73
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 44 70
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 58 74
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 57 74
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 56 74
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 45 71
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 31 60
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 30 60
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 32 61
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 54 73
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 44 71
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 55 74
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 42 70
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 36 67
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 41 70
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 37 65
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 34 63
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 33 63
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 39 69
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 31 61
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 55 75
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 53 75
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 54 75
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 37 66
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 51 75
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 52 75
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 49 75
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 46 75
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 50 75
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 43 74
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 47 75
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 34 65
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 47 74
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 43 73
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 45 74
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 44 74
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 48 75
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 46 74
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 46 73
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 41 73
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 42 73
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 44 73
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 45 73
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 43 72
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 43 71
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 45 72
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 44 72
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 40 73
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 42 72
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 39 72
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 41 72
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 42 71
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 40 72
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 40 71
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 41 71
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 38 72
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 39 71
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 40 70
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 37 71
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 39 70
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 38 71
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 38 70
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 38 69
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 37 70
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 36 70
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 36 69
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 37 69
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 38 67
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 37 68
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 34 69
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 35 69
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 36 68
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 37 67
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 35 68
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 35 67
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 33 68
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 34 68
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 34 67
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 35 65
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 34 66
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 33 67
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 33 66
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 32 66
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 33 65
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 31 65
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 32 65
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 32 64
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 32 63
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 30 64
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 31 64
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 31 63
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 31 62
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 30 63
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 30 62
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 30 61
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 29 61
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8383689 29 60
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+ORGANISM 8384404 0 0 8383979 8383979 5593 1649 2590
+  {  # program
+	"main:"
+	"{"
+	"      17  ENERGY  -96  R2  GROW  EAT  -75  2swap  MAKE-SPORE  NUM-CELLS  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -98  3  R0!  EAT  -97  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  28  ?loop "
+	"}"
+  }
+
+CELL 8384404 32 58
+	0 0
+	0 0 16
+	{ 3 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		-1
+	}
+
+CELL 8384404 31 58
+	0 0
+	0 0 16
+	{ 3 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		1
+	}
+
+CELL 8384404 30 58
+	0 0
+	0 0 16
+	{ 3 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+CELL 8384404 29 58
+	0 0
+	0 0 16
+	{ 3 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+CELL 8384404 28 58
+	0 0
+	0 0 16
+	{ 3 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+ORGANISM 8391773 0 0 8391622 8391622 5596 134 1489
+  {  # program
+	"main:"
+	"{"
+	"      17  ENERGY  -96  R2  GROW  EAT  -75  2swap  MAKE-SPORE  NUM-CELLS  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -98  3  R0!  EAT  -97  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  28  ?loop "
+	"}"
+  }
+
+CELL 8391773 27 46
+	0 0
+	0 0 4
+	{ 3 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		1
+		17
+		134
+		-96
+		0
+	}
+
+ORGANISM 8397237 0 0 8383689 8383689 5570 1825 654
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8397237 52 73
+	0 0
+	0 0 27
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+CELL 8397237 51 73
+	0 0
+	0 0 27
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		-1
+	}
+
+ORGANISM 8397276 0 0 8396530 8396530 5603 216 651
+  {  # program
+	"main:"
+	"{"
+	"      17  ENERGY  -96  R2  GROW  EAT  -75  2swap  MAKE-SPORE  NUM-CELLS  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -98  3  R0!  EAT  -97  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  28  ?loop "
+	"}"
+  }
+
+CELL 8397276 31 41
+	0 0
+	0 0 24
+	{ 3 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		28
+		-97
+		28
+		-97
+		3
+	}
+
+CELL 8397276 30 41
+	0 0
+	0 0 24
+	{ 3 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-97
+		0
+		-97
+		3
+	}
+
+CELL 8397276 29 41
+	0 0
+	0 0 24
+	{ 3 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-97
+		0
+		-97
+		3
+	}
+
+CELL 8397276 29 40
+	0 0
+	0 0 24
+	{ 3 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-97
+		0
+		-97
+		3
+	}
+
+ORGANISM 8397413 0 0 8397274 8397274 5595 3066 625
+  {  # program
+	"main:"
+	"{"
+	"      17  ENERGY  -96  R2  GROW  EAT  -75  2swap  MAKE-SPORE  NUM-CELLS  EAT  R0"
+	"      EAT  >=  pop  R6!  GROW  GROW  -98  R0!  EAT  -97  2dup  R0  MAKE-SPORE  MAKE-SPORE"
+	"      EAT  R0  GROW  if  EAT  28  ?loop "
+	"}"
+  }
+
+CELL 8397413 31 47
+	0 0
+	0 0 31
+	{ -98 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		-1
+	}
+
+CELL 8397413 30 47
+	0 0
+	0 0 31
+	{ -98 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		-1
+	}
+
+CELL 8397413 32 47
+	0 0
+	0 0 31
+	{ -98 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		-1
+	}
+
+CELL 8397413 27 47
+	0 0
+	0 0 31
+	{ -98 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		-1
+	}
+
+CELL 8397413 29 47
+	0 0
+	0 0 31
+	{ -98 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+CELL 8397413 27 48
+	0 0
+	0 0 31
+	{ -98 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		1
+	}
+
+CELL 8397413 28 48
+	0 0
+	0 0 31
+	{ -98 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+CELL 8397413 32 48
+	0 0
+	0 0 31
+	{ -98 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		1
+	}
+
+CELL 8397413 27 49
+	0 0
+	0 0 31
+	{ -98 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+CELL 8397413 29 48
+	0 0
+	0 0 31
+	{ -98 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+CELL 8397413 28 49
+	0 0
+	0 0 31
+	{ -98 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+CELL 8397413 27 50
+	0 0
+	0 0 31
+	{ -98 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+CELL 8397413 32 49
+	0 0
+	0 0 31
+	{ -98 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+CELL 8397413 29 49
+	0 0
+	0 0 31
+	{ -98 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+CELL 8397413 28 50
+	0 0
+	0 0 31
+	{ -98 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+CELL 8397413 30 48
+	0 0
+	0 0 31
+	{ -98 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		1
+	}
+
+CELL 8397413 32 50
+	0 0
+	0 0 31
+	{ -98 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+CELL 8397413 31 48
+	0 0
+	0 0 31
+	{ -98 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		1
+	}
+
+CELL 8397413 27 51
+	0 0
+	0 0 31
+	{ -98 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+CELL 8397413 28 53
+	0 0
+	0 0 31
+	{ -98 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+CELL 8397413 29 50
+	0 0
+	0 0 31
+	{ -98 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+CELL 8397413 27 52
+	0 0
+	0 0 31
+	{ -98 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+CELL 8397413 28 51
+	0 0
+	0 0 31
+	{ -98 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+CELL 8397413 30 49
+	0 0
+	0 0 31
+	{ -98 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+CELL 8397413 27 53
+	0 0
+	0 0 31
+	{ -98 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+CELL 8397413 32 51
+	0 0
+	0 0 31
+	{ -98 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+CELL 8397413 31 49
+	0 0
+	0 0 31
+	{ -98 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+CELL 8397413 29 51
+	0 0
+	0 0 31
+	{ -98 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+CELL 8397413 28 52
+	0 0
+	0 0 31
+	{ -98 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+CELL 8397413 30 50
+	0 0
+	0 0 31
+	{ -98 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+CELL 8397413 32 52
+	0 0
+	0 0 31
+	{ -98 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+CELL 8397413 31 50
+	0 0
+	0 0 31
+	{ -98 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+CELL 8397413 29 52
+	0 0
+	0 0 31
+	{ -98 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+CELL 8397413 30 51
+	0 0
+	0 0 31
+	{ -98 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+CELL 8397413 32 53
+	0 0
+	0 0 31
+	{ -98 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+CELL 8397413 31 51
+	0 0
+	0 0 31
+	{ -98 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+CELL 8397413 30 52
+	0 0
+	0 0 31
+	{ -98 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+CELL 8397413 32 54
+	0 0
+	0 0 31
+	{ -98 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+CELL 8397413 29 53
+	0 0
+	0 0 31
+	{ -98 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+CELL 8397413 31 52
+	0 0
+	0 0 31
+	{ -98 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+CELL 8397413 28 56
+	0 0
+	0 0 31
+	{ -98 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+CELL 8397413 30 53
+	0 0
+	0 0 31
+	{ -98 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+CELL 8397413 31 53
+	0 0
+	0 0 31
+	{ -98 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+CELL 8397413 27 54
+	0 0
+	0 0 31
+	{ -98 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+CELL 8397413 28 54
+	0 0
+	0 0 31
+	{ -98 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+CELL 8397413 27 55
+	0 0
+	0 0 31
+	{ -98 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+CELL 8397413 28 55
+	0 0
+	0 0 31
+	{ -98 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+CELL 8397413 29 54
+	0 0
+	0 0 31
+	{ -98 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+CELL 8397413 30 54
+	0 0
+	0 0 31
+	{ -98 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+CELL 8397413 29 55
+	0 0
+	0 0 31
+	{ -98 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+CELL 8397413 31 54
+	0 0
+	0 0 31
+	{ -98 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+CELL 8397413 30 55
+	0 0
+	0 0 31
+	{ -98 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+CELL 8397413 29 56
+	0 0
+	0 0 31
+	{ -98 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+CELL 8397413 31 55
+	0 0
+	0 0 31
+	{ -98 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+CELL 8397413 30 56
+	0 0
+	0 0 31
+	{ -98 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+CELL 8397413 31 56
+	0 0
+	0 0 31
+	{ -98 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+ORGANISM 8397727 0 0 8397574 8397574 5606 78 573
+  {  # program
+	"main:"
+	"{"
+	"      17  ENERGY  -96  R2  GROW  EAT  -75  2swap  MAKE-SPORE  NUM-CELLS  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -98  3  R0!  EAT  -97  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  28  ?loop "
+	"}"
+  }
+
+CELL 8397727 30 39
+	0 0
+	0 0 12
+	{ 3 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		0
+		3
+	}
+
+CELL 8397727 30 38
+	0 0
+	0 0 12
+	{ 3 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		28
+		0
+		3
+	}
+
+CELL 8397727 30 37
+	0 0
+	0 0 12
+	{ 3 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		0
+		3
+	}
+
+ORGANISM 8398415 0 0 8398273 8398273 5574 13 450
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  EAT  27  ?loop  MAKE-SPORE"
+	"      EAT  R0  GROW  if  2dup  R0  MAKE-SPORE "
+	"}"
+  }
+
+CELL 8398415 52 55
+	0 0
+	0 0 0
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+CELL 8398415 51 55
+	0 0
+	0 0 0
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+CELL 8398415 50 55
+	0 0
+	0 0 0
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+CELL 8398415 49 55
+	0 0
+	0 0 0
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+CELL 8398415 48 55
+	0 0
+	0 0 0
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+ORGANISM 8398420 0 0 8397878 8397878 5600 2 448
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  GROW  EAT  2swap  MAKE-SPORE  MAKE-SPORE"
+	"      EAT  R0  -44  EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0"
+	"      MAKE-SPORE  MAKE-SPORE  EAT  R0  max  NEAREST  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8398420 69 35
+	0 0
+	0 0 16
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		0
+	}
+
+ORGANISM 8398471 0 0 8398122 8398122 5603 6 438
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  -96"
+	"      1  R0!  EAT  R0  EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup"
+	"      R0  MAKE-SPORE  MAKE-SPORE  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8398471 61 28
+	0 0
+	0 0 18
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		0
+	}
+
+CELL 8398471 60 28
+	0 0
+	0 0 18
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		0
+	}
+
+CELL 8398471 59 28
+	0 0
+	0 0 18
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		0
+	}
+
+ORGANISM 8399124 0 0 8398999 8398999 5573 224 311
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8399124 51 69
+	0 0
+	0 0 14
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		0
+	}
+
+CELL 8399124 51 68
+	0 0
+	0 0 14
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		0
+	}
+
+CELL 8399124 51 67
+	0 0
+	0 0 14
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		0
+	}
+
+CELL 8399124 49 69
+	0 0
+	0 0 14
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		-1
+		0
+	}
+
+CELL 8399124 50 67
+	0 0
+	0 0 14
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		0
+	}
+
+CELL 8399124 50 68
+	0 0
+	0 0 14
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		0
+	}
+
+CELL 8399124 49 68
+	0 0
+	0 0 14
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		0
+	}
+
+ORGANISM 8399163 0 0 8398874 8398874 5623 16 301
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  NUM-CELLS"
+	"      EAT  R0  EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8399163 56 27
+	0 0
+	0 0 29
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		1
+	}
+
+CELL 8399163 56 33
+	0 0
+	0 0 29
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		1
+	}
+
+CELL 8399163 56 31
+	0 0
+	0 0 29
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		1
+	}
+
+CELL 8399163 56 29
+	0 0
+	0 0 29
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		1
+	}
+
+CELL 8399163 56 30
+	0 0
+	0 0 29
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		1
+	}
+
+CELL 8399163 56 32
+	0 0
+	0 0 29
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		1
+	}
+
+CELL 8399163 57 28
+	0 0
+	0 0 29
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		-1
+		1
+	}
+
+CELL 8399163 56 34
+	0 0
+	0 0 29
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		1
+	}
+
+CELL 8399163 54 34
+	0 0
+	0 0 29
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		1
+	}
+
+CELL 8399163 52 34
+	0 0
+	0 0 29
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		1
+	}
+
+CELL 8399163 50 34
+	0 0
+	0 0 29
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		1
+	}
+
+CELL 8399163 48 34
+	0 0
+	0 0 29
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		1
+	}
+
+CELL 8399163 49 34
+	0 0
+	0 0 29
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		1
+	}
+
+CELL 8399163 51 34
+	0 0
+	0 0 29
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		1
+	}
+
+CELL 8399163 53 34
+	0 0
+	0 0 29
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		1
+	}
+
+CELL 8399163 55 34
+	0 0
+	0 0 29
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		1
+	}
+
+CELL 8399163 56 28
+	0 0
+	0 0 29
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		1
+	}
+
+CELL 8399163 55 32
+	0 0
+	0 0 29
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		1
+	}
+
+CELL 8399163 55 30
+	0 0
+	0 0 29
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		1
+	}
+
+CELL 8399163 55 28
+	0 0
+	0 0 29
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		1
+	}
+
+CELL 8399163 55 26
+	0 0
+	0 0 29
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		1
+	}
+
+CELL 8399163 55 27
+	0 0
+	0 0 29
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		1
+	}
+
+CELL 8399163 55 29
+	0 0
+	0 0 29
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		1
+	}
+
+CELL 8399163 55 31
+	0 0
+	0 0 29
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		1
+	}
+
+CELL 8399163 55 33
+	0 0
+	0 0 29
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		1
+	}
+
+CELL 8399163 53 33
+	0 0
+	0 0 29
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		1
+	}
+
+CELL 8399163 51 33
+	0 0
+	0 0 29
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		1
+	}
+
+CELL 8399163 49 33
+	0 0
+	0 0 29
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		1
+	}
+
+CELL 8399163 48 33
+	0 0
+	0 0 29
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		1
+	}
+
+CELL 8399163 50 33
+	0 0
+	0 0 29
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		1
+	}
+
+CELL 8399163 52 33
+	0 0
+	0 0 29
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		1
+	}
+
+CELL 8399163 54 33
+	0 0
+	0 0 29
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		1
+	}
+
+CELL 8399163 54 31
+	0 0
+	0 0 29
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		1
+	}
+
+CELL 8399163 54 29
+	0 0
+	0 0 29
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		1
+	}
+
+CELL 8399163 54 27
+	0 0
+	0 0 29
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		1
+	}
+
+CELL 8399163 54 26
+	0 0
+	0 0 29
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		1
+	}
+
+CELL 8399163 54 28
+	0 0
+	0 0 29
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		1
+	}
+
+CELL 8399163 54 30
+	0 0
+	0 0 29
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		1
+	}
+
+CELL 8399163 54 32
+	0 0
+	0 0 29
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		1
+	}
+
+CELL 8399163 52 32
+	0 0
+	0 0 29
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		1
+	}
+
+CELL 8399163 50 32
+	0 0
+	0 0 29
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		1
+	}
+
+CELL 8399163 48 32
+	0 0
+	0 0 29
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		1
+	}
+
+CELL 8399163 49 32
+	0 0
+	0 0 29
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		1
+	}
+
+CELL 8399163 51 32
+	0 0
+	0 0 29
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		1
+	}
+
+CELL 8399163 53 32
+	0 0
+	0 0 29
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		1
+	}
+
+CELL 8399163 53 30
+	0 0
+	0 0 29
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		1
+	}
+
+CELL 8399163 53 28
+	0 0
+	0 0 29
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		1
+	}
+
+CELL 8399163 53 26
+	0 0
+	0 0 29
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		1
+	}
+
+CELL 8399163 53 27
+	0 0
+	0 0 29
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		1
+	}
+
+CELL 8399163 53 29
+	0 0
+	0 0 29
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		1
+	}
+
+CELL 8399163 53 31
+	0 0
+	0 0 29
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		1
+	}
+
+CELL 8399163 51 31
+	0 0
+	0 0 29
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		1
+	}
+
+CELL 8399163 49 31
+	0 0
+	0 0 29
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		1
+	}
+
+CELL 8399163 48 31
+	0 0
+	0 0 29
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		1
+	}
+
+CELL 8399163 50 31
+	0 0
+	0 0 29
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		1
+	}
+
+CELL 8399163 52 31
+	0 0
+	0 0 29
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		1
+	}
+
+CELL 8399163 52 29
+	0 0
+	0 0 29
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		1
+	}
+
+CELL 8399163 52 27
+	0 0
+	0 0 29
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		1
+	}
+
+CELL 8399163 52 26
+	0 0
+	0 0 29
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		1
+	}
+
+CELL 8399163 52 28
+	0 0
+	0 0 29
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		1
+	}
+
+CELL 8399163 52 30
+	0 0
+	0 0 29
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		1
+	}
+
+CELL 8399163 50 30
+	0 0
+	0 0 29
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		1
+	}
+
+CELL 8399163 48 30
+	0 0
+	0 0 29
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		1
+	}
+
+CELL 8399163 49 30
+	0 0
+	0 0 29
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		1
+	}
+
+CELL 8399163 51 30
+	0 0
+	0 0 29
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		1
+	}
+
+CELL 8399163 51 28
+	0 0
+	0 0 29
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		1
+	}
+
+CELL 8399163 51 26
+	0 0
+	0 0 29
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		1
+	}
+
+CELL 8399163 51 27
+	0 0
+	0 0 29
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		1
+	}
+
+CELL 8399163 51 29
+	0 0
+	0 0 29
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		1
+	}
+
+CELL 8399163 49 29
+	0 0
+	0 0 29
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		1
+	}
+
+CELL 8399163 48 29
+	0 0
+	0 0 29
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		1
+	}
+
+CELL 8399163 50 29
+	0 0
+	0 0 29
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		1
+	}
+
+CELL 8399163 50 27
+	0 0
+	0 0 29
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		1
+	}
+
+CELL 8399163 50 26
+	0 0
+	0 0 29
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		1
+	}
+
+CELL 8399163 50 28
+	0 0
+	0 0 29
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		1
+	}
+
+CELL 8399163 48 28
+	0 0
+	0 0 29
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		1
+	}
+
+CELL 8399163 49 28
+	0 0
+	0 0 29
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		1
+	}
+
+CELL 8399163 49 26
+	0 0
+	0 0 29
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		1
+	}
+
+CELL 8399163 49 27
+	0 0
+	0 0 29
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		1
+	}
+
+CELL 8399163 48 27
+	0 0
+	0 0 29
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		1
+	}
+
+CELL 8399163 48 26
+	0 0
+	0 0 29
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		1
+	}
+
+ORGANISM 8399190 0 0 8399061 8399061 5606 26 297
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  if  MOOD"
+	"      R0  EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8399190 37 39
+	0 0
+	0 0 15
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+		0 10
+		0 10
+		0 10
+		0 10
+	}
+	{
+		0
+		0
+	}
+
+CELL 8399190 38 40
+	0 0
+	0 0 15
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+		0 10
+		0 10
+		0 10
+		0 10
+	}
+	{
+		1
+		1
+	}
+
+CELL 8399190 37 41
+	0 0
+	0 0 15
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+		0 10
+		0 10
+		0 10
+		0 10
+	}
+	{
+		-1
+		1
+	}
+
+CELL 8399190 36 41
+	0 0
+	0 0 4
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+		0 10
+		0 10
+		0 10
+		0 10
+		0 10
+	}
+	{
+		20
+		28
+		96
+		0
+	}
+
+CELL 8399190 37 40
+	0 0
+	0 0 15
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+		0 10
+		0 10
+		0 10
+		0 10
+	}
+	{
+		1
+		1
+	}
+
+CELL 8399190 36 39
+	0 0
+	0 0 15
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+		0 10
+		0 10
+		0 10
+		0 10
+	}
+	{
+		0
+		0
+	}
+
+CELL 8399190 36 40
+	0 0
+	0 0 15
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+		0 10
+		0 10
+		0 10
+		0 10
+	}
+	{
+		0
+		1
+	}
+
+CELL 8399190 34 40
+	0 0
+	0 0 26
+	{ 1 0 0 0 0
+	  0 1 0 0 0 }
+	{
+		0 10
+		0 10
+		0 10
+	}
+	{
+		0
+		-94
+		0
+	}
+
+CELL 8399190 35 40
+	0 0
+	0 0 26
+	{ 1 0 0 0 0
+	  0 1 0 0 0 }
+	{
+		0 10
+		0 10
+		0 10
+	}
+	{
+		0
+		-94
+		0
+	}
+
+CELL 8399190 35 39
+	0 0
+	0 0 26
+	{ 1 0 0 0 0
+	  0 -1 0 0 0 }
+	{
+		0 10
+		0 10
+		0 10
+	}
+	{
+		8
+		-94
+		1
+	}
+
+CELL 8399190 34 39
+	0 0
+	0 0 26
+	{ 1 0 0 0 0
+	  0 -1 0 0 0 }
+	{
+		0 10
+		0 10
+		0 10
+	}
+	{
+		0
+		-94
+		1
+	}
+
+ORGANISM 8399338 0 0 8398223 8398223 5585 4 264
+  {  # program
+	"main:"
+	"{"
+	"      20  R6!  GROW  GROW  -96  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  ENERGY  96  R2  GROW  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8399338 64 50
+	0 0
+	0 0 0
+	{ 1 0 0 0 0
+	  0 20 0 0 0 }
+	{
+	}
+	{
+	}
+
+CELL 8399338 64 51
+	0 0
+	0 0 3
+	{ 1 0 0 0 0
+	  0 20 0 0 0 }
+	{
+		0 29
+	}
+	{
+	}
+
+CELL 8399338 63 51
+	0 0
+	0 0 0
+	{ 1 0 0 0 0
+	  0 20 0 0 0 }
+	{
+	}
+	{
+	}
+
+CELL 8399338 63 50
+	0 0
+	0 0 0
+	{ 1 0 0 0 0
+	  0 20 0 0 0 }
+	{
+	}
+	{
+	}
+
+ORGANISM 8399365 0 0 8399256 8399256 5575 66 259
+  {  # program
+	"main:"
+	"{"
+	"      23  ENERGY  93  R2  GROW  EAT  -82  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -97  3  R0!  EAT  -98  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  28  ?loop "
+	"}"
+  }
+
+CELL 8399365 36 55
+	0 0
+	0 0 28
+	{ 3 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		3
+	}
+
+CELL 8399365 38 57
+	0 0
+	0 0 28
+	{ 3 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		3
+	}
+
+CELL 8399365 39 56
+	0 0
+	0 0 28
+	{ 3 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		-1
+		3
+	}
+
+CELL 8399365 36 59
+	0 0
+	0 0 28
+	{ 3 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		3
+	}
+
+CELL 8399365 37 55
+	0 0
+	0 0 28
+	{ 3 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		3
+	}
+
+CELL 8399365 36 58
+	0 0
+	0 0 28
+	{ 3 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		3
+	}
+
+CELL 8399365 38 56
+	0 0
+	0 0 28
+	{ 3 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		-1
+		3
+	}
+
+CELL 8399365 37 58
+	0 0
+	0 0 28
+	{ 3 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		3
+	}
+
+CELL 8399365 37 57
+	0 0
+	0 0 28
+	{ 3 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		3
+	}
+
+CELL 8399365 37 56
+	0 0
+	0 0 28
+	{ 3 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		3
+	}
+
+CELL 8399365 36 56
+	0 0
+	0 0 28
+	{ 3 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		3
+	}
+
+CELL 8399365 36 57
+	0 0
+	0 0 28
+	{ 3 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		3
+	}
+
+CELL 8399365 33 56
+	0 0
+	0 0 28
+	{ 3 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		3
+	}
+
+CELL 8399365 35 57
+	0 0
+	0 0 28
+	{ 3 0 0 0 0
+	  0 1 0 0 0 }
+	{
+	}
+	{
+		0
+		3
+	}
+
+CELL 8399365 34 56
+	0 0
+	0 0 28
+	{ 3 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		3
+	}
+
+CELL 8399365 35 56
+	0 0
+	0 0 28
+	{ 3 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		3
+	}
+
+CELL 8399365 35 55
+	0 0
+	0 0 28
+	{ 3 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		-1
+		3
+	}
+
+CELL 8399365 34 55
+	0 0
+	0 0 28
+	{ 3 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		-1
+		3
+	}
+
+ORGANISM 8399458 0 0 8399330 8399330 5577 5 241
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  EAT  27  ?loop  EAT"
+	"      NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE  MAKE-SPORE"
+	"      EAT  R0  GROW  if  MAKE-SPORE  EAT  R0 "
+	"}"
+  }
+
+CELL 8399458 56 60
+	0 0
+	0 0 1
+	{ 0 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		20
+	}
+
+CELL 8399458 55 60
+	0 0
+	0 0 1
+	{ 0 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		20
+	}
+
+CELL 8399458 54 60
+	0 0
+	0 0 1
+	{ 0 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		20
+	}
+
+CELL 8399458 53 60
+	0 0
+	0 0 1
+	{ 0 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		20
+	}
+
+ORGANISM 8399610 0 0 8398995 8398995 5573 14 212
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8399610 45 62
+	0 0
+	0 0 14
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		0
+	}
+
+ORGANISM 8399622 0 0 8399472 8399472 5577 8 208
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8399622 52 59
+	0 0
+	0 0 10
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		2
+		0
+	}
+
+CELL 8399622 52 60
+	0 0
+	0 0 10
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		0
+	}
+
+CELL 8399622 51 60
+	0 0
+	0 0 10
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		0
+	}
+
+CELL 8399622 51 59
+	0 0
+	0 0 10
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		0
+	}
+
+ORGANISM 8399667 0 0 8399520 8399520 5608 7 198
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  if  MOOD"
+	"      R0  EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8399667 36 37
+	0 0
+	0 0 29
+	{ 1 0 0 0 0
+	  0 -1 0 0 0 }
+	{
+		0 10
+		0 10
+		0 10
+	}
+	{
+		0
+		1
+	}
+
+CELL 8399667 35 37
+	0 0
+	0 0 18
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+		0 10
+		0 10
+		0 10
+		0 10
+	}
+	{
+		0
+	}
+
+ORGANISM 8399688 0 0 8399579 8399579 5575 60 193
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8399688 48 65
+	0 0
+	0 0 28
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		-1
+		1
+	}
+
+CELL 8399688 49 66
+	0 0
+	0 0 28
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		-1
+		1
+	}
+
+CELL 8399688 48 66
+	0 0
+	0 0 28
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		1
+	}
+
+CELL 8399688 47 66
+	0 0
+	0 0 28
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		-1
+		1
+	}
+
+ORGANISM 8399758 0 0 8399602 8399602 5605 24 185
+  {  # program
+	"main:"
+	"{"
+	"      17  ENERGY  -96  R2  GROW  R1  -72  2swap  MAKE-SPORE  NUM-CELLS  EAT  R0  EAT"
+	"      NEAREST  R6!  GROW  GROW  -98  3  BROADCAST  -31  50  R0!  EAT  -97  2dup  R0"
+	"      MAKE-SPORE  MAKE-SPORE  EAT  R0  GROW  if  EAT  28  ?loop "
+	"}"
+  }
+
+CELL 8399758 32 44
+	0 3
+	0 0 5
+	{ 50 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		17
+		42
+		-1
+	}
+
+CELL 8399758 35 46
+	0 3
+	0 0 5
+	{ 50 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		-1
+		17
+		42
+		0
+	}
+
+CELL 8399758 33 46
+	0 3
+	0 0 5
+	{ 50 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		-1
+		17
+		42
+		0
+	}
+
+CELL 8399758 34 46
+	0 3
+	0 0 5
+	{ 50 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		-1
+		17
+		42
+		0
+	}
+
+CELL 8399758 36 45
+	0 3
+	0 0 5
+	{ 50 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		-1
+		17
+		42
+		0
+	}
+
+CELL 8399758 32 45
+	0 3
+	0 0 5
+	{ 50 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		17
+		42
+		0
+	}
+
+CELL 8399758 34 45
+	0 3
+	0 0 5
+	{ 50 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		1
+		17
+		42
+		0
+	}
+
+CELL 8399758 33 45
+	0 3
+	0 0 5
+	{ 50 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		1
+		17
+		42
+		0
+	}
+
+CELL 8399758 35 45
+	0 3
+	0 0 5
+	{ 50 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		1
+		17
+		42
+		0
+	}
+
+CELL 8399758 33 44
+	0 3
+	0 0 5
+	{ 50 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		17
+		42
+		1
+	}
+
+CELL 8399758 34 44
+	0 3
+	0 0 5
+	{ 50 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		17
+		42
+		0
+	}
+
+ORGANISM 8399790 0 0 8399641 8399641 5603 520 173
+  {  # program
+	"main:"
+	"{"
+	"      17  ENERGY  -96  R2  GROW  R1  -72  2swap  MAKE-SPORE  NUM-CELLS  EAT  R0  EAT"
+	"      NEAREST  R6!  GROW  GROW  -98  3  BROADCAST  -31  50  R0!  EAT  -97  2dup  R0"
+	"      MAKE-SPORE  MAKE-SPORE  EAT  R0  GROW  if  EAT  28  ?loop "
+	"}"
+  }
+
+CELL 8399790 28 46
+	0 3
+	0 0 32
+	{ 50 0 0 0 0
+	  0 0 0 0 0 }
+	{
+		0 32
+	}
+	{
+		-1
+	}
+
+CELL 8399790 32 46
+	0 3
+	0 0 32
+	{ 50 0 0 0 0
+	  0 0 0 0 0 }
+	{
+		0 32
+	}
+	{
+		0
+	}
+
+CELL 8399790 29 46
+	0 3
+	0 0 32
+	{ 50 0 0 0 0
+	  0 0 0 0 0 }
+	{
+		0 32
+	}
+	{
+		0
+	}
+
+CELL 8399790 31 45
+	0 3
+	0 0 32
+	{ 50 0 0 0 0
+	  0 0 0 0 0 }
+	{
+		0 32
+	}
+	{
+		0
+	}
+
+CELL 8399790 31 46
+	0 3
+	0 0 32
+	{ 50 0 0 0 0
+	  0 0 0 0 0 }
+	{
+		0 32
+	}
+	{
+		0
+	}
+
+CELL 8399790 28 45
+	0 3
+	0 0 32
+	{ 50 0 0 0 0
+	  0 0 0 0 0 }
+	{
+		0 32
+	}
+	{
+		1
+	}
+
+CELL 8399790 30 46
+	0 3
+	0 0 32
+	{ 50 0 0 0 0
+	  0 0 0 0 0 }
+	{
+		0 32
+	}
+	{
+		0
+	}
+
+CELL 8399790 29 45
+	0 3
+	0 0 32
+	{ 50 0 0 0 0
+	  0 0 0 0 0 }
+	{
+		0 32
+	}
+	{
+		0
+	}
+
+CELL 8399790 30 45
+	0 3
+	0 0 32
+	{ 50 0 0 0 0
+	  0 0 0 0 0 }
+	{
+		0 32
+	}
+	{
+		0
+	}
+
+ORGANISM 8399821 0 0 8399691 8399691 5571 8 166
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8399821 40 63
+	0 0
+	0 0 1
+	{ 1 0 0 0 0
+	  0 -1 0 0 0 }
+	{
+	}
+	{
+		0
+		20
+	}
+
+ORGANISM 8399825 0 0 8398223 8398223 5585 58 165
+  {  # program
+	"main:"
+	"{"
+	"      20  R6!  GROW  GROW  -96  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  ENERGY  96  R2  GROW  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8399825 60 58
+	0 0
+	0 0 0
+	{ 1 0 0 0 0
+	  0 20 0 0 0 }
+	{
+	}
+	{
+	}
+
+CELL 8399825 58 58
+	0 0
+	0 0 0
+	{ 1 0 0 0 0
+	  0 20 0 0 0 }
+	{
+	}
+	{
+	}
+
+CELL 8399825 57 58
+	0 0
+	0 0 0
+	{ 1 0 0 0 0
+	  0 20 0 0 0 }
+	{
+	}
+	{
+	}
+
+CELL 8399825 59 58
+	0 0
+	0 0 0
+	{ 1 0 0 0 0
+	  0 20 0 0 0 }
+	{
+	}
+	{
+	}
+
+CELL 8399825 61 58
+	0 0
+	0 0 0
+	{ 1 0 0 0 0
+	  0 20 0 0 0 }
+	{
+	}
+	{
+	}
+
+CELL 8399825 61 56
+	0 0
+	0 0 0
+	{ 1 0 0 0 0
+	  0 20 0 0 0 }
+	{
+	}
+	{
+	}
+
+CELL 8399825 60 53
+	0 0
+	0 0 0
+	{ 1 0 0 0 0
+	  0 20 0 0 0 }
+	{
+	}
+	{
+	}
+
+CELL 8399825 61 55
+	0 0
+	0 0 0
+	{ 1 0 0 0 0
+	  0 20 0 0 0 }
+	{
+	}
+	{
+	}
+
+CELL 8399825 61 57
+	0 0
+	0 0 0
+	{ 1 0 0 0 0
+	  0 20 0 0 0 }
+	{
+	}
+	{
+	}
+
+CELL 8399825 59 57
+	0 0
+	0 0 0
+	{ 1 0 0 0 0
+	  0 20 0 0 0 }
+	{
+	}
+	{
+	}
+
+CELL 8399825 57 57
+	0 0
+	0 0 0
+	{ 1 0 0 0 0
+	  0 20 0 0 0 }
+	{
+	}
+	{
+	}
+
+CELL 8399825 58 57
+	0 0
+	0 0 0
+	{ 1 0 0 0 0
+	  0 20 0 0 0 }
+	{
+	}
+	{
+	}
+
+CELL 8399825 60 57
+	0 0
+	0 0 0
+	{ 1 0 0 0 0
+	  0 20 0 0 0 }
+	{
+	}
+	{
+	}
+
+CELL 8399825 60 55
+	0 0
+	0 0 0
+	{ 1 0 0 0 0
+	  0 20 0 0 0 }
+	{
+	}
+	{
+	}
+
+CELL 8399825 60 54
+	0 0
+	0 0 0
+	{ 1 0 0 0 0
+	  0 20 0 0 0 }
+	{
+	}
+	{
+	}
+
+CELL 8399825 59 53
+	0 0
+	0 0 0
+	{ 1 0 0 0 0
+	  0 20 0 0 0 }
+	{
+	}
+	{
+	}
+
+CELL 8399825 60 56
+	0 0
+	0 0 0
+	{ 1 0 0 0 0
+	  0 20 0 0 0 }
+	{
+	}
+	{
+	}
+
+CELL 8399825 58 56
+	0 0
+	0 0 0
+	{ 1 0 0 0 0
+	  0 20 0 0 0 }
+	{
+	}
+	{
+	}
+
+CELL 8399825 57 56
+	0 0
+	0 0 0
+	{ 1 0 0 0 0
+	  0 20 0 0 0 }
+	{
+	}
+	{
+	}
+
+CELL 8399825 59 56
+	0 0
+	0 0 0
+	{ 1 0 0 0 0
+	  0 20 0 0 0 }
+	{
+	}
+	{
+	}
+
+CELL 8399825 58 53
+	0 0
+	0 0 0
+	{ 1 0 0 0 0
+	  0 20 0 0 0 }
+	{
+	}
+	{
+	}
+
+CELL 8399825 59 54
+	0 0
+	0 0 0
+	{ 1 0 0 0 0
+	  0 20 0 0 0 }
+	{
+	}
+	{
+	}
+
+CELL 8399825 59 55
+	0 0
+	0 0 0
+	{ 1 0 0 0 0
+	  0 20 0 0 0 }
+	{
+	}
+	{
+	}
+
+CELL 8399825 57 55
+	0 0
+	0 0 0
+	{ 1 0 0 0 0
+	  0 20 0 0 0 }
+	{
+	}
+	{
+	}
+
+CELL 8399825 58 55
+	0 0
+	0 0 0
+	{ 1 0 0 0 0
+	  0 20 0 0 0 }
+	{
+	}
+	{
+	}
+
+CELL 8399825 58 54
+	0 0
+	0 0 0
+	{ 1 0 0 0 0
+	  0 20 0 0 0 }
+	{
+	}
+	{
+	}
+
+CELL 8399825 57 54
+	0 0
+	0 0 0
+	{ 1 0 0 0 0
+	  0 20 0 0 0 }
+	{
+	}
+	{
+	}
+
+CELL 8399825 57 53
+	0 0
+	0 0 0
+	{ 1 0 0 0 0
+	  0 20 0 0 0 }
+	{
+	}
+	{
+	}
+
+ORGANISM 8399851 0 0 8399731 8399731 5611 25 162
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  if  MOOD"
+	"      R0  EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8399851 35 33
+	0 0
+	0 0 26
+	{ 1 0 0 0 0
+	  0 -1 0 0 0 }
+	{
+	}
+	{
+		6
+		-94
+		1
+	}
+
+CELL 8399851 34 33
+	0 0
+	0 0 15
+	{ 1 0 0 0 0
+	  0 1 0 0 0 }
+	{
+		0 10
+	}
+	{
+		-1
+		1
+	}
+
+CELL 8399851 33 33
+	0 0
+	0 0 26
+	{ 1 0 0 0 0
+	  0 -1 0 0 0 }
+	{
+	}
+	{
+		3
+		-94
+		1
+	}
+
+ORGANISM 8399908 0 0 8399593 8399593 5610 5 156
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  if  MOOD"
+	"      R0  EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8399908 43 34
+	0 0
+	0 0 21
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+		0 10
+		0 10
+		0 10
+	}
+	{
+		0
+		-96
+	}
+
+CELL 8399908 42 34
+	0 0
+	0 0 21
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+		0 10
+		0 10
+		0 10
+	}
+	{
+		0
+		-96
+	}
+
+ORGANISM 8399923 0 0 8399763 8399763 5604 11 153
+  {  # program
+	"main:"
+	"{"
+	"      17  ENERGY  -96  R2  GROW  R1  -72  2swap  MAKE-SPORE  NUM-CELLS  EAT  R0  EAT"
+	"      NEAREST  R6!  GROW  GROW  -98  3  BROADCAST  50  R0!  EAT  -97  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  28  ?loop "
+	"}"
+  }
+
+CELL 8399923 37 48
+	0 3
+	0 0 13
+	{ 50 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		1
+		17
+		0
+		0
+	}
+
+CELL 8399923 38 49
+	0 3
+	0 0 13
+	{ 50 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		-1
+		17
+		0
+		0
+	}
+
+CELL 8399923 38 48
+	0 3
+	0 0 13
+	{ 50 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		1
+		17
+		0
+		0
+	}
+
+ORGANISM 8399971 0 0 8399863 8399863 5603 2 135
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  dup"
+	"      2*  tuck  call  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE  MAKE-SPORE"
+	"      EAT  R0  R0  GROW  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8399971 72 42
+	0 0
+	0 0 0
+	{ 0 0 0 0 0
+	  0 0 0 0 0 }
+	{
+		0 14
+		0 14
+		0 14
+		0 14
+		0 14
+		0 14
+		0 14
+		0 14
+		0 14
+	}
+	{
+		0
+		0
+	}
+
+CELL 8399971 71 42
+	0 0
+	0 0 0
+	{ 0 0 0 0 0
+	  0 0 0 0 0 }
+	{
+		0 14
+		0 14
+		0 14
+		0 14
+		0 14
+		0 14
+		0 14
+		0 14
+		0 14
+	}
+	{
+		0
+		0
+	}
+
+ORGANISM 8399997 0 0 8397521 8397521 5600 6 127
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      EAT  R0  MAKE-SPORE  EAT  R0  max  NEAREST  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8399997 64 41
+	0 0
+	0 0 22
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-94
+	}
+
+CELL 8399997 63 41
+	0 0
+	0 0 22
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		1
+		-94
+	}
+
+CELL 8399997 62 41
+	0 0
+	0 0 22
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		1
+		-94
+	}
+
+CELL 8399997 61 41
+	0 0
+	0 0 22
+	{ 1 0 0 0 0
+	  0 1 0 0 0 }
+	{
+	}
+	{
+		0
+		-94
+	}
+
+ORGANISM 8400045 0 0 8399923 8399923 5605 53 125
+  {  # program
+	"main:"
+	"{"
+	"      17  ENERGY  -96  R2  GROW  R1  -72  2swap  MAKE-SPORE  NUM-CELLS  EAT  R0  EAT"
+	"      NEAREST  R6!  GROW  GROW  -98  3  BROADCAST  50  R0!  EAT  -97  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  28  ?loop "
+	"}"
+  }
+
+CELL 8400045 38 46
+	0 3
+	0 0 20
+	{ 50 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		-1
+		-1
+		-98
+	}
+
+CELL 8400045 36 46
+	0 3
+	0 0 20
+	{ 50 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		-1
+		0
+		-98
+	}
+
+CELL 8400045 37 46
+	0 3
+	0 0 20
+	{ 50 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		-1
+		1
+		-98
+	}
+
+ORGANISM 8400092 0 0 8399980 8399980 5595 9 110
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  if  NEAREST  R6!  GROW"
+	"      GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE  MAKE-SPORE  EAT  R0  GROW"
+	"      EAT  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400092 65 44
+	0 0
+	0 0 10
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+		0 9
+	}
+	{
+	}
+
+CELL 8400092 63 45
+	0 0
+	0 0 20
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		-96
+		-94
+		-96
+		-94
+	}
+
+CELL 8400092 63 46
+	0 0
+	0 0 20
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		-96
+		-94
+		-96
+		-94
+	}
+
+CELL 8400092 61 46
+	0 0
+	0 0 20
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		-96
+		-94
+		-96
+		-94
+	}
+
+CELL 8400092 62 46
+	0 0
+	0 0 10
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+		0 9
+	}
+	{
+		0
+	}
+
+CELL 8400092 64 44
+	0 0
+	0 0 10
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+		0 9
+	}
+	{
+	}
+
+CELL 8400092 63 44
+	0 0
+	0 0 10
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+		0 9
+	}
+	{
+	}
+
+CELL 8400092 62 45
+	0 0
+	0 0 20
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		-96
+		-94
+		-96
+		-94
+	}
+
+CELL 8400092 61 45
+	0 0
+	0 0 20
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		-96
+		-94
+		-96
+		-94
+	}
+
+CELL 8400092 62 44
+	0 0
+	0 0 20
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		-96
+		-94
+		-96
+		-94
+	}
+
+ORGANISM 8400098 0 0 8399974 8399974 5577 16 108
+  {  # program
+	"main:"
+	"{"
+	"      23  ENERGY  93  R2  GROW  EAT  -82  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -97  3  R0!  EAT  -98  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  28  ?loop "
+	"}"
+  }
+
+CELL 8400098 35 53
+	0 0
+	0 0 9
+	{ 3 0 0 0 0
+	  0 -1 0 0 0 }
+	{
+	}
+	{
+		1
+		0
+	}
+
+CELL 8400098 34 53
+	0 0
+	0 0 9
+	{ 3 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		0
+	}
+
+ORGANISM 8400095 0 0 8397521 8397521 5600 7 108
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      EAT  R0  MAKE-SPORE  EAT  R0  max  NEAREST  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400095 67 43
+	0 0
+	0 0 3
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		2
+		20
+		7
+		96
+	}
+
+ORGANISM 8400111 0 0 8399979 8399979 5572 49 106
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400111 60 69
+	0 0
+	0 0 7
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		20
+		0
+		-78
+	}
+
+CELL 8400111 60 70
+	0 0
+	0 0 7
+	{ 1 0 0 0 0
+	  0 1 0 0 0 }
+	{
+	}
+	{
+		1
+		20
+		0
+		-78
+	}
+
+CELL 8400111 60 71
+	0 0
+	0 0 7
+	{ 1 0 0 0 0
+	  0 1 0 0 0 }
+	{
+	}
+	{
+		-1
+		20
+		0
+		-78
+	}
+
+CELL 8400111 58 70
+	0 0
+	0 0 7
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		-1
+		20
+		0
+		-78
+	}
+
+CELL 8400111 59 70
+	0 0
+	0 0 7
+	{ 1 0 0 0 0
+	  0 1 0 0 0 }
+	{
+	}
+	{
+		1
+		20
+		0
+		-78
+	}
+
+CELL 8400111 59 69
+	0 0
+	0 0 7
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		20
+		0
+		-78
+	}
+
+ORGANISM 8400126 0 0 8399994 8399994 5607 9 102
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  max  NEAREST  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400126 64 34
+	0 0
+	0 0 3
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		2
+		20
+		9
+		96
+	}
+
+CELL 8400126 63 34
+	0 0
+	0 0 3
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		2
+		20
+		9
+		96
+	}
+
+CELL 8400126 62 34
+	0 0
+	0 0 3
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		20
+		9
+		96
+	}
+
+ORGANISM 8400145 0 0 8400023 8400023 5571 60 99
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400145 53 70
+	0 0
+	0 0 0
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+CELL 8400145 52 70
+	0 0
+	0 0 0
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+ORGANISM 8400172 0 0 8383689 8383689 5570 626 92
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400172 47 70
+	0 0
+	0 0 26
+	{ 1 0 0 0 0
+	  0 1 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+ORGANISM 8400219 0 0 8397727 8397727 5607 50 86
+  {  # program
+	"main:"
+	"{"
+	"      17  ENERGY  -96  R2  GROW  EAT  -75  2swap  MAKE-SPORE  NUM-CELLS  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -98  3  R0!  EAT  -97  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  28  ?loop "
+	"}"
+  }
+
+CELL 8400219 33 37
+	0 0
+	0 0 20
+	{ 3 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		-1
+		-98
+	}
+
+CELL 8400219 32 37
+	0 0
+	0 0 20
+	{ 3 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		1
+		-98
+	}
+
+ORGANISM 8400222 0 0 8399758 8399758 5606 45 84
+  {  # program
+	"main:"
+	"{"
+	"      17  ENERGY  -96  R2  GROW  R1  -72  2swap  MAKE-SPORE  NUM-CELLS  EAT  R0  EAT"
+	"      NEAREST  R6!  GROW  GROW  -98  3  BROADCAST  -31  50  R0!  EAT  -97  2dup  R0"
+	"      MAKE-SPORE  MAKE-SPORE  EAT  R0  GROW  if  EAT  28  ?loop "
+	"}"
+  }
+
+CELL 8400222 35 42
+	0 3
+	0 0 12
+	{ 50 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		17
+		0
+		0
+		50
+	}
+
+CELL 8400222 35 43
+	0 3
+	1 0 0
+	{ 0 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+	}
+
+CELL 8400222 36 43
+	0 3
+	0 0 15
+	{ 50 0 0 0 0
+	  0 0 0 0 0 }
+	{
+		0 32
+	}
+	{
+		17
+		0
+		0
+	}
+
+CELL 8400222 36 42
+	0 3
+	0 0 12
+	{ 50 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		17
+		0
+		0
+		50
+	}
+
+ORGANISM 8400236 0 0 8400064 8400064 5582 3 81
+  {  # program
+	"main:"
+	"{"
+	"      20  R2  GROW  EAT  -94  2dup  R0  MAKE-SPORE  EAT  R0  EAT  EAT  R6!  GROW"
+	"      -96  1  R0!  NEAREST  -78  2swap  MAKE-SPORE  MAKE-SPORE  MAKE-SPORE  GROW"
+	"      if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400236 54 50
+	0 0
+	0 0 25
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+CELL 8400236 53 50
+	0 0
+	0 0 25
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+ORGANISM 8400245 0 0 8399800 8399980 5595 9 80
+  {  # program
+	"main:"
+	"{"
+	"      20  R6!  GROW  GROW  -96  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  ENERGY  96  R2  GROW  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400245 58 45
+	0 0
+	0 0 14
+	{ 1 0 0 0 0
+	  0 20 0 0 0 }
+	{
+	}
+	{
+		0
+		0
+	}
+
+CELL 8400245 58 44
+	0 0
+	0 0 14
+	{ 1 0 0 0 0
+	  0 20 0 0 0 }
+	{
+	}
+	{
+		0
+		0
+	}
+
+ORGANISM 8400244 0 0 8399761 8399980 5595 11 80
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  if  NEAREST  R6!  GROW"
+	"      GROW  -96  1  and  6  72  -15  R0!  EAT  -94  2dup  R0  MAKE-SPORE  MAKE-SPORE"
+	"      EAT  R0  GROW  EAT  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400244 60 45
+	0 0
+	0 0 12
+	{ -15 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+	}
+
+CELL 8400244 60 44
+	0 0
+	0 0 2
+	{ -15 0 0 0 0
+	  0 0 0 0 0 }
+	{
+		0 9
+	}
+	{
+		20
+		11
+	}
+
+CELL 8400244 59 44
+	0 0
+	0 0 12
+	{ -15 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+	}
+
+CELL 8400244 59 45
+	0 0
+	0 0 12
+	{ -15 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+	}
+
+ORGANISM 8400248 0 0 8400116 8400116 5582 2 78
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400248 43 47
+	0 0
+	0 0 12
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		1
+	}
+
+CELL 8400248 43 48
+	0 0
+	0 0 12
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		1
+	}
+
+CELL 8400248 41 48
+	0 0
+	0 0 12
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		1
+	}
+
+CELL 8400248 42 48
+	0 0
+	0 0 12
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		1
+	}
+
+CELL 8400248 42 47
+	0 0
+	0 0 12
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		1
+	}
+
+CELL 8400248 41 47
+	0 0
+	0 0 12
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		1
+	}
+
+ORGANISM 8400251 0 0 8399602 8399602 5605 14 77
+  {  # program
+	"main:"
+	"{"
+	"      17  ENERGY  -96  R2  GROW  R1  -72  2swap  MAKE-SPORE  NUM-CELLS  EAT  R0  EAT"
+	"      NEAREST  R6!  GROW  GROW  -98  3  BROADCAST  -31  50  R0!  EAT  -97  2dup  R0"
+	"      MAKE-SPORE  MAKE-SPORE  EAT  R0  GROW  if  EAT  28  ?loop "
+	"}"
+  }
+
+CELL 8400251 34 47
+	0 3
+	0 0 5
+	{ 50 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		17
+		14
+		-1
+	}
+
+CELL 8400251 34 48
+	0 3
+	0 0 5
+	{ 50 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		17
+		14
+		-1
+	}
+
+CELL 8400251 35 48
+	0 3
+	0 0 5
+	{ 50 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		17
+		14
+		1
+	}
+
+CELL 8400251 35 47
+	0 3
+	0 0 5
+	{ 50 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		17
+		14
+		1
+	}
+
+ORGANISM 8400254 0 0 8399790 8399790 5604 112 75
+  {  # program
+	"main:"
+	"{"
+	"      17  ENERGY  -96  R2  GROW  R1  -72  2swap  MAKE-SPORE  NUM-CELLS  EAT  R0  EAT"
+	"      NEAREST  R6!  GROW  GROW  -98  3  BROADCAST  -31  50  R0!  EAT  -97  2dup  R0"
+	"      MAKE-SPORE  MAKE-SPORE  EAT  R0  GROW  if  EAT  28  ?loop "
+	"}"
+  }
+
+CELL 8400254 30 44
+	0 3
+	0 0 3
+	{ 50 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		17
+		112
+		-96
+	}
+
+CELL 8400254 28 44
+	0 3
+	0 0 3
+	{ 50 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		17
+		112
+		-96
+	}
+
+CELL 8400254 28 43
+	0 3
+	0 0 3
+	{ 50 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		17
+		112
+		-96
+	}
+
+CELL 8400254 31 43
+	0 3
+	0 0 3
+	{ 50 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		17
+		112
+		-96
+	}
+
+CELL 8400254 29 43
+	0 3
+	0 0 3
+	{ 50 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		17
+		112
+		-96
+	}
+
+CELL 8400254 30 43
+	0 3
+	0 0 3
+	{ 50 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		17
+		112
+		-96
+	}
+
+ORGANISM 8400298 0 0 8399851 8399851 5612 18 67
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  if  MOOD"
+	"      R0  EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  R0  GROW"
+	"      if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400298 37 32
+	0 0
+	0 0 0
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+		0 27
+		0 10
+		0 27
+	}
+	{
+		0
+		-94
+		0
+	}
+
+ORGANISM 8400304 0 0 8400179 8400179 5571 135 66
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400304 54 72
+	0 0
+	0 0 0
+	{ 1 0 0 0 0
+	  0 1 0 0 0 }
+	{
+	}
+	{
+		-1
+	}
+
+CELL 8400304 55 72
+	0 0
+	0 0 0
+	{ 1 0 0 0 0
+	  0 1 0 0 0 }
+	{
+	}
+	{
+		-1
+	}
+
+CELL 8400304 56 71
+	0 0
+	0 0 0
+	{ 1 0 0 0 0
+	  0 1 0 0 0 }
+	{
+	}
+	{
+		1
+	}
+
+CELL 8400304 55 71
+	0 0
+	0 0 0
+	{ 1 0 0 0 0
+	  0 1 0 0 0 }
+	{
+	}
+	{
+		1
+	}
+
+CELL 8400304 54 71
+	0 0
+	0 0 0
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		1
+	}
+
+ORGANISM 8400300 0 0 8400025 8400025 5571 43 66
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400300 44 65
+	0 0
+	0 0 0
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+ORGANISM 8400311 0 0 8400045 8400045 5606 24 62
+  {  # program
+	"main:"
+	"{"
+	"      17  ENERGY  -96  R2  GROW  R1  -72  2swap  MAKE-SPORE  NUM-CELLS  EAT  R0  EAT"
+	"      NEAREST  R6!  GROW  GROW  -98  3  BROADCAST  50  R0!  EAT  -97  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  28  ?loop "
+	"}"
+  }
+
+CELL 8400311 38 43
+	0 3
+	0 0 27
+	{ 50 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		1
+		0
+		-97
+		0
+	}
+
+CELL 8400311 38 44
+	0 3
+	0 0 27
+	{ 50 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		-1
+		0
+		-97
+		0
+	}
+
+CELL 8400311 37 43
+	0 3
+	0 0 27
+	{ 50 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		1
+		9
+		-97
+		0
+	}
+
+ORGANISM 8400319 0 0 8400213 8400213 5575 2 61
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400319 65 68
+	0 0
+	0 0 30
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		-1
+		27
+	}
+
+ORGANISM 8400361 0 0 8400092 8400092 5596 0 57
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  if  NEAREST  R6!  GROW"
+	"      GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE  MAKE-SPORE  EAT  R0  GROW"
+	"      EAT  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400361 60 43
+	0 0
+	1 0 0
+	{ 0 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+	}
+
+ORGANISM 8400371 0 0 8400082 8400082 5581 9 54
+  {  # program
+	"main:"
+	"{"
+	"      19  ENERGY  99  R2  GROW  EAT  -77  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -94  -3  R0!  EAT  -90  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  26  ?loop "
+	"}"
+  }
+
+CELL 8400371 40 50
+	0 0
+	0 0 21
+	{ -3 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+CELL 8400371 39 50
+	0 0
+	0 0 21
+	{ -3 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+CELL 8400371 39 51
+	0 0
+	0 0 21
+	{ -3 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+ORGANISM 8400378 0 0 8399365 8399365 5576 196 52
+  {  # program
+	"main:"
+	"{"
+	"      23  ENERGY  93  R2  GROW  EAT  -82  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -97  3  R0!  EAT  -98  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  28  ?loop "
+	"}"
+  }
+
+CELL 8400378 32 57
+	0 0
+	0 0 19
+	{ 3 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-97
+		3
+	}
+
+ORGANISM 8400385 0 0 8399758 8399758 5606 121 49
+  {  # program
+	"main:"
+	"{"
+	"      17  ENERGY  -96  R2  GROW  R1  -72  2swap  MAKE-SPORE  NUM-CELLS  EAT  R0  EAT"
+	"      NEAREST  R6!  GROW  GROW  -98  3  BROADCAST  -31  50  R0!  EAT  -97  2dup  R0"
+	"      MAKE-SPORE  MAKE-SPORE  EAT  R0  GROW  if  EAT  28  ?loop "
+	"}"
+  }
+
+CELL 8400385 33 42
+	0 3
+	0 0 13
+	{ 50 0 0 0 0
+	  0 1 0 0 0 }
+	{
+	}
+	{
+		0
+		17
+		0
+		0
+	}
+
+CELL 8400385 33 41
+	0 3
+	0 0 13
+	{ 50 0 0 0 0
+	  0 1 0 0 0 }
+	{
+	}
+	{
+		0
+		17
+		0
+		0
+	}
+
+CELL 8400385 34 41
+	0 3
+	0 0 13
+	{ 50 0 0 0 0
+	  0 1 0 0 0 }
+	{
+	}
+	{
+		0
+		17
+		0
+		0
+	}
+
+CELL 8400385 34 42
+	0 3
+	0 0 13
+	{ 50 0 0 0 0
+	  0 1 0 0 0 }
+	{
+	}
+	{
+		0
+		17
+		0
+		17
+	}
+
+ORGANISM 8400392 0 0 8400264 8400264 5587 3 48
+  {  # program
+	"main:"
+	"{"
+	"      20  R6!  GROW  GROW  -96  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  ENERGY  96  R2  GROW  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400392 60 51
+	0 0
+	0 0 15
+	{ 1 0 0 0 0
+	  0 20 0 0 0 }
+	{
+	}
+	{
+		0
+		0
+		3
+	}
+
+ORGANISM 8400395 0 0 8400272 8400272 5573 66 47
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400395 44 67
+	0 0
+	0 0 14
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		0
+	}
+
+ORGANISM 8400394 0 0 8400258 8400258 5609 11 47
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  if  MOOD"
+	"      R0  EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -95  nip  pack2  NEAREST2"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400394 39 35
+	0 0
+	0 0 13
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		1
+	}
+
+CELL 8400394 38 35
+	0 0
+	0 0 13
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		1
+	}
+
+ORGANISM 8400404 0 0 8400287 8400287 5590 2 44
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0  EAT"
+	"      NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -96  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400404 47 40
+	0 0
+	0 0 11
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		1
+	}
+
+CELL 8400404 46 40
+	0 0
+	0 0 11
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		1
+	}
+
+ORGANISM 8400403 0 0 8400278 8400278 5582 2 44
+  {  # program
+	"main:"
+	"{"
+	"      -20  nip  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0  EAT"
+	"      NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE  MAKE-SPORE"
+	"      EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400403 65 61
+	0 0
+	0 0 11
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		1
+	}
+
+ORGANISM 8400407 0 0 8400275 8400275 5592 6 43
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  if  2swap  MAKE-SPORE  EAT  27  GROW  -96  1  R0!  EAT  -94  2dup  R0"
+	"      MAKE-SPORE  MAKE-SPORE  EAT  R0  GROW  NEAREST  R6!  GROW  ?loop "
+	"}"
+  }
+
+CELL 8400407 67 52
+	0 0
+	0 0 8
+	{ 1 0 0 0 0
+	  0 -1 0 0 0 }
+	{
+	}
+	{
+		20
+		0
+		-78
+	}
+
+CELL 8400407 67 53
+	0 0
+	0 0 8
+	{ 1 0 0 0 0
+	  0 1 0 0 0 }
+	{
+	}
+	{
+		20
+		0
+		-78
+	}
+
+CELL 8400407 66 53
+	0 0
+	0 0 8
+	{ 1 0 0 0 0
+	  0 1 0 0 0 }
+	{
+	}
+	{
+		20
+		1
+		-78
+	}
+
+CELL 8400407 65 53
+	0 0
+	0 0 8
+	{ 1 0 0 0 0
+	  0 -1 0 0 0 }
+	{
+	}
+	{
+		20
+		0
+		-78
+	}
+
+CELL 8400407 65 52
+	0 0
+	0 0 8
+	{ 1 0 0 0 0
+	  0 -1 0 0 0 }
+	{
+	}
+	{
+		20
+		0
+		-78
+	}
+
+CELL 8400407 66 52
+	0 0
+	0 0 8
+	{ 1 0 0 0 0
+	  0 -1 0 0 0 }
+	{
+	}
+	{
+		20
+		0
+		-78
+	}
+
+ORGANISM 8400410 0 0 8400290 8400290 5577 2 42
+  {  # program
+	"main:"
+	"{"
+	"      23  ENERGY  93  R2  GROW  EAT  -82  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -97  3  R0!  EAT  -98  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  28  ?loop "
+	"}"
+  }
+
+CELL 8400410 39 53
+	0 0
+	0 0 9
+	{ 3 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		0
+	}
+
+CELL 8400410 38 53
+	0 0
+	0 0 9
+	{ 3 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		0
+	}
+
+ORGANISM 8400426 0 0 8399825 8399825 5586 10 40
+  {  # program
+	"main:"
+	"{"
+	"      20  R6!  GROW  GROW  -96  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  ENERGY  96  R2  GROW  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400426 61 54
+	0 0
+	0 0 7
+	{ 1 0 0 0 0
+	  0 20 0 0 0 }
+	{
+	}
+	{
+		-96
+		-78
+	}
+
+CELL 8400426 62 54
+	0 0
+	0 0 7
+	{ 1 0 0 0 0
+	  0 20 0 0 0 }
+	{
+	}
+	{
+		-96
+		-78
+	}
+
+CELL 8400426 62 53
+	0 0
+	0 0 7
+	{ 1 0 0 0 0
+	  0 20 0 0 0 }
+	{
+	}
+	{
+		-96
+		-78
+	}
+
+CELL 8400426 61 53
+	0 0
+	0 0 7
+	{ 1 0 0 0 0
+	  0 20 0 0 0 }
+	{
+	}
+	{
+		-96
+		-78
+	}
+
+ORGANISM 8400419 0 0 8399189 8399189 5572 3 40
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400419 42 58
+	0 0
+	0 0 7
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		1
+		20
+		1
+		-78
+	}
+
+CELL 8400419 42 59
+	0 0
+	0 0 7
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		-1
+		20
+		0
+		-78
+	}
+
+CELL 8400419 40 59
+	0 0
+	0 0 7
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		-1
+		20
+		0
+		-78
+	}
+
+CELL 8400419 41 59
+	0 0
+	0 0 7
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		-1
+		20
+		0
+		-78
+	}
+
+CELL 8400419 41 58
+	0 0
+	0 0 7
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		1
+		20
+		0
+		-78
+	}
+
+CELL 8400419 40 58
+	0 0
+	0 0 7
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		1
+		20
+		0
+		-78
+	}
+
+ORGANISM 8400439 0 0 8399667 8399667 5609 29 36
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  if  MOOD"
+	"      R0  EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400439 34 37
+	0 0
+	0 0 2
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		-1
+		20
+		29
+	}
+
+CELL 8400439 34 36
+	0 0
+	0 0 2
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		1
+		20
+		29
+	}
+
+ORGANISM 8400450 0 0 8400315 8400315 5578 2 35
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  44  33  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400450 47 60
+	0 0
+	0 0 0
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+	}
+
+CELL 8400450 48 60
+	0 0
+	0 0 0
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+	}
+
+CELL 8400450 48 59
+	0 0
+	0 0 0
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+	}
+
+CELL 8400450 47 59
+	0 0
+	0 0 0
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+	}
+
+ORGANISM 8400449 0 0 8400316 8400316 5576 1 35
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400449 43 59
+	0 0
+	0 0 2
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		20
+		1
+	}
+
+ORGANISM 8400446 0 0 8399688 8399688 5576 5 35
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400446 47 64
+	0 0
+	0 0 2
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		20
+		5
+	}
+
+ORGANISM 8400453 0 0 8400311 8400311 5607 18 34
+  {  # program
+	"main:"
+	"{"
+	"      17  ENERGY  -96  R2  GROW  R1  -72  2swap  MAKE-SPORE  NUM-CELLS  EAT  R0  EAT"
+	"      NEAREST  R6!  GROW  GROW  -98  3  BROADCAST  50  R0!  EAT  -97  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  28  ?loop "
+	"}"
+  }
+
+CELL 8400453 39 43
+	0 3
+	0 0 34
+	{ 50 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		-1
+		28
+	}
+
+CELL 8400453 40 42
+	0 3
+	0 0 34
+	{ 50 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		1
+		28
+	}
+
+CELL 8400453 39 42
+	0 3
+	0 0 34
+	{ 50 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		28
+	}
+
+ORGANISM 8400463 0 0 8400172 8400172 5571 17 33
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400463 47 68
+	0 0
+	0 0 0
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+ORGANISM 8400461 0 0 8399764 8399764 5581 5 33
+  {  # program
+	"main:"
+	"{"
+	"      20  R2  GROW  EAT  -94  2dup  R0  MAKE-SPORE  EAT  R0  EAT  EAT  R6!  GROW"
+	"      -96  1  R0!  NEAREST  -78  2swap  MAKE-SPORE  MAKE-SPORE  MAKE-SPORE  GROW"
+	"      if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400461 52 51
+	0 0
+	0 0 5
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-94
+	}
+
+CELL 8400461 51 51
+	0 0
+	0 0 5
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		3
+		-94
+	}
+
+ORGANISM 8400475 0 0 8400213 8400213 5575 5 30
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400475 63 68
+	0 0
+	0 0 30
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		-1
+		27
+	}
+
+ORGANISM 8400477 0 0 8400219 8400219 5608 40 28
+  {  # program
+	"main:"
+	"{"
+	"      17  ENERGY  -96  R2  GROW  EAT  -75  2swap  MAKE-SPORE  NUM-CELLS  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -98  3  R0!  EAT  -97  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  28  ?loop "
+	"}"
+  }
+
+CELL 8400477 32 35
+	0 0
+	0 0 28
+	{ 3 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		3
+	}
+
+ORGANISM 8400479 0 0 8400045 8400045 5606 1 27
+  {  # program
+	"main:"
+	"{"
+	"      17  ENERGY  -96  R2  GROW  R1  -72  2swap  MAKE-SPORE  NUM-CELLS  EAT  R0  EAT"
+	"      NEAREST  R6!  GROW  GROW  -98  3  BROADCAST  50  R0!  EAT  -97  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  28  ?loop "
+	"}"
+  }
+
+CELL 8400479 40 44
+	0 3
+	0 0 27
+	{ 50 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-97
+		1
+	}
+
+CELL 8400479 39 44
+	0 3
+	0 0 27
+	{ 50 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-97
+		0
+	}
+
+ORGANISM 8400478 0 0 8399638 8383689 5570 10 27
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400478 41 64
+	0 0
+	0 0 27
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		-1
+	}
+
+ORGANISM 8400528 0 0 8400379 8400379 5579 1 26
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400528 45 55
+	0 0
+	0 0 26
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		-1
+	}
+
+ORGANISM 8400525 0 0 8400062 8400062 5608 32 26
+  {  # program
+	"main:"
+	"{"
+	"      19  ENERGY  -99  R2  GROW  EAT  -73  2swap  MAKE-SPORE  NUM-CELLS  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -99  0  R0!  EAT  -93  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  32  ?loop "
+	"}"
+  }
+
+CELL 8400525 32 40
+	0 0
+	0 0 26
+	{ 0 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+ORGANISM 8400510 0 0 8383689 8383689 5570 406 26
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400510 53 74
+	0 0
+	0 0 26
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+ORGANISM 8400502 0 0 8383689 8383689 5570 2 26
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400502 42 69
+	0 0
+	0 0 26
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		-1
+	}
+
+ORGANISM 8400497 0 0 8383689 8383689 5570 491 26
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400497 45 69
+	0 0
+	0 0 26
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		-1
+	}
+
+ORGANISM 8400493 0 0 8383689 8383689 5570 191 26
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400493 34 59
+	0 0
+	0 0 26
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		-1
+	}
+
+ORGANISM 8400489 0 0 8383689 8383689 5570 2 26
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400489 37 62
+	0 0
+	0 0 26
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		-1
+	}
+
+ORGANISM 8400529 0 0 8400381 8400381 5572 484 25
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400529 50 72
+	0 0
+	0 0 25
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-94
+		1
+	}
+
+ORGANISM 8400531 0 0 8400231 8400387 5579 2 24
+  {  # program
+	"main:"
+	"{"
+	"      23  ENERGY  93  R2  GROW  MAKE-SPORE  EAT  R0  EAT  NEAREST  R6!  GROW  GROW"
+	"      -97  3  R0!  EAT  -98  2dup  R0  MAKE-SPORE  MAKE-SPORE  EAT  R0  GROW  if"
+	"      EAT  28  ?loop "
+	"}"
+  }
+
+CELL 8400531 35 51
+	0 0
+	0 0 24
+	{ 3 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		-1
+		3
+	}
+
+ORGANISM 8400530 0 0 8400383 8400383 5610 3 24
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  max  NEAREST  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400530 65 31
+	0 0
+	0 0 24
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-94
+		0
+		-94
+		1
+	}
+
+CELL 8400530 64 31
+	0 0
+	0 0 24
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-94
+		0
+		-94
+		1
+	}
+
+ORGANISM 8400537 0 0 8400386 8400386 5579 22 23
+  {  # program
+	"main:"
+	"{"
+	"      23  ENERGY  93  R2  GROW  EAT  -82  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -97  3  R0!  EAT  -98  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  28  ?loop "
+	"}"
+  }
+
+CELL 8400537 36 51
+	0 0
+	0 0 23
+	{ 3 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		20
+		-98
+		20
+		-98
+	}
+
+ORGANISM 8400536 0 0 8400388 8400388 5588 1 23
+  {  # program
+	"main:"
+	"{"
+	"      20  R6!  GROW  GROW  -96  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  ENERGY  96  R2  GROW  1  R0!  R0  MAKE-SPORE  MAKE-SPORE  EAT"
+	"      -82  78  <>  WHAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400536 62 47
+	0 0
+	0 0 23
+	{ 1 0 0 0 0
+	  0 20 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+CELL 8400536 61 47
+	0 0
+	0 0 23
+	{ 1 0 0 0 0
+	  0 20 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+ORGANISM 8400540 0 0 8400389 8400389 5574 4 22
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400540 44 61
+	0 0
+	0 0 22
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-94
+	}
+
+ORGANISM 8400547 0 0 8400393 8400393 5574 2 21
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400547 61 66
+	0 0
+	0 0 21
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+CELL 8400547 60 66
+	0 0
+	0 0 21
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+ORGANISM 8400546 0 0 8400396 8400396 5574 3 21
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400546 54 66
+	0 0
+	0 0 21
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+CELL 8400546 53 66
+	0 0
+	0 0 21
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		1
+	}
+
+ORGANISM 8400544 0 0 8400245 8400245 5596 4 21
+  {  # program
+	"main:"
+	"{"
+	"      20  R6!  GROW  GROW  -96  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  ENERGY  96  R2  GROW  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400544 59 43
+	0 0
+	0 0 21
+	{ 1 0 0 0 0
+	  0 20 0 0 0 }
+	{
+	}
+	{
+		0
+		0
+		2
+	}
+
+ORGANISM 8400543 0 0 8400082 8400082 5581 5 21
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400543 42 51
+	0 0
+	0 0 21
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		1
+	}
+
+CELL 8400543 41 51
+	0 0
+	0 0 21
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+ORGANISM 8400541 0 0 8399124 8399124 5574 2 21
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400541 51 66
+	0 0
+	0 0 21
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+CELL 8400541 50 66
+	0 0
+	0 0 21
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+ORGANISM 8400553 0 0 8400233 8400233 5576 11 20
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  44  33  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400553 47 61
+	0 0
+	0 0 20
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+	}
+
+CELL 8400553 46 61
+	0 0
+	0 0 20
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+	}
+
+ORGANISM 8400552 0 0 8400233 8400233 5576 6 20
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  44  33  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400552 49 61
+	0 0
+	0 0 20
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+	}
+
+CELL 8400552 48 61
+	0 0
+	0 0 20
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+	}
+
+ORGANISM 8400551 0 0 8400234 8400234 5610 4 20
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  if  MOOD"
+	"      R0  EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400551 37 34
+	0 0
+	0 0 20
+	{ 0 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+CELL 8400551 36 34
+	0 0
+	0 0 20
+	{ 0 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+		1
+	}
+
+ORGANISM 8400549 0 0 8397727 8397727 5607 22 20
+  {  # program
+	"main:"
+	"{"
+	"      17  ENERGY  -96  R2  GROW  EAT  -75  2swap  MAKE-SPORE  NUM-CELLS  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -98  3  R0!  EAT  -97  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  28  ?loop "
+	"}"
+  }
+
+CELL 8400549 31 36
+	0 0
+	0 0 20
+	{ 3 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-98
+	}
+
+ORGANISM 8400558 0 0 8399769 8400404 5591 3 19
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0  EAT"
+	"      NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -96  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400558 46 38
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+	}
+
+CELL 8400558 45 38
+	0 0
+	0 0 19
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+	}
+
+ORGANISM 8400555 0 0 8399591 8399591 5605 57 19
+  {  # program
+	"main:"
+	"{"
+	"      -96  R2  GROW  R1  -72  2swap  MAKE-SPORE  NUM-CELLS  EAT  R0  EAT  NEAREST"
+	"      R6!  GROW  GROW  -98  3  BROADCAST  -31  50  R0!  EAT  -97  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  28  ?loop "
+	"}"
+  }
+
+CELL 8400555 39 45
+	0 3
+	0 0 19
+	{ 0 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-98
+		-31
+	}
+
+CELL 8400555 40 45
+	0 3
+	0 0 19
+	{ 0 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-98
+		-31
+	}
+
+ORGANISM 8400560 0 0 8400402 8400402 5583 2 18
+  {  # program
+	"main:"
+	"{"
+	"      -20  nip  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0  EAT"
+	"      NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE  MAKE-SPORE"
+	"      EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400560 64 60
+	0 0
+	0 0 18
+	{ 0 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+	}
+
+CELL 8400560 63 60
+	0 0
+	0 0 18
+	{ 0 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+	}
+
+ORGANISM 8400559 0 0 8400403 8400403 5583 1 18
+  {  # program
+	"main:"
+	"{"
+	"      -20  nip  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0  EAT"
+	"      NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE  MAKE-SPORE"
+	"      EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400559 66 60
+	0 0
+	0 0 18
+	{ 0 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+	}
+
+ORGANISM 8400567 0 0 8400413 8400413 5587 2 17
+  {  # program
+	"main:"
+	"{"
+	"      20  R6!  GROW  GROW  -96  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  96  R2  GROW  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE  MAKE-SPORE"
+	"      EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400567 66 48
+	0 0
+	0 0 17
+	{ 0 0 0 0 0
+	  0 20 0 0 0 }
+	{
+	}
+	{
+		0
+		0
+		-1
+	}
+
+CELL 8400567 65 48
+	0 0
+	0 0 17
+	{ 0 0 0 0 0
+	  0 20 0 0 0 }
+	{
+	}
+	{
+		0
+		0
+		1
+	}
+
+ORGANISM 8400566 0 0 8400405 8400405 5587 2 17
+  {  # program
+	"main:"
+	"{"
+	"      20  2/  100  WHAT  GROW  EAT  -78  2swap  MAKE-SPORE  EAT  MAKE-SPORE  MAKE-SPORE"
+	"      EAT  R0  EAT  NEAREST  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400566 45 43
+	0 0
+	0 0 17
+	{ 0 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+ORGANISM 8400565 0 0 8400098 8400098 5578 11 17
+  {  # program
+	"main:"
+	"{"
+	"      23  ENERGY  93  R2  GROW  EAT  -82  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -97  3  R0!  EAT  -98  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  28  ?loop "
+	"}"
+  }
+
+CELL 8400565 36 52
+	0 0
+	0 0 17
+	{ 0 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+CELL 8400565 35 52
+	0 0
+	0 0 17
+	{ 0 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+ORGANISM 8400564 0 0 8400092 8400092 5596 3 17
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  if  NEAREST  R6!  GROW"
+	"      GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE  MAKE-SPORE  EAT  R0  GROW"
+	"      EAT  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400564 63 43
+	0 0
+	0 0 17
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+	}
+
+ORGANISM 8400563 0 0 8400092 8400092 5596 1 17
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  if  NEAREST  R6!  GROW"
+	"      GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE  MAKE-SPORE  EAT  R0  GROW"
+	"      EAT  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400563 65 43
+	0 0
+	0 0 17
+	{ 1 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-96
+	}
+
+ORGANISM 8400562 0 0 8399622 8399622 5578 5 17
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  R3!  EAT  -78  MAKE-SPORE  MAKE-SPORE  EAT  2swap  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup"
+	"      R0  MAKE-SPORE  MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400562 51 58
+	0 0
+	0 0 17
+	{ 0 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		0
+	}
+
+ORGANISM 8400561 0 0 8399622 8399622 5578 1 17
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400561 52 58
+	0 0
+	0 0 17
+	{ 0 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+ORGANISM 8400571 0 0 8400410 8400410 5578 7 16
+  {  # program
+	"main:"
+	"{"
+	"      23  ENERGY  93  R2  GROW  EAT  -82  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -97  3  R0!  EAT  -98  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  28  ?loop "
+	"}"
+  }
+
+CELL 8400571 39 52
+	0 0
+	0 0 16
+	{ 0 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+CELL 8400571 38 52
+	0 0
+	0 0 16
+	{ 0 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+ORGANISM 8400570 0 0 8400407 8400407 5593 2 16
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  if  2swap  MAKE-SPORE  EAT  27  GROW  -96  1  R0!  EAT  -94  2dup  R0"
+	"      MAKE-SPORE  MAKE-SPORE  EAT  R0  GROW  NEAREST  R6!  GROW  ?loop "
+	"}"
+  }
+
+CELL 8400570 67 50
+	0 0
+	0 0 16
+	{ 0 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+CELL 8400570 66 50
+	0 0
+	0 0 16
+	{ 0 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+ORGANISM 8400569 0 0 8400257 8400257 5587 3 16
+  {  # program
+	"main:"
+	"{"
+	"      20  R6!  GROW  GROW  -96  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  ENERGY  96  R2  GROW  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400569 60 48
+	0 0
+	0 0 16
+	{ 0 0 0 0 0
+	  0 20 0 0 0 }
+	{
+	}
+	{
+		0
+		0
+		3
+		96
+	}
+
+ORGANISM 8400568 0 0 8400209 8400209 5611 4 16
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  if  MOOD"
+	"      R0  EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400568 40 35
+	0 0
+	0 0 16
+	{ 0 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+ORGANISM 8400577 0 0 8400419 8400419 5573 2 15
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400577 42 57
+	0 0
+	0 0 15
+	{ 0 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+CELL 8400577 41 57
+	0 0
+	0 0 15
+	{ 0 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+ORGANISM 8400576 0 0 8400426 8400426 5587 6 15
+  {  # program
+	"main:"
+	"{"
+	"      20  R6!  -96  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0  EAT  NEAREST"
+	"      ENERGY  96  R2  GROW  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE  MAKE-SPORE  EAT"
+	"      R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400576 62 52
+	0 0
+	0 0 15
+	{ 0 0 0 0 0
+	  0 20 0 0 0 }
+	{
+	}
+	{
+		1
+		-1
+		6
+		96
+		0
+	}
+
+ORGANISM 8400575 0 0 8400415 8400415 5573 3 15
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400575 40 61
+	0 0
+	0 0 15
+	{ 0 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+CELL 8400575 39 61
+	0 0
+	0 0 15
+	{ 0 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+ORGANISM 8400574 0 0 8400418 8400418 5573 4 15
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400574 56 69
+	0 0
+	0 0 15
+	{ 0 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+ORGANISM 8400572 0 0 8400111 8400111 5573 2 15
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400572 60 68
+	0 0
+	0 0 15
+	{ 0 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+CELL 8400572 59 68
+	0 0
+	0 0 15
+	{ 0 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+ORGANISM 8400580 0 0 8400268 8400268 5573 17 14
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400580 46 66
+	0 0
+	0 0 14
+	{ 0 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		0
+	}
+
+ORGANISM 8400578 0 0 8400271 8400271 5573 3 14
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400578 54 67
+	0 0
+	0 0 14
+	{ 0 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		0
+	}
+
+CELL 8400578 53 67
+	0 0
+	0 0 14
+	{ 0 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		0
+	}
+
+ORGANISM 8400589 0 0 8400234 8400439 5610 22 10
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  if  MOOD"
+	"      R0  EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400589 35 35
+	0 0
+	0 0 10
+	{ 0 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+ORGANISM 8400588 0 0 8400442 8400442 5577 2 10
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400588 47 57
+	0 0
+	0 0 10
+	{ 0 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+CELL 8400588 46 57
+	0 0
+	0 0 10
+	{ 0 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+ORGANISM 8400583 0 0 8400126 8400126 5608 7 10
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  max  NEAREST  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400583 66 33
+	0 0
+	0 0 10
+	{ 0 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+CELL 8400583 65 33
+	0 0
+	0 0 10
+	{ 0 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+ORGANISM 8400593 0 0 8400449 8400449 5577 3 9
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400593 44 58
+	0 0
+	0 0 9
+	{ 0 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+ORGANISM 8400592 0 0 8400450 8400450 5579 3 9
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  44  33  EAT  R0  GROW  if  EAT  if  EAT  27  27  ?loop "
+	"}"
+  }
+
+CELL 8400592 48 58
+	0 0
+	0 0 9
+	{ 0 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+ORGANISM 8400591 0 0 8400450 8400450 5579 1 9
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  44  33  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400591 50 58
+	0 0
+	0 0 9
+	{ 0 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+	}
+
+ORGANISM 8400590 0 0 8400400 8400400 5584 2 9
+  {  # program
+	"main:"
+	"{"
+	"      20  R2  GROW  EAT  -94  2dup  R0  MAKE-SPORE  EAT  R0  EAT  EAT  R6!  GROW"
+	"      -96  1  R0!  NEAREST  -78  2swap  MAKE-SPORE  MAKE-SPORE  MAKE-SPORE  GROW"
+	"      if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400590 57 48
+	0 0
+	0 0 9
+	{ 0 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		-1
+		0
+	}
+
+CELL 8400590 56 48
+	0 0
+	0 0 9
+	{ 0 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		1
+		0
+	}
+
+ORGANISM 8400595 0 0 8400451 8400451 5572 36 8
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400595 53 71
+	0 0
+	0 0 8
+	{ 0 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		20
+		2
+		-78
+	}
+
+CELL 8400595 52 71
+	0 0
+	0 0 8
+	{ 0 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		20
+		32
+		-78
+	}
+
+ORGANISM 8400611 0 0 8400468 8400468 5572 2 7
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  AGE  R7  2*  2/  27  ?loop "
+	"}"
+  }
+
+CELL 8400611 63 71
+	0 0
+	0 0 7
+	{ 0 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		20
+		0
+		-78
+	}
+
+CELL 8400611 62 71
+	0 0
+	0 0 7
+	{ 0 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		20
+		0
+		-78
+	}
+
+ORGANISM 8400610 0 0 8400469 8400469 5572 14 7
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400610 58 71
+	0 0
+	0 0 7
+	{ 0 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		20
+		12
+		-78
+	}
+
+ORGANISM 8400609 0 0 8400300 8400300 5572 13 7
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400609 45 64
+	0 0
+	0 0 7
+	{ 0 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		20
+		11
+		-78
+	}
+
+CELL 8400609 44 64
+	0 0
+	0 0 7
+	{ 0 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		20
+		0
+		-78
+	}
+
+ORGANISM 8400607 0 0 8400304 8400304 5572 3 7
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  -96  GROW  -96  1  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400607 55 70
+	0 0
+	0 0 7
+	{ 0 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		20
+		1
+		-78
+	}
+
+ORGANISM 8400606 0 0 8400304 8400304 5572 8 7
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400606 57 70
+	0 0
+	0 0 7
+	{ 0 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		20
+		7
+		-78
+	}
+
+ORGANISM 8400605 0 0 8400145 8400145 5572 3 7
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400605 52 69
+	0 0
+	0 0 7
+	{ 0 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		20
+		1
+		-78
+	}
+
+ORGANISM 8400604 0 0 8400145 8400145 5572 2 7
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400604 54 69
+	0 0
+	0 0 7
+	{ 0 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		20
+		1
+		-78
+	}
+
+ORGANISM 8400603 0 0 8400148 8400148 5572 22 7
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400603 46 67
+	0 0
+	0 0 7
+	{ 0 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		20
+		20
+		-78
+	}
+
+ORGANISM 8400599 0 0 8399825 8399825 5586 2 7
+  {  # program
+	"main:"
+	"{"
+	"      20  R6!  GROW  GROW  -96  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  ENERGY  96  R2  GROW  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400599 61 52
+	0 0
+	0 0 7
+	{ 0 0 0 0 0
+	  0 20 0 0 0 }
+	{
+	}
+	{
+		-96
+		-78
+	}
+
+ORGANISM 8400596 0 0 8399338 8399338 5586 2 7
+  {  # program
+	"main:"
+	"{"
+	"      20  R6!  GROW  GROW  -96  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  ENERGY  96  R2  GROW  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400596 65 49
+	0 0
+	0 0 7
+	{ 0 0 0 0 0
+	  0 20 0 0 0 }
+	{
+	}
+	{
+		-96
+		-78
+	}
+
+ORGANISM 8400613 0 0 8400453 8400453 5608 51 6
+  {  # program
+	"main:"
+	"{"
+	"      17  ENERGY  LOOK  pack2  -96  R2  GROW  R1  -72  2swap  MAKE-SPORE  NUM-CELLS"
+	"      EAT  R0  EAT  NEAREST  R6!  GROW  GROW  -98  3  BROADCAST  50  R0!  EAT  -97"
+	"      2dup  R0  MAKE-SPORE  MAKE-SPORE  EAT  R0  GROW  if  EAT  28  ?loop "
+	"}"
+  }
+
+CELL 8400613 40 41
+	0 0
+	0 0 6
+	{ 0 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		8589934594
+		-96
+		0
+	}
+
+ORGANISM 8400614 0 0 8399764 8399764 5581 2 5
+  {  # program
+	"main:"
+	"{"
+	"      20  R2  GROW  EAT  -94  2dup  R0  MAKE-SPORE  EAT  R0  EAT  EAT  R6!  GROW"
+	"      -96  1  R0!  NEAREST  -78  2swap  MAKE-SPORE  MAKE-SPORE  MAKE-SPORE  GROW"
+	"      if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400614 53 51
+	0 0
+	0 0 5
+	{ 0 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		0
+		-94
+	}
+
+ORGANISM 8400619 0 0 8400481 8400481 5597 2 4
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  if  NEAREST  R6!  GROW"
+	"      GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE  MAKE-SPORE  EAT  R0  GROW"
+	"      EAT  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400619 62 42
+	0 0
+	0 0 4
+	{ 0 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		20
+		2
+		96
+		0
+	}
+
+ORGANISM 8400618 0 0 8400483 8400483 5580 2 4
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  NEAREST"
+	"      R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE  MAKE-SPORE  EAT"
+	"      R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400618 52 56
+	0 0
+	0 0 4
+	{ 0 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		20
+		2
+		96
+		0
+	}
+
+ORGANISM 8400617 0 0 8400475 8400475 5576 2 4
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400617 63 67
+	0 0
+	0 0 4
+	{ 0 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		20
+		2
+		96
+		0
+	}
+
+ORGANISM 8400616 0 0 8400319 8400319 5576 2 4
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400616 65 67
+	0 0
+	0 0 4
+	{ 0 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		20
+		2
+		96
+		0
+	}
+
+ORGANISM 8400621 0 0 8400258 8399667 5609 21 3
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  if  MOOD"
+	"      R0  EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400621 36 36
+	0 0
+	0 0 3
+	{ 0 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		20
+		21
+		96
+	}
+
+ORGANISM 8400620 0 0 8399365 8399365 5576 6 3
+  {  # program
+	"main:"
+	"{"
+	"      23  ENERGY  93  R2  GROW  EAT  -82  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -97  3  R0!  EAT  -98  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  28  ?loop "
+	"}"
+  }
+
+CELL 8400620 37 54
+	0 0
+	0 0 3
+	{ 0 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		23
+		6
+		93
+	}
+
+ORGANISM 8400632 0 0 8400531 8400531 5580 4 2
+  {  # program
+	"main:"
+	"{"
+	"      23  ENERGY  93  R2  GROW  MAKE-SPORE  EAT  R0  EAT  NEAREST  R6!  GROW  GROW"
+	"      -97  3  R0!  EAT  -98  2dup  R0  MAKE-SPORE  MAKE-SPORE  EAT  R0  GROW  if"
+	"      EAT  28  ?loop "
+	"}"
+  }
+
+CELL 8400632 35 50
+	0 0
+	0 0 2
+	{ 0 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		23
+		4
+	}
+
+ORGANISM 8400631 0 0 8399688 8399688 5576 2 2
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400631 47 65
+	0 0
+	0 0 2
+	{ 0 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		20
+		2
+	}
+
+ORGANISM 8400630 0 0 8399688 8399688 5576 2 2
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400630 49 65
+	0 0
+	0 0 2
+	{ 0 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		20
+		2
+	}
+
+ORGANISM 8400629 0 0 8399688 8399688 5576 2 2
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400629 48 64
+	0 0
+	0 0 2
+	{ 0 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		20
+		2
+	}
+
+ORGANISM 8400628 0 0 8399365 8399365 5576 4 2
+  {  # program
+	"main:"
+	"{"
+	"      23  ENERGY  93  R2  GROW  EAT  -82  2swap  MAKE-SPORE  MAKE-SPORE  EAT  NEAREST"
+	"      R6!  GROW  GROW  -97  3  R0!  EAT  -98  2dup  R0  MAKE-SPORE  MAKE-SPORE  EAT"
+	"      R0  GROW  if  EAT  28  ?loop "
+	"}"
+  }
+
+CELL 8400628 35 54
+	0 0
+	0 0 2
+	{ 0 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		23
+		4
+	}
+
+ORGANISM 8400627 0 0 8399365 8399365 5576 4 2
+  {  # program
+	"main:"
+	"{"
+	"      23  ENERGY  93  R2  GROW  EAT  -82  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -97  3  R0!  EAT  -98  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  28  ?loop "
+	"}"
+  }
+
+CELL 8400627 36 54
+	0 0
+	0 0 2
+	{ 0 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		23
+		4
+	}
+
+ORGANISM 8400626 0 0 8399365 8399365 5576 4 2
+  {  # program
+	"main:"
+	"{"
+	"      23  ENERGY  93  R2  GROW  EAT  -82  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -97  3  R0!  EAT  -98  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  28  ?loop "
+	"}"
+  }
+
+CELL 8400626 38 55
+	0 0
+	0 0 2
+	{ 0 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		23
+		4
+	}
+
+ORGANISM 8400625 0 0 8399365 8399365 5576 4 2
+  {  # program
+	"main:"
+	"{"
+	"      23  ENERGY  93  R2  GROW  EAT  -82  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -97  3  R0!  EAT  -98  2dup  R0  MAKE-SPORE"
+	"      R0  GROW  if  EAT  28  ?loop "
+	"}"
+  }
+
+CELL 8400625 39 55
+	0 0
+	0 0 2
+	{ 0 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		23
+		4
+	}
+
+ORGANISM 8400624 0 0 8399163 8399163 5624 2 2
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  NUM-CELLS"
+	"      EAT  R0  EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400624 58 27
+	0 0
+	0 0 2
+	{ 0 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		20
+		2
+	}
+
+ORGANISM 8400635 0 0 8400478 8400478 5571 2 1
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0  MAKE-SPORE  -94  2dup  R0!  EAT"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400635 41 63
+	0 0
+	0 0 1
+	{ 0 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		20
+	}
+
+ORGANISM 8400634 0 0 8399124 8400172 5571 21 1
+  {  # program
+	"main:"
+	"{"
+	"      20  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0  EAT  NEAREST  R6!  GROW"
+	"      GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE  MAKE-SPORE  EAT  R0  GROW"
+	"      if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400634 48 69
+	0 0
+	0 0 1
+	{ 0 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		20
+	}
+
+ORGANISM 8400633 0 0 8397237 8397237 5571 2 1
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400633 51 72
+	0 0
+	0 0 1
+	{ 0 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+		20
+	}
+
+ORGANISM 8400644 0 0 8400484 8400484 5571 2 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400644 48 71
+	0 0
+	0 0 0
+	{ 0 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+	}
+
+ORGANISM 8400643 0 0 8400489 8400489 5571 2 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400643 37 61
+	0 0
+	0 0 0
+	{ 0 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+	}
+
+ORGANISM 8400642 0 0 8400493 8400493 5571 2 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400642 34 58
+	0 0
+	0 0 0
+	{ 0 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+	}
+
+ORGANISM 8400641 0 0 8400497 8400497 5571 2 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400641 46 68
+	0 0
+	0 0 0
+	{ 0 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+	}
+
+ORGANISM 8400640 0 0 8400502 8400502 5571 2 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400640 42 68
+	0 0
+	0 0 0
+	{ 0 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+	}
+
+ORGANISM 8400639 0 0 8400526 8400526 5585 2 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400639 41 44
+	0 0
+	0 0 0
+	{ 0 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+	}
+
+ORGANISM 8400638 0 0 8400526 8400526 5585 2 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400638 42 44
+	0 0
+	0 0 0
+	{ 0 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+	}
+
+ORGANISM 8400637 0 0 8400528 8400528 5580 2 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  EAT  R0"
+	"      EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400637 45 54
+	0 0
+	0 0 0
+	{ 0 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+	}
+
+ORGANISM 8400636 0 0 8400157 8400157 5612 2 0
+  {  # program
+	"main:"
+	"{"
+	"      20  ENERGY  96  R2  GROW  EAT  -78  2swap  MAKE-SPORE  MAKE-SPORE  if  MOOD"
+	"      R0  EAT  NEAREST  R6!  GROW  GROW  -96  1  R0!  EAT  -94  2dup  R0  MAKE-SPORE"
+	"      MAKE-SPORE  EAT  R0  GROW  if  EAT  27  ?loop "
+	"}"
+  }
+
+CELL 8400636 39 32
+	0 0
+	0 0 0
+	{ 0 0 0 0 0
+	  0 0 0 0 0 }
+	{
+	}
+	{
+	}
+

@@ -28,13 +28,15 @@ def addToClipBoard(read_list):
     system(command)
 
 
-# Setup the dicts as basis for comparison.
-def get_organics_from_universe(text_phascii):
+# Setup the dicts as basis for comparison. Input is text content of file.
+def get_organics_from_universe(text_phascii, keys=["SPORE","ORGANISM"]):
     # with open(file_phascii, "rt") as fph:
     #     text_phascii = fph.readlines()
-
-    org_dict = {"SPORE": [], "ORGANISM": []}
-    for organic in org_dict:
+    # org_dict = {"SPORE": [], "ORGANISM": []}
+    # org_dict = dict.fromkeys(keys)
+    org_dict = {}
+    for organic in keys:
+        org_dict[organic] = []
         for line in text_phascii:
             if organic in line:
                 if organic == "SPORE":
@@ -150,6 +152,7 @@ def cache_genomes(bgen_df,threshold=5):
 # Reverse of cache_genomes().
 def expand_genomes(cgen_p, cgd_p):
     cgen_df = read_csv(cgen_p)
+    # cgen_df = read_csv(cgen_p,index='ID')
     clines = cgd_p.read_text(encoding="utf-8")
     cgd = loads(clines)
     # Insert 'Genome' before 'cgd' like in bgen_df.
@@ -160,6 +163,7 @@ def expand_genomes(cgen_p, cgd_p):
 
 
 # Leave only combined, cached bgen_df - cgen_df.
+# Why is stitch_sgen() inside?
 def compress_book(bgen_df, path_bgen, path_sgen, path_cgen, path_cgd, threshold=5):
     bgen_df = stitch_sgen(bgen_df, path_sgen)
     bgen_df.to_csv(path_bgen)

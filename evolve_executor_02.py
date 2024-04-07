@@ -34,7 +34,7 @@ pd.set_option('display.expand_frame_repr', False)
 bat_tmpl_path = Path(".") / "evo_template_01.bat"
 # Eventually can adjust based on user input.
 grp_num =  "002"
-run_num = "052"
+run_num = "073"
 # Extract from filename?
 run_name = "smol02"
 # run_name = "need_for_speed"
@@ -220,6 +220,7 @@ def simulate_universe(time_period, start_step=0, interval=1, delete=False, prep=
             # # Add population genome to genome tracking over time.
             # genomes_over_time[timestep] = popn_genome
             # Compare the ORGANISMS section of the input and output PHASCII files.
+            # Is this any use?
             lives_output = geha.get_organics_from_universe(phas)
             phas_path.write_text("\n".join(phas), encoding="utf-8")
             # # If the summaries are identical, then delete the output PHASCII (not lines in console).
@@ -322,6 +323,7 @@ def record_archives():
 
 
 # Another problem: How to stitch book_of_life and strain_genome from consecutive runs?
+# Or I can just run this function several times then collate the combos?
 def collate_books(run_nums_list,grp_num="002"):
     # Assume list of ints.
     run_nums_list.sort()
@@ -336,7 +338,17 @@ def collate_books(run_nums_list,grp_num="002"):
         sdf = organise_book_of_life(bkpath, save=False)
         bdf = geha.stitch_sgen(sdf, sgpath)
         if not coll_b.empty:
-            coll_b = pd.concat([coll_b, bdf]).drop_duplicates()
+            # coll_b = pd.concat([coll_b, bdf]).drop_duplicates()
+            basket_df = pd.concat([coll_b, bdf])
+            # Create new row with earlier birth_step and later death_step.
+            dupes = basket_df[basket_df.index.duplicated()].index
+            goodlives_df = coll_b.loc[dupes]
+            goodlives_df['Birth_step'] = bdf.loc[dupes,'Birth_step']
+            # Then re-calculate Lifespan.
+            goodlives_df['Lifespan'] = goodlives_df['Death_step'] - goodlives_df['Birth_step']
+            # Drop dupes and keep last.
+            coll_b = pd.concat([basket_df, goodlives_df])
+            coll_b = coll_b[~coll_b.index.duplicated(keep='last')].sort_index()
         else:
             coll_b = bdf.loc[:]
     return coll_b
@@ -348,6 +360,78 @@ def driver(base, target, gap=-1, match=1, mismatch=-1, debug=False):
     gb = geha.translate_aaff_to_kforth(bgen_df.loc[base, 'Genome']).split(' ')
     gt = geha.translate_aaff_to_kforth(bgen_df.loc[target,'Genome']).split(' ')
     GlobalAlignment.driver(gb, gt, gap, match, mismatch, debug)
+
+
+# Sanity check 1: Population census.
+# All I want is to get list of orgids. It will be a messy function.
+# Isn't this redoing the second half of simulate_universe()?
+def snapshot_check(xpmt_df, check_p, toggle=True):
+    tail = xpmt_df.tail(1).index[0]
+    lngh = len(xpmt_df)
+    ceil = max(tail, lngh)
+    schk = [i for i in range(1,ceil+1) if i not in xpmt_df.index]
+    # if tail > lngh:
+    #     schk = [i for i in range(1,tail+1) if i not in xpmt_df.index]
+    # else:
+    #     schk = [i for i in range(1,lngh+1) if i not in xpmt_df.index]
+    print(len(schk))
+
+    # Generate reference from scratch using batch utility.
+    # OR Provide input file, maybe from the 'parallel' runs.
+    # I copied all universes from previous runs into a single folder.
+    # Convert EVOLVE univs to PHASCIIs? Copy-paste code from simulate_universe().
+    batr02_p = Path(".") / "evo_template_02.bat"
+    rlevels = ['*']
+    if toggle:
+        exper_files = [rfile for rl in rlevels for rfile in check_p.glob(rl)]
+        for chp in exper_files:
+            # Get the filename itself to run.
+            fname = chp.name.split('.')[0]
+            batr_p = check_p / (fname + "_evolve.bat")
+            br_rplc = {"p_in": fname, "p_out": fname}
+            copyfile(batr02_p, batr_p)
+            text = batr_p.read_text(encoding="utf-8").splitlines()
+            text = replace_old_with_new(text, br_rplc)
+            batr_p.write_text("\n".join(text), encoding="utf-8")
+            system(str(batr_p))
+    # Extract orgids and sgens from universe file.
+    exper_files = [rfile for rl in rlevels for rfile in check_p.glob(rl)]
+    phas_files = [ef for ef in exper_files if '.txt' in ef.name]
+    chk_orgids = {}
+    for pf in phas_files:
+        phas = pf.read_text(encoding="utf-8").splitlines()
+        # phas = pf.read_text(encoding="utf-8")
+        phas = phas[phas.index("ORGANIC {"):]
+        # # Replace everything in indiv_biodata that's not a keyword.
+        # removables = ["\t", "\n", ":", "{", "}", "# program", '"']
+        # for rmvb in removables: phas = [r.replace(rmvb, "") for r in phas]
+        # # Update instructions in genome to avoid collisions during genome handling step.
+        # fix_collisions_dict = {"MAKE-SPORE": "MAKE-SPOR", " - ": " ~ ", "NUM-CELLS": "NUM-CELS"}
+        # phas = replace_old_with_new(phas, fix_collisions_dict)
+        organisms = geha.get_organics_from_universe(phas, keys=["ORGANISM"])
+        orgids = [int(x[1]) for x in organisms["ORGANISM"]]
+        # Extract timestep.
+        tstep = int(pf.name.split('.')[0].split('_')[1])
+        chk_orgids[tstep] = orgids
+        # Filter out orgids that are present in xpmt_df.
+        cx = [org for org in orgids if org not in schk]
+        # Find all orgids within experiment_df and check that they were indeed alive during that timestep.
+        mini_df = xpmt_df.loc[cx]
+        younglings = mini_df[mini_df.Birth_step > tstep].index
+        ghosts = mini_df[mini_df.Death_step < tstep].index
+        print(tstep)
+        print('young')
+        print(younglings)
+        print('old')
+        print(ghosts)
+
+    # Also check their genomes.
+    # Record how many were wrong.
+    return chk_orgids
+
+
+# Sanity check 2: Death check?
+# Find all negative lifespans.
 
 # ===== EXECUTION =====
 record_archives()
