@@ -35,17 +35,22 @@ bat_tmpl_path = Path(".") / "evo_template_01.bat"
 # Eventually can adjust based on user input.
 grp_num =  "002"
 run_num = "073"
+# run_num = "034_prep"
 # Extract from filename?
 run_name = "smol02"
 # run_name = "need_for_speed"
 grp_dirpath = Path(".") / "Runs" / ("Grp_" + grp_num)
 run_dirpath = grp_dirpath / ("Run_" + run_num)
+rxiv_dirpath = Path.cwd().parent / "Evolve-Archives"
+runxiv_dirpath = rxiv_dirpath / "Universes"/ "Grp_002" / ("Run_" + run_num)
 # Genome summary.
 strain_genome_path = run_dirpath / ("strain_genome_" + run_num + ".txt")
 book_path = run_dirpath / ("book_of_life_" + run_num + ".txt")
 bgen_path = run_dirpath / ("bgen_" + run_num + ".csv")
-cgen_path = run_dirpath / ("cgen_" + run_num + ".csv")
-cgd_path = run_dirpath / ("cgd_" + run_num + ".csv")
+# cgen_path = run_dirpath / ("cgen_" + run_num + ".csv")
+# cgd_path = run_dirpath / ("cgd_" + run_num + ".csv")
+cgen_path = runxiv_dirpath / ("cgen_" + run_num + ".csv")
+cgd_path = runxiv_dirpath / ("cgd_" + run_num + ".csv")
 # All genomes present per timestep.
 genomes_over_time = {}
 # All genomes in the strain over time.

@@ -386,7 +386,7 @@
 \Universes\Grp_002\Run_033_graphs\smol02_200000.evolve
 \Universes\Grp_002\Run_033_graphs\strain_genome_033.7z
 \Universes\Grp_002\Run_034_prep
-\Universes\Grp_002\Run_034_prep\book_of_life_034.txt
+\Universes\Grp_002\Run_034_prep\book_of_life_034_prep.txt
 \Universes\Grp_002\Run_034_prep\quick.bat
 \Universes\Grp_002\Run_034_prep\run_034_smol02_evolve.bat
 \Universes\Grp_002\Run_034_prep\smol02_1.2e6.evolve
@@ -415,7 +415,7 @@
 \Universes\Grp_002\Run_034_prep\smol02_850000.evolve
 \Universes\Grp_002\Run_034_prep\smol02_900000.evolve
 \Universes\Grp_002\Run_034_prep\smol02_950000.evolve
-\Universes\Grp_002\Run_034_prep\strain_genome_034.txt
+\Universes\Grp_002\Run_034_prep\strain_genome_034_prep.txt
 \Universes\Grp_002\Run_039
 \Universes\Grp_002\Run_039\book_of_life_030.txt
 \Universes\Grp_002\Run_039\run_030_smol02_evolve.bat

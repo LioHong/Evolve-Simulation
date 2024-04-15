@@ -1,0 +1,268 @@
+id,ancestor_list,origin_time,destruction_time,num_orgs,tot_orgs,num_offspring,total_offspring,depth,taxinfo
+8,[NONE],0,inf,1,1,2,2,0,DEvorg(Orgid=5, Sporelayer=4, Quickener=4, Generation=3, Birth_step=68, Death_step=141, Lifespan=73, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAPBRAFBMAF_1_A', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC625DC9F0>, ancestor_list=[4])
+7,[5],0,inf,1,1,0,0,1,8
+39,[36],0,inf,1,1,0,0,1,61
+219,[218],0,inf,1,1,0,0,1,92
+1,[NONE],0,inf,1,1,2,2,0,DEvorg(Orgid=2, Sporelayer=1, Quickener=1, Generation=1, Birth_step=11, Death_step=84, Lifespan=73, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAPBRAFBMAF_1_A', taxon=2, ancestor_list=[1])
+3,[1],0,inf,1,1,0,0,1,4
+230,[NONE],0,inf,1,1,4,4,0,DEvorg(Orgid=85, Sporelayer=71, Quickener=71, Generation=14, Birth_step=233, Death_step=401, Lifespan=168, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAPBRA', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC64B6C030>, ancestor_list=[71])
+2,[1],0,inf,1,1,0,0,1,3
+5,[NONE],0,inf,1,1,2,2,0,DEvorg(Orgid=4, Sporelayer=2, Quickener=2, Generation=2, Birth_step=56, Death_step=129, Lifespan=73, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAPBRAFBMAF_1_A', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC64B4C930>, ancestor_list=[2])
+4,[NONE],0,inf,1,1,0,0,0,DEvorg(Orgid=3, Sporelayer=2, Quickener=2, Generation=2, Birth_step=23, Death_step=23, Lifespan=0, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAPBRAFBMAF_1_A', taxon=3, ancestor_list=[2])
+6,[5],0,inf,1,1,0,0,1,5
+9,[8],0,inf,1,1,0,0,1,6
+10,[8],0,inf,1,1,0,0,1,10
+11,[NONE],0,inf,1,1,3,3,0,DEvorg(Orgid=6, Sporelayer=5, Quickener=5, Generation=4, Birth_step=80, Death_step=165, Lifespan=85, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAPBRAFBMAF_1_A', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC0D9C8DB0>, ancestor_list=[5])
+12,[11],0,inf,1,1,0,0,1,7
+13,[11],0,inf,1,1,0,0,1,12
+43,[41],0,inf,1,1,0,0,1,35
+241,[NONE],0,inf,1,1,0,0,0,DEvorg(Orgid=89, Sporelayer=45, Quickener=45, Generation=9, Birth_step=239, Death_step=245, Lifespan=6, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAPBRAFBMAF_1_A', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC64B64AB0>, ancestor_list=[45])
+14,[11],0,inf,1,1,0,0,1,24
+202,[200],0,inf,1,1,0,0,1,137
+64,[62],0,inf,1,1,0,0,1,68
+262,[NONE],0,inf,1,1,1,1,0,DEvorg(Orgid=98, Sporelayer=82, Quickener=82, Generation=10, Birth_step=243, Death_step=258, Lifespan=15, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAPBRA', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC64BBEDB0>, ancestor_list=[82])
+18,[NONE],0,inf,1,1,0,0,0,DEvorg(Orgid=8, Sporelayer=4, Quickener=4, Generation=3, Birth_step=101, Death_step=107, Lifespan=6, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAPBRAFBMAF_1_A', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC64B26870>, ancestor_list=[4])
+15,[NONE],0,inf,1,1,2,2,0,DEvorg(Orgid=7, Sporelayer=6, Quickener=6, Generation=5, Birth_step=92, Death_step=144, Lifespan=52, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAPBRAFBMAF_1_A', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC64B0F0F0>, ancestor_list=[6])
+16,[15],0,inf,1,1,0,0,1,9
+17,[15],0,inf,1,1,0,0,1,15
+19,[NONE],0,inf,1,1,2,2,0,DEvorg(Orgid=9, Sporelayer=7, Quickener=7, Generation=6, Birth_step=104, Death_step=165, Lifespan=61, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAPBRAFBMAF_1_A', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC0D9481F0>, ancestor_list=[7])
+57,[48],0,inf,1,1,0,0,1,736
+20,[19],0,inf,1,1,0,0,1,11
+209,[208],0,inf,1,1,0,0,1,94
+21,[19],0,inf,1,1,0,0,1,19
+22,[NONE],0,inf,1,1,1,1,0,DEvorg(Orgid=10, Sporelayer=5, Quickener=5, Generation=4, Birth_step=113, Death_step=153, Lifespan=40, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAPBRAFBMAF_1_A', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC64B29530>, ancestor_list=[5])
+23,[22],0,inf,1,1,0,0,1,13
+215,[210],0,inf,1,1,0,0,1,488
+24,[NONE],0,inf,1,1,1,1,0,DEvorg(Orgid=11, Sporelayer=9, Quickener=9, Generation=7, Birth_step=116, Death_step=156, Lifespan=40, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAPBRAFBMAF_1_A', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC629E9F70>, ancestor_list=[9])
+254,[NONE],0,inf,1,1,5,5,0,DEvorg(Orgid=96, Sporelayer=76, Quickener=76, Generation=12, Birth_step=242, Death_step=393, Lifespan=151, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAPBRAFBMAF_1_A', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC64BBE570>, ancestor_list=[76])
+25,[24],0,inf,1,1,0,0,1,14
+214,[210],0,inf,1,1,0,0,1,325
+50,[48],0,inf,1,1,0,0,1,39
+26,[NONE],0,inf,1,1,4,4,0,DEvorg(Orgid=12, Sporelayer=6, Quickener=6, Generation=5, Birth_step=125, Death_step=267, Lifespan=142, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAPBRAFBMAF_1_A', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC64B0F0F0>, ancestor_list=[6])
+63,[62],0,inf,1,1,0,0,1,26
+27,[26],0,inf,1,1,0,0,1,17
+200,[NONE],0,inf,1,1,2,2,0,DEvorg(Orgid=75, Sporelayer=61, Quickener=61, Generation=8, Birth_step=227, Death_step=279, Lifespan=52, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAPBRAFBMAF_1_A', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC64B64E30>, ancestor_list=[61])
+58,[48],0,inf,1,1,0,0,1,962
+28,[26],0,inf,1,1,0,0,1,30
+59,[NONE],0,inf,1,1,1,1,0,DEvorg(Orgid=19, Sporelayer=9, Quickener=9, Generation=7, Birth_step=149, Death_step=176, Lifespan=27, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAPBRAFBMAF_1_A', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC64B0F0F0>, ancestor_list=[9])
+29,[26],0,inf,1,1,0,0,1,51
+30,[26],0,inf,1,1,0,0,1,86
+143,[142],0,inf,1,1,0,0,1,65
+60,[59],0,inf,1,1,0,0,1,27
+31,[NONE],0,inf,1,1,2,2,0,DEvorg(Orgid=13, Sporelayer=10, Quickener=10, Generation=5, Birth_step=125, Death_step=206, Lifespan=81, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAPBRAFBMAF_1_A', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC0B5E6EB0>, ancestor_list=[10])
+32,[31],0,inf,1,1,0,0,1,16
+33,[31],0,inf,1,1,0,0,1,29
+34,[NONE],0,inf,1,1,1,1,0,DEvorg(Orgid=14, Sporelayer=11, Quickener=11, Generation=8, Birth_step=128, Death_step=164, Lifespan=36, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAPBRAFBMAF_1_A', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC64B29AF0>, ancestor_list=[11])
+35,[34],0,inf,1,1,0,0,1,18
+36,[NONE],0,inf,1,1,4,4,0,DEvorg(Orgid=15, Sporelayer=7, Quickener=7, Generation=6, Birth_step=137, Death_step=255, Lifespan=118, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAPBRAFBMAF_1_A', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC64B29970>, ancestor_list=[7])
+213,[210],0,inf,1,1,0,0,1,216
+37,[36],0,inf,1,1,0,0,1,22
+38,[36],0,inf,1,1,0,0,1,37
+40,[36],0,inf,1,1,0,0,1,100
+41,[NONE],0,inf,1,1,3,3,0,DEvorg(Orgid=16, Sporelayer=13, Quickener=13, Generation=6, Birth_step=137, Death_step=235, Lifespan=98, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAPBRA', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC64B29B30>, ancestor_list=[13])
+42,[41],0,inf,1,1,0,0,1,21
+44,[41],0,inf,1,1,0,0,1,55
+62,[NONE],0,inf,1,1,3,3,0,DEvorg(Orgid=21, Sporelayer=16, Quickener=16, Generation=7, Birth_step=149, Death_step=276, Lifespan=127, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAPBRA', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC64BBC2B0>, ancestor_list=[16])
+45,[NONE],0,inf,1,1,2,2,0,DEvorg(Orgid=17, Sporelayer=12, Quickener=12, Generation=6, Birth_step=137, Death_step=194, Lifespan=57, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAPBRAFBMAF_1_A', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC64B295F0>, ancestor_list=[12])
+46,[45],0,inf,1,1,0,0,1,20
+47,[45],0,inf,1,1,0,0,1,36
+48,[NONE],0,inf,1,1,10,10,0,DEvorg(Orgid=18, Sporelayer=14, Quickener=14, Generation=9, Birth_step=140, Death_step=510, Lifespan=370, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAPBRAFBMAF_1_A', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC64B29B70>, ancestor_list=[14])
+145,[142],0,inf,1,1,0,0,1,156
+56,[48],0,inf,1,1,0,0,1,537
+239,[NONE],0,inf,1,1,0,0,0,DEvorg(Orgid=87, Sporelayer=47, Quickener=47, Generation=12, Birth_step=238, Death_step=246, Lifespan=8, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAPBRA', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC64B298F0>, ancestor_list=[47])
+49,[48],0,inf,1,1,0,0,1,23
+55,[48],0,inf,1,1,0,0,1,365
+51,[48],0,inf,1,1,0,0,1,63
+52,[48],0,inf,1,1,0,0,1,105
+53,[48],0,inf,1,1,0,0,1,154
+54,[48],0,inf,1,1,0,0,1,240
+140,[139],0,inf,1,1,0,0,1,66
+61,[NONE],0,inf,1,1,0,0,0,DEvorg(Orgid=20, Sporelayer=17, Quickener=17, Generation=7, Birth_step=149, Death_step=152, Lifespan=3, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAPBRAFBMAF_1_A', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC64B29930>, ancestor_list=[17])
+138,[136],0,inf,1,1,0,0,1,109
+65,[62],0,inf,1,1,0,0,1,101
+128,[NONE],0,inf,1,1,0,0,0,DEvorg(Orgid=48, Sporelayer=40, Quickener=40, Generation=11, Birth_step=197, Death_step=200, Lifespan=3, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAPBRAFBMAF_1_A', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC64B5C1B0>, ancestor_list=[40])
+66,[NONE],0,inf,1,1,1,1,0,DEvorg(Orgid=22, Sporelayer=15, Quickener=15, Generation=7, Birth_step=149, Death_step=189, Lifespan=40, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAPBRAFBMAF_1_A', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC64B70130>, ancestor_list=[15])
+146,[142],0,inf,1,1,0,0,1,241
+67,[66],0,inf,1,1,0,0,1,25
+68,[NONE],0,inf,1,1,1,1,0,DEvorg(Orgid=23, Sporelayer=18, Quickener=18, Generation=10, Birth_step=152, Death_step=167, Lifespan=15, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAPBRAFBMAF_1_A', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC64B70430>, ancestor_list=[18])
+69,[68],0,inf,1,1,0,0,1,28
+70,[NONE],0,inf,1,1,0,0,0,DEvorg(Orgid=24, Sporelayer=6, Quickener=6, Generation=5, Birth_step=158, Death_step=164, Lifespan=6, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAPBRAFBMAF_1_A', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC64BBC370>, ancestor_list=[6])
+71,[NONE],0,inf,1,1,2,2,0,DEvorg(Orgid=25, Sporelayer=22, Quickener=22, Generation=8, Birth_step=161, Death_step=213, Lifespan=52, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAPBRAFBMAF_1_A', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC64B29470>, ancestor_list=[22])
+72,[71],0,inf,1,1,0,0,1,33
+73,[71],0,inf,1,1,0,0,1,52
+74,[NONE],0,inf,1,1,2,2,0,DEvorg(Orgid=26, Sporelayer=21, Quickener=21, Generation=8, Birth_step=161, Death_step=254, Lifespan=93, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAPBRA', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC64BBCE70>, ancestor_list=[21])
+75,[74],0,inf,1,1,0,0,1,32
+153,[152],0,inf,1,1,0,0,1,72
+76,[74],0,inf,1,1,0,0,1,50
+77,[NONE],0,inf,1,1,1,1,0,DEvorg(Orgid=27, Sporelayer=19, Quickener=19, Generation=8, Birth_step=161, Death_step=201, Lifespan=40, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAPBRAFBMAF_1_A', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC629E5230>, ancestor_list=[19])
+174,[170],0,inf,1,1,0,0,1,281
+78,[77],0,inf,1,1,0,0,1,31
+166,[NONE],0,inf,1,1,0,0,0,DEvorg(Orgid=60, Sporelayer=50, Quickener=50, Generation=10, Birth_step=214, Death_step=217, Lifespan=3, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAPBRA', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC64B38230>, ancestor_list=[50])
+79,[NONE],0,inf,1,1,2,2,0,DEvorg(Orgid=28, Sporelayer=23, Quickener=23, Generation=11, Birth_step=164, Death_step=233, Lifespan=69, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAPBRAFBMAF_1_A', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC64BBCA70>, ancestor_list=[23])
+80,[79],0,inf,1,1,0,0,1,34
+132,[131],0,inf,1,1,0,0,1,60
+81,[79],0,inf,1,1,0,0,1,56
+82,[NONE],0,inf,1,1,0,0,0,DEvorg(Orgid=29, Sporelayer=13, Quickener=13, Generation=6, Birth_step=170, Death_step=176, Lifespan=6, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAPBRAFBMAF_1_A', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC64BBCC30>, ancestor_list=[13])
+83,[NONE],0,inf,1,1,1,1,0,DEvorg(Orgid=30, Sporelayer=12, Quickener=12, Generation=6, Birth_step=170, Death_step=185, Lifespan=15, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAPBRAFBMAF_1_A', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC64B29DB0>, ancestor_list=[12])
+142,[NONE],0,inf,1,1,4,4,0,DEvorg(Orgid=54, Sporelayer=44, Quickener=44, Generation=9, Birth_step=206, Death_step=321, Lifespan=115, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAPBRAFBMAF_1_A', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC64B5CA30>, ancestor_list=[44])
+84,[83],0,inf,1,1,0,0,1,38
+141,[139],0,inf,1,1,0,0,1,108
+85,[NONE],0,inf,1,1,4,4,0,DEvorg(Orgid=31, Sporelayer=27, Quickener=27, Generation=9, Birth_step=173, Death_step=288, Lifespan=115, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAPBRAFBMAF_1_A', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC64B29FB0>, ancestor_list=[27])
+187,[183],0,inf,1,1,0,0,1,364
+86,[85],0,inf,1,1,0,0,1,42
+87,[85],0,inf,1,1,0,0,1,64
+127,[124],0,inf,1,1,0,0,1,127
+88,[85],0,inf,1,1,0,0,1,106
+89,[85],0,inf,1,1,0,0,1,155
+90,[NONE],0,inf,1,1,2,2,0,DEvorg(Orgid=32, Sporelayer=26, Quickener=26, Generation=9, Birth_step=173, Death_step=230, Lifespan=57, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAPBRA', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC64B38EB0>, ancestor_list=[26])
+91,[90],0,inf,1,1,0,0,1,41
+170,[NONE],0,inf,1,1,4,4,0,DEvorg(Orgid=63, Sporelayer=18, Quickener=18, Generation=10, Birth_step=218, Death_step=335, Lifespan=117, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAPBRAFBMAF_1_A', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC64B5CE30>, ancestor_list=[18])
+92,[90],0,inf,1,1,0,0,1,59
+152,[NONE],0,inf,1,1,6,6,0,DEvorg(Orgid=57, Sporelayer=49, Quickener=49, Generation=12, Birth_step=209, Death_step=435, Lifespan=226, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAPBRAFBMAF_1_A', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC64B38770>, ancestor_list=[49])
+93,[NONE],0,inf,1,1,1,1,0,DEvorg(Orgid=33, Sporelayer=25, Quickener=25, Generation=9, Birth_step=173, Death_step=188, Lifespan=15, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAPBRAFBMAF_1_A', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC64BBC370>, ancestor_list=[25])
+94,[93],0,inf,1,1,0,0,1,40
+167,[NONE],0,inf,1,1,1,1,0,DEvorg(Orgid=61, Sporelayer=15, Quickener=15, Generation=7, Birth_step=215, Death_step=233, Lifespan=18, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAPBRAFBMAF_1_A', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC64B5CD30>, ancestor_list=[15])
+95,[NONE],0,inf,1,1,0,0,0,DEvorg(Orgid=34, Sporelayer=28, Quickener=28, Generation=12, Birth_step=176, Death_step=191, Lifespan=15, Sex_check=0, Genome='EYEU_4_DLED_15_ERBQAFDSBQAF_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAPBRAFBMAF_1_A', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC64B4EDF0>, ancestor_list=[28])
+96,[NONE],0,inf,1,1,3,3,0,DEvorg(Orgid=35, Sporelayer=16, Quickener=16, Generation=7, Birth_step=178, Death_step=276, Lifespan=98, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAPBRA', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC64B38A30>, ancestor_list=[16])
+97,[96],0,inf,1,1,0,0,1,43
+163,[161],0,inf,1,1,0,0,1,158
+98,[96],0,inf,1,1,0,0,1,69
+99,[96],0,inf,1,1,0,0,1,102
+186,[183],0,inf,1,1,0,0,1,254
+100,[NONE],0,inf,1,1,0,0,0,DEvorg(Orgid=36, Sporelayer=17, Quickener=17, Generation=7, Birth_step=182, Death_step=185, Lifespan=3, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAPBRAFBMAF_1_A', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC64BBC4B0>, ancestor_list=[17])
+101,[NONE],0,inf,1,1,1,1,0,DEvorg(Orgid=37, Sporelayer=15, Quickener=15, Generation=7, Birth_step=182, Death_step=224, Lifespan=42, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAPBRAFBMAF_1_A', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC64BBC6B0>, ancestor_list=[15])
+102,[101],0,inf,1,1,0,0,1,45
+103,[NONE],0,inf,1,1,1,1,0,DEvorg(Orgid=38, Sporelayer=30, Quickener=30, Generation=7, Birth_step=182, Death_step=205, Lifespan=23, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAPBRAFBMAF_1_A', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC64B70170>, ancestor_list=[30])
+158,[152],0,inf,1,1,0,0,1,747
+104,[103],0,inf,1,1,0,0,1,44
+105,[NONE],0,inf,1,1,1,1,0,DEvorg(Orgid=39, Sporelayer=18, Quickener=18, Generation=10, Birth_step=185, Death_step=200, Lifespan=15, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAPBRAFBMAF_1_A', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC64BBCA70>, ancestor_list=[18])
+164,[161],0,inf,1,1,0,0,1,228
+106,[105],0,inf,1,1,0,0,1,49
+182,[181],0,inf,1,1,0,0,1,77
+107,[NONE],0,inf,1,1,1,1,0,DEvorg(Orgid=40, Sporelayer=33, Quickener=33, Generation=10, Birth_step=185, Death_step=222, Lifespan=37, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAPBRAFBMAF_1_A', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC64BBC830>, ancestor_list=[33])
+160,[159],0,inf,1,1,0,0,1,71
+108,[107],0,inf,1,1,0,0,1,48
+109,[NONE],0,inf,1,1,1,1,0,DEvorg(Orgid=41, Sporelayer=32, Quickener=32, Generation=10, Birth_step=185, Death_step=225, Lifespan=40, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAPBRA', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC64B382F0>, ancestor_list=[32])
+192,[NONE],0,inf,1,1,1,1,0,DEvorg(Orgid=71, Sporelayer=58, Quickener=58, Generation=13, Birth_step=221, Death_step=262, Lifespan=41, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAPBRA', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC64B64830>, ancestor_list=[58])
+110,[109],0,inf,1,1,0,0,1,47
+111,[NONE],0,inf,1,1,2,2,0,DEvorg(Orgid=42, Sporelayer=31, Quickener=31, Generation=10, Birth_step=185, Death_step=246, Lifespan=61, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAPBRAFBMAF_1_A', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC64B384B0>, ancestor_list=[31])
+139,[NONE],0,inf,1,1,2,2,0,DEvorg(Orgid=53, Sporelayer=45, Quickener=45, Generation=9, Birth_step=206, Death_step=266, Lifespan=60, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAPBRAFBMAF_1_A', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC64B29930>, ancestor_list=[45])
+112,[111],0,inf,1,1,0,0,1,46
+113,[111],0,inf,1,1,0,0,1,76
+203,[NONE],0,inf,1,1,1,1,0,DEvorg(Orgid=76, Sporelayer=42, Quickener=42, Generation=11, Birth_step=230, Death_step=263, Lifespan=33, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAPBRAFBMAF_1_A', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC64B38030>, ancestor_list=[42])
+114,[NONE],0,inf,1,1,0,0,0,DEvorg(Orgid=43, Sporelayer=35, Quickener=35, Generation=8, Birth_step=190, Death_step=197, Lifespan=7, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAPBRA', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC64B38630>, ancestor_list=[35])
+188,[NONE],0,inf,1,1,1,1,0,DEvorg(Orgid=69, Sporelayer=35, Quickener=35, Generation=8, Birth_step=219, Death_step=234, Lifespan=15, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAPBRA', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC64BBCF70>, ancestor_list=[35])
+115,[NONE],0,inf,1,1,3,3,0,DEvorg(Orgid=44, Sporelayer=38, Quickener=38, Generation=8, Birth_step=194, Death_step=300, Lifespan=106, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAPBRAFBMAF_1_A', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC64BBC370>, ancestor_list=[38])
+133,[NONE],0,inf,1,1,2,2,0,DEvorg(Orgid=51, Sporelayer=12, Quickener=12, Generation=6, Birth_step=203, Death_step=270, Lifespan=67, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAPBRAFBMAF_1_A', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC64B29470>, ancestor_list=[12])
+116,[115],0,inf,1,1,0,0,1,54
+150,[149],0,inf,1,1,0,0,1,73
+117,[115],0,inf,1,1,0,0,1,90
+118,[115],0,inf,1,1,0,0,1,136
+119,[NONE],0,inf,1,1,3,3,0,DEvorg(Orgid=45, Sporelayer=37, Quickener=37, Generation=8, Birth_step=194, Death_step=300, Lifespan=106, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAPBRAFBMAF_1_A', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC64B38030>, ancestor_list=[37])
+120,[119],0,inf,1,1,0,0,1,53
+121,[119],0,inf,1,1,0,0,1,89
+190,[NONE],0,inf,1,1,1,1,0,DEvorg(Orgid=70, Sporelayer=55, Quickener=55, Generation=8, Birth_step=219, Death_step=259, Lifespan=40, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAPBRA', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC64B384F0>, ancestor_list=[55])
+122,[119],0,inf,1,1,0,0,1,135
+123,[NONE],0,inf,1,1,0,0,0,DEvorg(Orgid=46, Sporelayer=42, Quickener=42, Generation=11, Birth_step=197, Death_step=270, Lifespan=73, Sex_check=0, Genome='EYEU_4_BDDLED_15_ERAPDSBQAFDSBQAF_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAPBRAFBMAF_1_A', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC64B4EDF0>, ancestor_list=[42])
+204,[203],0,inf,1,1,0,0,1,96
+124,[NONE],0,inf,1,1,3,3,0,DEvorg(Orgid=47, Sporelayer=41, Quickener=41, Generation=11, Birth_step=197, Death_step=271, Lifespan=74, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAPBRA', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC64B5C430>, ancestor_list=[41])
+199,[197],0,inf,1,1,0,0,1,132
+125,[124],0,inf,1,1,0,0,1,58
+197,[NONE],0,inf,1,1,2,2,0,DEvorg(Orgid=74, Sporelayer=59, Quickener=59, Generation=11, Birth_step=226, Death_step=285, Lifespan=59, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAPBRA', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC64B644F0>, ancestor_list=[59])
+126,[124],0,inf,1,1,0,0,1,87
+129,[NONE],0,inf,1,1,1,1,0,DEvorg(Orgid=49, Sporelayer=39, Quickener=39, Generation=11, Birth_step=197, Death_step=237, Lifespan=40, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAPBRAFBMAF_1_A', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC64B5C330>, ancestor_list=[39])
+130,[129],0,inf,1,1,0,0,1,57
+131,[NONE],0,inf,1,1,1,1,0,DEvorg(Orgid=50, Sporelayer=26, Quickener=26, Generation=9, Birth_step=202, Death_step=264, Lifespan=62, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAPBRA', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC64B380B0>, ancestor_list=[26])
+134,[133],0,inf,1,1,0,0,1,62
+135,[133],0,inf,1,1,0,0,1,103
+136,[NONE],0,inf,1,1,2,2,0,DEvorg(Orgid=52, Sporelayer=25, Quickener=25, Generation=9, Birth_step=206, Death_step=258, Lifespan=52, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAPBRAFBMAF_1_A', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC64B29A30>, ancestor_list=[25])
+137,[136],0,inf,1,1,0,0,1,67
+144,[142],0,inf,1,1,0,0,1,107
+147,[NONE],0,inf,1,1,1,1,0,DEvorg(Orgid=55, Sporelayer=16, Quickener=16, Generation=7, Birth_step=207, Death_step=222, Lifespan=15, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAPBRA', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC64B384B0>, ancestor_list=[16])
+148,[147],0,inf,1,1,0,0,1,70
+149,[NONE],0,inf,1,1,2,2,0,DEvorg(Orgid=56, Sporelayer=28, Quickener=28, Generation=12, Birth_step=209, Death_step=312, Lifespan=103, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAPBRAFBMAF_1_A', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC64BBC3B0>, ancestor_list=[28])
+151,[149],0,inf,1,1,0,0,1,114
+154,[152],0,inf,1,1,0,0,1,113
+155,[152],0,inf,1,1,0,0,1,157
+156,[152],0,inf,1,1,0,0,1,251
+157,[152],0,inf,1,1,0,0,1,385
+159,[NONE],0,inf,1,1,1,1,0,DEvorg(Orgid=58, Sporelayer=47, Quickener=47, Generation=12, Birth_step=209, Death_step=239, Lifespan=30, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAPBRA', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC64B5CDB0>, ancestor_list=[47])
+161,[NONE],0,inf,1,1,4,4,0,DEvorg(Orgid=59, Sporelayer=32, Quickener=32, Generation=10, Birth_step=214, Death_step=321, Lifespan=107, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAPBRA', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC64B38030>, ancestor_list=[32])
+162,[161],0,inf,1,1,0,0,1,74
+165,[161],0,inf,1,1,0,0,1,235
+168,[167],0,inf,1,1,0,0,1,75
+169,[NONE],0,inf,1,1,0,0,0,DEvorg(Orgid=62, Sporelayer=51, Quickener=51, Generation=7, Birth_step=215, Death_step=221, Lifespan=6, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAPBRAFBMAF_1_A', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC64B70370>, ancestor_list=[51])
+171,[170],0,inf,1,1,0,0,1,80
+172,[170],0,inf,1,1,0,0,1,123
+173,[170],0,inf,1,1,0,0,1,183
+175,[NONE],0,inf,1,1,1,1,0,DEvorg(Orgid=64, Sporelayer=31, Quickener=31, Generation=10, Birth_step=218, Death_step=300, Lifespan=82, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQDPAPEREE_-11_-5_DI_58_90_BMAFBMAF_7_EQAPBRAFBMAF_1_A', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC64BBC730>, ancestor_list=[31])
+176,[175],0,inf,1,1,0,0,1,131
+177,[NONE],0,inf,1,1,1,1,0,DEvorg(Orgid=65, Sporelayer=54, Quickener=54, Generation=10, Birth_step=218, Death_step=233, Lifespan=15, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAPBRAFBMAF_1_A', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC64B38470>, ancestor_list=[54])
+178,[177],0,inf,1,1,0,0,1,79
+179,[NONE],0,inf,1,1,1,1,0,DEvorg(Orgid=66, Sporelayer=53, Quickener=53, Generation=10, Birth_step=218, Death_step=258, Lifespan=40, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAPBRAFBMAF_1_A', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC64B64430>, ancestor_list=[53])
+180,[179],0,inf,1,1,0,0,1,78
+181,[NONE],0,inf,1,1,1,1,0,DEvorg(Orgid=67, Sporelayer=52, Quickener=52, Generation=10, Birth_step=218, Death_step=230, Lifespan=12, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAPBRAFBMAF_1_A', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC64B64270>, ancestor_list=[52])
+183,[NONE],0,inf,1,1,4,4,0,DEvorg(Orgid=68, Sporelayer=21, Quickener=21, Generation=8, Birth_step=219, Death_step=375, Lifespan=156, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAPBRA', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC64B643B0>, ancestor_list=[21])
+184,[183],0,inf,1,1,0,0,1,83
+185,[183],0,inf,1,1,0,0,1,118
+189,[188],0,inf,1,1,0,0,1,82
+191,[190],0,inf,1,1,0,0,1,81
+193,[192],0,inf,1,1,0,0,1,85
+194,[NONE],0,inf,1,1,0,0,0,DEvorg(Orgid=72, Sporelayer=57, Quickener=57, Generation=13, Birth_step=221, Death_step=224, Lifespan=3, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAPBRAFBMAF_1_A', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC64B64AB0>, ancestor_list=[57])
+195,[NONE],0,inf,1,1,1,1,0,DEvorg(Orgid=73, Sporelayer=56, Quickener=56, Generation=13, Birth_step=221, Death_step=261, Lifespan=40, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAPBRAFBMAF_1_A', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC64B649B0>, ancestor_list=[56])
+196,[195],0,inf,1,1,0,0,1,84
+198,[197],0,inf,1,1,0,0,1,88
+201,[200],0,inf,1,1,0,0,1,91
+205,[NONE],0,inf,1,1,2,2,0,DEvorg(Orgid=77, Sporelayer=67, Quickener=67, Generation=11, Birth_step=230, Death_step=282, Lifespan=52, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAPBRAFBMAF_1_A', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC64B5C8B0>, ancestor_list=[67])
+206,[205],0,inf,1,1,0,0,1,95
+207,[205],0,inf,1,1,0,0,1,144
+208,[NONE],0,inf,1,1,1,1,0,DEvorg(Orgid=78, Sporelayer=66, Quickener=66, Generation=11, Birth_step=230, Death_step=259, Lifespan=29, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAPBRAFBMAF_1_A', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC64B6C830>, ancestor_list=[66])
+210,[NONE],0,inf,1,1,7,7,0,DEvorg(Orgid=79, Sporelayer=65, Quickener=65, Generation=11, Birth_step=230, Death_step=440, Lifespan=210, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAPBRAFBMAF_1_A', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC64B6C730>, ancestor_list=[65])
+211,[210],0,inf,1,1,0,0,1,93
+212,[210],0,inf,1,1,0,0,1,143
+216,[210],0,inf,1,1,0,0,1,688
+217,[210],0,inf,1,1,0,0,1,886
+218,[NONE],0,inf,1,1,1,1,0,DEvorg(Orgid=80, Sporelayer=63, Quickener=63, Generation=11, Birth_step=230, Death_step=245, Lifespan=15, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAFBMAF_1_A', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC64B6C2B0>, ancestor_list=[63])
+220,[NONE],0,inf,1,1,0,0,0,DEvorg(Orgid=81, Sporelayer=70, Quickener=70, Generation=9, Birth_step=231, Death_step=263, Lifespan=32, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBOEA_4_AODPAPDI_58_90_BMAFBMAF_7_EQAPBRA', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC64B5CD30>, ancestor_list=[70])
+221,[NONE],0,inf,1,1,2,2,0,DEvorg(Orgid=82, Sporelayer=69, Quickener=69, Generation=9, Birth_step=231, Death_step=300, Lifespan=69, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAPBRA', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC64B6C7B0>, ancestor_list=[69])
+222,[221],0,inf,1,1,0,0,1,98
+223,[221],0,inf,1,1,0,0,1,138
+224,[NONE],0,inf,1,1,2,2,0,DEvorg(Orgid=83, Sporelayer=68, Quickener=68, Generation=9, Birth_step=231, Death_step=288, Lifespan=57, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQAPDI_58_90_BMAFBMAF_7_EQAPBRA', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC64B6CCF0>, ancestor_list=[68])
+225,[224],0,inf,1,1,0,0,1,97
+226,[224],0,inf,1,1,0,0,1,134
+227,[NONE],0,inf,1,1,2,2,0,DEvorg(Orgid=84, Sporelayer=73, Quickener=73, Generation=14, Birth_step=233, Death_step=278, Lifespan=45, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAPBRAFBMAF_1_A', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC64B6C6F0>, ancestor_list=[73])
+228,[227],0,inf,1,1,0,0,1,99
+229,[227],0,inf,1,1,0,0,1,148
+231,[230],0,inf,1,1,0,0,1,208
+232,[230],0,inf,1,1,0,0,1,302
+233,[230],0,inf,1,1,0,0,1,425
+234,[230],0,inf,1,1,0,0,1,593
+235,[NONE],0,inf,1,1,3,3,0,DEvorg(Orgid=86, Sporelayer=12, Quickener=12, Generation=6, Birth_step=236, Death_step=369, Lifespan=133, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAPBRAFBMAF_1_A', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC64B6CDB0>, ancestor_list=[12])
+236,[235],0,inf,1,1,0,0,1,104
+237,[235],0,inf,1,1,0,0,1,152
+238,[235],0,inf,1,1,0,0,1,363
+240,[NONE],0,inf,1,1,0,0,0,DEvorg(Orgid=88, Sporelayer=74, Quickener=74, Generation=12, Birth_step=238, Death_step=295, Lifespan=57, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQ_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAPBRA', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC64B5CEF0>, ancestor_list=[74])
+242,[NONE],0,inf,1,1,2,2,0,DEvorg(Orgid=90, Sporelayer=44, Quickener=44, Generation=9, Birth_step=239, Death_step=288, Lifespan=49, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAPBRAFBMAF_1_A', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC64B5CCB0>, ancestor_list=[44])
+243,[242],0,inf,1,1,0,0,1,111
+244,[242],0,inf,1,1,0,0,1,159
+245,[NONE],0,inf,1,1,2,2,0,DEvorg(Orgid=91, Sporelayer=75, Quickener=75, Generation=9, Birth_step=239, Death_step=306, Lifespan=67, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAFDPAPDI_58_90_BMAFBMAF_7_EQAPBRAFBMAF_1_A', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC64B5CAB0>, ancestor_list=[75])
+246,[245],0,inf,1,1,0,0,1,110
+247,[245],0,inf,1,1,0,0,1,153
+248,[NONE],0,inf,1,1,0,0,0,DEvorg(Orgid=92, Sporelayer=80, Quickener=80, Generation=12, Birth_step=242, Death_step=248, Lifespan=6, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAFBMAF_1_A', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC64BBE3F0>, ancestor_list=[80])
+249,[NONE],0,inf,1,1,0,0,0,DEvorg(Orgid=93, Sporelayer=79, Quickener=79, Generation=12, Birth_step=242, Death_step=257, Lifespan=15, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAPBRAFBMAF_1_A', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC64BBEAF0>, ancestor_list=[79])
+250,[NONE],0,inf,1,1,1,1,0,DEvorg(Orgid=94, Sporelayer=78, Quickener=78, Generation=12, Birth_step=242, Death_step=279, Lifespan=37, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAPBRAFBMAF_1_A', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC64BBE7F0>, ancestor_list=[78])
+251,[250],0,inf,1,1,0,0,1,115
+252,[NONE],0,inf,1,1,1,1,0,DEvorg(Orgid=95, Sporelayer=77, Quickener=77, Generation=12, Birth_step=242, Death_step=288, Lifespan=46, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAPBRAFBMAF_1_A', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC64BBE5F0>, ancestor_list=[77])
+253,[252],0,inf,1,1,0,0,1,169
+255,[254],0,inf,1,1,0,0,1,112
+256,[254],0,inf,1,1,0,0,1,168
+257,[254],0,inf,1,1,0,0,1,256
+258,[254],0,inf,1,1,0,0,1,386
+259,[254],0,inf,1,1,0,0,1,558
+260,[NONE],0,inf,1,1,1,1,0,DEvorg(Orgid=97, Sporelayer=83, Quickener=83, Generation=10, Birth_step=243, Death_step=257, Lifespan=14, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQAPDI_58_90_BMAFBMAF_7_EQAPBRA', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC64BBE030>, ancestor_list=[83])
+261,[260],0,inf,1,1,0,0,1,117
+263,[262],0,inf,1,1,0,0,1,116
+264,[NONE],0,inf,1,1,2,2,0,DEvorg(Orgid=99, Sporelayer=84, Quickener=84, Generation=15, Birth_step=245, Death_step=333, Lifespan=88, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAPBRAFBMAF_1_A', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC64BBEF70>, ancestor_list=[84])
+265,[264],0,inf,1,1,0,0,1,177
+266,[264],0,inf,1,1,0,0,1,266
+267,[NONE],0,inf,1,1,0,0,0,DEvorg(Orgid=100, Sporelayer=15, Quickener=15, Generation=7, Birth_step=248, Death_step=249, Lifespan=1, Sex_check=0, Genome='EYEU_4_DLED_15_ERAPDSBQAFDSBQAF_2_EQDPAPDI_58_90_BMAFBMAF_7_EQAPBRAFBMAF_1_A', taxon=<phylotrackpy.systematics.Taxon object at 0x000001AC64BBEE70>, ancestor_list=[15])
