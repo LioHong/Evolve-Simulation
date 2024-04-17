@@ -450,12 +450,14 @@ def shape_df_for_graph(data_df,data_range=0):
 
 def basic_graph(cgen_df,data_range=0):
     use_df = shape_df_for_graph(cgen_df,data_range)
+    useind = cgen_df.index
     f = Digraph(
         "neato",
-        format="jpg",
+        format="pdf",
         encoding="utf8",
         filename="data",
-        node_attr={"color": "yellow", "style": "filled"},
+        node_attr={"color": "yellow", "style": "invis"},
+        edge_attr={"style": "invis"}
     )
     f.attr("node", shape="box")
 
@@ -463,11 +465,19 @@ def basic_graph(cgen_df,data_range=0):
         print(index)
         print("Progress update at " + datetime.now().strftime("%H:%M:%S"))
         # Source to destination.
+        f.node(str(index), label=str(index),
+            _attributes={
+                "style": "filled"
+                if index in useind
+                else "invis"})
         f.edge(str(org_row["Parent"]), str(index), label="",
             _attributes = {
                 "color": "black"
                 if org_row['Sex_check'] == 0
-                else "blue"})
+                else "blue",
+                "style": "filled"
+                if org_row['Parent'] in useind
+                else "invis"})
     f.view()
 
 
