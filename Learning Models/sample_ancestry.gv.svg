@@ -1,0 +1,44 @@
+// Ancestry
+digraph {
+	graph [splines=ortho]
+	Jonathan [label=Jonathan shape=rect tooltip="Lorem ipsum"]
+	{
+		rank=same
+		Sara [label=Sara fillcolor=red shape=ellipse tooltip="Lorem ipsum"]
+		Jonathan -> Sara [arrowhead=none color="black:invis:black"]
+	}
+	Henry [label=Henry shape=rect tooltip="Lorem ipsum"]
+	Jonathan -> Henry
+	Julie [label=Julie shape=ellipse tooltip="Lorem ipsum"]
+	Jonathan -> Julie
+	William [label=William shape=rect tooltip="Lorem ipsum"]
+	Jonathan -> William
+	{
+		rank=same
+		Katie [label=Katie fillcolor=red shape=ellipse tooltip="Lorem ipsum"]
+		Henry -> Katie [arrowhead=none color="black:invis:black"]
+	}
+	{
+		rank=same
+		Kevin [label=Kevin fillcolor=red shape=rect tooltip="Lorem ipsum"]
+		Julie -> Kevin [arrowhead=none color="black:invis:black"]
+	}
+	{
+		rank=same
+		Laura [label=Laura fillcolor=red shape=ellipse tooltip="Lorem ipsum"]
+		William -> Laura [arrowhead=none color="black:invis:black"]
+	}
+	Betty [label=Betty shape=ellipse tooltip="Lorem ipsum"]
+	Henry -> Betty
+	Katherine [label=Katherine shape=ellipse tooltip="Lorem ipsum"]
+	Julie -> Katherine
+	David [label=David shape=rect tooltip="Lorem ipsum"]
+	William -> David
+	Richard [label=Richard shape=rect tooltip="Lorem ipsum"]
+	William -> Richard
+	{
+		rank=same
+		Daniel [label=Daniel fillcolor=red shape=rect tooltip="Lorem ipsum"]
+		Betty -> Daniel [arrowhead=none color="black:invis:black"]
+	}
+}

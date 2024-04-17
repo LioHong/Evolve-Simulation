@@ -375,8 +375,10 @@
 \Universes\Grp_002\Run_033_graphs\Figure 2024-03-16 090716.png
 \Universes\Grp_002\Run_033_graphs\Figure 2024-03-16 115803.png
 \Universes\Grp_002\Run_033_graphs\book_of_life_033.7z
+\Universes\Grp_002\Run_033_graphs\book_of_life_033.txt
 \Universes\Grp_002\Run_033_graphs\cgd_027_033.csv
 \Universes\Grp_002\Run_033_graphs\cgen_027_033.7z
+\Universes\Grp_002\Run_033_graphs\cgen_027_033.csv
 \Universes\Grp_002\Run_033_graphs\phylogeny_000100_033.png
 \Universes\Grp_002\Run_033_graphs\phylogeny_000200_033.png
 \Universes\Grp_002\Run_033_graphs\phylogeny_001000_033.png
@@ -385,6 +387,7 @@
 \Universes\Grp_002\Run_033_graphs\smol02_150000.txt
 \Universes\Grp_002\Run_033_graphs\smol02_200000.evolve
 \Universes\Grp_002\Run_033_graphs\strain_genome_033.7z
+\Universes\Grp_002\Run_033_graphs\strain_genome_033.txt
 \Universes\Grp_002\Run_034_prep
 \Universes\Grp_002\Run_034_prep\book_of_life_034_prep.txt
 \Universes\Grp_002\Run_034_prep\quick.bat

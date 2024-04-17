@@ -199,7 +199,8 @@ def sift_lines_by_length(lines_df, bol_in_df, min_len=70):
 # phylotrackpy takes in Organism objects.
 # https://stackoverflow.com/questions/53192602/convert-a-pandas-dataframe-into-a-list-of-objects
 class Evorg(object):
-    def __init__(self, Orgid, Sporelayer, Quickener, Generation, Birth_step, Death_step, Lifespan, Sex_check, Gnm_Len, Genome):
+    def __init__(self, Orgid, Sporelayer, Quickener, Generation, Birth_step, Death_step, Lifespan, Sex_check, Genome, Ancestor_list):
+    # def __init__(self, Orgid, Sporelayer, Quickener, Generation, Birth_step, Death_step, Lifespan, Sex_check, Gnm_Len, Genome, Ancestor_list):
         self.Orgid = Orgid
         self.Sporelayer = Sporelayer
         self.Quickener = Quickener
@@ -208,9 +209,10 @@ class Evorg(object):
         self.Death_step = Death_step
         self.Lifespan = Lifespan
         self.Sex_check = Sex_check
-        self.Gnm_Len = Gnm_Len
+        # self.Gnm_Len = Gnm_Len
         self.Genome = Genome
         self.taxon = Orgid
+        self.Ancestor_list = Ancestor_list
         # self.Genome = retrieve_aaff(Genome)
     def __repr__(self):
         return "Evorg object " + self.Genome
@@ -233,7 +235,7 @@ class DEvorg:
 
 # Try to fit this into https://github.com/alife-data-standards/alife-std-dev-python/tree/master
 # Index='ID', 'Sporelayer', 'Quickener', 'Generation', 'Birth_step', 'Death_step', 'Lifespan', 'Sex_check', 'Genome', 'cgen'
-def fit_phylogeny(inp_df):
+def fit_phylogeny0(inp_df):
     digevo_df = inp_df[:]
     digevo_df.drop(labels=['cgen'], axis=1, inplace=True)
     digevo_df.insert(0, 'Orgid', digevo_df.index)
@@ -266,6 +268,36 @@ def fit_phylogeny(inp_df):
     # sys = systematics.Systematics(lambda Evorg: Evorg.Genome)
     ssys = systematics.Systematics(lambda DEvorg: DEvorg.__repr__(), True, True, False, False)
     for e in evorgs[1:100]:
+        e.taxon = ssys.add_org(e)
+        s_children = inp_df[inp_df.Sporelayer == e.Orgid].index
+        q_children = inp_df[inp_df.Quickener == e.Orgid].index
+        # Just ignore q_children for now.
+        for s in s_children:
+            evorgs[s].taxon = ssys.add_org(s, e.taxon)
+        if not e.Death_step:
+            ssys.remove_org(e.taxon)
+
+    return digevo_df, ssys
+
+
+# Works with cgen_df.
+def fit_phylogeny(inp_df):
+    digevo_df = inp_df[:]
+    digevo_df.insert(0, 'Orgid', digevo_df.index)
+    # digevo_df.insert(len(digevo_df.columns), 'taxon', digevo_df.index)
+
+    digevo_df['Ancestor_list'] = digevo_df.loc[:, ['Sporelayer', 'Quickener']].values.tolist()
+    digevo_df.Ancestor_list = digevo_df.Ancestor_list.apply(lambda x: list(set(x)))
+    digevo_df.Ancestor_list = digevo_df.Ancestor_list.apply(lambda x: [y for y in x])
+
+    # digevo_df['ancestor_list'] = digevo_df.loc[:, 'Sporelayer']
+
+    print(digevo_df.head())
+    evorgs = [Evorg(**kwargs) for kwargs in digevo_df.to_dict(orient='records')]
+
+    # sys = systematics.Systematics(lambda Evorg: Evorg.Genome)
+    ssys = systematics.Systematics(lambda Evorg: Evorg.__repr__(), True, True, False, False)
+    for e in evorgs[1:10]:
         e.taxon = ssys.add_org(e)
         s_children = inp_df[inp_df.Sporelayer == e.Orgid].index
         q_children = inp_df[inp_df.Quickener == e.Orgid].index

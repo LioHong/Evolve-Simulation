@@ -1,0 +1,342 @@
+digraph neato {
+	graph [concentrate=true splines=ortho]
+	node [style=invis]
+	edge [style=invis]
+	node [shape=box]
+	AnAn [label="Antonio Andolini
+
+
+Corleone
+1901" color=lightblue style=filled]
+	AnAn [label="Antonio Andolini
+
+
+Corleone
+1901" color=lightblue style=filled]
+	SiAn [label="Signora Andolini
+housewife
+
+Corleone
+1901" color=lightpink style=filled]
+	SiAn [label="Signora Andolini
+housewife
+
+Corleone
+1901" color=lightpink style=filled]
+	PaAn87 [label="Paolo Andolini
+
+1887
+
+1901" color=lightblue style=filled]
+	PaAn87 [label="Paolo Andolini
+
+1887
+
+1901" color=lightblue style=filled]
+	ViCo92 [label="Vito Corleone
+godfather
+1892
+Corleone
+1954" color=lightblue style=filled]
+	ViCo92 [label="Vito Corleone
+godfather
+1892
+Corleone
+1954" color=lightblue style=filled]
+	CaCo97 [label="Carmella Corleone
+
+1897
+
+1959" color=lightpink style=filled]
+	CaCo97 [label="Carmella Corleone
+
+1897
+
+1959" color=lightpink style=filled]
+	ToHa10 [label="Tom Hagen
+consigliere
+1910
+New York
+1970" color=lightblue style=filled]
+	ToHa10 [label="Tom Hagen
+consigliere
+1910
+New York
+1970" color=lightblue style=filled]
+	SaCo16 [label="Santino Corleone
+gangster
+1916
+New York
+1948" color=lightblue style=filled]
+	SaCo16 [label="Santino Corleone
+gangster
+1916
+New York
+1948" color=lightblue style=filled]
+	SaCo17 [label="Sandra Colombo
+
+1917
+Messina
+" color=lightpink style=filled]
+	SaCo17 [label="Sandra Colombo
+
+1917
+Messina
+" color=lightpink style=filled]
+	FrCo19 [label="Frederico Corleone
+casino manager
+1919
+New York
+1959" color=lightblue style=filled]
+	FrCo19 [label="Frederico Corleone
+casino manager
+1919
+New York
+1959" color=lightblue style=filled]
+	MiCo20 [label="Michael Corleone
+godfather
+1920
+New York
+1997" color=lightblue style=filled]
+	MiCo20 [label="Michael Corleone
+godfather
+1920
+New York
+1997" color=lightblue style=filled]
+	ThHa20 [label="Theresa Hagen
+art expert
+1920
+New Jersey
+" color=lightpink style=filled]
+	ThHa20 [label="Theresa Hagen
+art expert
+1920
+New Jersey
+" color=lightpink style=filled]
+	LuMa23 [label="Lucy Mancini
+hotel employee
+1923
+
+" color=lightpink style=filled]
+	LuMa23 [label="Lucy Mancini
+hotel employee
+1923
+
+" color=lightpink style=filled]
+	KaAd24 [label="Kay Adams
+
+1934
+
+" color=lightpink style=filled]
+	KaAd24 [label="Kay Adams
+
+1934
+
+" color=lightpink style=filled]
+	FrCo37 [label="Francessa Corleone
+
+1937
+
+" color=lightpink style=filled]
+	FrCo37 [label="Francessa Corleone
+
+1937
+
+" color=lightpink style=filled]
+	KaCo37 [label="Kathryn Corleone
+
+1937
+
+" color=lightpink style=filled]
+	KaCo37 [label="Kathryn Corleone
+
+1937
+
+" color=lightpink style=filled]
+	FrCo40 [label="Frank Corleone
+
+1940
+
+" color=lightpink style=filled]
+	FrCo40 [label="Frank Corleone
+
+1940
+
+" color=lightpink style=filled]
+	SaCo45 [label="Santino Jr. Corleone
+
+1945
+
+" color=lightblue style=filled]
+	SaCo45 [label="Santino Jr. Corleone
+
+1945
+
+" color=lightblue style=filled]
+	FrHa [label="Frank Hagen
+
+1940
+
+" color=lightblue style=filled]
+	FrHa [label="Frank Hagen
+
+1940
+
+" color=lightblue style=filled]
+	AnHa42 [label="Andrew Hagen
+priest
+1942
+
+" color=lightblue style=filled]
+	AnHa42 [label="Andrew Hagen
+priest
+1942
+
+" color=lightblue style=filled]
+	ViMa [label="Vincent Mancini
+godfather
+1948
+New York
+" color=lightblue style=filled]
+	ViMa [label="Vincent Mancini
+godfather
+1948
+New York
+" color=lightblue style=filled]
+	GiHa58 [label="Gianna Hagen
+
+1948
+
+" color=lightpink style=filled]
+	GiHa58 [label="Gianna Hagen
+
+1948
+
+" color=lightpink style=filled]
+	AnCo51 [label="Anthony Corleone
+singer
+1951
+New York
+" color=lightblue style=filled]
+	AnCo51 [label="Anthony Corleone
+singer
+1951
+New York
+" color=lightblue style=filled]
+	MaCo53 [label="Mary Corleone
+student
+1953
+New York
+1979" color=lightpink style=filled]
+	MaCo53 [label="Mary Corleone
+student
+1953
+New York
+1979" color=lightpink style=filled]
+	ChHa54 [label="Christina Hagen
+
+1954
+
+" color=lightpink style=filled]
+	ChHa54 [label="Christina Hagen
+
+1954
+
+" color=lightpink style=filled]
+	CoCo27 [label="Constanzia Corleone
+rentier
+1927
+New York
+" color=lightpink style=filled]
+	CoCo27 [label="Constanzia Corleone
+rentier
+1927
+New York
+" color=lightpink style=filled]
+	CaRi20 [label="Carlo Rizzi
+bookmaker
+1920
+Nevada
+1955" color=lightblue style=filled]
+	CaRi20 [label="Carlo Rizzi
+bookmaker
+1920
+Nevada
+1955" color=lightblue style=filled]
+	ViRi49 [label="Victor Rizzi
+
+1949
+New York
+" color=lightblue style=filled]
+	ViRi49 [label="Victor Rizzi
+
+1949
+New York
+" color=lightblue style=filled]
+	MiRi [label="Michael Rizzi
+
+1955
+
+" color=lightblue style=filled]
+	MiRi [label="Michael Rizzi
+
+1955
+
+" color=lightblue style=filled]
+	no_entry0 -> AnAn [label="" style=invis]
+	no_entry0 -> AnAn [label="" style=invis]
+	no_entry1 -> SiAn [label="" style=invis]
+	no_entry1 -> SiAn [label="" style=invis]
+	SiAn -> PaAn87 [label="" style=filled]
+	AnAn -> PaAn87 [label="" style=filled]
+	SiAn -> ViCo92 [label="" style=filled]
+	AnAn -> ViCo92 [label="" style=filled]
+	no_entry4 -> CaCo97 [label="" style=invis]
+	no_entry4 -> CaCo97 [label="" style=invis]
+	CaCo97 -> ToHa10 [label="" style=filled]
+	ViCo92 -> ToHa10 [label="" style=filled]
+	CaCo97 -> SaCo16 [label="" style=filled]
+	ViCo92 -> SaCo16 [label="" style=filled]
+	no_entry7 -> SaCo17 [label="" style=invis]
+	no_entry7 -> SaCo17 [label="" style=invis]
+	CaCo97 -> FrCo19 [label="" style=filled]
+	ViCo92 -> FrCo19 [label="" style=filled]
+	CaCo97 -> MiCo20 [label="" style=filled]
+	ViCo92 -> MiCo20 [label="" style=filled]
+	no_entry10 -> ThHa20 [label="" style=invis]
+	no_entry10 -> ThHa20 [label="" style=invis]
+	no_entry11 -> LuMa23 [label="" style=invis]
+	no_entry11 -> LuMa23 [label="" style=invis]
+	no_entry12 -> KaAd24 [label="" style=invis]
+	no_entry12 -> KaAd24 [label="" style=invis]
+	SaCo17 -> FrCo37 [label="" style=filled]
+	SaCo16 -> FrCo37 [label="" style=filled]
+	SaCo17 -> KaCo37 [label="" style=filled]
+	SaCo16 -> KaCo37 [label="" style=filled]
+	SaCo17 -> FrCo40 [label="" style=filled]
+	SaCo16 -> FrCo40 [label="" style=filled]
+	SaCo17 -> SaCo45 [label="" style=filled]
+	SaCo16 -> SaCo45 [label="" style=filled]
+	Th20 -> FrHa [label="" style=invis]
+	ToHa10 -> FrHa [label="" style=filled]
+	Th20 -> AnHa42 [label="" style=invis]
+	ToHa10 -> AnHa42 [label="" style=filled]
+	LuMa23 -> ViMa [label="" style=filled]
+	SaCo16 -> ViMa [label="" style=filled]
+	Th20 -> GiHa58 [label="" style=invis]
+	ToHa10 -> GiHa58 [label="" style=filled]
+	KaAd24 -> AnCo51 [label="" style=filled]
+	MiCo20 -> AnCo51 [label="" style=filled]
+	KaAd24 -> MaCo53 [label="" style=filled]
+	MiCo20 -> MaCo53 [label="" style=filled]
+	Th20 -> ChHa54 [label="" style=invis]
+	ToHa10 -> ChHa54 [label="" style=filled]
+	CaCo97 -> CoCo27 [label="" style=filled]
+	ViCo92 -> CoCo27 [label="" style=filled]
+	no_entry25 -> CaRi20 [label="" style=invis]
+	no_entry25 -> CaRi20 [label="" style=invis]
+	CoCo27 -> ViRi49 [label="" style=filled]
+	CaRi20 -> ViRi49 [label="" style=filled]
+	CoCo27 -> MiRi [label="" style=filled]
+	CaRi20 -> MiRi [label="" style=filled]
+}

@@ -1,0 +1,29 @@
+id,gender,first_name,last_name,dob,dod,fid,mid,birth_place,job
+AnAn,M,Antonio,Andolini,,1901,,,Corleone,
+SiAn,F,Signora,Andolini,,1901,,,Corleone,housewife
+PaAn87,M,Paolo,Andolini,1887,1901,AnAn,SiAn,,
+ViCo92,M,Vito,Corleone,1892,1954,AnAn,SiAn,Corleone,godfather
+CaCo97,F,Carmella,Corleone,1897,1959,,,,
+ToHa10,M,Tom,Hagen,1910,1970,ViCo92,CaCo97,New York,consigliere
+SaCo16,M,Santino,Corleone,1916,1948,ViCo92,CaCo97,New York,gangster
+SaCo17,F,Sandra,Colombo,1917,,,,Messina,
+FrCo19,M,Frederico,Corleone,1919,1959,ViCo92,CaCo97,New York,casino manager
+MiCo20,M,Michael,Corleone,1920,1997,ViCo92,CaCo97,New York,godfather
+ThHa20,F,Theresa,Hagen,1920,,,,New Jersey,art expert
+LuMa23,F,Lucy,Mancini,1923,,,,,hotel employee
+KaAd24,F,Kay,Adams,1934,,,,,
+FrCo37,F,Francessa,Corleone,1937,,SaCo16,SaCo17,,
+KaCo37,F,Kathryn,Corleone,1937,,SaCo16,SaCo17,,
+FrCo40,F,Frank,Corleone,1940,,SaCo16,SaCo17,,
+SaCo45,M,Santino Jr.,Corleone,1945,,SaCo16,SaCo17,,
+FrHa,M,Frank,Hagen,1940,,ToHa10,Th20,,
+AnHa42,M,Andrew,Hagen,1942,,ToHa10,Th20,,priest
+ViMa,M,Vincent,Mancini,1948,,SaCo16,LuMa23,New York,godfather
+GiHa58,F,Gianna,Hagen,1948,,ToHa10,Th20,,
+AnCo51,M,Anthony,Corleone,1951,,MiCo20,KaAd24,New York,singer
+MaCo53,F,Mary,Corleone,1953,1979,MiCo20,KaAd24,New York,student
+ChHa54,F,Christina,Hagen,1954,,ToHa10,Th20,,
+CoCo27,F,Constanzia,Corleone,1927,,ViCo92,CaCo97,New York,rentier
+CaRi20,M,Carlo,Rizzi,1920,1955,,,Nevada,bookmaker
+ViRi49,M,Victor,Rizzi,1949,,CaRi20,CoCo27,New York,
+MiRi,M,Michael,Rizzi,1955,,CaRi20,CoCo27,,

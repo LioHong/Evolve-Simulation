@@ -22,6 +22,7 @@ import pandas as pd
 import GlobalAlignment
 import genome_handler as geha
 import track_phylogeny as tphy
+from graphviz import Digraph
 
 # To adjust the dataframe appearance
 pd.set_option('display.max_rows', 500)
@@ -379,7 +380,7 @@ def snapshot_check(xpmt_df, check_p, toggle=True):
     #     schk = [i for i in range(1,tail+1) if i not in xpmt_df.index]
     # else:
     #     schk = [i for i in range(1,lngh+1) if i not in xpmt_df.index]
-    print(len(schk))
+    print("Missing: " + str(len(schk)))
 
     # Generate reference from scratch using batch utility.
     # OR Provide input file, maybe from the 'parallel' runs.
@@ -402,8 +403,9 @@ def snapshot_check(xpmt_df, check_p, toggle=True):
     # Extract orgids and sgens from universe file.
     exper_files = [rfile for rl in rlevels for rfile in check_p.glob(rl)]
     phas_files = [ef for ef in exper_files if '.txt' in ef.name]
-    chk_orgids = {}
+    chk_orgids = []
     for pf in phas_files:
+        ts_dict = {}
         phas = pf.read_text(encoding="utf-8").splitlines()
         # phas = pf.read_text(encoding="utf-8")
         phas = phas[phas.index("ORGANIC {"):]
@@ -417,22 +419,56 @@ def snapshot_check(xpmt_df, check_p, toggle=True):
         orgids = [int(x[1]) for x in organisms["ORGANISM"]]
         # Extract timestep.
         tstep = int(pf.name.split('.')[0].split('_')[1])
-        chk_orgids[tstep] = orgids
+        # chk_orgids[tstep] = orgids
         # Filter out orgids that are present in xpmt_df.
         cx = [org for org in orgids if org not in schk]
         # Find all orgids within experiment_df and check that they were indeed alive during that timestep.
         mini_df = xpmt_df.loc[cx]
-        younglings = mini_df[mini_df.Birth_step > tstep].index
-        ghosts = mini_df[mini_df.Death_step < tstep].index
-        print(tstep)
-        print('young')
-        print(younglings)
-        print('old')
-        print(ghosts)
-
+        ts_dict['timestep'] = tstep
+        ts_dict['younglings'] = list(mini_df[mini_df.Birth_step > tstep].index)
+        ts_dict['ghosts'] = list(mini_df[mini_df.Death_step < tstep].index)
+        chk_orgids.append(ts_dict)
+    co_df = pd.DataFrame(chk_orgids)
+    co_df.sort_values('timestep', inplace=True)
     # Also check their genomes.
     # Record how many were wrong.
-    return chk_orgids
+    return co_df
+
+
+def shape_df_for_graph(data_df,data_range=0):
+    if not data_range:
+        data_range = len(data_df)
+    bol_df = data_df.loc[:data_range, ["Sporelayer", "Quickener", "Birth_step", "Death_step", "Sex_check"]]
+    spore_df = bol_df.iloc[:,[0,2,3,4]]
+    spore_df.Sex_check = 0
+    quick_df = bol_df[bol_df.Sex_check>0].iloc[:,1:]
+    spore_df.rename(columns={"Sporelayer": "Parent"}, inplace=True)
+    quick_df.rename(columns={"Quickener": "Parent"}, inplace=True)
+    parents_df = pd.concat([spore_df, quick_df])
+    return parents_df
+
+
+def basic_graph(cgen_df,data_range=0):
+    use_df = shape_df_for_graph(cgen_df,data_range)
+    f = Digraph(
+        "neato",
+        format="jpg",
+        encoding="utf8",
+        filename="data",
+        node_attr={"color": "yellow", "style": "filled"},
+    )
+    f.attr("node", shape="box")
+
+    for index, org_row in use_df.iterrows():
+        print(index)
+        print("Progress update at " + datetime.now().strftime("%H:%M:%S"))
+        # Source to destination.
+        f.edge(str(org_row["Parent"]), str(index), label="",
+            _attributes = {
+                "color": "black"
+                if org_row['Sex_check'] == 0
+                else "blue"})
+    f.view()
 
 
 # Sanity check 2: Death check?
