@@ -438,48 +438,82 @@ def snapshot_check(xpmt_df, check_p, toggle=True):
 def shape_df_for_graph(data_df,data_range=0):
     if not data_range:
         data_range = len(data_df)
-    bol_df = data_df.loc[:data_range, ["Sporelayer", "Quickener", "Birth_step", "Death_step", "Sex_check"]]
-    spore_df = bol_df.iloc[:,[0,2,3,4]]
+    bol_df = data_df.loc[:data_range, ["Sporelayer", "Quickener", "Generation", "Birth_step", "Death_step", "Sex_check"]]
+    spore_df = bol_df.iloc[:,[0,2,3,4,5]]
     spore_df.Sex_check = 0
     quick_df = bol_df[bol_df.Sex_check>0].iloc[:,1:]
     spore_df.rename(columns={"Sporelayer": "Parent"}, inplace=True)
     quick_df.rename(columns={"Quickener": "Parent"}, inplace=True)
     parents_df = pd.concat([spore_df, quick_df])
+    child_havers = [x for x in parents_df.index.unique() if x in parents_df.Parent.values]
+    parents_df["Children"] = 0
+    parents_df.loc[child_havers,"Children"] = 1
     return parents_df
 
 
 def basic_graph(cgen_df,data_range=0):
     use_df = shape_df_for_graph(cgen_df,data_range)
     useind = cgen_df.index
+    generations = list(use_df.Generation.unique())
     f = Digraph(
         "neato",
         format="pdf",
         encoding="utf8",
         filename="data",
-        node_attr={"color": "yellow", "style": "invis"},
-        edge_attr={"style": "invis"}
+        graph_attr={"splines":"ortho"},
+        node_attr={"color":"yellow", "style":"invis"},
+        edge_attr={"style":"invis"}
     )
+    # Shouldn't this be under node_attr?
     f.attr("node", shape="box")
-
+    
+    # Add nodes for each organism and parent-child edges.
+    subs = {gen:[] for gen in generations}
     for index, org_row in use_df.iterrows():
         print(index)
         print("Progress update at " + datetime.now().strftime("%H:%M:%S"))
-        # Source to destination.
         f.node(str(index), label=str(index),
             _attributes={
-                "style": "filled"
+                "color":"yellow"
+               if org_row["Children"] > 0
+               else "springgreen",
+                "style":"filled"
                 if index in useind
                 else "invis"})
+        # Add orgid to generation dict.
+        subs[org_row["Generation"]].append(index)
         f.edge(str(org_row["Parent"]), str(index), label="",
             _attributes = {
-                "color": "black"
-                if org_row['Sex_check'] == 0
+                "color":"black"
+                if org_row["Sex_check"] == 0
                 else "blue",
-                "style": "filled"
-                if org_row['Parent'] in useind
+                "style":"filled"
+                if org_row["Parent"] in useind
                 else "invis"})
-    f.view()
+    # Tidy the nodes by generation.
+    for gen in generations:
+        print("g"+str(gen))
+        print("Progress update at " + datetime.now().strftime("%H:%M:%S"))
+        with f.subgraph(name="g"+str(gen)) as s:
+            s.attr(rank="same")
+            for n in subs[gen]:
+                s.node(str(n))
+    generations = generations + [generations[-1]+1]
+    # Add generation timeline.
+    for gen in generations:
+        if generations.index(gen):
+            f.node(name="g"+str(gen), label="g"+str(gen),
+                _attributes = {
+                    "color": "lightblue1",
+                    "style": "solid"})
+            f.edge("g"+str(gen-1), "g"+str(gen), label="",
+                   _attributes={
+                   "color": "black",
+                   "style": "filled",
+                   "arrowsize":"0.5"})
 
+    f.view()
+    return f
 
 # Sanity check 2: Death check?
 # Find all negative lifespans.

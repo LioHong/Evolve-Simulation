@@ -501,4 +501,5 @@
 \Universes\smol.evolve
 \Universes\smol02.evolve
 \Universes\smol02_minimal.evolve
+\dotguide.pdf
 \ggenealogy_data - Shortcut.lnk
